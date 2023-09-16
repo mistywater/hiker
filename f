@@ -395,7 +395,7 @@ function imgDec(key,iv){
 			/*if(str.length==8){
 			    var cipher = Cipher.getInstance("desede/CBC/PKCS5Padding");
                         }else{*/
-			    var cipher = Cipher.getInstance("desede/CBC/PKCS7Padding");
+			    var cipher = Cipher.getInstance("AES/CBC/PKCS7Padding");
                         //}
                         cipher.init(2, generateSecret, new IvParameterSpec(String("${iv}").getBytes()));
                         return cipher.doFinal(bArr);
