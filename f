@@ -392,9 +392,11 @@ function imgDec(key,iv){
 
                     function decryptData(bArr) {
                         var generateSecret = SecretKeyFactory.getInstance("desede").generateSecret(new DESedeKeySpec(String("${key}").getBytes()));
-                        if(${iv}.length==8){
-			var cipher = Cipher.getInstance("desede/CBC/PKCS5Padding");}
-   else{var cipher = Cipher.getInstance("desede/CBC/PKCS7Padding");}
+                        if("${iv}".length==8){
+			    var cipher = Cipher.getInstance("desede/CBC/PKCS5Padding");
+                        }else{
+			    var cipher = Cipher.getInstance("desede/CBC/PKCS7Padding");
+                        }
                         cipher.init(2, generateSecret, new IvParameterSpec(String("${iv}").getBytes()));
                         return cipher.doFinal(bArr);
                     }
