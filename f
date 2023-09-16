@@ -373,7 +373,7 @@ function gra(arr, num) {
             }
             return sData.slice(min);
         }
-function imgDec(key,iv){
+function imgDec(key,iv){log(key);
     var sss = `
             function imgDecrypt() {
                 var javaImport = new JavaImporter();
