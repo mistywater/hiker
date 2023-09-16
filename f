@@ -437,10 +437,11 @@ function toerji(item,sname,stype) {
         }
 function de(key,iv,data,encoding){
     eval(getCryptoJS());
+    if(iv.length==8){var s='TripleDES';}else{var s='AES';}
             key = CryptoJS.enc.Utf8.parse(key);
             iv = CryptoJS.enc.Utf8.parse(iv);
             function De(data, encoding) {
-	    if(iv.length==8){var s='TripleDES';}else{var s='AES';}
+	    
                 var decrypted = CryptoJS[s].decrypt(data, key, {
                     iv: iv,
                     mode: CryptoJS.mode.CBC,
