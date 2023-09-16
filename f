@@ -405,7 +405,7 @@ function imgDec(key,iv){log(key);
                 }
             }                    
         `;
-        
+        log(sss);
         putVar('sss', sss);
         var imgdec = $.toString(() => {
             eval(getVar('sss'));
