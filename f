@@ -385,7 +385,8 @@ function imgDec(key,iv){log(key);
                     Packages.java.io,
                     Packages.java.text,
                     Packages.javax.crypto,
-                    Packages.javax.crypto.spec
+                    Packages.javax.crypto.spec,
+		    Packages.javax..crypto.SecretKeySpec,
                 );
                 with(javaImport) {
                     let bytes = FileUtil.toBytes(input);
