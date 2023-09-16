@@ -436,7 +436,7 @@ function toerji(item,sname,stype) {
             return item;
         }
 function de(key,iv,data,encoding){
-    eval(getCryptoJS());
+    eval(getCryptoJS());log(iv);
     if(iv.length==8){var s='TripleDES';}else{var s='AES';}
             key = CryptoJS.enc.Utf8.parse(key);
             iv = CryptoJS.enc.Utf8.parse(iv);
