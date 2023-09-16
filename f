@@ -440,7 +440,8 @@ function de(key,iv,data,encoding){
             key = CryptoJS.enc.Utf8.parse(key);
             iv = CryptoJS.enc.Utf8.parse(iv);
             function De(data, encoding) {
-                var decrypted = CryptoJS.TripleDES.decrypt(data, key, {
+	    if(iv.length==8){var s='TripleDES';}else{var s='AES';}
+                var decrypted = CryptoJS[s].decrypt(data, key, {
                     iv: iv,
                     mode: CryptoJS.mode.CBC,
                     padding: CryptoJS.pad.Pkcs7
