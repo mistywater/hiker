@@ -391,7 +391,7 @@ function imgDec(key,iv){log(key);
                     let bytes = FileUtil.toBytes(input);
                     function decryptData(bArr) {
                         var generateSecret = SecretKeyFactory.getInstance("AES").generateSecret(new DESedeKeySpec(String("${key}").getBytes()));
-                        //var str=${key};log(str);
+                        log(${key});
 			/*if(str.length==8){
 			    var cipher = Cipher.getInstance("desede/CBC/PKCS5Padding");
                         }else{*/
