@@ -390,9 +390,9 @@ function imgDec(key,iv,a){
                 with(javaImport) {
                     let bytes = FileUtil.toBytes(input);
                     function decryptData(bArr) {
-		    var key = new SecretKeySpec(String("${key}").getBytes(), "desede");
+		    var key = new SecretKeySpec(String("${key}").getBytes(), "${a}");
                     var iv = new IvParameterSpec(String("${iv}").getBytes());
-                    var cipher = Cipher.getInstance("${key}"+"/CBC/PKCS5Padding");
+                    var cipher = Cipher.getInstance("${a}"+"/CBC/PKCS5Padding");
                     cipher.init(2, key, iv);
                     return cipher.doFinal(bArr);
                     }
