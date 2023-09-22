@@ -373,7 +373,7 @@ function gra(arr, num) {
             }
             return sData.slice(min);
         }
-function imgDec(key,iv){log(key);
+function imgDec(key,iv,a){
     var sss = `
             function imgDecrypt() {
                 var javaImport = new JavaImporter();
@@ -390,17 +390,18 @@ function imgDec(key,iv){log(key);
                 with(javaImport) {
                     let bytes = FileUtil.toBytes(input);
                     function decryptData(bArr) {
-                        var generateSecret = SecretKeyFactory.getInstance("desede").generateSecret(new DESedeKeySpec(String("${key}").getBytes()));
-			    var cipher = Cipher.getInstance("desede/CBC/PKCS5Padding");
-                        cipher.init(2, generateSecret, new IvParameterSpec(String("${iv}").getBytes()));
-                        return cipher.doFinal(bArr);
+		    var key = new SecretKeySpec(String("${key}").getBytes(), "desede");
+                    var iv = new IvParameterSpec(String("${iv}").getBytes());
+                    var cipher = Cipher.getInstance("${key}"+"/CBC/PKCS5Padding");
+                    cipher.init(2, key, iv);
+                    return cipher.doFinal(bArr);
                     }
                     bytes = decryptData(bytes);
                     return FileUtil.toInputStream(bytes);
                 }
             }                    
         `;
-        log(sss);
+        //log(sss);
         putVar('sss', sss);
         var imgdec = $.toString(() => {
             eval(getVar('sss'));
