@@ -373,7 +373,10 @@ function gra(arr, num) {
             }
             return sData.slice(min);
         }
-function imgDec(key,iv,a){
+function imgDec(key,iv,a,b){
+if(!b){
+b='PKCS5Padding';
+}
     var sss = `
             function imgDecrypt() {
                 var javaImport = new JavaImporter();
@@ -392,7 +395,7 @@ function imgDec(key,iv,a){
                     function decryptData(bArr) {
 		    var key = new SecretKeySpec(String("${key}").getBytes(), "${a}");
                     var iv = new IvParameterSpec(String("${iv}").getBytes());
-                    var cipher = Cipher.getInstance("${a}"+"/CBC/PKCS5Padding");
+                    var cipher = Cipher.getInstance("${a}"+"/CBC/"+"${b}");
                     cipher.init(2, key, iv);
                     return cipher.doFinal(bArr);
                     }
