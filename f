@@ -393,7 +393,7 @@ function imgDec(key,iv,a,b){
                 with(javaImport) {
                     let bytes = FileUtil.toBytes(input);
                     function decryptData(bArr) {
-		    if("${key}".startsWith("[B@")){
+		    if(/B@/.test("${key}")){
       			var secretKeySpec = new SecretKeySpec(String("${key}"), "${a}");
                     	var ivParameterSpec = new IvParameterSpec(String("${iv}"));
 		    }else{
