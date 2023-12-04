@@ -393,13 +393,11 @@ b='PKCS5Padding';
                 with(javaImport) {
                     let bytes = FileUtil.toBytes(input);
                     function decryptData(bArr) {
-		    if("${key}".startsWith('[B@')){
-      var key="${key}"; var iv="${iv}";
-		    }else{
-		    var key = new SecretKeySpec(String("${key}").getBytes(), "${a}");
-                    var iv = new IvParameterSpec(String("${iv}").getBytes());}
+		    				var secretKeySpec = new SecretKeySpec(String("${key}").getBytes(), "${a}");
+                    		var ivParameterSpec = new IvParameterSpec(String("${iv}").getBytes());
+
                     var cipher = Cipher.getInstance("${a}"+"/CBC/"+"${b}");
-                    cipher.init(2, key, iv);
+                    cipher.init(2, secretKeySpec, ivParameterSpec);
                     return cipher.doFinal(bArr);
                     }
                     bytes = decryptData(bytes);
