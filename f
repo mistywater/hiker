@@ -395,7 +395,7 @@ function imgDec(key,iv,a,b){
                     function decryptData(bArr) {
 		    	var secretKeySpec = new SecretKeySpec(String("${key}").getBytes(), "${a}");
                     	var ivParameterSpec = new IvParameterSpec(String("${iv}").getBytes());
-		     	log("${a}"+"/CBC/"+"${b}");
+		     	log('aaaaa:'+"${a}"+"/CBC/"+"${b}");
                     	var cipher = Cipher.getInstance("${a}"+"/CBC/"+"${b}");
                     	cipher.init(2, secretKeySpec, ivParameterSpec);
                    	 return cipher.doFinal(bArr);
@@ -435,7 +435,7 @@ function toerji(item,sname,stype) {
             return item;
         }
 function de(key,iv,data,encoding){
-    eval(getCryptoJS());log(iv);
+    eval(getCryptoJS());
     if(iv.length==8){var s='TripleDES';}else{var s='AES';}
             key = CryptoJS.enc.Utf8.parse(key);
             iv = CryptoJS.enc.Utf8.parse(iv);
