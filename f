@@ -1,41 +1,85 @@
 js:
-function extraPic(hiker) {if(!hiker){
-var extra = $.toString(() => ({
-    chapterList: chapterList,
-    info: {
-        bookName: MY_URL.split('/')[2],
-        ruleName: 'photo',
-        bookTopPic: 'https://api.xinac.net/icon/?url=' + host,
-        parseCode: downloadlazy,
-        defaultView: '1'
-    },
-    longClick: [{
-        title: '下载',
-        js: `'hiker://page/download.view?rule=本地资源管理'`,
-    }, {
-        title: '书架',
-        js: `'hiker://page/Main.view?rule=本地资源管理'`,
-    }]
-}));}else{
-    var extra = $.toString(() => ({
-    chapterList: 'hiker://files/_cache/chapterList.txt',
-    info: {
-        bookName: MY_URL.split('/')[2],
-        ruleName: 'photo',
-        bookTopPic: 'https://api.xinac.net/icon/?url=' + host,
-        parseCode: downloadlazy,
-        defaultView: '1'
-    },
-    longClick: [{
-        title: '下载',
-        js: `'hiker://page/download.view?rule=本地资源管理'`,
-    }, {
-        title: '书架',
-        js: `'hiker://page/Main.view?rule=本地资源管理'`,
-    }]
-}));
-}
-        return extra;
+function extraPic(hiker,host) {
+    if (!hiker) {
+        var extra = $.toString((host) => ({
+            chapterList: chapterList,
+            info: {
+                bookName: MY_URL.split('/')[2],
+                ruleName: 'photo',
+                bookTopPic: 'https://api.xinac.net/icon/?url=' + host,
+                parseCode: downloadlazy,
+                defaultView: '1'
+            },
+            longClick: [{
+                title: '下载',
+                js: `'hiker://page/download.view?rule=本地资源管理'`,
+            }, {
+                title: '书架',
+                js: `'hiker://page/Main.view?rule=本地资源管理'`,
+            }, {
+                title: '首页',
+                js: $.toString((host) => {
+                    host = host;
+                    putMyVar(host + 'page', '1');
+                    refreshPage(false);
+                    return 'hiker://empty';
+                },host),
+            }, {
+                title: '当前第' + page + '页',
+                js: '',
+            }, {
+                title: '跳转',
+                js: $.toString((host) => {
+                    return $('').input((host) => {
+                        host = host;
+                        input = input.match(/\\d+/)[0];
+                        putMyVar(host + 'page', input);
+                        refreshPage(false);
+                    },host);
+                },host),
+            }, ]
+        }),host);
+    } else {
+        var extra = $.toString((host) => ({
+            chapterList: 'hiker://files/_cache/chapterList.txt',
+            info: {
+                bookName: MY_URL.split('/')[2],
+                ruleName: 'photo',
+                bookTopPic: 'https://api.xinac.net/icon/?url=' + host,
+                parseCode: downloadlazy,
+                defaultView: '1'
+            },
+            longClick: [{
+                title: '下载',
+                js: `'hiker://page/download.view?rule=本地资源管理'`,
+            }, {
+                title: '书架',
+                js: `'hiker://page/Main.view?rule=本地资源管理'`,
+            }, {
+                title: '首页',
+                js: $.toString((host) => {
+                    host = host;
+                    putMyVar(host + 'page', '1');
+                    refreshPage(false);
+                    return 'hiker://empty';
+                },host),
+            }, {
+                title: '当前第' + page + '页',
+                js: '',
+            }, {
+                title: '跳转',
+                js: $.toString((host) => {
+                    return $('').input((host) => {
+                        host = host;
+                        input = input.match(/\\d+/)[0];
+                        putMyVar(host + 'page', input);
+                        refreshPage(false);
+                    },host);
+                },host),
+            }, ]
+        }),host);
+    }
+    return extra;
 }
 
 function downPic() {
