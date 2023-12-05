@@ -1,4 +1,35 @@
 js:
+function pageMoveto(host) {
+    var extra = $.toString((host) => ({
+            longClick: [{
+                title: '下载',
+                js: `'hiker://page/download.view?rule=本地资源管理'`,
+            }, {
+                title: '书架',
+                js: `'hiker://page/Main.view?rule=本地资源管理'`,
+            }, {
+                title: '首页',
+                js: $.toString((host) => {
+                    host = host;
+                    putMyVar(host + 'page', '1');
+                    refreshPage(false);
+                    return 'hiker://empty';
+                }, host),
+            }, {
+                title: '当前第' + page + '页',
+                js: '',
+            }, {
+                title: '跳转',
+                js: $.toString((host) => {
+                    return $('').input((host) => {
+                        putMyVar(host + 'page', input);
+                        refreshPage(false);
+                    }, host);
+                }, host),
+            }, ]
+        }), host);    
+    return extra;
+}
 function searchMain(page, d, desc) {
     if (page == 1) {
         d.push({
