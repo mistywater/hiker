@@ -1,10 +1,7 @@
 js:
 function pageMoveto(host) {
     var extra = $.toString((host) => ({
-            longClick: [{
-                title: '下载',
-                js: `'hiker://page/download.view?rule=本地资源管理'`,
-            }, {
+            longClick: [ {
                 title: '书架',
                 js: `'hiker://page/Main.view?rule=本地资源管理'`,
             }, {
