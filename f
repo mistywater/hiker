@@ -8,7 +8,7 @@ function classTop(index, data, host, d,mode) {
             }
             c_title.forEach((title, index_c, data) => {
                 d.push({
-                    title: index_c == getMyVar(host + 'index' + index, (index == '0' ? '0' : '-1')) ? strong(title, 'FF6699') : title,
+                    title: index_c == getMyVar(host + 'index' + index, (mode||index == '0' ? '0' : '-1')) ? strong(title, 'FF6699') : title,
                     col_type: 'scroll_button',
                     url: $('#noLoading#').lazyRule((index, id, index_c, host,mode) => {
                         if(mode){
