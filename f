@@ -1,5 +1,5 @@
 js:
-function pageMoveto(host) {
+function pageMoveto(host,page) {
     var extra = {
             longClick: [ {
                 title: '书架',
