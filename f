@@ -1,4 +1,21 @@
 js:
+function searchMain(page, d, desc) {
+    if (page == 1) {
+        d.push({
+            title: '🔍',
+            url: $.toString((r) => {
+                putVar('keyword', input);
+                return 'hiker://search?rule=' + r + '&s=' + input;
+            }, MY_RULE.title),
+            desc: desc ? desc : '搜你想要的...',
+            col_type: 'input',
+            extra: {
+                defaultValue: getVar('keyword', ''),
+            }
+        });
+    }
+    return d;
+}
 function classTop(index, data, host, d,mode) {
             var c_title = data.title.split('&');
             if (data.id == '') {
@@ -95,7 +112,7 @@ function extraPic(hiker,host) {
                     return 'hiker://empty';
                 },host),
             }, {
-                title: '当前第' + page + '页',
+                title: '当前第' + getMyVar(host + 'page', page) + '页',
                 js: '',
             }, {
                 title: '跳转',
