@@ -1,6 +1,6 @@
 js:
 function pageMoveto(host) {
-    var extra = $.toString((host) => ({
+    var extra = {
             longClick: [ {
                 title: '书架',
                 js: `'hiker://page/Main.view?rule=本地资源管理'`,
@@ -24,7 +24,7 @@ function pageMoveto(host) {
                     }, host);
                 }, host),
             }, ]
-        }), host);    
+        };    
     return extra;
 }
 function searchMain(page, d, desc) {
