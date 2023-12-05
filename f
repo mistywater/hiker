@@ -48,13 +48,8 @@ function classTop(index, data, host, d,mode) {
             return d;
         }
 function extraPic(hiker, host) {
-    if (!hiker) {
-        var chapterListTmp=chapterList;
-    }else{
-        var chapterListTmp='hiker://files/_cache/chapterList.txt';
-    }
-    var extra = $.toString((host,chapterListTmp) => ({
-            chapterList: chapterListTmp,
+    var extra = $.toString((host,hiker) => ({
+            chapterList: hiker?'hiker://files/_cache/chapterList.txt':chapterList,
             info: {
                 bookName: MY_URL.split('/')[2],
                 ruleName: 'photo',
@@ -88,7 +83,7 @@ function extraPic(hiker, host) {
                     }, host);
                 }, host),
             }, ]
-        }), host,chapterListTmp);    
+        }), host,hiker);    
     return extra;
 }
 
