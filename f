@@ -63,7 +63,7 @@ function extraPic(hiker,host) {
                 js: $.toString((host) => {
                     return $('').input((host) => {
                         host = host;
-                        input = input.match(/\\d+/)[0];
+                        //input = input.match(/\\d+/)[0];
                         putMyVar(host + 'page', input);
                         refreshPage(false);
                     },host);
@@ -102,7 +102,7 @@ function extraPic(hiker,host) {
                 js: $.toString((host) => {
                     return $('').input((host) => {
                         host = host;
-                        input = input.match(/\\d+/)[0];
+                        //input = input.match(/\\d+/)[0];
                         putMyVar(host + 'page', input);
                         refreshPage(false);
                     },host);
