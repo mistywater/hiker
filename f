@@ -53,7 +53,7 @@ function extraPic(hiker, host) {
     }else{
         var chapterListTmp='hiker://files/_cache/chapterList.txt';
     }
-    var extra = $.toString((host) => ({
+    var extra = $.toString((host,chapterListTmp) => ({
             chapterList: chapterListTmp,
             info: {
                 bookName: MY_URL.split('/')[2],
@@ -88,7 +88,7 @@ function extraPic(hiker, host) {
                     }, host);
                 }, host),
             }, ]
-        }), host);    
+        }), host,chapterListTmp);    
     return extra;
 }
 
