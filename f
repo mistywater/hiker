@@ -47,10 +47,14 @@ function classTop(index, data, host, d,mode) {
             });
             return d;
         }
-function extraPic(hiker,host) {
+function extraPic(hiker, host) {
     if (!hiker) {
-        var extra = $.toString((host) => ({
-            chapterList: chapterList,
+        var chapterListTmp=chapterList;
+    }else{
+        var chapterListTmp='hiker://files/_cache/chapterList.txt';
+    }
+    var extra = $.toString((host) => ({
+            chapterList: chapterListTmp,
             info: {
                 bookName: MY_URL.split('/')[2],
                 ruleName: 'photo',
@@ -71,7 +75,7 @@ function extraPic(hiker,host) {
                     putMyVar(host + 'page', '1');
                     refreshPage(false);
                     return 'hiker://empty';
-                },host),
+                }, host),
             }, {
                 title: '当前第' + page + '页',
                 js: '',
@@ -79,54 +83,12 @@ function extraPic(hiker,host) {
                 title: '跳转',
                 js: $.toString((host) => {
                     return $('').input((host) => {
-                        host = host;
-                        //input = input.match(/\\d+/)[0];
                         putMyVar(host + 'page', input);
                         refreshPage(false);
-                    },host);
-                },host),
+                    }, host);
+                }, host),
             }, ]
-        }),host);
-    } else {
-        var extra = $.toString((host) => ({
-            chapterList: 'hiker://files/_cache/chapterList.txt',
-            info: {
-                bookName: MY_URL.split('/')[2],
-                ruleName: 'photo',
-                bookTopPic: 'https://api.xinac.net/icon/?url=' + host,
-                parseCode: downloadlazy,
-                defaultView: '1'
-            },
-            longClick: [{
-                title: '下载',
-                js: `'hiker://page/download.view?rule=本地资源管理'`,
-            }, {
-                title: '书架',
-                js: `'hiker://page/Main.view?rule=本地资源管理'`,
-            }, {
-                title: '首页',
-                js: $.toString((host) => {
-                    host = host;
-                    putMyVar(host + 'page', '1');
-                    refreshPage(false);
-                    return 'hiker://empty';
-                },host),
-            }, {
-                title: '当前第' + getMyVar(host + 'page', page) + '页',
-                js: '',
-            }, {
-                title: '跳转',
-                js: $.toString((host) => {
-                    return $('').input((host) => {
-                        host = host;
-                        //input = input.match(/\\d+/)[0];
-                        putMyVar(host + 'page', input);
-                        refreshPage(false);
-                    },host);
-                },host),
-            }, ]
-        }),host);
-    }
+        }), host);    
     return extra;
 }
 
