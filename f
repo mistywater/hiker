@@ -1,4 +1,35 @@
 js:
+function classTop(index, data, host, d,mode) {
+            var c_title = data.title.split('&');
+            if (data.id == '') {
+                var c_id = c_title;
+            } else {
+                var c_id = data.id.split('&');
+            }
+            c_title.forEach((title, index_c, data) => {
+                d.push({
+                    title: index_c == getMyVar(host + 'index' + index, (index == '0' ? '0' : '-1')) ? strong(title, 'FF6699') : title,
+                    col_type: 'scroll_button',
+                    url: $('#noLoading#').lazyRule((index, id, index_c, host,mode) => {
+                        if(mode){
+                            putMyVar(host + 'c' + index, id);
+                        
+                        }else{
+                        putMyVar(host + 'c' , id);
+                        for (let n = 0; n <= 20; n++) {
+                            putMyVar(host + 'index' + n, '-1');
+                        }}
+                        putMyVar(host + 'index' + index, index_c);
+                        refreshPage();
+                        return 'hiker://empty';
+                    }, index, c_id[index_c], index_c, host,mode),
+                });
+            });
+            d.push({
+                col_type: 'blank_block',
+            });
+            return d;
+        }
 function extraPic(hiker,host) {
     if (!hiker) {
         var extra = $.toString((host) => ({
