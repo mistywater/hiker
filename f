@@ -2,12 +2,8 @@ js:
 function hexStringToBytes(cipherText) {
     cipherText = String(cipherText);
     let str = cipherText.toLowerCase();
-    log(str);
-    log(typeof(str));
     let length = str.length;
-    log(length);
     let bArr = java.lang.reflect.Array.newInstance(java.lang.Byte.TYPE, length / 2);
-    log(bArr);
     for (let i = 0, o = 0; i < length; i += 2, o++) {
         let a = str[i + 1],
             b = str[i];
