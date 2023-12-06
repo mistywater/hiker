@@ -143,8 +143,8 @@ function classTop(index, data, host, d,mode) {
             if (data.id == '') {
                 var c_id = c_title;
             } else if (data.id == '@@@') {
-                var c_id = c_title;
-		c_id.splice(0,1,'');
+                var c_id = data.title.replace(/^.*?&/,'&').split('&');
+		
             }else{
                 var c_id = data.id.split('&');
             }
