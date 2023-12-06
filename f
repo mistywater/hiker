@@ -1,5 +1,17 @@
 js:
 function hexStringToBytes(cipherText) {
+    var javaImport = new JavaImporter();
+    javaImport.importPackage(
+        Packages.com.example.hikerview.utils,
+        Packages.java.lang,
+        Packages.java.security,
+        Packages.java.util,
+        Packages.java.io,
+        Packages.java.text,
+        Packages.javax.crypto,
+        Packages.javax.crypto.spec,
+    );
+    with(javaImport) {
     cipherText = String(cipherText);
     let str = cipherText.toLowerCase();
     let length = str.length;
@@ -13,7 +25,7 @@ function hexStringToBytes(cipherText) {
         let hexInt = java.lang.Integer.parseInt(new java.lang.String(a), 16);
         let inty = hexInt > 127 ? hexInt - 255 - 1 : hexInt;
         bArr[o] = inty;
-    }
+    }}
     return bArr;
 }
 function pageMoveto(host,page) {
