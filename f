@@ -142,7 +142,10 @@ function classTop(index, data, host, d,mode) {
             var c_title = data.title.split('&');
             if (data.id == '') {
                 var c_id = c_title;
-            } else {
+            } else if (data.id == '@@@') {
+                var c_id = c_title;
+		c_id.splice(0,1,'');
+            }else{
                 var c_id = data.id.split('&');
             }
             c_title.forEach((title, index_c, data) => {
