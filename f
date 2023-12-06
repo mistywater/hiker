@@ -25,8 +25,8 @@ function hexStringToBytes(cipherText) {
         let hexInt = java.lang.Integer.parseInt(new java.lang.String(a), 16);
         let inty = hexInt > 127 ? hexInt - 255 - 1 : hexInt;
         bArr[o] = inty;
-    }}
-    return bArr;
+    }
+    return bArr;}
 }
 function pageMoveto(host,page) {
     var extra = {
