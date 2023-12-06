@@ -1,5 +1,9 @@
 js:
 function hexStringToBytes(cipherText) {
+const FileUtil = com.example.hikerview.utils.FileUtil;
+const Cipher = Cipher = javax.crypto.Cipher;
+const IvParameterSpec = javax.crypto.spec.IvParameterSpec;
+const SecretKeySpec = javax.crypto.spec.SecretKeySpec;
     cipherText = String(cipherText);
     let str = cipherText.toLowerCase();
     let length = str.length;
