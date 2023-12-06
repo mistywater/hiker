@@ -139,7 +139,7 @@ function searchMain(page, d, desc) {
     return d;
 }
 function classTop(index, data, host, d,mode) {
-            var c_title = data.title.split('&');
+            var c_title = data.title.split('&');log(c_title);
             if (data.id == '') {
                 var c_id = c_title;
             } else if (data.id == '@@@') {
