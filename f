@@ -161,8 +161,8 @@ function classTop(index, data, host, d,mode) {
                         for (let n = 0; n <= 20; n++) {
                             putMyVar(host + 'index' + n, '-1');
                         }}
-			if(title=='全部标签'){clearMyVar(host + 'page');
-    clearMyVar(host+'url');}
+			clearMyVar(host + 'page');
+                        clearMyVar(host+'url');
                         putMyVar(host + 'index' + index, index_c);
                         refreshPage();
                         return 'hiker://empty';
