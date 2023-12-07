@@ -203,7 +203,7 @@ function extraPic(hiker, host) {
                 title: '跳转',
                 js: $.toString((host) => {
                     return $('').input((host) => {
-                        putMyVar(host + 'page', input);
+                        putMyVar(host + 'page', input);putMyVar(host+'moveto', '0');
                         refreshPage(false);
                     }, host);
                 }, host),
