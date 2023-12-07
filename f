@@ -152,7 +152,7 @@ function classTop(index, data, host, d,mode) {
                 d.push({
                     title: index_c == getMyVar(host + 'index' + index, (mode||index == '0' ? '0' : '-1')) ? strong(title, 'FF6699') : title,
                     col_type: 'scroll_button',
-                    url: $('#noLoading#').lazyRule((index, id, index_c, host,mode) => {
+                    url: $('#noLoading#').lazyRule((index, id, index_c, host,mode,title) => {
                         if(mode){
                             putMyVar(host + 'c' + index, id);
                         
@@ -161,10 +161,12 @@ function classTop(index, data, host, d,mode) {
                         for (let n = 0; n <= 20; n++) {
                             putMyVar(host + 'index' + n, '-1');
                         }}
+			if(title=='全部标签'){clearMyVar(host + 'page');
+    clearMyVar(host+'url');}
                         putMyVar(host + 'index' + index, index_c);
                         refreshPage();
                         return 'hiker://empty';
-                    }, index, c_id[index_c], index_c, host,mode),
+                    }, index, c_id[index_c], index_c, host,mode,title),
                 });
             });
             d.push({
