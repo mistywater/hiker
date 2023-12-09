@@ -1,19 +1,24 @@
 js:
-function imageDecss(key,iv,kiType,mode){
-	const CryptoUtil = $.require("hiker://assets/crypto-java.js");
-        let key = CryptoUtil.Data.parseUTF8(key);
-        if(kiType=='base64'){let textData = CryptoUtil.Data.parseInputStream(input).base64Decode();}
-	else{
- let textData = CryptoUtil.Data.parseInputStream(input);
-	}
- if(iv){let iv = CryptoUtil.Data.parseUTF8("8209658041411076");}
-        let encrypted = CryptoUtil.AES.decrypt(textData, key, {
-        	mode: mode,
-	 iv:iv
-        });
-        if(kiType=='base64'){let base64Text = encrypted.toString().split("base64,")[1];
-        let encrypted0 = CryptoUtil.Data.parseBase64(base64Text, _base64.NO_WRAP);}
-        return encrypted0.toInputStream();
+function imageDecss(key, iv, kiType, mode) {
+    const CryptoUtil = $.require("hiker://assets/crypto-java.js");
+    let key = CryptoUtil.Data.parseUTF8(key);
+    if (kiType == 'base64') {
+        let textData = CryptoUtil.Data.parseInputStream(input).base64Decode();
+    } else {
+        let textData = CryptoUtil.Data.parseInputStream(input);
+    }
+    if (iv) {
+        let iv = CryptoUtil.Data.parseUTF8("8209658041411076");
+    }
+    let encrypted = CryptoUtil.AES.decrypt(textData, key, {
+        mode: mode,
+        iv: iv
+    });
+    if (kiType == 'base64') {
+        let base64Text = encrypted.toString().split("base64,")[1];
+        let encrypted0 = CryptoUtil.Data.parseBase64(base64Text, _base64.NO_WRAP);
+    }
+    return encrypted0.toInputStream();
 }
 function imgDecs(key, iv, kiType, mode) {
     return $.toString((key, iv, kiType, mode) => {
