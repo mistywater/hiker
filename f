@@ -70,15 +70,15 @@ function imgDecs(key, iv, kiType, mode) {
                 return bytes;
             }
             key = getBytes(key);
-            iv = getBytes(iv);
+            if(iv){iv = getBytes(iv);}
 
             let algorithm = mode.split("/")[0];
 
             function decryptData(_bArr) {
                 let secretKeySpec = new SecretKeySpec(key, algorithm);
-                let ivParameterSpec = new IvParameterSpec(iv);
+                if(iv){let ivParameterSpec = new IvParameterSpec(iv);
                 let cipher = Cipher.getInstance(mode);
-                cipher.init(2, secretKeySpec, ivParameterSpec);
+                cipher.init(2, secretKeySpec, ivParameterSpec);}else{cipher.init(2, secretKeySpec);}
                 return cipher.doFinal(_bArr);
             }
             bytes = decryptData(bytes);
