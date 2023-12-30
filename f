@@ -183,7 +183,7 @@ function classTop(index, data, host, d,mode,v) {
                         }else{
                         putMyVar(host + 'c' , id);
                         for (let n = v; n <= 20; n++) {
-                            putMyVar(host + 'index' + v, '-1');
+                            putMyVar(host + 'index' + n, '-1');
                         }}
 			clearMyVar(host + 'page');
                         clearMyVar(host+'url');
