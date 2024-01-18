@@ -123,9 +123,9 @@ function pageMoveto(host,page) {
         var Type1 = [];
         for (var i in Type) {
             var col = storage0.getItem('type', '');
-            var Col = (col.includes('👉🏽')) ? col.split('👉🏽')[1] : col;
+            var Col = (col.includes('👉')) ? col.split('👉')[1] : col;
             if (Type[i] == Col) {
-                Type[i] = '👉🏽' + Type[i];
+                Type[i] = '👉' + Type[i];
             } else {
                 Type[i] = Type[i];
             }
@@ -138,7 +138,7 @@ function pageMoveto(host,page) {
             js: $.toString(() => {
                 storage0.setItem('type', input);
                 var col = storage0.getItem('type', '');
-                var Col = (col.includes('👉🏽')) ? col.split('👉🏽')[1] : col;
+                var Col = (col.includes('👉')) ? col.split('👉')[1] : col;
                 storage0.setItem('Col0', Col);
                 refreshPage();
             })
