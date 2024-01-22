@@ -188,9 +188,12 @@ function searchMain(page, d, desc) {
     }
     return d;
 }
-function classTop(index, data, host, d,mode,v) {
+function classTop(index, data, host, d,mode,v,c) {
 	    if(!v){
      		v=0;
+     	    }
+	  if(!c){
+     		c='c';
      	    }
             var c_title = data.title.split('&');
             if (data.id == '') {
@@ -203,23 +206,23 @@ function classTop(index, data, host, d,mode,v) {
             }
             c_title.forEach((title, index_c, data) => {
                 d.push({
-                    title: index_c == getMyVar(host + 'index' + index, (mode||index == '0' ? '0' : '-1')) ? strong(title, 'FF6699') : title,
+                    title: index_c == getMyVar(host +c+ 'index' + index, (mode||index == '0' ? '0' : '-1')) ? strong(title, 'FF6699') : title,
                     col_type: 'scroll_button',
-                    url: $('#noLoading#').lazyRule((index, id, index_c, host,mode,title,v) => {
+                    url: $('#noLoading#').lazyRule((index, id, index_c, host,mode,title,v,c) => {
                         if(mode){
-                            putMyVar(host + 'c' + index, id);
+                            putMyVar(host + c + index, id);
                         
                         }else{
-                        putMyVar(host + 'c' , id);
+                        putMyVar(host + c , id);
                         for (let n = v; n <= 20; n++) {
-                            putMyVar(host + 'index' + n, '-1');
+                            putMyVar(host +c+ 'index' + n, '-1');
                         }}
 			clearMyVar(host + 'page');
                         clearMyVar(host+'url');
-                        putMyVar(host + 'index' + index, index_c);
+                        putMyVar(host +c+ 'index' + index, index_c);
                         refreshPage();
                         return 'hiker://empty';
-                    }, index, c_id[index_c], index_c, host,mode,title,v),
+                    }, index, c_id[index_c], index_c, host,mode,title,v,c),
                 });
             });
             d.push({
