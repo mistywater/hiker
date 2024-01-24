@@ -230,79 +230,84 @@ function classTop(index, data, host, d,mode,v,c) {
             });
             return d;
         }
+$.toString(()=>{
+    
+});
+
 function extraPic(hiker, host) {
-	var extra = $.toString((host, hiker) = >({
-		chapterList: hiker ? 'hiker://files/_cache/chapterList.txt': chapterList,
-		info: {
-			bookName: MY_URL.split('/')[2],
-			ruleName: 'photo',
-			bookTopPic: 'https://api.xinac.net/icon/?url=' + host,
-			parseCode: downloadlazy,
-			defaultView: '1'
-		},
-		longClick: [{
-			title: '样式',
-			js: $.toString((host) = >{
-				var Type = ["movie_1", "movie_2", "movie_3", "movie_1_left_pic", "movie_1_vertical_pic", "movie_1_vertical_pic_blur", "pic_1", "pic_2", "pic_3", "pic_1_full", "pic_1_center", "pic_1_card", "pic_2_card", "pic_3_square", "card_pic_1", "card_pic_2", "card_pic_3", "card_pic_3_center", "long_text", "rich_text", "scroll_button", "flex_button"];
-				var Type1 = [];
-				for (var i in Type) {
-					var col = storage0.getItem('type', '');
-					var Col = (col.includes('👉')) ? col.split('👉')[1] : col;
-					if (Type[i] == Col) {
-						Type[i] = '👉' + Type[i];
-					} else {
-						Type[i] = Type[i];
-					}
-					Type1[i] = Type[i];
-				}
-				showSelectOptions({
-					title: "选择类型",
-					col: 2,
-					options: Type1,
-					js: $.toString((host) = >{
-						storage0.setItem(host+'type', input);
-						var col = storage0.getItem(host+'type', '');
-						var Col = (col.includes('👉')) ? col.split('👉')[1] : col;
-						storage0.setItem(host+'Col0', Col);
-						refreshPage();
-					}, host)
-				});
-				return "hiker://empty"
-			},host),
-		},
-		{
-			title: '下载',
-			js: `'hiker://page/download.view?rule=本地资源管理'`,
-		},
-		{
-			title: '书架',
-			js: `'hiker://page/Main.view?rule=本地资源管理'`,
-		},
-		{
-			title: '首页',
-			js: $.toString((host) = >{
-				host = host;
-				putMyVar(host + 'page', '1');
-				refreshPage(false);
-				return 'hiker://empty';
-			},host),
-		},
-		{
-			title: '当前第' + page + '页',
-			js: '',
-		},
-		{
-			title: '跳转',
-			js: $.toString((host) = >{
-				return $('').input((host) = >{
-					putMyVar(host + 'page', input);
-					putMyVar(host + 'moveto', '0');
-					refreshPage(false);
-				},host);
-			},host),
-		}]
-	}), host, hiker);
-	return extra;
+    var extra = $.toString((host, hiker) = > ({
+        chapterList: hiker ? 'hiker://files/_cache/chapterList.txt' : chapterList,
+        info: {
+            bookName: MY_URL.split('/')[2],
+            ruleName: 'photo',
+            bookTopPic: 'https://api.xinac.net/icon/?url=' + host,
+            parseCode: downloadlazy,
+            defaultView: '1'
+        },
+        longClick: [{
+                title: '样式',
+                js: $.toString((host) = > {
+                    var Type = ["movie_1", "movie_2", "movie_3", "movie_1_left_pic", "movie_1_vertical_pic", "movie_1_vertical_pic_blur", "pic_1", "pic_2", "pic_3", "pic_1_full", "pic_1_center", "pic_1_card", "pic_2_card", "pic_3_square", "card_pic_1", "card_pic_2", "card_pic_3", "card_pic_3_center", "long_text", "rich_text", "scroll_button", "flex_button"];
+                    var Type1 = [];
+                    for (var i in Type) {
+                        var col = storage0.getItem('type', '');
+                        var Col = (col.includes('👉')) ? col.split('👉')[1] : col;
+                        if (Type[i] == Col) {
+                            Type[i] = '👉' + Type[i];
+                        } else {
+                            Type[i] = Type[i];
+                        }
+                        Type1[i] = Type[i];
+                    }
+                    showSelectOptions({
+                        title: "选择类型",
+                        col: 2,
+                        options: Type1,
+                        js: $.toString((host) = > {
+                            storage0.setItem(host + 'type', input);
+                            var col = storage0.getItem(host + 'type', '');
+                            var Col = (col.includes('👉')) ? col.split('👉')[1] : col;
+                            storage0.setItem(host + 'Col0', Col);
+                            refreshPage();
+                        }, host)
+                    });
+                    return "hiker://empty"
+                }, host),
+            },
+            {
+                title: '下载',
+                js: `'hiker://page/download.view?rule=本地资源管理'`,
+            },
+            {
+                title: '书架',
+                js: `'hiker://page/Main.view?rule=本地资源管理'`,
+            },
+            {
+                title: '首页',
+                js: $.toString((host) = > {
+                    host = host;
+                    putMyVar(host + 'page', '1');
+                    refreshPage(false);
+                    return 'hiker://empty';
+                }, host),
+            },
+            {
+                title: '当前第' + page + '页',
+                js: '',
+            },
+            {
+                title: '跳转',
+                js: $.toString((host) = > {
+                    return $('').input((host) = > {
+                        putMyVar(host + 'page', input);
+                        putMyVar(host + 'moveto', '0');
+                        refreshPage(false);
+                    }, host);
+                }, host),
+            }
+        ]
+    }), host, hiker);
+    return extra;
 }
 
 function downPic() {
