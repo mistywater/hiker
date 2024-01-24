@@ -10,35 +10,37 @@ function extraPic(hiker, host) {
             defaultView: '1'
         },
         longClick: [{
-                title: '样式',
-                js: $.toString((host) = > {
-                    var Type = ["movie_1", "movie_2", "movie_3", "movie_1_left_pic", "movie_1_vertical_pic", "movie_1_vertical_pic_blur", "pic_1", "pic_2", "pic_3", "pic_1_full", "pic_1_center", "pic_1_card", "pic_2_card", "pic_3_square", "card_pic_1", "card_pic_2", "card_pic_3", "card_pic_3_center", "long_text", "rich_text", "scroll_button", "flex_button"];
-                    var Type1 = [];
-                    for (var i in Type) {
-                        var col = storage0.getItem(host+'type', '');
-                        var Col = (col.includes('👉')) ? col.split('👉')[1] : col;
-                        if (Type[i] == Col) {
-                            Type[i] = '👉' + Type[i];
-                        } else {
-                            Type[i] = Type[i];
-                        }
-                        Type1[i] = Type[i];
+            title: '样式',
+            js: $.toString((host) => {
+                var Type = ["movie_1", "movie_2", "movie_3", "movie_1_left_pic", "movie_1_vertical_pic", "movie_1_vertical_pic_blur", "pic_1", "pic_2", "pic_3", "pic_1_full", "pic_1_center", "pic_1_card", "pic_2_card", "pic_3_square", "card_pic_1", "card_pic_2", "card_pic_3", "card_pic_3_center", "long_text", "rich_text", "scroll_button", "flex_button"];
+                var Type1 = [];
+                for (var i in Type) {
+                    var col = storage0.getItem(host + 'type', '');
+                    var Col = (col.includes('👉')) ? col.split('👉')[1] : col;
+                    if (Type[i] == Col) {
+                        Type[i] = '👉' + Type[i];
+                    } else {
+                        Type[i] = Type[i];
                     }
-                    showSelectOptions({
-                        title: "选择类型",
-                        col: 2,
-                        options: Type1,
-                        js: $.toString((host) = > {
-                            storage0.setItem(host + 'type', input);
-                            var col = storage0.getItem(host + 'type', '');
-                            var Col = (col.includes('👉')) ? col.split('👉')[1] : col;
-                            storage0.setItem(host + 'Col0', Col);
-                            refreshPage();
-                        }, host)
-                    });
-                    return "hiker://empty"
-                }, host),
-            },{
+                    Type1[i] = Type[i];
+                }
+                showSelectOptions({
+                    title: "选择类型",
+                    col: 2,
+                    options: Type1,
+                    js: $.toString((host) => {
+                        storage0.setItem(host + 'type', input);
+                        var col = storage0.getItem(host + 'type', '');
+                        var Col = (col.includes('👉')) ? col.split('👉')[1] : col;
+                        storage0.setItem(host + 'Col0', Col);
+                        refreshPage();
+                    }, host)
+                });
+
+
+                return "hiker://empty";
+            }, host),
+        }, {
             title: '下载',
             js: `'hiker://page/download.view?rule=本地资源管理'`,
         }, {
