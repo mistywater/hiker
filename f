@@ -11,12 +11,13 @@ function jinman(picUrl) {
 		let bookId = RegExp.$1;
 		let imgId = RegExp.$2;
 		if (!bookId || !imgId) return input;
-		if (Number(bookId) <= 220000) return input;
-		else if (Number(bookId) <= 268850) {
+		if (Number(bookId) <= 220000){
+  			return input;
+     		}else if (Number(bookId) <= 268850) {
 			var $num = "10";
 		} else if (Number(bookId) <= 421925) {
 			var $num = parseInt(md5(bookId + imgId).slice(-1).charCodeAt() % 10) * 2 + 2;
-		} else if (Number(bookId) > "421925") {
+		} else if (Number(bookId) > 421925) {
 			var $num = parseInt(md5(bookId + imgId).slice(-1).charCodeAt() % 8) * 2 + 2;
 		}
 		let imgBitmap = BitmapFactory.decodeStream(input);
