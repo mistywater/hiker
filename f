@@ -1,6 +1,6 @@
 js:
 function jinman(picUrl) {
-	return $.toString((picUrl) = >{
+	return $.toString((picUrl)=>{
 		const ByteArrayOutputStream = java.io.ByteArrayOutputStream;
 		const ByteArrayInputStream = java.io.ByteArrayInputStream;
 		const Bitmap = android.graphics.Bitmap;
