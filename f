@@ -1,41 +1,43 @@
 js:
 function jinman(picUrl) {
-                return $.toString((picUrl) => {
-                    const ByteArrayOutputStream = java.io.ByteArrayOutputStream;
-                    const ByteArrayInputStream = java.io.ByteArrayInputStream;
-                    const Bitmap = android.graphics.Bitmap;
-                    const BitmapFactory = android.graphics.BitmapFactory;
-                    const Canvas = android.graphics.Canvas;
+	return $.toString((picUrl) = >{
+		const ByteArrayOutputStream = java.io.ByteArrayOutputStream;
+		const ByteArrayInputStream = java.io.ByteArrayInputStream;
+		const Bitmap = android.graphics.Bitmap;
+		const BitmapFactory = android.graphics.BitmapFactory;
+		const Canvas = android.graphics.Canvas;
 
-                    picUrl.match(/photos\/(\d+)?\/(\d+)?/);
-                    let bookId = RegExp.$1;
-                    let imgId = RegExp.$2;
-                    if (!bookId || !imgId || Number(bookId) <= 220000) return input;
-                    if (Number(bookId) >= "268850" && Number(bookId) <= "421925") {
-                        var $num = parseInt(md5(bookId + imgId).slice(-1).charCodeAt() % 10) * 2 + 2;
-                    } else if (Number(bookId) > "421925") {
-                        var $num = parseInt(md5(bookId + imgId).slice(-1).charCodeAt() % 8) * 2 + 2;
-                    } else {
-                        var $num = "10";
-                    }
-                    let imgBitmap = BitmapFactory.decodeStream(input);
-                    closeMe(input);
-                    let width = imgBitmap.getWidth();
-                    let height = imgBitmap.getHeight();
-                    let y = Math.floor(height / $num);
-                    let remainder = height % $num;
+		picUrl.match(/photos\/(\d+)?\/(\d+)?/);
+		let bookId = RegExp.$1;
+		let imgId = RegExp.$2;
+		if (!bookId || !imgId) return input;
+		if (Number(bookId) <= 220000) return input;
+		else if (Number(bookId) <= 268850) {
+			var $num = "10";
+		} else if (Number(bookId) <= 421925) {
+			var $num = parseInt(md5(bookId + imgId).slice(-1).charCodeAt() % 10) * 2 + 2;
+		} else if (Number(bookId) > "421925") {
+			var $num = parseInt(md5(bookId + imgId).slice(-1).charCodeAt() % 8) * 2 + 2;
+		}
+		let imgBitmap = BitmapFactory.decodeStream(input);
+		closeMe(input);
+		let width = imgBitmap.getWidth();
+		let height = imgBitmap.getHeight();
+		let y = Math.floor(height / $num);
+		let remainder = height % $num;
 
-                    let newImgBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-                    let canvas = new Canvas(newImgBitmap);
-                    for (let i = 1; i <= $num; i++) {
-                        let h = i === $num ? remainder : 0;
-                        canvas.drawBitmap(Bitmap.createBitmap(imgBitmap, 0, y * (i - 1), width, y + h), 0, y * ($num - i), null);
-                    }
-                    let baos = new ByteArrayOutputStream();
-                    newImgBitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
-                    return new ByteArrayInputStream(baos.toByteArray());
-                },picUrl);
-            }
+		let newImgBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+		let canvas = new Canvas(newImgBitmap);
+		for (let i = 1; i <= $num; i++) {
+			let h = i === $num ? remainder: 0;
+			canvas.drawBitmap(Bitmap.createBitmap(imgBitmap, 0, y * (i - 1), width, y + h), 0, y * ($num - i), null);
+		}
+		let baos = new ByteArrayOutputStream();
+		newImgBitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+		return new ByteArrayInputStream(baos.toByteArray());
+	},
+	picUrl);
+}
 function extraPic(hiker, host) {
     var extra = $.toString((host, hiker) => ({
         chapterList: hiker ? 'hiker://files/_cache/chapterList.txt' : chapterList,
