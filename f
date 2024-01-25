@@ -35,8 +35,7 @@ function jinman(picUrl) {
 		let baos = new ByteArrayOutputStream();
 		newImgBitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
 		return new ByteArrayInputStream(baos.toByteArray());
-	},
-	picUrl);
+	},picUrl);
 }
 function extraPic(hiker, host) {
     var extra = $.toString((host, hiker) => ({
