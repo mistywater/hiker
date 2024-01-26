@@ -1,4 +1,10 @@
 js:
+function pageAdd(page,host){
+    	if (getMyVar(host + 'page')) {
+        	putMyVar(host + 'page', (parseInt(page) + 1) + '');
+    	}
+	return;
+}
 function jinman(picUrl) {
 	return $.toString((picUrl)=>{
 		const ByteArrayOutputStream = java.io.ByteArrayOutputStream;
