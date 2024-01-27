@@ -1,7 +1,7 @@
 js:
 function cpage(t){
-	return `_c = getMyVar(host + 'c', ${t});
-        if (_c != getMyVar(host + '_c', ${t})) {
+	return `_c = getMyVar(host + 'c', '${t}');
+        if (_c != getMyVar(host + '_c', '${t}')) {
             clearMyVar(host + 'page');
         }
         page = getMyVar(host + 'page', page + '');`;
