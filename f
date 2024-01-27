@@ -1,6 +1,7 @@
 js:
-function cpage(t){
-	return `_c = getMyVar(host + 'c', '${t}');
+function cpage(t,c){
+	if(!c){var c='c';}
+	return `_c = getMyVar(host + ${c}, '${t}');
         if (_c != getMyVar(host + '_c', '${t}')) {
             clearMyVar(host + 'page');
         }
