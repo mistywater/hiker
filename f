@@ -604,6 +604,7 @@ x(/se/gi, "色");
 x(/sè/gi, "色");
 x(/sao/gi, "骚");
 x(/sai/gi, "塞");
+x(/rui/gi, "蕊");
 x(/ru2/gi, "蠕");
 x(/ru/gi, "乳");
 x(/rou2/gi, "揉");
