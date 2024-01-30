@@ -750,7 +750,7 @@ function toerji(item,sname,stype) {
             let extra = item.extra || {};
             extra.name = extra.name || extra.pageTitle || item.title;
             extra.img = extra.img || item.pic_url || item.img;
-            extra.stype = extra.stype||'漫画';
+            extra.stype = extra.stype||stype||'漫画';
             extra.pageTitle = extra.pageTitle || extra.name;
             if (item.url && !/js:|select:|\(|\)|=>|@/.test(item.url)) {
                 extra.surl = item.url.replace(/hiker:\/\/empty|#immersiveTheme#|#autoCache#|#noRecordHistory#|#noHistory#|#noLoading#|#/g, "");
