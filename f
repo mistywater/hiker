@@ -1,6 +1,6 @@
 js:
 function sortPy(arr, name) {
-    if (typeof(name)='undefined'||name='') {
+    if (typeof(name)=='undefined'||name=='') {
         var arrNew = arr.sort((a, b) => a.localeCompare(b));
     } else {
         var arrNew = arr.sort((a, b) => a[name].localeCompare(b[name]));
