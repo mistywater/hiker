@@ -1,9 +1,9 @@
 js:
 function sortPy(arr, name) {
-    if (name) {
-        var arrNew = arr.sort((a, b) => a[name].localeCompare(b[name]));
-    } else {
+    if (typeof(name)='undefined'||name='') {
         var arrNew = arr.sort((a, b) => a.localeCompare(b));
+    } else {
+        var arrNew = arr.sort((a, b) => a[name].localeCompare(b[name]));
     }
     for (var m in arrNew) {
         var mm = /^[\u4e00-\u9fa5]/.test(arrNew[m].name) ? m : '-1';
