@@ -1,4 +1,28 @@
 js:
+function sortPy(arr, name) {
+    if (name) {
+        var arrNew = arr.sort((a, b) => a[name].localeCompare(b[name]));
+    } else {
+        var arrNew = arr.sort((a, b) => a.localeCompare(b));
+    }
+    for (var m in arrNew) {
+        var mm = /^[\u4e00-\u9fa5]/.test(arrNew[m].name) ? m : '-1';
+        if (mm > -1) {
+            break;
+        }
+    }
+    for (var n = arrNew.length - 1; n >= 0; n--) {
+        var nn = /^[\u4e00-\u9fa5]/.test(arrNew[n].name) ? n : '-1';
+        if (nn > -1) {
+            break;
+        }
+    }
+    if (mm > -1) {
+        var arrTmp = arrNew.splice(m, parseInt(n - m) + 1);
+        arrNew = arrNew.concat(arrTmp);
+    }
+    return arrNew
+}
 function cpage(t,c){
 	if(!c){var c='c';}
 	return `_c = getMyVar(host + '${c}', '${t}');
