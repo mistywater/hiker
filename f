@@ -103,7 +103,7 @@ function extraPic(hiker, host) {
             col: 2,
             options: Type,
             js: $.toString((host) => {
-                setItem(host + 'type', input.replace('👉','');
+                setItem(host + 'type', input.replace('👉',''));
                 refreshPage();
             }, host)
         });
@@ -269,7 +269,7 @@ function pageMoveto(host,page) {
             col: 2,
             options: Type,
             js: $.toString((host) => {
-                setItem(host + 'type', input.replace('👉','');
+                setItem(host + 'type', input.replace('👉',''));
                 refreshPage();
             }, host)
         });
