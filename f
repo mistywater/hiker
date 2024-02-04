@@ -6,13 +6,13 @@ function sortPy(arr, name) {
         var arrNew = arr.sort((a, b) => a[name].localeCompare(b[name]));
     }
     for (var m in arrNew) {
-        var mm = /^[\u4e00-\u9fa5]/.test(arrNew[m].name) ? m : '-1';
+        var mm = /^[\u4e00-\u9fa5]/.test(arrNew[m][name]) ? m : '-1';
         if (mm > -1) {
             break;
         }
     }
     for (var n = arrNew.length - 1; n >= 0; n--) {
-        var nn = /^[\u4e00-\u9fa5]/.test(arrNew[n].name) ? n : '-1';
+        var nn = /^[\u4e00-\u9fa5]/.test(arrNew[n][name]) ? n : '-1';
         if (nn > -1) {
             break;
         }
