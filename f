@@ -53,7 +53,7 @@ function jinman(picUrl) {
 		let bookId = RegExp.$1;
 		let imgId = RegExp.$2;
 		if (!bookId || !imgId) return input;
-		if (Number(bookId) <= 220000){
+		if (Number(bookId) <= 220980){
   			return input;
      		}else if (Number(bookId) <= 268850) {
 			var $num = "10";
