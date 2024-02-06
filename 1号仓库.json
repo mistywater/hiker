@@ -1,8 +1,5 @@
 {
-	"urls": [{
-			"url": "https://gitee.com/mistywater/hiker_info/raw/master/1%E5%8F%B7%E7%BA%BF%E8%B7%AF.json",
-			"name": "1号线路"
-		},
+	"urls": [
 		{
 			"url": "https://agit.ai/guozu616/TVbox/raw/branch/main/config.json",
 			"name": "🌟强悍🇨🇳接口🌟"
