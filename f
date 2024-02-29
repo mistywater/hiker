@@ -1,4 +1,242 @@
 js:
+function audioSingle(url,headers) {
+const MediaPlayer = android.media.MediaPlayer;
+let mediaPlayer = null;
+let isPrepare = false;
+let currentUrl = null;
+let errorListener = () => {};
+let completionListener = () => {};
+let startListener = () => {};
+let stateListener = () => {};
+let endListener = () => {};
+playAsync(url, headers);
+function release() {
+    if (hasPlayer()) {
+        mediaPlayer.release();
+        mediaPlayer = null;
+        isPrepare = false;
+        currentUrl = null;
+        runEndListener();
+    }
+}
+
+function setErrorListener(func) {
+    if (typeof func !== "function") return;
+    errorListener = func;
+}
+
+function setCompletionListener(func) {
+    if (typeof func !== "function") return;
+    completionListener = func;
+}
+
+function setStartListener(func) {
+    if (typeof func !== "function") return;
+    startListener = func;
+}
+
+function setEndListener(func) {
+    if (typeof func !== "function") return;
+    endListener = func;
+}
+
+function setStateListener(func) {
+    if (typeof func !== "function") return;
+    stateListener = func;
+}
+
+function runCompletionListener() {
+    tryCallBack(completionListener);
+}
+
+function runErrorListener(e) {
+    tryCallBack(errorListener, [e]);
+}
+
+function runStartListener() {
+    tryCallBack(() => {
+        startListener();
+        stateListener(true);
+    });
+}
+
+function runStateListener(isPlaying) {
+    tryCallBack(stateListener, [isPlaying]);
+}
+
+function runEndListener() {
+    tryCallBack(() => {
+        endListener();
+        stateListener(false);
+    });
+}
+
+function tryCallBack(callBack, args) {
+    new java.lang.Thread(new java.lang.Runnable({
+        run() {
+            try {
+                if (typeof callBack !== "function") {
+                    return;
+                }
+                args = args || [];
+                callBack.apply(null, args);
+            } catch (e) {
+                let message = "",
+                    lineNumber = -1;
+                if (e instanceof Error) {
+                    message = e.message;
+                    lineNumber = e.lineNumber;
+                } else {
+                    message = String(e);
+                }
+                log(message);
+                setError("\n行数：" + lineNumber + "\n详情：" + message);
+            }
+        }
+    })).start();
+}
+function toMap(object){
+    let map = new java.util.HashMap();
+    for (let [key, value] of Object.entries(object)){
+        if(typeof value !=="string") continue;
+        map.put(key, value);
+    }
+    return map;
+}
+function play(url, headers) {
+    try {
+        release();
+        mediaPlayer = new MediaPlayer();
+        if($.type(headers)==="object"){
+            mediaPlayer.setDataSource(url, toMap(headers));
+        }else{
+            mediaPlayer.setDataSource(url);
+        }
+        mediaPlayer.setOnCompletionListener(() => {
+            release();
+            runCompletionListener();
+        });
+        mediaPlayer.setOnErrorListener((e) => {
+            // 当发生错误时，将 MediaPlayer 设置为 null
+            mediaPlayer = null;
+            isPrepare = false;
+            currentUrl = null;
+            runErrorListener(e);
+            return false;
+        });
+        mediaPlayer.prepare();
+        isPrepare = true;
+        currentUrl = url;
+        mediaPlayer.start();
+        runStartListener();
+        return mediaPlayer;
+    } catch (e) {
+        release();
+        runErrorListener(e);
+        log(e.toString());
+    }
+}
+
+function playAsync(url, headers) {
+    try {
+        release();
+        mediaPlayer = new MediaPlayer();
+        if($.type(headers)==="object"){
+            mediaPlayer.setDataSource(url, toMap(headers));
+        }else{
+            mediaPlayer.setDataSource(url);
+        }
+        mediaPlayer.setOnCompletionListener(() => {
+            release();
+            runCompletionListener();
+        });
+        mediaPlayer.setOnErrorListener((e) => {
+            // 当发生错误时，将 MediaPlayer 设置为 null
+            mediaPlayer = null;
+            isPrepare = false;
+            currentUrl = null;
+            runErrorListener(e);
+            return false;
+        });
+        mediaPlayer.setOnPreparedListener(() => {
+            isPrepare = true;
+            currentUrl = url;
+            mediaPlayer.start();
+            runStartListener();
+        });
+        mediaPlayer.prepareAsync();
+        return mediaPlayer;
+    } catch (e) {
+        release();
+        runErrorListener(e);
+        log(e.toString());
+    }
+}
+//直接播放网络音频链接，有可能播放失败还没有缓存，还是下载一下比较稳妥
+function playNetwor(url, headers) {
+    release();
+    let path = getLocalUrl(url);
+    tryCallBack(() => {
+        try {
+            requireDownload(url, path, headers);
+            if (fileExist("file://" + path)) {
+                play(path);
+            } else {
+                throw new Error("下载失败");
+            }
+        } catch (e) {
+            errorListener(e);
+        }
+    });
+}
+
+function startOrPause(isPause) {
+    if (hasPlayer()) {
+        if (isPause || mediaPlayer.isPlaying()) {
+            mediaPlayer.pause();
+        } else {
+            mediaPlayer.start();
+        }
+        runStateListener(mediaPlayer.isPlaying());
+    }
+}
+
+function seekTo(msec) {
+    if (hasPlayer()) {
+        mediaPlayer.seekTo(msec);
+    }
+}
+
+function getDuration() {
+    if (hasPlayer()) {
+        return mediaPlayer.getDuration();
+    }
+    return null;
+}
+
+function getCurrentPosition() {
+    if (hasPlayer()) {
+        return mediaPlayer.getCurrentPosition();
+    }
+    return null;
+}
+
+function isPlaying() {
+    return hasPlayer() && mediaPlayer.isPlaying();
+}
+
+function hasPlayer() {
+    return mediaPlayer != null && isPrepare;
+}
+
+function getCurrentUrl() {
+    return currentUrl;
+}
+
+function getLocalUrl(url) {
+    return getPath("hiker://files/_cache/" + md5(url)).slice(7);
+}
+}
 function sortPy(arr, name) {
     if (typeof(name)=='undefined'||name=='') {
         var arrNew = arr.sort((a, b) => a.localeCompare(b));
