@@ -351,7 +351,7 @@ function classTop(index, data, host, d,mode,v,c) {
 			clearMyVar(host + 'page');
                         clearMyVar(host+'url');
                         putMyVar(host +c+ 'index' + index, index_c);
-                        refreshPage();
+                        refreshPage(false);
                         return 'hiker://empty';
                     }, index, c_id[index_c], index_c, host,mode,title,v,c),
                 });
