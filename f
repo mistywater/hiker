@@ -82,7 +82,8 @@ function jinman(picUrl) {
 	},picUrl);
 }
 function extraPic(hiker, host,ctype) {
-    var extra = $.toString((host, hiker) => ({
+    if(!ctype){var ctype='';}
+    var extra = $.toString((host, hiker,ctype) => ({
         chapterList: hiker ? 'hiker://files/_cache/chapterList.txt' : chapterList,
         info: {
             bookName: MY_URL.split('/')[2],
@@ -95,9 +96,9 @@ function extraPic(hiker, host,ctype) {
     title: '样式',
     js: $.toString((host) => {
         var Type = ["movie_1", "movie_2", "movie_3", "pic_1", "pic_2", "pic_3", "pic_1_full", "pic_1_center", "pic_1_card", "pic_2_card", "pic_3_square", "card_pic_1", "card_pic_2", "card_pic_3", "card_pic_3_center"];
-        if (getItem(host + 'type')) {
+        if (getItem(host+ctype + 'type')) {
             var index = Type.indexOf(getItem(host +ctype + 'type'));
-	    Type[index]='👉'+getItem(host + 'type');
+	    Type[index]='👉'+getItem(host +ctype+ 'type');
         }
         showSelectOptions({
             title: "选择样式",
@@ -137,7 +138,7 @@ function extraPic(hiker, host,ctype) {
                 }, host);
             }, host),
         }, ]
-    }), host, hiker);
+    }), host, hiker,ctype);
     return extra;
 }
 function imageDecss(key, iv, kiType, mode) {
