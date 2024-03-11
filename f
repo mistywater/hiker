@@ -81,7 +81,7 @@ function jinman(picUrl) {
 		return new ByteArrayInputStream(baos.toByteArray());
 	},picUrl);
 }
-function extraPic(hiker, host) {
+function extraPic(hiker, host,ctype) {
     var extra = $.toString((host, hiker) => ({
         chapterList: hiker ? 'hiker://files/_cache/chapterList.txt' : chapterList,
         info: {
@@ -96,17 +96,17 @@ function extraPic(hiker, host) {
     js: $.toString((host) => {
         var Type = ["movie_1", "movie_2", "movie_3", "pic_1", "pic_2", "pic_3", "pic_1_full", "pic_1_center", "pic_1_card", "pic_2_card", "pic_3_square", "card_pic_1", "card_pic_2", "card_pic_3", "card_pic_3_center"];
         if (getItem(host + 'type')) {
-            var index = Type.indexOf(getItem(host + 'type'));
+            var index = Type.indexOf(getItem(host +ctype + 'type'));
 	    Type[index]='👉'+getItem(host + 'type');
         }
         showSelectOptions({
             title: "选择样式",
             col: 2,
             options: Type,
-            js: $.toString((host) => {
-                setItem(host + 'type', input.replace('👉',''));
+            js: $.toString((host,ctype) => {
+                setItem(host +ctype+ 'type', input.replace('👉',''));
                 refreshPage();
-            }, host)
+            }, host,ctype)
         });
         return "hiker://empty";
     }, host),
@@ -255,51 +255,52 @@ function hexStringToBytes(cipherText) {
             }
     return bArr;}
 }
-function pageMoveto(host,page) {
+function pageMoveto(host, page, ctype) {
+    if(!ctype){var ctype='';}
     var extra = {
-            longClick: [{
-    title: '样式',
-    js: $.toString((host) => {
-        var Type = ["movie_1", "movie_2", "movie_3", "pic_1", "pic_2", "pic_3", "pic_1_full", "pic_1_center", "pic_1_card", "pic_2_card", "pic_3_square", "card_pic_1", "card_pic_2", "card_pic_3", "card_pic_3_center"];
-        if (getItem(host + 'type')) {
-            var index = Type.indexOf(getItem(host + 'type'));
-	    Type[index]='👉'+getItem(host + 'type');
-        }
-        showSelectOptions({
-            title: "选择样式",
-            col: 2,
-            options: Type,
+        longClick: [{
+            title: '样式',
+            js: $.toString((host,ctype) => {
+                var Type = ["movie_1", "movie_2", "movie_3", "pic_1", "pic_2", "pic_3", "pic_1_full", "pic_1_center", "pic_1_card", "pic_2_card", "pic_3_square", "card_pic_1", "card_pic_2", "card_pic_3", "card_pic_3_center"];
+                if (getItem(host + 'type')) {
+                    var index = Type.indexOf(getItem(host +ctype+ 'type'));
+                    Type[index] = '👉' + getItem(host +ctype+ 'type');
+                }
+                showSelectOptions({
+                    title: "选择样式",
+                    col: 2,
+                    options: Type,
+                    js: $.toString((host,ctype) => {
+                        setItem(host +ctype+ 'type', input.replace('👉', ''));
+                        refreshPage();
+                    }, host,ctype)
+                });
+                return "hiker://empty";
+            }, host,ctype),
+        }, {
+            title: '书架',
+            js: `'hiker://page/Main.view?rule=本地资源管理'`,
+        }, {
+            title: '首页',
             js: $.toString((host) => {
-                setItem(host + 'type', input.replace('👉',''));
-                refreshPage();
-            }, host)
-        });
-        return "hiker://empty";
-    }, host),
-},{
-                title: '书架',
-                js: `'hiker://page/Main.view?rule=本地资源管理'`,
-            }, {
-                title: '首页',
-                js: $.toString((host) => {
-                    host = host;
-                    putMyVar(host + 'page', '1');
+                host = host;
+                putMyVar(host + 'page', '1');
+                refreshPage(false);
+                return 'hiker://empty';
+            }, host),
+        }, {
+            title: '当前第' + page + '页',
+            js: '',
+        }, {
+            title: '跳转',
+            js: $.toString((host) => {
+                return $('').input((host) => {
+                    putMyVar(host + 'page', input);
                     refreshPage(false);
-                    return 'hiker://empty';
-                }, host),
-            }, {
-                title: '当前第' + page + '页',
-                js: '',
-            }, {
-                title: '跳转',
-                js: $.toString((host) => {
-                    return $('').input((host) => {
-                        putMyVar(host + 'page', input);
-                        refreshPage(false);
-                    }, host);
-                }, host),
-            }, ]
-        };    
+                }, host);
+            }, host),
+        }, ]
+    };
     return extra;
 }
 function searchMain(page, d, desc) {
