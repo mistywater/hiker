@@ -1,5 +1,11 @@
 js:
-
+function ccc(title, ccc_) {
+	ccc_ = ccc_ ? ccc_ : {
+		fc: '#FFFFFF',
+		bc: '#FF435E',
+	}
+	return '‘‘’’<font color="' + ccc_.fc + '"><span style="background-color: ' + ccc_.bc + '">' + title + '</span></font>'
+}
 function sortPy(arr, name) {
     if (typeof(name)=='undefined'||name=='') {
         var arrNew = arr.sort((a, b) => a.localeCompare(b));
