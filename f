@@ -100,7 +100,7 @@ function extraPic(hiker, host,ctype) {
         },
         longClick: [{
     title: '样式',
-    js: $.toString((host) => {
+    js: $.toString((host,ctype) => {
         var Type = ["movie_1", "movie_2", "movie_3", "pic_1", "pic_2", "pic_3", "pic_1_full", "pic_1_center", "pic_1_card", "pic_2_card", "pic_3_square", "card_pic_1", "card_pic_2", "card_pic_3", "card_pic_3_center"];
         if (getItem(host+ctype + 'type')) {
             var index = Type.indexOf(getItem(host +ctype + 'type'));
@@ -116,7 +116,7 @@ function extraPic(hiker, host,ctype) {
             }, host,ctype)
         });
         return "hiker://empty";
-    }, host),
+    }, host,ctype),
 },{
             title: '下载',
             js: `'hiker://page/download.view?rule=本地资源管理'`,
