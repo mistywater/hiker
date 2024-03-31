@@ -776,25 +776,61 @@ function toerji(item,sname,stype) {
             }) : item.url
             return item;
         }
-function de(key,iv,data,encoding){
-    eval(getCryptoJS());
-    if(iv.length==8){var s='TripleDES';}else{var s='AES';}
+function en(key, iv, data, encoding) {
+            eval(getCryptoJS());
+            if (iv.length == 8) {
+                var s = 'TripleDES';
+            } else {
+                var s = 'AES';
+            }
             key = CryptoJS.enc.Utf8.parse(key);
-            iv = CryptoJS.enc.Utf8.parse(iv);
-            function De(data, encoding) {
-	    
-                var decrypted = CryptoJS[s].decrypt(data, key, {
-                    iv: iv,
-                    mode: CryptoJS.mode.CBC,
-                    padding: CryptoJS.pad.Pkcs7
-                });
-                if (!encoding) {
-                    return decrypted.toString(CryptoJS.enc.Utf8);
+            if (iv) iv = CryptoJS.enc.Utf8.parse(iv);
+
+            function En(data, encoding) {
+                if (iv) {
+                    var decrypted = CryptoJS[s].encrypt(data, key, {
+                        iv: iv,
+                        mode: CryptoJS.mode[encoding],
+                        padding: CryptoJS.pad.Pkcs7
+                    });
+                } else {
+                    var decrypted = CryptoJS[s].encrypt(data, key, {
+                        mode: CryptoJS.mode[encoding],
+                        padding: CryptoJS.pad.Pkcs7
+                    });
                 }
-                return decrypted.toString(CryptoJS.enc.Base64);
+                return decrypted.toString();
             };
-return De(data,encoding);
-}
+            return En(data, encoding);
+        }
+
+        function de(key, iv, data, encoding) {
+            eval(getCryptoJS());
+            if (iv.length == 8) {
+                var s = 'TripleDES';
+            } else {
+                var s = 'AES';
+            }
+            key = CryptoJS.enc.Utf8.parse(key);
+            if (iv) iv = CryptoJS.enc.Utf8.parse(iv);
+
+            function De(data, encoding) {
+                if (iv) {
+                    var decrypted = CryptoJS[s].decrypt(data, key, {
+                        iv: iv,
+                        mode: CryptoJS.mode[encoding],
+                        padding: CryptoJS.pad.Pkcs7
+                    });
+                } else {
+                    var decrypted = CryptoJS[s].decrypt(data, key, {
+                        mode: CryptoJS.mode[encoding],
+                        padding: CryptoJS.pad.Pkcs7
+                    });
+                }
+                return decrypted.toString(CryptoJS.enc.Utf8);
+            };
+            return De(data, encoding);
+        }
 
 function im() {
 	return '#immersiveTheme##autoCache#';
