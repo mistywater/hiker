@@ -398,7 +398,7 @@ var s=`if (list.length != 0) {
 function dtfl() {
     var dt = `
     const empty = 'hiker://empty'
-    addListener('onClose', $.toString((host) => {log('addListener');
+    addListener('onClose', $.toString((host) => {
         clearMyVar(host+'url');
         clearMyVar(host+'t');
     },host));
