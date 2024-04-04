@@ -778,7 +778,7 @@ function toerji(item,sname,stype) {
         }
 function en(key, iv, data, mode, encoding) {
         eval(getCryptoJS());
-        if (!mode) mode = 'AES/EBC/PKCS7Padding';
+        if (!mode) mode = 'AES/ECB/PKCS7Padding';
         var s0 = mode.split('/')[0];
         var s1 = mode.split('/')[1];
         var s2 = mode.split('/')[2];
@@ -810,7 +810,7 @@ function en(key, iv, data, mode, encoding) {
 
 function de(key, iv, data, mode, encoding) {
         eval(getCryptoJS());
-        if (!mode) mode = 'AES/EBC/PKCS7Padding';
+        if (!mode) mode = 'AES/ECB/PKCS7Padding';
         var s0 = mode.split('/')[0];
         var s1 = mode.split('/')[1];
         var s2 = mode.split('/')[2];
