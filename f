@@ -170,7 +170,7 @@ function imageDecss(key, iv, kiType, mode) {
 }
 function imgDecs(key, iv, kiType, mode) {
     return $.toString((key, iv, kiType, mode) => {
-        var javaImport = new JavaImporter();
+        if(key){var javaImport = new JavaImporter();
         javaImport.importPackage(
             Packages.com.example.hikerview.utils,
             Packages.java.lang,
@@ -231,7 +231,15 @@ function imgDecs(key, iv, kiType, mode) {
             }
             bytes = decryptData(bytes);
             return FileUtil.toInputStream(bytes);
-        }
+        }}else{ try {
+                const CryptoUtil = $.require("hiker://assets/crypto-java.js");
+                let textData = CryptoUtil.Data.parseInputStream(input);
+                let base64Text = textData.toString().split("base64,")[1];
+                let encrypted0 = CryptoUtil.Data.parseBase64(base64Text, _base64.NO_WRAP);
+                return encrypted0.toInputStream();
+            } catch (e) {
+                return;
+            }}
     }, key, iv, kiType, mode);
 }
 function hexStringToBytes(cipherText) {
