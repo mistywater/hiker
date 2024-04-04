@@ -1,4 +1,11 @@
 js:
+function clearM3u8(url,reg) {
+        let f = cacheM3u8(url);
+        let c = readFile(f.split("##")[0]);
+        let c2 = c.replace(new RegExp(reg,'g'), '');
+        writeFile(f.split("##")[0], c2);
+        return f;
+}
 function ccc(title, ccc_) {
 	ccc_ = ccc_ ? ccc_ : {
 		fc: '#FFFFFF',
