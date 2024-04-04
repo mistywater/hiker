@@ -804,7 +804,7 @@ function en(key, iv, data, encoding) {
             return En(data, encoding);
         }
 
-function (key, iv, data, mode, encoding) {
+function de(key, iv, data, mode, encoding) {
         eval(getCryptoJS());
         if (!mode) mode = 'AES/CBC/PKCS7Padding';
         var s0 = mode.split('/')[0];
