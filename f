@@ -776,37 +776,41 @@ function toerji(item,sname,stype) {
             }) : item.url
             return item;
         }
-function en(key, iv, data, encoding) {
-            eval(getCryptoJS());
-            if (iv.length == 8) {
-                var s = 'TripleDES';
-            } else {
-                var s = 'AES';
-            }
-            key = CryptoJS.enc.Utf8.parse(key);
-            if (iv) iv = CryptoJS.enc.Utf8.parse(iv);
+function en(key, iv, data, mode, encoding) {
+        eval(getCryptoJS());
+        if (!mode) mode = 'AES/EBC/PKCS7Padding';
+        var s0 = mode.split('/')[0];
+        var s1 = mode.split('/')[1];
+        var s2 = mode.split('/')[2];
+        s2 = s2.replace(/Padding/, '').replace(/KCS/, 'kcs');
+        key = CryptoJS.enc.Utf8.parse(key);
+        if (iv) iv = CryptoJS.enc.Utf8.parse(iv);
 
-            function En(data, encoding) {
-                if (iv) {
-                    var decrypted = CryptoJS[s].encrypt(data, key, {
-                        iv: iv,
-                        mode: CryptoJS.mode[encoding],
-                        padding: CryptoJS.pad.Pkcs7
-                    });
-                } else {
-                    var decrypted = CryptoJS[s].encrypt(data, key, {
-                        mode: CryptoJS.mode[encoding],
-                        padding: CryptoJS.pad.Pkcs7
-                    });
-                }
-                return decrypted.toString();
-            };
-            return En(data, encoding);
-        }
+        function En() {
+            if (iv) {
+                var encrypted = CryptoJS[s0].encrypt(data, key, {
+                    iv: iv,
+                    mode: CryptoJS.mode[s1],
+                    padding: CryptoJS.pad[s2]
+                });
+            } else {
+                var encrypted = CryptoJS[s0].encrypt(data, key, {
+                    mode: CryptoJS.mode[s1],
+                    padding: CryptoJS.pad[s2]
+                });
+            }
+            if (!encoding) {
+                return encrypted.toString();
+            } else {
+                return encrypted.toString(CryptoJS.enc.Base64);
+            }
+        };
+        return En(data, encoding);
+    }
 
 function de(key, iv, data, mode, encoding) {
         eval(getCryptoJS());
-        if (!mode) mode = 'AES/CBC/PKCS7Padding';
+        if (!mode) mode = 'AES/EBC/PKCS7Padding';
         var s0 = mode.split('/')[0];
         var s1 = mode.split('/')[1];
         var s2 = mode.split('/')[2];
