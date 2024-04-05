@@ -5,7 +5,7 @@ function lunbo(c) {
         var n = '0';
         d.push({
             title: color(pdfh(c.indexbanner[n], c.title), 'FF3399'),
-            img: pd(c.indexbanner[n], c.img),
+            img: !/##/.test(c.img)?pd(c.indexbanner[n], c.img):eval(c.img),
             col_type: 'card_pic_1',
             desc: '0',
             url: pd(c.indexbanner[n], c.url),
@@ -22,7 +22,7 @@ function lunbo(c) {
             var n = getVar(c.host + 'n', '0');
             var item = toerji({
                 title: color(pdfh(c.indexbanner[n], c.title), 'FF3399'),
-                img: urla(pdfh(c.indexbanner[n], c.img), c.host),
+                img: !/##/.test(c.img)?urla(pdfh(c.indexbanner[n], c.img), c.host):eval(c.img.replace('host','c.host')),
                 url: urla(pdfh(c.indexbanner[n], c.url), c.host),
                 extra: {
                     id: 'lunbo',
