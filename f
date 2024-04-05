@@ -1,4 +1,16 @@
 js:
+function numbersCircled(index) {
+    if (index < 10) {
+        var num = String.fromCharCode(parseInt(index) + 1 + 10101);
+    } else if (index < 20) {
+        var num = String.fromCharCode(parseInt(index) + 1 + 9440);
+    } else if (index < 35) {
+        var num = String.fromCharCode(parseInt(index) + 1 + 12860)
+    } else if (index < 50) {
+        var num = String.fromCharCode(parseInt(index) + 1 + 12941)
+    }
+    return num;
+}
 function clearM3u8(url,reg) {
         let f = cacheM3u8(url);
         let c = readFile(f.split("##")[0]);
