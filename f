@@ -1,4 +1,44 @@
 js:
+function lunbo(c) {
+    return $.toString((c) => {
+        var k = c.indexbanner.length;
+        var n = '0';
+        d.push({
+            title: color(pdfh(c.indexbanner[n], c.title), 'FF3399'),
+            img: pd(c.indexbanner[n], c.img),
+            col_type: 'card_pic_1',
+            desc: '0',
+            url: pd(c.indexbanner[n], c.url),
+            extra: {
+                id: 'lunbo',
+                stype: '影视',
+                name: pdfh(c.indexbanner[n], c.name),
+            }
+        });
+        let id = 'juyue';
+        let time = 4000;
+        registerTask(id, time, $.toString((c, k) => {
+            rc(fetchPC('https://gitee.com/mistywater/hiker_info/raw/master/githubproxy.json') + 'https://raw.githubusercontent.com/mistywater/hiker/main/f', 24);
+            var n = getVar(c.host + 'n', '0');
+            var item = toerji({
+                title: color(pdfh(c.indexbanner[n], c.title), 'FF3399'),
+                img: urla(pdfh(c.indexbanner[n], c.img), c.host),
+                url: urla(pdfh(c.indexbanner[n], c.url), c.host),
+                extra: {
+                    id: 'lunbo',
+                    stype: '影视',
+                    name: pdfh(c.indexbanner[n], c.title),
+                }
+            }, c.name, '影视');
+            updateItem('lunbo', item);
+            if (n >= k - 1) {
+                putVar(c.host + 'n', '0');
+            } else {
+                putVar(c.host + 'n', (parseInt(n) + 1) + '');
+            }
+        }, c, k));
+    }, c);
+}
 function numbersCircled(index) {
     if (index < 10) {
         var num = String.fromCharCode(parseInt(index) + 1 + 10101);
