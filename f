@@ -1071,7 +1071,7 @@ function fy(s) {
             url: 'http://m.iciba.com/word?w=' + list
         })
     }
-    ee = bf(urls).map(h => pdfh(h, '.Mean_sentence__y3rWa&&Text'))
+    ee = bf(urls).map(h => pdfh(h, 'h3+p&&Text'))
     return ee;
 }
 
