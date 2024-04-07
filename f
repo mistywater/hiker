@@ -1064,15 +1064,39 @@ function e(d) {
 }
 
 function fy(s) {
-    var ee = [];
+    var strT = [];
     var urls = [];
+
     for (var list of s) {
+        list = list.split(' ').slice(0, 9);
+        var strTmp = '';
+        for (var k in list) {
+            var s = strTmp + ' ' + list[k];
+            if (s.length > 45) {
+                break
+            }else{
+                strTmp=strTmp + ' ' + list[k];
+            }
+        }
         urls.push({
-            url: 'http://m.iciba.com/word?w=' + list
+            url: 'https://www.iciba.com/_next/data/Oo2lhUMf85DZ7OJMbFn8g/word.json?w=' + strTmp,
+            options: {
+                headers: {
+                    'User-Agent': PC_UA,
+                }
+            }
         })
     }
-    ee = bf(urls).map(h => pdfh(h, 'h3+p&&Text'))
-    return ee;
+    var strs = bf(urls);
+    strs.forEach((item, index) => {
+        if (/"translate_result"/.test(item)) {
+            var str = item.match(/"translate_result":"(.*?)"/)[1];
+        } else {
+            var str = s[index];
+        }
+        strT.push(str);
+    });
+    return strT;
 }
 
 function sp(cc) {
