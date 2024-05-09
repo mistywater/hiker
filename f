@@ -1,4 +1,73 @@
 js:
+function sortSx(arr, name, style, order) {
+    //0:不排序  1:英文排序 2:拼音排序 3:数字排序
+    if (typeof(style) == 'undefined' || style == '') {
+        style = 0;
+    }
+    if (style == 0) {
+        var arrNew = arr;
+    } else if (style == 1) {
+        if (typeof(name) == 'undefined' || name == '') {
+            var arrNew = arr.sort((a, b) => a.localeCompare(b));
+        } else {
+            var arrNew = arr.sort((a, b) => a[name].localeCompare(b[name]));
+        }
+    } else if (style == 2) {
+        if (typeof(name) == 'undefined' || name == '') {
+            var arrNew = arr.sort((a, b) => a.localeCompare(b));
+        } else {
+            var arrNew = arr.sort((a, b) => a[name].localeCompare(b[name]));
+        }
+        for (var m in arrNew) {
+            if (typeof(name) == 'undefined' || name == '') {
+                var mm = /^[\u4e00-\u9fa5]/.test(arrNew[m]) ? m : '-1';
+            } else {
+                var mm = /^[\u4e00-\u9fa5]/.test(arrNew[m][name]) ? m : '-1';
+            }
+            if (mm > -1) break;
+        }
+        for (var n = arrNew.length - 1; n >= 0; n--) {
+            if (typeof(name) == 'undefined' || name == '') {
+                var nn = /^[\u4e00-\u9fa5]/.test(arrNew[n]) ? n : '-1';
+            } else {
+                var nn = /^[\u4e00-\u9fa5]/.test(arrNew[n][name]) ? n : '-1';
+            }
+            if (nn > -1) break;
+        }
+        if (mm > -1) {
+            var arrTmp = arrNew.splice(m, parseInt(n - m) + 1);
+            arrNew = arrNew.concat(arrTmp);
+        }
+
+    } else if (style == 3) {        
+        function compareNumbers(a, b) {
+            if (typeof(name) != 'undefined') {
+                a = a[name];
+                b = b[name];
+            }
+            a = JSON.stringify(a);
+            b = JSON.stringify(b);
+            function myFunction(str) {
+                if (/\(\d+\)/.test(str)) {
+                    var num = parseInt(str.match(/\((\d+)\)/)[1]);
+                } else {
+                    var num = /\d+/.test(str) ? parseInt(str.match(/\d+/)[0]) : 99999999999999;
+                } return num;
+            }
+            
+            var s = [a, b].map(myFunction);
+            if (s[0] < s[1]) {return -1;}
+            else if (s[0] > s[1]) {return 1;}
+            else {return 0;}
+        }
+        var arrNew = arr.sort(compareNumbers);
+    }
+
+    if (typeof(order) == 'undefined' || order == '' || order == 0) {} else {
+        arrNew = arrNew.reverse();
+    }
+    return arrNew;
+}
 function lunbo(c) {
     return $.toString((c) => {
         var k = c.indexbanner.length;
