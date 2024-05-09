@@ -1,4 +1,16 @@
 js:
+function timestampToDate(timestamp) {
+  const date = new Date(timestamp);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+  const seconds = String(date.getSeconds()).padStart(2, '0');
+ 
+  return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+}
+
 function sortSx(arr, name, style, order) {
     //0:不排序  1:英文排序 2:拼音排序 3:数字排序
     if (typeof(style) == 'undefined' || style == '') {
