@@ -418,10 +418,9 @@ function hexStringToBytes(cipherText) {
             }
     return bArr;}
 }
-function pageMoveto(host, page, ctype) {
+function pageMoveto(host, page, ctype,pages) {
     if(!ctype){var ctype='';}
-    var extra = {
-        longClick: [{
+    var longClick=[{
             title: '样式',
             js: $.toString((host,ctype) => {
                 var Type = ["movie_1", "movie_2", "movie_3", "pic_1", "pic_2", "pic_3", "pic_1_full", "pic_1_center", "pic_1_card", "pic_2_card", "pic_3_square", "card_pic_1", "card_pic_2", "card_pic_3", "card_pic_3_center"];
@@ -454,7 +453,25 @@ function pageMoveto(host, page, ctype) {
         }, {
             title: '当前第' + page + '页',
             js: '',
-        }, {
+        }, ];
+    if(typeof(pages)!='undefined'){
+        
+        var arr=[];
+        for(var k=1;k<=pages;k++){
+            arr.push(k);
+        }
+        var extra1={
+            title: '跳转',
+            js: $.toString((host,arr) => {
+                return $(arr,3,'选择页码').select((host) => {
+                    putMyVar(host + 'page', input);
+                    refreshPage(false);
+                }, host);
+            }, host,arr),
+        };
+        
+    }else{
+        var extra1={
             title: '跳转',
             js: $.toString((host) => {
                 return $('').input((host) => {
@@ -462,9 +479,10 @@ function pageMoveto(host, page, ctype) {
                     refreshPage(false);
                 }, host);
             }, host),
-        }, ]
-    };
-    return extra;
+        };
+    }
+    longClick.push(extra1)
+    return {longClick:longClick};
 }
 function searchMain(page, d, desc) {
     if (page == 1) {
