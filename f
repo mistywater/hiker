@@ -129,6 +129,8 @@ function numbersCircled(index) {
         var num = String.fromCharCode(parseInt(index) + 1 + 12860)
     } else if (index < 50) {
         var num = String.fromCharCode(parseInt(index) + 1 + 12941)
+    }else{
+    var num = parseInt(index) + 1+'.';
     }
     return num;
 }
