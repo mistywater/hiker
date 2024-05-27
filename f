@@ -126,11 +126,11 @@ function numbersCircled(index) {
     } else if (index < 20) {
         var num = String.fromCharCode(parseInt(index) + 1 + 9440);
     } else if (index < 35) {
-        var num = String.fromCharCode(parseInt(index) + 1 + 12860)
+        var num = String.fromCharCode(parseInt(index) + 1 + 12860);
     } else if (index < 50) {
-        var num = String.fromCharCode(parseInt(index) + 1 + 12941)
+        var num = String.fromCharCode(parseInt(index) + 1 + 12941);
     }else{
-    var num = parseInt(index) + 1+'.';
+    var num = '';
     }
     return num;
 }
