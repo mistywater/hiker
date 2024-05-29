@@ -237,9 +237,71 @@ function jinman(picUrl) {
 		return new ByteArrayInputStream(baos.toByteArray());
 	},picUrl);
 }
-function extraPic(hiker, host,ctype) {
-    if(!ctype){var ctype='';}
-    var extra = $.toString((host, hiker,ctype) => ({
+function extraPic(hiker, host, ctype, page, pages) {
+    if (!ctype) var ctype = '';
+    var longClick = [{
+        title: '样式',
+        js: $.toString((host, ctype) => {
+            var Type = ["movie_1", "movie_2", "movie_3", "pic_1", "pic_2", "pic_3", "pic_1_full", "pic_1_center", "pic_1_card", "pic_2_card", "pic_3_square", "card_pic_1", "card_pic_2", "card_pic_3", "card_pic_3_center"];
+            if (getItem(host + ctype + 'type')) {
+                var index = Type.indexOf(getItem(host + ctype + 'type'));
+                Type[index] = '👉' + getItem(host + ctype + 'type');
+            }
+            showSelectOptions({
+                title: "选择样式",
+                col: 2,
+                options: Type,
+                js: $.toString((host, ctype) => {
+                    setItem(host + ctype + 'type', input.replace('👉', ''));
+                    refreshPage();
+                }, host, ctype)
+            });
+            return "hiker://empty";
+        }, host, ctype),
+    }, {
+        title: '下载',
+        js: `'hiker://page/download.view?rule=本地资源管理'`,
+    }, {
+        title: '书架',
+        js: `'hiker://page/Main.view?rule=本地资源管理'`,
+    }, {
+        title: '首页',
+        js: $.toString((host) => {
+            putMyVar(host + 'page', '1');
+            refreshPage(false);
+            return 'hiker://empty';
+        }, host),
+    }, {
+        title: '当前第' + page + '页',
+        js: '',
+    }];
+    if (typeof(pages) != 'undefined' || pages == '') {
+        var arr = [];
+        for (var k = 1; k <= pages; k++) {
+            arr.push(k);
+        }
+        var extra1 = {
+            title: '跳转',
+            js: $.toString((host, arr) => {
+                return $(arr, 3, '选择页码').select((host) => {
+                    putMyVar(host + 'page', input);
+                    refreshPage(false);
+                }, host);
+            }, host, arr),
+        };
+    } else {
+        var extra1 = {
+            title: '跳转',
+            js: $.toString((host) => {
+                return $('').input((host) => {
+                    putMyVar(host + 'page', input);
+                    refreshPage(false);
+                }, host);
+            }, host),
+        };
+    }
+    longClick.push(extra1);
+    var extra = $.toString((host, hiker, ctype, longClick) => ({
         chapterList: hiker ? 'hiker://files/_cache/chapterList.txt' : chapterList,
         info: {
             bookName: MY_URL.split('/')[2],
@@ -248,53 +310,8 @@ function extraPic(hiker, host,ctype) {
             parseCode: downloadlazy,
             defaultView: '1'
         },
-        longClick: [{
-    title: '样式',
-    js: $.toString((host,ctype) => {
-        var Type = ["movie_1", "movie_2", "movie_3", "pic_1", "pic_2", "pic_3", "pic_1_full", "pic_1_center", "pic_1_card", "pic_2_card", "pic_3_square", "card_pic_1", "card_pic_2", "card_pic_3", "card_pic_3_center"];
-        if (getItem(host+ctype + 'type')) {
-            var index = Type.indexOf(getItem(host +ctype + 'type'));
-	    Type[index]='👉'+getItem(host +ctype+ 'type');
-        }
-        showSelectOptions({
-            title: "选择样式",
-            col: 2,
-            options: Type,
-            js: $.toString((host,ctype) => {
-                setItem(host +ctype+ 'type', input.replace('👉',''));
-                refreshPage();
-            }, host,ctype)
-        });
-        return "hiker://empty";
-    }, host,ctype),
-},{
-            title: '下载',
-            js: `'hiker://page/download.view?rule=本地资源管理'`,
-        }, {
-            title: '书架',
-            js: `'hiker://page/Main.view?rule=本地资源管理'`,
-        }, {
-            title: '首页',
-            js: $.toString((host) => {
-                host = host;
-                putMyVar(host + 'page', '1');
-                refreshPage(false);
-                return 'hiker://empty';
-            }, host),
-        }, {
-            title: '当前第' + page + '页',
-            js: '',
-        }, {
-            title: '跳转',
-            js: $.toString((host) => {
-                return $('').input((host) => {
-                    putMyVar(host + 'page', input);
-                    putMyVar(host + 'moveto', '0');
-                    refreshPage(false);
-                }, host);
-            }, host),
-        }, ]
-    }), host, hiker,ctype);
+        longClick: longClick,
+    }), host, hiker, ctype, longClick);
     return extra;
 }
 function imageDecss(key, iv, kiType, mode) {
