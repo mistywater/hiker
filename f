@@ -237,8 +237,9 @@ function jinman(picUrl) {
 		return new ByteArrayInputStream(baos.toByteArray());
 	},picUrl);
 }
-function extraPic(hiker, host, ctype, page, pages) {
+function extraPic(host, page, pages,ctype, hiker) {
     if (!ctype) var ctype = '';
+    if (!hiker||hiker=='') var hiker = '1';
     var longClick = [{
         title: '样式',
         js: $.toString((host, ctype) => {
