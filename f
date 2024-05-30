@@ -33,9 +33,12 @@ function cytrans(text) {
         },
         body: post_data,
     })
-    let result = JSON.parse(res).target;
-    if(/无法翻译/.test(result))  return text;
-    else return result;
+    var result = JSON.parse(res).target;
+    if(/无法翻译/.test(result)) {
+    	return text;
+    }else {
+    	return result;
+    }
 }
 function timestampToDate(timestamp) {
   const date = new Date(timestamp);
