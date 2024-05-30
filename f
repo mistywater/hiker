@@ -1235,7 +1235,7 @@ function fy(s) {
             }
         }
         urls.push({
-            url: 'https://www.iciba.com/_next/data/Oo2lhUMf85DZ7OJMbFn8g/word.json?w=' + strTmp,
+            url: 'https://www.iciba.com/word?w=' + strTmp,
             options: {
                 headers: {
                     'User-Agent': PC_UA,
