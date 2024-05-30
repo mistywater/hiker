@@ -1,4 +1,41 @@
 js:
+function cytrans(text) {
+    var to = 'zh';
+    var from = 'auto';
+
+    function init_data(source_lang, target_lang) {
+        return {
+            source: '',
+            detect: true,
+            os_type: 'ios',
+            device_id: 'F1F902F7-1780-4C88-848D-71F35D88A602',
+            trans_type: source_lang + '2' + target_lang,
+            media: 'text',
+            request_id: 424238335,
+            user_id: '',
+            dict: true,
+        }
+    }
+
+    function getRandomNumber() {
+        const rand = Math.floor(Math.random() * 99999) + 100000;
+        return rand * 1000;
+    }
+    const post_data = init_data(from, to);
+    post_data.source = text;
+    post_data.request_id = getRandomNumber();
+    let res = fetch('https://interpreter.cyapi.cn/v1/translator', {
+        method: 'POST',
+        header: {
+            'Content-Type': 'application/json',
+            'x-authorization': 'token ssdj273ksdiwi923bsd9',
+            'user-agent': 'caiyunInterpreter/5 CFNetwork/1404.0.5 Darwin/22.3.0',
+        },
+        body: post_data,
+    })
+    let result = JSON.parse(res).target;
+    return result;
+}
 function timestampToDate(timestamp) {
   const date = new Date(timestamp);
   const year = date.getFullYear();
