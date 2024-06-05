@@ -110,6 +110,26 @@ function sortSx(arr, name, style, order) {
             else {return 0;}
         }
         var arrNew = arr.sort(compareNumbers);
+	for (var m in arrNew) {
+            if (typeof(name) == 'undefined' || name == '') {
+                var mm = !/\d/.test(arrNew[m]) ? m : '-1';
+            } else {
+                var mm = !/\d/.test(arrNew[m][name]) ? m : '-1';
+            }
+            if (mm > -1) break;
+        }
+        for (var n = arrNew.length - 1; n >= 0; n--) {
+            if (typeof(name) == 'undefined' || name == '') {
+                var nn = !/\d/.test(arrNew[n]) ? n : '-1';
+            } else {
+                var nn = !/\d/.test(arrNew[n][name]) ? n : '-1';
+            }
+            if (nn > -1) break;
+        }
+        if (mm > -1) {
+            var arrTmp = arrNew.splice(m, parseInt(n - m) + 1);
+            arrNew = arrNew.concat(sortSx(arrTmp, 'title', 2));
+        }
     }
 
     if (typeof(order) == 'undefined' || order == '' || order == 0) {} else {
