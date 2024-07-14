@@ -139,6 +139,9 @@ function sortSx(arr, name, style, order) {
 }
 function lunbo(c) {
     return $.toString((c) => {
+    if(typeof(c.type=='undefined')){
+    c.type='影视';
+    }
         var k = c.indexbanner.length;
         var n = '0';
         d.push({
@@ -149,7 +152,7 @@ function lunbo(c) {
             url: pd(c.indexbanner[n], c.url),
             extra: {
                 id: 'lunbo',
-                stype: '影视',
+                stype: c.type,
                 name: pdfh(c.indexbanner[n], c.name),
             }
         });
