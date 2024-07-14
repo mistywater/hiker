@@ -167,10 +167,10 @@ function lunbo(c) {
                 url: urla(pdfh(c.indexbanner[n], c.url), c.host),
                 extra: {
                     id: 'lunbo',
-                    stype: '影视',
+                    stype: c.type,
                     name: pdfh(c.indexbanner[n], c.title),
                 }
-            }, c.name, '影视');
+            }, c.name, c.type);
             updateItem('lunbo', item);
             if (n >= k - 1) {
                 putVar(c.host + 'n', '0');
