@@ -1,6 +1,7 @@
 js:
-function numbersCircledColor(num) {            
-	   if (num == '❶') {
+function numbersCircledColor(num,r) {            
+	if(typeof(r)=='undefined'||!r) {
+    if (num == '❶') {
                 return strongR(num, 'FF2244');
             } else if (num == '❷') {
                 return strongR(num, 'FF6633');
@@ -8,7 +9,21 @@ function numbersCircledColor(num) {
                 return strongR(num, 'FFBB33');
             } else {
                 return strongR(num,'333333');
+            }}else if(r==1){
+	    if (num == '❶') {
+                return strong(num, 'FF2244');
+            } else if (num == '❷') {
+                return strong(num, 'FF6633');
+            } else if (num == '❸') {
+                return strong(num, 'FFBB33');
+            } else {
+                return strong(num,'333333');
             }
+	    }else if(r==2){
+	    
+                return num;
+
+	    }
         }
 function cytrans(text) {
     var to = 'zh';
