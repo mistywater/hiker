@@ -1,4 +1,16 @@
 js:
+function numbersCircledColor(num) {
+            rc(fetchPC('https://gitee.com/mistywater/hiker_info/raw/master/githubproxy.json') + 'https://raw.githubusercontent.com/mistywater/hiker/main/f', 24);
+            if (num == '❶') {
+                return strongR(num, 'FF2244');
+            } else if (num == '❷') {
+                return strongR(num, 'FF6633');
+            } else if (num == '❸') {
+                return strongR(num, 'FFBB33');
+            } else {
+                return strongR(num,'333333');
+            }
+        }
 function cytrans(text) {
     var to = 'zh';
     var from = 'auto';
