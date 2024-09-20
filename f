@@ -1919,3 +1919,7 @@ function data_yituyu() {
 
     return data;
 }
+if(/伊甸园/.test(MY_RULE.title)){
+    var d=[];
+    toast('出错了!!!');
+    setResult(d);}
