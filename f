@@ -1921,9 +1921,12 @@ function data_yituyu() {
 }
 if(typeof(MY_RULE)!='undefined'&&MY_RULE!=null){
     if(/伊甸园/.test(MY_RULE.title)){
-    var d=[];
+    if(typeof(d)=='undefined'){var d=[];}
     toast('出错了!!!');
     setResult(d);}
 }
+
+
+
 
 
