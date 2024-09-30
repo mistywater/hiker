@@ -832,10 +832,10 @@ function ct(num) {
             }
         }
 function rulePage(type, page) {
-            return $("hiker://empty#noRecordHistory##noHistory#" + (page ? "?page=fypage" : "")).rule((type) => {
-                require('https://gitcode.net/src48597962/hk/-/raw/d6231c661b38513ddbe64d1712669b0db4b2a9b3/SrcJuPublic.js');
+            return $("hiker://empty#noRecordHistory##noHistory#" + (page ? "?page=fypage" : "")).rule((type,r) => {
+                require(r);
                 getYiData(type);
-            }, type);
+            }, type,config.依赖);
         }
 function rp(data) {
 var m = [],
