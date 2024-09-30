@@ -216,7 +216,7 @@ function numbersCircled(index) {
     } else if (index < 50) {
         var num = String.fromCharCode(parseInt(index) + 1 + 12941);
     }else{
-    var num = '';
+    var num = parseInt(index)+1+'.';
     }
     return num;
 }
