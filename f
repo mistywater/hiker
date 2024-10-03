@@ -165,38 +165,66 @@ function sortSx(arr, name, style, order) {
 }
 function lunbo(c) {
     return $.toString((c) => {
-    if(typeof(c.type=='undefined')){
-    c.type='影视';
-    }
+        if (typeof(c.type == 'undefined')) {
+            c.type = '影视';
+        }
         var k = c.indexbanner.length;
         var n = '0';
-        d.push({
-            title: color(pdfh(c.indexbanner[n], c.title), 'FF3399'),
-            img: !/##/.test(c.img)?pd(c.indexbanner[n], c.img):eval(c.img.replace('host','c.host').replace('indexbanner','c.indexbanner')),
-            col_type: 'card_pic_1',
-            desc: '0',
-            url: pd(c.indexbanner[n], c.url),
-            extra: {
-                id: 'lunbo',
-                stype: c.type,
-                name: pdfh(c.indexbanner[n], c.name),
-            }
-        });
+        if (c.json == 1) {
+            d.push({
+                title: color(c.indexbanner[n][c.title], 'FF3399'),
+                img: c.indexbanner[n][c.img],
+                col_type: 'card_pic_1',
+                desc: '0',
+                url: c.host + c.url.split('#')[1] + c.indexbanner[n][c.url.split('#')[0]],
+                extra: {
+                    id: 'lunbo',
+                    stype: c.type,
+                    name: c.indexbanner[n][c.title],
+                }
+            });
+        } else {
+            d.push({
+                title: color(pdfh(c.indexbanner[n], c.title), 'FF3399'),
+                img: !/##/.test(c.img) ? pd(c.indexbanner[n], c.img) : eval(c.img.replace('host', 'c.host').replace('indexbanner', 'c.indexbanner')),
+                col_type: 'card_pic_1',
+                desc: '0',
+                url: pd(c.indexbanner[n], c.url),
+                extra: {
+                    id: 'lunbo',
+                    stype: c.type,
+                    name: pdfh(c.indexbanner[n], c.name),
+                }
+            });
+        }
         let id = 'juyue';
         let time = 4000;
         registerTask(id, time, $.toString((c, k) => {
             rc(fc('https://gitee.com/mistywater/hiker_info/raw/master/githubproxy.json') + 'https://raw.githubusercontent.com/mistywater/hiker/main/f', 24);
             var n = getVar(c.host + 'n', '0');
-            var item = toerji({
-                title: color(pdfh(c.indexbanner[n], c.title), 'FF3399'),
-                img: !/##/.test(c.img)?urla(pdfh(c.indexbanner[n], c.img), c.host):eval(c.img.replace('host','c.host').replace('indexbanner','c.indexbanner')),
-                url: urla(pdfh(c.indexbanner[n], c.url), c.host),
-                extra: {
-                    id: 'lunbo',
-                    stype: c.type,
-                    name: pdfh(c.indexbanner[n], c.title),
-                }
-            }, c.name, c.type);
+            if (c.json == 1) {
+                var item = toerji({
+                    title: color(c.indexbanner[n][c.title], 'FF3399'),
+                    img: c.indexbanner[n][c.img],
+                    url: c.host + c.url.split('#')[1] + cindexbanner[n][c.url.split('#')[0]],
+                    extra: {
+                        id: 'lunbo',
+                        stype: c.type,
+                        name: c.indexbanner[n][c.title],
+                    }
+                }, c.name, c.type);
+            } else {
+                var item = toerji({
+                    title: color(pdfh(c.indexbanner[n], c.title), 'FF3399'),
+                    img: !/##/.test(c.img) ? urla(pdfh(c.indexbanner[n], c.img), c.host) : eval(c.img.replace('host', 'c.host').replace('indexbanner', 'c.indexbanner')),
+                    url: urla(pdfh(c.indexbanner[n], c.url), c.host),
+                    extra: {
+                        id: 'lunbo',
+                        stype: c.type,
+                        name: pdfh(c.indexbanner[n], c.title),
+                    }
+                }, c.name, c.type);
+            }
             updateItem('lunbo', item);
             if (n >= k - 1) {
                 putVar(c.host + 'n', '0');
