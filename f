@@ -206,7 +206,7 @@ function lunbo(c) {
                 var item = toerji({
                     title: color(c.indexbanner[n][c.title], 'FF3399'),
                     img: c.indexbanner[n][c.img],
-                    url: c.host + c.url.split('#')[1] + cindexbanner[n][c.url.split('#')[0]],
+                    url: c.host + c.url.split('#')[1] + c.indexbanner[n][c.url.split('#')[0]],
                     extra: {
                         id: 'lunbo',
                         stype: c.type,
