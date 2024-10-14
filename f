@@ -390,7 +390,7 @@ function extraPic(host, page, pages,ctype, hiker) {
         title: '当前第' + page + '页',
         js: '',
     }];
-    if (typeof(pages) != 'undefined' || pages == '') {
+    if (typeof(pages) != 'undefined' && pages) {
         var arr = [];
         for (var k = 1; k <= pages; k++) {
             arr.push(k);
