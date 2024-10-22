@@ -635,53 +635,84 @@ function searchMain(page, d, desc) {
     }
     return d;
 }
-function classTop(index, data, host, d,mode,v,c,f) {
-	    if(!v){
-     		v=0;
-     	    }
-	  if(!c){
-     		c='c';
-     	    }if(!f){
-     		f='scroll_button';
-     	    }else{f='flex_button'}
-            var c_title = data.title.split('&');
-            if (data.id == '') {
-                var c_id = c_title;
-            } else if (data.id == '@@@') {
-                var c_id = data.title.replace(/^.*?&/,'&').split('&');
-		
-            }else{
-                var c_id = data.id.split('&');
-            }
-            c_title.forEach((title, index_c, data) => {
-                d.push({
-                    title: index_c == getMyVar(host +c+ 'index' + index, (mode||index == v ? '0' : '-1')) ? strong(title, 'FF6699') : title,
-                    col_type: f,
-                    url: $('#noLoading#').lazyRule((index, id, index_c, host,mode,title,v,c) => {
-                        if(mode){
-                            putMyVar(host + c + index, id);
-                        
-                        }else{
-                        putMyVar(host + c , id);
-                        for (let n = v; n <= 20; n++) {
-                            putMyVar(host +c+ 'index' + n, '-1');
-                        }}
-			clearMyVar(host + 'page');
-                        clearMyVar(host+'url');
-                        putMyVar(host +c+ 'index' + index, index_c);
-                        refreshPage(false);
-                        return 'hiker://empty';
-                    }, index, c_id[index_c], index_c, host,mode,title,v,c),
-                });
-            });
-            d.push({
-                col_type: 'blank_block',
-            });
-            return d;
+function classTop(index, data, host, d, mode, v, c, f) {
+    if (!v) {
+        v = 0;
+    }
+    if (!c) {
+        c = 'c';
+    }
+    if (!f) {
+        f = 'scroll_button';
+    } else {
+        f = 'flex_button'
+    }
+    if (/\{/.test(JSON.stringify(data))) {
+        var c_title = data.title.split('&');
+        if (data.id == '') {
+            var c_id = c_title;
+        } else if (data.id == '@@@') {
+            var c_id = data.title.replace(/^.*?&/, '&').split('&');
+
+        } else {
+            var c_id = data.id.split('&');
         }
-$.toString(()=>{
-    
-});
+        c_title.forEach((title, index_c, data) => {
+            d.push({
+                title: index_c == getMyVar(host + c + 'index' + index, (mode || index == v ? '0' : '-1')) ? strong(title, 'FF6699') : title,
+                col_type: f,
+                url: $('#noLoading#').lazyRule((index, id, index_c, host, mode, title, v, c) => {
+                    if (mode) {
+                        putMyVar(host + c + index, id);
+
+                    } else {
+                        putMyVar(host + c, id);
+                        for (let n = v; n <= 20; n++) {
+                            putMyVar(host + c + 'index' + n, '-1');
+                        }
+                    }
+                    clearMyVar(host + 'page');
+                    clearMyVar(host + 'url');
+                    putMyVar(host + c + 'index' + index, index_c);
+                    refreshPage(false);
+                    return 'hiker://empty';
+                }, index, c_id[index_c], index_c, host, mode, title, v, c),
+            });
+        });
+        d.push({
+            col_type: 'blank_block',
+        });
+        return d;
+    } else {
+        var c_title = data.split('&');
+        c_title.forEach((title, index_c, data) => {
+            d.push({
+                title: index_c == getMyVar(host + c + 'index' + index, (mode || index == v ? '0' : '-1')) ? strong(title, 'FF6699') : title,
+                col_type: f,
+                url: $('#noLoading#').lazyRule((index, index_c, host, mode, title, v, c) => {
+                    if (mode) {
+                        putMyVar(host + c + index, title);
+
+                    } else {
+                        putMyVar(host + c, title);
+                        for (let n = v; n <= 20; n++) {
+                            putMyVar(host + c + 'index' + n, '-1');
+                        }
+                    }
+                    clearMyVar(host + 'page');
+                    clearMyVar(host + 'url');
+                    putMyVar(host + c + 'index' + index, index_c);
+                    refreshPage(false);
+                    return 'hiker://empty';
+                }, index, index_c, host, mode, title, v, c),
+            });
+        });
+        d.push({
+            col_type: 'blank_block',
+        });
+        return d;
+    }
+}
 
 
 
