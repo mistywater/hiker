@@ -1,4 +1,21 @@
 js:
+function tabsWeek() {
+    return $.toString(() => {
+        var week = new Date().getDay();
+        var weeks = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
+        weeks.forEach((item1, index1) => {
+            d.push({
+                title: index1 == getMyVar(host + '_index_new', week + '') ? strong((index1 == ((week - 1) == -1 ? 6 : week - 1) ? '今日' : item1), 'ff6699') : (index1 == ((week - 1) == -1 ? 6 : week - 1) ? '今日' : item1),
+                col_type: 'scroll_button',
+                url: $('#noLoading#').lazyRule((host, index1) => {
+                    putMyVar(host + '_index_new', index1 + '');
+                    refreshPage(false);
+                    return 'hiker://empty';
+                }, host, index1),
+            });
+        });
+    });
+}
 function numbersCircledColor(num,r) {            
 	if(typeof(r)=='undefined'||!r) {
     if (num == '❶') {
