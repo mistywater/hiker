@@ -182,7 +182,7 @@ function sortSx(arr, name, style, order) {
 }
 function lunbo(c) {
     return $.toString((c) => {
-        if (typeof(c.type == 'undefined')) {
+        if (typeof(c.type) == 'undefined') {
             c.type = '影视';
         }
         var k = c.indexbanner.length;
