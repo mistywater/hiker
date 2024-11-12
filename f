@@ -1,4 +1,39 @@
 js:
+function yanzheng(str) {
+    return `d.push({
+            title: '人机验证',
+            url: $('hiker://empty').rule((host) => {
+                var d = [];
+                d.push({
+                    col_type: 'x5_webview_single',
+                    url: host,
+                    desc: 'list&&screen',
+                    extra: {
+                        ua: MOBILE_UA,
+                        showProgress: false,
+                        js: $.toString(( host) => {
+                            function check() {
+                                let nodes = document.querySelectorAll('${str}');
+                                var co = fba.getCookie(host);
+                                if (nodes && nodes.length > 0 && co ) {
+                                    fba.putVar(host + 'ck', co);
+                                    //fba.log(fba.getVar(host + 'ck'));
+                                    fba.parseLazyRule($$$().lazyRule(() => {
+                                        back();
+                                    }));
+                                } else {
+                                    setTimeout(check, 500);
+                                }
+                            }
+                            check();
+                        },  host)
+                    }
+                });
+                return setResult(d);
+            }, host),
+            col_type: 'text_1'
+        });`;
+}
 function tabsWeek() {
     return $.toString(() => {
         var week = new Date().getDay();
