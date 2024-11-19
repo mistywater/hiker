@@ -1175,7 +1175,7 @@ function en(key, iv, data, mode, encoding) {
         var s0 = mode.split('/')[0];
         var s1 = mode.split('/')[1];
         var s2 = mode.split('/')[2];
-        s2 = s2.replace(/Padding/, '').replace(/KCS/, 'kcs');
+        s2 = s2.replace(/PKCS7Padding/, 'PKCS7').replace(/KCS/, 'kcs');
         key = CryptoJS.enc.Utf8.parse(key);
         if (iv) iv = CryptoJS.enc.Utf8.parse(iv);
 
@@ -1195,7 +1195,7 @@ function en(key, iv, data, mode, encoding) {
             if (!encoding) {
                 return encrypted.toString();
             } else {
-                return encrypted.toString(CryptoJS.enc.Base64);
+                return encrypted.toString(CryptoJS.enc[encoding]);
             }
         };
         return En(data, encoding);
@@ -1207,7 +1207,7 @@ function de(key, iv, data, mode, encoding) {
         var s0 = mode.split('/')[0];
         var s1 = mode.split('/')[1];
         var s2 = mode.split('/')[2];
-        s2 = s2.replace(/Padding/, '').replace(/KCS/, 'kcs');
+        s2 = s2.replace(/PKCS7Padding/, 'PKCS7').replace(/KCS/, 'kcs');
         key = CryptoJS.enc.Utf8.parse(key);
         if (iv) iv = CryptoJS.enc.Utf8.parse(iv);
 
@@ -1227,7 +1227,7 @@ function de(key, iv, data, mode, encoding) {
             if (!encoding) {
                 return decrypted.toString(CryptoJS.enc.Utf8);
             } else {
-                return decrypted.toString(CryptoJS.enc.Base64);
+                return decrypted.toString(CryptoJS.enc[encoding]);
             }
         };
         return De(data, encoding);
