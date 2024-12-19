@@ -696,8 +696,6 @@ function classTop(index, data, host, d, mode, v, c, f,len) {
     }
     if (!f) {
         f = 'scroll_button';
-    } else {
-        f = 'flex_button'
     }
     if (!len) {
         len = 20;
