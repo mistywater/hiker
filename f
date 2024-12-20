@@ -1,4 +1,8 @@
 js:
+function bcRandom() {
+    var str =  '#' + (((Math.random() * 0x1000000 << 0).toString(16)).substr(-6)).padStart(6, ‌Math.ceil‌(Math.random() * 16).toString(16));
+    return str;
+}
 function yanzheng(str) {
     return `d.push({
             title: '人机验证',
