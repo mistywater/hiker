@@ -448,9 +448,13 @@ function extraPic(host, page, pages,ctype, hiker) {
     }];
     if (typeof(pages) != 'undefined' && pages) {
         var arr = [];
-        for (var k = 1; k <= pages; k++) {
+        if(pages<=200){for(var k=1;k<=pages;k++){
             arr.push(k);
-        }
+        }}else if(pages<=1000){for(var k=1;k<=pages;k=k+5){
+            arr.push(k);
+        }}else {for(var k=1;k<=pages;k=k+10){
+            arr.push(k);
+        }}
         var extra1 = {
             title: '跳转',
             js: $.toString((host, arr) => {
@@ -647,9 +651,13 @@ function pageMoveto(host, page, ctype,pages) {
     if(typeof(pages)!='undefined'){
         
         var arr=[];
-        for(var k=1;k<=pages;k++){
+        if(pages<=200){for(var k=1;k<=pages;k++){
             arr.push(k);
-        }
+        }}else if(pages<=1000){for(var k=1;k<=pages;k=k+5){
+            arr.push(k);
+        }}else {for(var k=1;k<=pages;k=k+10){
+            arr.push(k);
+        }}
         var extra1={
             title: '跳转',
             js: $.toString((host,arr) => {
