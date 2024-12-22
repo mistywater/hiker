@@ -407,9 +407,9 @@ function jinman(picUrl) {
 		return new ByteArrayInputStream(baos.toByteArray());
 	},picUrl);
 }
-function extraPic(host, page, pages,ctype, hiker) {
+function extraPic(host, page, pages, ctype, hiker) {
     if (!ctype) var ctype = '';
-    if (!hiker||hiker=='') var hiker = '1';
+    if (!hiker || hiker == '') var hiker = '1';
     var longClick = [{
         title: '样式',
         js: $.toString((host, ctype) => {
@@ -447,20 +447,34 @@ function extraPic(host, page, pages,ctype, hiker) {
         js: '',
     }];
     if (typeof(pages) != 'undefined' && pages) {
-        var arr = [];
-        if(pages<=200){for(var k=1;k<=pages;k++){
-            arr.push(k);
-        }}else if(pages<=1000){for(var k=1;k<=pages;k=k+5){
-            arr.push(k);
-        }}else {for(var k=1;k<=pages;k=k+10){
-            arr.push(k);
-        }}
+        var arr = ['输入页码'];
+        if (pages <= 200) {
+            for (var k = 1; k <= pages; k++) {
+                arr.push(k);
+            }
+        } else if (pages <= 1000) {
+            for (var k = 1; k <= pages; k = k + 5) {
+                arr.push(k);
+            }
+        } else {
+            for (var k = 1; k <= pages; k = k + 10) {
+                arr.push(k);
+            }
+        }
         var extra1 = {
             title: '跳转',
             js: $.toString((host, arr) => {
                 return $(arr, 3, '选择页码').select((host) => {
-                    putMyVar(host + 'page', input);
-                    refreshPage(false);
+                    if (input == '输入页码') {
+                        return $('').input((host) => {
+                            putMyVar(host + 'page', input);
+                            refreshPage(false);
+                        }, host);
+                    } else {
+                        putMyVar(host + 'page', input);
+                        refreshPage(false);
+                        return 'hiker://empty';
+                    }
                 }, host);
             }, host, arr),
         };
@@ -650,7 +664,7 @@ function pageMoveto(host, page, ctype,pages) {
         }, ];
     if(typeof(pages)!='undefined'){
         
-        var arr=[];
+        var arr = ['输入页码'];
         if(pages<=200){for(var k=1;k<=pages;k++){
             arr.push(k);
         }}else if(pages<=1000){for(var k=1;k<=pages;k=k+5){
@@ -658,14 +672,22 @@ function pageMoveto(host, page, ctype,pages) {
         }}else {for(var k=1;k<=pages;k=k+10){
             arr.push(k);
         }}
-        var extra1={
+        var extra1 = {
             title: '跳转',
-            js: $.toString((host,arr) => {
-                return $(arr,3,'选择页码').select((host) => {
-                    putMyVar(host + 'page', input);
-                    refreshPage(false);
+            js: $.toString((host, arr) => {
+                return $(arr, 3, '选择页码').select((host) => {
+                    if (input == '输入页码') {
+                        return $('').input((host) => {
+                            putMyVar(host + 'page', input);
+                            refreshPage(false);
+                        }, host);
+                    } else {
+                        putMyVar(host + 'page', input);
+                        refreshPage(false);
+                        return 'hiker://empty';
+                    }
                 }, host);
-            }, host,arr),
+            }, host, arr),
         };
         
     }else{
