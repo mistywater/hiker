@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple HTML5 Video Player</title>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+            touch-action: pan-y;
+            text-align: center;
+        }
+        .app {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            bottom: 0px;
+            left: 0px;
+            overflow: hidden;
+            background-color: #ffffff;
+        }
+        #myVideo {
+            width: 90%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center center;
+            z-index: 10;
+            border-radius: 20px;
+        }
+    </style>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.1/jquery.min.js"></script> 
+    
+</head>
+<body>
+    <video id="myVideo" loop="loop" muted="muted" preload="auto" autoplay="autoplay" poster="https://hikerfans.com/weisyr/img/Loading1.gif" src="" >
+    </video>
+    <script>
+function contentLoaded() {
+    var videoLink = localStorage.getItem("lastVideoLink").replace('@@', '')
+    var player = document.getElementById("myVideo");
+    if (navigator.onLine) {
+        players();
+    } else {
+        player.src = videoLink;
+    } return player.src;
+}
+document.addEventListener("DOMContentLoaded", eval(contentLoaded), false);
+window.addEventListener("online", eval(contentLoaded), false);
+window.addEventListener("offline", eval(contentLoaded), false);
+player = document.getElementById("myVideo");
+player.addEventListener("dblclick", function() {
+    fba.parseLazyRule($$$().lazyRule(() => {
+        var t = fetchPC('hiker://files/cache/lunbo.txt');;
+        if (t == '1') {
+            writeFile('hiker://files/cache/lunbo.txt', '0');
+            unRegisterTask('zhuye');
+            toast('已停止视频轮播~');
+        } else if (t == '0') {
+            writeFile('hiker://files/cache/lunbo.txt', '1');
+            toast('已开启视频轮播~');
+            refreshPage();
+        } else if (t == '') {
+            writeFile('hiker://files/cache/lunbo.txt', '0');
+            unRegisterTask('zhuye');
+            toast('已停止视频轮播~');
+        }
+    }));
+});
+const LONG_PRESS_DURATION = 1000;
+let isTouching = false;
+let longPressTimer = null;
+function setupLongPress(player, callback,) {
+    player.addEventListener('touchstart', function(e) {
+        isTouching = true;
+        longPressTimer = setTimeout(function() {
+            isTouching = false;
+            callback(e); 
+        }, LONG_PRESS_DURATION);
+    });
+    player.addEventListener('touchend', function(e) {
+        if (isTouching) {
+            clearTimeout(longPressTimer);
+            isTouching = false;
+        }
+    });
+}
+setupLongPress(player, function() {
+    fba.parseLazyRule($$$().lazyRule((player) => {
+        writeFile('hiker://files/yuan/xx.txt', '0');
+            toast('切换到图片轮播~');
+            refreshPage();
+    }));
+});
+eval(fy_bridge_app.getInternalJs());
+window.request = window.request00 || window.request;    
+$(document).ready(function () {
+    var y = Math.floor(Math.random() * 32) + 1
+    url = 'http://api.yujn.cn/api/xjj.php?type=video';
+    player = document.getElementById("myVideo");
+    player.style.Width = '1000px';
+    player.style.height = '2000px';
+    function players() {
+        $.get(url, function(data, status) {
+            if (status == status) {
+                var x = Math.floor(Math.random() * 16);
+                url = 'http://api.yujn.cn/api/xjj.php?type=video';
+                $.get(url, function(data, status) {
+                    if (status == status) {           
+                        data = 'http://api.yujn.cn/api/xjj.php?type=video';
+                        player.src = data;
+                        player.play();
+                    } else {
+                        console.log("失败，重新发起请求！");
+                        players();
+                    }
+                });
+            } else {
+                console.log("失败，重新发起请求！");
+                players();
+            }
+        });
+    }  
+    $("#myVideo").on("error", function() {
+        players();
+    });  
+});  
+   
+let time = new Date().getDate().toString();
+if (localStorage.getItem('time', '') != time) { 
+    localStorage.setItem('time', time);
+    var 本地 = 'hiker://files/yuan/xjj.html';
+    var 远程 = 'https://gitee.com/mistywater/hiker_info/raw/master/xjj.html';  
+    if (request(远程) != request(本地)) {
+      fba.writeFile(本地, request(远程));    
+      $$$().x5LazyRule(() => {
+		confirm({
+		 title: '更新完成',
+	     content: '欢迎使用',
+		})
+	  })   
+    }   
+  }     
+    </script>
+</body>
+</html>
