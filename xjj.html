@@ -51,9 +51,9 @@ document.addEventListener("DOMContentLoaded", eval(contentLoaded), false);
 window.addEventListener("online", eval(contentLoaded), false);
 window.addEventListener("offline", eval(contentLoaded), false);
 player = document.getElementById("myVideo");
-player.addEventListener("lclick", function() {
+player.addEventListener("click", function() {
    
-            refreshPage();
+           location.reload();
         
 });
 const LONG_PRESS_DURATION = 1000;
@@ -83,10 +83,10 @@ eval(fy_bridge_app.getInternalJs());
 window.request = window.request00 || window.request;    
 $(document).ready(function () {
     var y = Math.floor(Math.random() * 32) + 1
-    url = 'http://api.yujn.cn/api/xjj.php?type=video';
+    url = 'https://p.txqq.pro/api/girls?limit=20/girl?limit=10';
     player = document.getElementById("myVideo");
     player.style.Width = '200px';
-    player.style.height = '400px';
+    player.style.height = '500px';
     function players() {
         $.get(url, function(data, status) {
             if (status == status) {
@@ -94,7 +94,7 @@ $(document).ready(function () {
                 url = 'http://api.yujn.cn/api/xjj.php?type=video';
                 $.get(url, function(data, status) {
                     if (status == status) {           
-                        data = 'http://api.yujn.cn/api/xjj.php?type=video';
+                        data=data.match(/(https.*?)"/)[1];
                         player.src = data;
                         player.play();
                     } else {
