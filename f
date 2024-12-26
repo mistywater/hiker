@@ -1,4 +1,26 @@
 js:
+function baiduTrans(content, mode) {
+    if (typeof(mode) == 'undefined' || !mode) {
+        var body = `{"query":"${content}","from":"en","to":"zh","reference":"","corpusIds":[],"needPhonetic":false,"domain":"ai_advanced","milliTimestamp":${new Date().getTime()}}`
+    } else if (mode == 1) {
+        var body = `{"query":"${content}","from":"zh","to":"en","reference":"","corpusIds":[],"needPhonetic":false,"domain":"ai_advanced","milliTimestamp":${new Date().getTime()}}`
+
+    } else {
+        var body = `{"query":"${content}","from":"${mode.split('2')[0]}","to":"${mode.split('2')[1]}","reference":"","corpusIds":[],"needPhonetic":false,"domain":"ai_advanced","milliTimestamp":${new Date().getTime()}}`
+
+    }
+    var result = post("https://fanyi.baidu.com/ait/text/translate", {
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        body: body
+    });
+    try {
+        return result.match(/dst":"(.*?)"/)[1];
+    } catch (e) {
+        return content;
+    }
+}
 function bcRandom() {
     var str =  '#' + (((Math.random() * 0x1000000 << 0).toString(16)).substr(-6)).padStart(6, ‌Math.ceil‌(Math.random() * 16).toString(16));
     return str;
