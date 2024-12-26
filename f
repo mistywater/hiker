@@ -81,8 +81,12 @@ function numbersCircledColor(num,r) {
 
 	    }
         }
-function cytrans(text) {
-    var to = 'zh';
+function cytrans(text,mode) {
+   if (typeof(mode) == 'undefined' || !mode) {
+                var to = 'zh';
+            } else {
+                var to = mode;
+            }
     var from = 'auto';
 
     function init_data(source_lang, target_lang) {
