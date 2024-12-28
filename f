@@ -1,4 +1,25 @@
 js:
+function bcLongClick(){
+	return [{
+            title: '背景色样式',
+            js: $.toString(() => {
+                var Type = ["深色模式", "浅色模式", "浅色白字模式"];
+                if (getItem('darkMode')) {
+                    var index = Type.indexOf(getItem('darkMode'));
+                    Type[index] = '👉' + getItem('darkMode');
+                }
+                showSelectOptions({
+                    title: "选择样式",
+                    col: 3,
+                    options: Type,
+                    js: $.toString(() => {
+                        setItem('darkMode', input.replace('👉', ''));
+                        refreshPage();
+                    }, )
+                });
+            }),
+        }];
+}
 function bcRandom(darkMode) {
     if (typeof(darkMode) == 'undefined' || !darkMode) {
         darkMode = '深色模式';
