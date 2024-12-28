@@ -1,4 +1,107 @@
 js:
+function bcRandom(darkMode) {
+    if (typeof(darkMode) == 'undefined' || !darkMode) {
+        darkMode = '深色模式';
+    }
+    // 确保生成的颜色值差异较大以提高对比度
+    if (darkMode == '浅色模式') {
+        for (var k = 1; k <= 999; k++) {
+            var r = Math.floor(Math.random() * 256);
+            if (r <= 180) {
+                var g = 180 - r;
+            } else {
+                var g = Math.floor(Math.random() * 256);
+            }
+
+            for (var m = 1; m <= 999; m++) {
+                var b = Math.floor(Math.random() * 256);
+                if (g + r <= 128 && b >= 128 - Math.abs(r - g)) {
+                    continue
+                } else {
+                    break;
+                }
+            }
+        }
+        return '#' + r.toString(16).padStart(2, '0') + g.toString(16).padStart(2, '0') + b.toString(16).padStart(2, '0');
+    } else if (darkMode == '浅色白字模式') {
+        var s = 40 + Math.floor(Math.random() * 61);
+        var h = Math.floor(Math.random() * 360);
+        for (var k = 1; k <= 999; k++) {
+            var v = 20 + Math.floor(Math.random() * 71);
+            if ((((h >= 40 && h <= 70) || (h >= 170 && h <= 210)) && v >= 60) || ((h >= 210 && h <= 280) && v <= 60)) {
+                continue;
+            } else {
+                break;
+            }
+        }
+        return hsvToHex(h, s, v);
+        /*for (var k = 1; k <= 999; k++) {
+            var r = Math.floor(Math.random() * 255);
+            for (let m = 1; m <= 999; m++) {
+                var g = Math.floor(Math.random() * 255);
+                if (Math.abs(r - g) <= 50) {
+                    continue
+                } else {
+                    break;
+                }
+            }
+            for (let m = 1; m <= 999; m++) {
+                var b = Math.floor(Math.random() * 255);
+                if ((Math.abs(b - g) <= 30 && Math.abs(b - r) <= 30) || (r >= 180 && g >= 180 & b >= 180)) {
+                    continue
+                } else {
+                    break;
+                }
+            }
+        }
+        return '#' + r.toString(16).padStart(2, '0') + g.toString(16).padStart(2, '0') + b.toString(16).padStart(2, '0');
+*/
+    } else if (darkMode == '深色模式') {
+        var str = '#' + (((Math.random() * 0x1000000 << 0).toString(16)).substr(-6)).padStart(6, ‌Math.ceil‌(Math.random() * 16).toString(16));
+        return str;
+    }
+}
+function hsvToHex(h, s, v) {
+    // 将HSV转换为RGB
+    let r, g, b, i, f, p, q, t;
+    if (arguments.length === 1) {
+        s = h.s, v = h.v, h = h.h;
+    }
+    h = h / 360;
+    s = s / 100;
+    v = v / 100;
+    i = Math.floor(h * 6);
+    f = h * 6 - i;
+    p = v * (1 - s);
+    q = v * (1 - f * s);
+    t = v * (1 - (1 - f) * s);
+
+    switch (i % 6) {
+        case 0:
+            r = v, g = t, b = p;
+            break;
+        case 1:
+            r = q, g = v, b = p;
+            break;
+        case 2:
+            r = p, g = v, b = t;
+            break;
+        case 3:
+            r = p, g = q, b = v;
+            break;
+        case 4:
+            r = t, g = p, b = v;
+            break;
+        case 5:
+            r = v, g = p, b = q;
+            break;
+    }
+    // 将RGB转换为十六进制颜色代码
+    const hexR = Math.round(r * 255).toString(16).padStart(2, '0');
+    const hexG = Math.round(g * 255).toString(16).padStart(2, '0');
+    const hexB = Math.round(b * 255).toString(16).padStart(2, '0');
+    return `#${hexR}${hexG}${hexB}`.toUpperCase();
+}
 function baiduTrans(content, mode) {
     if (typeof(mode) == 'undefined' || !mode) {
         var body = `{"query":"${content}","from":"en","to":"zh","reference":"","corpusIds":[],"needPhonetic":false,"domain":"ai_advanced","milliTimestamp":${new Date().getTime()}}`
@@ -21,10 +124,10 @@ function baiduTrans(content, mode) {
         return content;
     }
 }
-function bcRandom() {
+/*function bcRandom() {
     var str =  '#' + (((Math.random() * 0x1000000 << 0).toString(16)).substr(-6)).padStart(6, ‌Math.ceil‌(Math.random() * 16).toString(16));
     return str;
-}
+}*/
 function yanzheng(str) {
     return `d.push({
             title: '人机验证',
