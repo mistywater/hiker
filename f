@@ -1380,7 +1380,7 @@ function en(key, iv, data, mode, encoding) {
             if (!encoding) {
                 return encrypted.ciphertext.toString();
             } else {
-                encrypted.ciphertext.toString(CryptoJS.enc[encoding]);
+                return encrypted.ciphertext.toString(CryptoJS.enc[encoding]);
             }
         };
         return En(data, encoding);
