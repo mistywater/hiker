@@ -1378,9 +1378,9 @@ function en(key, iv, data, mode, encoding) {
                 });
             }
             if (!encoding) {
-                return encrypted.toString();
+                return encrypted.ciphertext.toString();
             } else {
-                return encrypted.toString(CryptoJS.enc[encoding]);
+                encrypted.ciphertext.toString(CryptoJS.enc[encoding]);
             }
         };
         return En(data, encoding);
