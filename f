@@ -1409,11 +1409,9 @@ function de(key, iv, data, mode, encoding) {
                     padding: CryptoJS.pad[s2]
                 });
             }
-            if (!encoding) {
+            
                 return decrypted.toString(CryptoJS.enc.Utf8);
-            } else {
-                return decrypted.toString(CryptoJS.enc[encoding]);
-            }
+            
         };
         return De(data, encoding);
     }
