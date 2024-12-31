@@ -871,7 +871,7 @@ function searchMain(page, d, desc) {
     }
     return d;
 }
-function classTop(index, data, host, d, mode, v, c, f,len) {
+function classTop(index, data, host, d, mode, v, c, f,len,start,end) {
     if (!v) {
         v = 0;
     }
@@ -914,6 +914,7 @@ function classTop(index, data, host, d, mode, v, c, f,len) {
                     refreshPage(false);
                     return 'hiker://empty';
                 }, index, c_id[index_c], index_c, host, mode, title, v, c,len),
+		extra:{backgroundColor:index>=start&&index<=end?bcRandom(getItem('darkMode')):'',LongClick:index>=start&&index<=end?bcLongClick():[],}
             });
         });
         d.push({
@@ -942,6 +943,7 @@ function classTop(index, data, host, d, mode, v, c, f,len) {
                     refreshPage(false);
                     return 'hiker://empty';
                 }, index, index_c, host, mode, title, v, c,len),
+		extra:{backgroundColor:index>=start&&index<=end?bcRandom(getItem('darkMode')):'',LongClick:index>=start&&index<=end?bcLongClick():[],}
             });
         });
         d.push({
