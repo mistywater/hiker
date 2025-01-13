@@ -896,7 +896,7 @@ function classTop(index, data, host, d, mode, v, c, f,len,start,end) {
         }
         c_title.forEach((title, index_c, data) => {
             d.push({
-                title: index_c == getMyVar(host + c + 'index' + index, (mode || index == v ? '0' : '-1')) ? strong(title, 'FF6699') : (getItem('darkMode', '深色模式') == '浅色白字模式'?color(title,'FFFFFF'):title),
+                title: index_c == getMyVar(host + c + 'index' + index, (mode || index == v ? '0' : '-1')) ? (index>=start&&index<=end?strong(title, 'FFFF00'):strong(title, 'FF6699')) : (getItem('darkMode', '深色模式') == '浅色白字模式'&&index>=start&&index<=end?color(title,'FFFFFF'):title),
                 col_type: f,
                 url: $('#noLoading#').lazyRule((index, id, index_c, host, mode, title, v, c,len) => {
                     if (mode) {
@@ -925,7 +925,7 @@ function classTop(index, data, host, d, mode, v, c, f,len,start,end) {
         var c_title = data.split('&');
         c_title.forEach((title, index_c, data) => {
             d.push({
-                title: index_c == getMyVar(host + c + 'index' + index, (mode || index == v ? '0' : '-1')) ? strong(title, 'FF6699') : (getItem('darkMode', '深色模式') == '浅色白字模式'?color(title,'FFFFFF'):title),
+                title: index_c == getMyVar(host + c + 'index' + index, (mode || index == v ? '0' : '-1')) ? (index>=start&&index<=end?strong(title, 'FFFF00'):strong(title, 'FF6699')) : (getItem('darkMode', '深色模式') == '浅色白字模式'&&index>=start&&index<=end?color(title,'FFFFFF'):title),
                 col_type: f,
                 url: $('#noLoading#').lazyRule((index, index_c, host, mode, title, v, c,len) => {
                     if (mode) {
