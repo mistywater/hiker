@@ -640,6 +640,18 @@ function extraPic(host, page, pages, ctype, hiker) {
         };
     }
     longClick.push(extra1);
+   longClick.unshift({
+                    title: getItem(host + 'picsMode', '0') == 0 ? '漫画模式' : '图文模式',
+                    js: $.toString((host) => {
+                        if (getItem(host + 'picsMode', '0') == 0) {
+                            setItem(host + 'picsMode', '1');
+                            refreshPage(false);
+                        } else {
+                            setItem(host + 'picsMode', '0');
+                            refreshPage(false);
+                        }
+                    }, host)
+                });
     var extra = $.toString((host, hiker, ctype, longClick) => ({
         chapterList: hiker ? 'hiker://files/_cache/chapterList.txt' : chapterList,
         info: {
@@ -851,7 +863,18 @@ function pageMoveto(host, page, ctype,pages) {
             }, host),
         };
     }
-    longClick.push(extra1)
+    longClick.push(extra1);longClick.unshift({
+                    title: getItem(host + 'picsMode', '0') == 0 ? '漫画模式' : '图文模式',
+                    js: $.toString((host) => {
+                        if (getItem(host + 'picsMode', '0') == 0) {
+                            setItem(host + 'picsMode', '1');
+                            refreshPage(false);
+                        } else {
+                            setItem(host + 'picsMode', '0');
+                            refreshPage(false);
+                        }
+                    }, host)
+                });
     return {longClick:longClick};
 }
 function searchMain(page, d, desc) {
