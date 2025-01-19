@@ -392,7 +392,7 @@ function lunbo(c) {
         } else {
             d.push({
                 title: color(pdfh(c.indexbanner[n], c.title), 'FF3399'),
-                img: (!/##/.test(c.img) ? pd(c.indexbanner[n], c.img) : eval(c.img.replace('host', 'c.host').replace('indexbanner', 'c.indexbanner')))+ '@Referer='+host,
+                img: (!/##/.test(c.img) ? pd(c.indexbanner[n], c.img) : eval(c.img.replace('host', 'c.host').replace('indexbanner', 'c.indexbanner')))+ '@Referer='+c.host,
                 col_type: 'card_pic_1',
                 desc: '0',
                 url: pd(c.indexbanner[n], c.url),
@@ -422,7 +422,7 @@ function lunbo(c) {
             } else {
                 var item = toerji({
                     title: color(pdfh(c.indexbanner[n], c.title), 'FF3399'),
-                    img: !/##/.test(c.img) ? urla(pdfh(c.indexbanner[n], c.img), c.host) : eval(c.img.replace('host', 'c.host').replace('indexbanner', 'c.indexbanner')),
+                    img: (!/##/.test(c.img) ? urla(pdfh(c.indexbanner[n], c.img), c.host) : eval(c.img.replace('host', 'c.host').replace('indexbanner', 'c.indexbanner')))+ '@Referer='+c.host,
                     url: urla(pdfh(c.indexbanner[n], c.url), c.host),
                     extra: {
                         id: 'lunbo',
