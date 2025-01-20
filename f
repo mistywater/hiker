@@ -1878,13 +1878,14 @@ var sort_data = [{
     name: '时长最长',
     url: '/sort-length'
 }];
-var cphoto = [[{
+var cphoto = [
+    [{
         name: '全部情色套图',
         url: domain + '/photos/kind-1/1.html'
-    },{
+    }, {
         name: '全部情色套图',
         url: domain + '/photos/kind-1/1.html'
-    },{
+    }, {
         name: 'AI图区',
         url: domain + '/photos/series-6443d480eb757/1.html'
     }],
@@ -1919,7 +1920,7 @@ var cphoto = [[{
         name: '女同主题',
         url: domain + '/photos/album-9/1.html'
     }, {
-        name: 丝袜内衣主题',
+        name: '丝袜内衣主题',
         url: domain + '/photos/album-10/1.html'
     }, {
         name: '有视频',
@@ -1927,10 +1928,11 @@ var cphoto = [[{
     }, {
         name: '业余自拍',
         url: domain + '/photos/album-12/1.html'
-    }],[{
+    }],
+    [{
         name: '秀人网旗下',
         url: domain + '/photos/series-63959b9c87149/1.html'
-    },  {
+    }, {
         name: '秀人网旗下(14099)',
         url: domain + '/photos/series-63959b9c87149/1.html'
     }, {
@@ -1982,7 +1984,7 @@ var cphoto = [[{
     [{
         name: '中国工作室(4094)',
         url: ''
-    },{
+    }, {
         name: 'PANS(1199)',
         url: domain + '/photos/series-6310ce9b90056/1.html'
     }, {
@@ -2066,103 +2068,98 @@ var cphoto = [[{
     }, {
         name: 'AI图区(38)',
         url: domain + '/photos/series-6443d480eb757/1.html'
-    }],[
-    {
+    }],
+    [{
         name: '日本工作室(746)',
         url: domain + '/photos/series-6395a1e929f23/1.html'
-    } ,{
+    }, {
         name: 'Graphis(231)',
         url: domain + '/photos/series-6450b47c9db0b/1.html'
-    } ,{
+    }, {
         name: 'KUNI Scan(144)',
         url: domain + '/photos/series-66f9665804471/1.html'
-    },{
+    }, {
         name: 'FRIDAY(85)',
         url: domain + '/photos/series-66659e2d94489/1.html'
-    },{
+    }, {
         name: 'Prestige(60)',
         url: domain + '/photos/series-670791f5f2f0f/1.html'
-    },{
+    }, {
         name: 'Escape(57)',
         url: domain + '/photos/series-66603af933ec9/1.html'
-    },{
+    }, {
         name: '周刊ポストデジタル写真集（每周数码摄影）(42)',
         url: domain + '/photos/series-66e68b9c96ab0/1.html'
-    },{
+    }, {
         name: 'アサ芸SEXY(32)',
         url: domain + '/photos/series-670d7142b3d88/1.html'
-    },{
+    }, {
         name: 'Super Pose Book(31)',
         url: domain + '/photos/series-62a0a15911f16/1.html'
-    },{
+    }, {
         name: 'Urabon(29)',
         url: domain + '/photos/series-6692ea004cc75/1.html'
-    },{
+    }, {
         name: 'X-City(26)',
         url: domain + '/photos/series-66fb8cca706ae/1.html'
-    },{
+    }, {
         name: 'FLASHデジタル写真集(9)',
         url: domain + '/photos/series-672a2029d6a32/1.html'
-    }
-    ],[
-    {
+    }],
+    [{
         name: '韩国工作室(512)',
         url: domain + '/photos/series-665f6627c7295/1.html'
-    } ,{
+    }, {
         name: 'ArtGravia(199)',
         url: domain + '/photos/series-60a4a953ca563/1.html'
-    } ,{
+    }, {
         name: 'Pure Media(146)',
         url: domain + '/photos/series-6224e755e21f4/1.html'
-    },{
+    }, {
         name: 'Makemodel(106)',
         url: domain + '/photos/series-665f81885f103/1.html'
-    },{
+    }, {
         name: 'Espacia Korea(42)',
         url: domain + '/photos/series-665a2385a2367/1.html'
-    },{
+    }, {
         name: 'Loozy(19)',
         url: domain + '/photos/series-62888afad416b/1.html'
-    }
-    ],[
-    {
+    }],
+    [{
         name: '台湾工作室(512)',
         url: domain + '/photos/series-665f7c561767e/1.html'
-    } ,{
+    }, {
         name: 'JVID(318)',
         url: domain + '/photos/series-637b2029d2347/1.html'
-    } ,{
+    }, {
         name: 'Fantasy Factory(42)',
         url: domain + '/photos/series-5f889afb37619/1.html'
-    },{
+    }, {
         name: 'TPimage(23)',
         url: domain + '/photos/series-5f7a0a80d3d66/1.html'
-    },[
-    {
+    }],
+    [{
         name: '各国其他套图(512)',
         url: domain + '/photos/series-618e4909ea9b6/1.html'
-    } ,{
+    }, {
         name: '国模套图(4838)',
         url: domain + '/photos/series-64be21c972ca4/1.html'
-    } ,{
-        name: 日模套图(535)',
+    }, {
+        name: '日模套图(535)',
         url: domain + '/photos/series-64be2283bf3af/1.html'
-    },{
+    }, {
         name: '韩模套图(366)',
         url: domain + '/photos/series-64be22b4a0fa0/1.html'
-    },{
+    }, {
         name: '台模套图(252)',
         url: domain + '/photos/series-64be21ef4cc51/1.html'
-    },{
+    }, {
         name: '港模套图(93)',
         url: domain + '/photos/series-64be224b662c0/1.html'
-    },{
+    }, {
         name: '其他地区套图(14)',
         url: domain + '/photos/series-64be239ce73d4/1.html'
-    }
-    ],
-    ]
-    
+    }]
 ];
 var cfiction = [{
     name: '全部小说(15511)',
