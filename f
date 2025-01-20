@@ -1931,10 +1931,10 @@ var cphoto = [
     }],
     [{
         name: '秀人网旗下',
-        url: domain + '/photos/series-63959b9c87149/1.html'
+        url: domain + '/photos/series-6660093348354/1.html'
     }, {
         name: '秀人网旗下(14099)',
-        url: domain + '/photos/series-63959b9c87149/1.html'
+        url: domain + '/photos/series-6660093348354/1.html'
     }, {
         name: '秀人网(9425)',
         url: domain + '/photos/series-5f1476781eab4/1.html'
@@ -2165,64 +2165,64 @@ var cfiction = [{
     name: '全部小说(15511)',
     url: domain + '/fictions/1.html'
 }, {
-    name: '编辑推荐(3591)',
+    name: '编辑推荐(5631)',
     url: domain + '/fictions/tag-编辑推荐/1.html'
 }, {
-    name: '人妻女友(4688)',
+    name: '人妻女友(6221)',
     url: domain + '/fictions/tag-%e4%ba%ba%e5%a6%bb女友/1.html'
 }, {
-    name: '学生校园(1400)',
+    name: '学生校园(1751)',
     url: domain + '/fictions/tag-学生校园/1.html'
 }, {
-    name: '伴侣交换(237)',
+    name: '伴侣交换(274)',
     url: domain + '/fictions/tag-伴侣交换/1.html'
 }, {
-    name: '都市生活(3232)',
+    name: '都市生活(5041)',
     url: domain + '/fictions/tag-都市生活/1.html'
 }, {
-    name: '动漫游戏(72)',
+    name: '动漫游戏(299)',
     url: domain + '/fictions/tag-动漫游戏/1.html'
 }, {
-    name: '名人明星(86)',
+    name: '名人明星(154)',
     url: domain + '/fictions/tag-名人明星/1.html'
 }, {
-    name: '经验故事(536)',
+    name: '经验故事(1098)',
     url: domain + '/fictions/tag-经验故事/1.html'
 }, {
-    name: '古典玄幻(1052)',
+    name: '古典玄幻(2115)',
     url: domain + '/fictions/tag-古典玄幻/1.html'
 }, {
-    name: '家庭乱伦(3903)',
+    name: '家庭乱伦(4493)',
     url: domain + '/fictions/tag-家庭%e4%b9%b1%e4%bc%a6/1.html'
 }, {
-    name: '多人群交(1733)',
+    name: '多人群交(2552)',
     url: domain + '/fictions/tag-多人群交/1.html'
 }, {
-    name: '公司职场(977)',
+    name: '公司职场(1327)',
     url: domain + '/fictions/tag-公司职场/1.html'
 }, {
-    name: '露出暴露(265)',
+    name: '露出暴露(932)',
     url: domain + '/fictions/tag-露出暴露/1.html'
 }, {
-    name: '强暴性虐(1505))',
+    name: '强暴性虐(2427))',
     url: domain + '/fictions/tag-强暴性虐/1.html'
 }, {
-    name: '西方主题(139)',
+    name: '西方主题(516)',
     url: domain + '/fictions/tag-西方主题/1.html'
 }, {
-    name: '同性主题(125)',
+    name: '同性主题(255)',
     url: domain + '/fictions/tag-同性主题/1.html'
 }, {
-    name: '绿帽主题(1261)',
+    name: '绿帽主题(1699)',
     url: domain + '/fictions/tag-绿帽主题/1.html'
 }, {
-    name: '长篇连载(3511)',
+    name: '长篇连载(5567)',
     url: domain + '/fictions/tag-长篇连载/1.html'
 }, {
-    name: '经典回忆(99)',
+    name: '经典回忆(109)',
     url: domain + '/fictions/tag-经典回忆/1.html'
 }, {
-    name: '有声小说(59)',
+    name: '有声小说(814)',
     url: domain + '/fictions/tag-有声小说/1.html'
 }];
 var sort_fiction = [{
@@ -2242,23 +2242,26 @@ var cmodel = [{
     name: '全部模特(1660)',
     url: domain + '/models/1.html'
 }, {
-    name: '华人模特(1020)',
+    name: '华人模特(1508)',
     url: domain + '/models/type-4/1.html'
 }, {
-    name: '韩国模特(64)',
+    name: '韩国模特(85)',
     url: domain + '/models/type-5/1.html'
 }, {
-    name: '华人女优(445)',
+    name: '华人女优(545)',
     url: domain + '/models/type-7/1.html'
 }, {
-    name: '日本女优(800)',
+    name: '日本女优(1849)',
     url: domain + '/models/type-8/1.html'
 }, {
-    name: '日本男优(157)',
+    name: '日本男优(233)',
     url: domain + '/models/type-9/1.html'
 }, {
-    name: '名人明星(5)',
+    name: '名人明星(27)',
     url: domain + '/models/type-10/1.html'
+}, {
+    name: '摄影师(44)',
+    url: domain + '/models/type-11/1.html'
 }];
 var sort_model = [{
     name: '浏览最多',
