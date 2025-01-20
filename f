@@ -2162,7 +2162,7 @@ var cphoto = [
     }]
 ];
 var cfiction = [{
-    name: '全部小说(15511)',
+    name: '全部小说(17722)',
     url: domain + '/fictions/1.html'
 }, {
     name: '编辑推荐(5631)',
