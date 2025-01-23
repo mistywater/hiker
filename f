@@ -268,6 +268,10 @@ function cytrans(text,mode) {
     var result = JSON.parse(res).target;
     return result;
 }
+function getRandomNumber(m,n) {
+        const rand = Math.floor(Math.random() * (m-n)) + n;;
+        return rand;
+    }
 function timestampToDate(timestamp) {
   const date = new Date(timestamp);
   const year = date.getFullYear();
