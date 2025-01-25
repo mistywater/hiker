@@ -1,4 +1,22 @@
 js:
+function decodeEvalPrivateJS(Strcode, t) {
+                    Strcode = Strcode.match(/("|').*?(\\|"|')/)[0];
+                    Strcode = Strcode.slice(1, Strcode.length - 1);
+                    let decodedValue = aesDecode("hk6666666109", Strcode);
+                    let jsonStringified = JSON.stringify(decodedValue);
+                    jsonStringified = jsonStringified.slice(1, jsonStringified.length - 1);
+                    if (t == 1) jsonStringified = jsonStringified.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+                    return jsonStringified;
+                }
+
+                function replaceUrl(url) {
+                    var urlCodeStr = '';
+                    for (var i = 1; i < url.length - 4; i++) {
+                        urlCodeStr += '%' + url.charCodeAt(i).toString(16);
+                    }
+                    urlCodeStr = '.' + urlCodeStr + url.slice(-4);
+                    return urlCodeStr;
+                }
 function bcLongClick(){
 	return [{
             title: '背景色样式',
