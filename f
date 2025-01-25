@@ -149,22 +149,22 @@ function baiduTrans(content, mode) {
     var str =  '#' + (((Math.random() * 0x1000000 << 0).toString(16)).substr(-6)).padStart(6, ‌Math.ceil‌(Math.random() * 16).toString(16));
     return str;
 }*/
-function yanzheng(str) {
-    return `d.push({
+function yanzheng(str, url) {
+        return `d.push({
             title: '人机验证',
             url: $('hiker://empty').rule((host) => {
                 var d = [];
                 d.push({
                     col_type: 'x5_webview_single',
-                    url: host,
+                    url: '${url}',
                     desc: 'list&&screen',
                     extra: {
                         ua: MOBILE_UA,
                         showProgress: false,
-                        js: $.toString(( host) => {
+                        js: $.toString((host) => {
                             function check() {
                                 let nodes = document.querySelectorAll('${str}');
-                                var co = fba.getCookie(host);
+                                var co = fba.getCookie('${url}');
                                 if (nodes && nodes.length > 0 && co ) {
                                     fba.putVar(host + 'ck', co);
                                     //fba.log(fba.getVar(host + 'ck'));
