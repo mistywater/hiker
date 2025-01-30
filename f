@@ -103,7 +103,21 @@ function bcRandom(darkMode) {
         }
         return '#' + r.toString(16).padStart(2, '0') + g.toString(16).padStart(2, '0') + b.toString(16).padStart(2, '0');
     } else if (darkMode == '浅色白字模式') {
-        var s = 40 + Math.floor(Math.random() * 61);
+        const maxBrightness = 200; 
+    	let r, g, b;
+    do {
+        r = Math.floor(Math.random() * 256);
+        g = Math.floor(Math.random() * 256);
+        b = Math.floor(Math.random() * 256);
+        var brightness = 0.299 * r + 0.587 * g + 0.114 * b;
+    } while (brightness > maxBrightness); 
+
+    const toHex = (value) => {
+        const hex = value.toString(16);
+        return hex.length === 1 ? '0' + hex : hex;
+    };
+    return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
+        /*var s = 40 + Math.floor(Math.random() * 61);
         var h = Math.floor(Math.random() * 360);
         for (var k = 1; k <= 999; k++) {
             var v = 20 + Math.floor(Math.random() * 71);
@@ -112,29 +126,7 @@ function bcRandom(darkMode) {
             } else {
                 break;
             }
-        }
-        return hsvToHex(h, s, v);
-        /*for (var k = 1; k <= 999; k++) {
-            var r = Math.floor(Math.random() * 255);
-            for (let m = 1; m <= 999; m++) {
-                var g = Math.floor(Math.random() * 255);
-                if (Math.abs(r - g) <= 50) {
-                    continue
-                } else {
-                    break;
-                }
-            }
-            for (let m = 1; m <= 999; m++) {
-                var b = Math.floor(Math.random() * 255);
-                if ((Math.abs(b - g) <= 30 && Math.abs(b - r) <= 30) || (r >= 180 && g >= 180 & b >= 180)) {
-                    continue
-                } else {
-                    break;
-                }
-            }
-        }
-        return '#' + r.toString(16).padStart(2, '0') + g.toString(16).padStart(2, '0') + b.toString(16).padStart(2, '0');
-*/
+        }*/
     } else if (darkMode == '深色模式') {
         var str = '#' + (((Math.random() * 0x1000000 << 0).toString(16)).substr(-6)).padStart(6, ‌Math.ceil‌(Math.random() * 16).toString(16));
         return str;
