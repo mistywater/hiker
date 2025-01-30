@@ -341,7 +341,64 @@ function timestampToDate(timestamp) {
  
   return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 }
+function sortArray(arr, key, style, order) {
+    if (!Array.isArray(arr)) {
+        throw new TypeError('第一个参数必须是一个数组');
+    }
+    if (order !== 'asc' && order !== 'desc') {
+        order = 'asc';
+    }
+    if (style != 1 && style != 3) {
+        style = 2;
+    }
 
+    function extractNumber(value) {
+        const match = value.match(/\d+/);
+        return match ? parseInt(match[0], 10) : null;
+    }
+
+    function getType(value) {
+        if (/^\d+/.test(value)) return 1; 
+        if (/^[A-Za-z]+/.test(value)) return 2; 
+        return 3; 
+    }
+
+    function compare(a, b) {
+        const aValue = key && typeof a === 'object' ? a[key] : a;
+        const bValue = key && typeof b === 'object' ? b[key] : b;
+
+        if (style == 3) {
+            const aNumber = extractNumber(aValue);
+            const bNumber = extractNumber(bValue);
+            if (aNumber !== null && bNumber !== null) {
+                return order === 'asc' ? aNumber - bNumber : bNumber - aNumber;
+            }
+            if (aNumber !== null) return order === 'asc' ? -1 : 1;
+            if (bNumber !== null) return order === 'asc' ? 1 : -1;
+        }
+
+        const aType = getType(aValue);
+        const bType = getType(bValue);
+
+        if (aType !== bType) {
+            return order === 'asc' ? aType - bType : bType - aType;
+        }
+
+        if (aType === 1) {
+            return order === 'asc' ? aValue - bValue : bValue - aValue;
+        } else if (aType === 2) {
+            return order === 'asc' ?
+                aValue.localeCompare(bValue, 'en') :
+                bValue.localeCompare(aValue, 'en');
+        } else {
+            return order === 'asc' ?
+                aValue.localeCompare(bValue, 'zh') :
+                bValue.localeCompare(aValue, 'zh');
+        }
+    }
+
+    return arr.slice().sort(compare);
+}
 function sortSx(arr, name, style, order) {
     //0:不排序  1:英文排序 2:拼音排序 3:数字排序
     if (typeof(style) == 'undefined' || style == '') {
