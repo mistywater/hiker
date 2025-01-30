@@ -78,6 +78,23 @@ function bcLongClick(){
             }),
         }];
 }
+function getRandomColor(darkMode) {
+    const maxBrightness = 200;
+    const minBrightness = 50;
+    let r, g, b;
+    do {
+        r = Math.floor(Math.random() * 256);
+        g = Math.floor(Math.random() * 256);
+        b = Math.floor(Math.random() * 256);
+        var brightness = 0.299 * r + 0.587 * g + 0.114 * b;
+    } while (/白字|深色/.test(darkMode) ? brightness > maxBrightness : brightness < minBrightness);
+
+    const toHex = (value) => {
+        const hex = value.toString(16);
+        return hex.length === 1 ? '0' + hex : hex;
+    };
+    return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
+}
 function bcRandom(darkMode) {
     if (typeof(darkMode) == 'undefined' || !darkMode) {
         darkMode = '深色模式';
@@ -1048,7 +1065,7 @@ function classTop(index, data, host, d, mode, v, c, f,len,start,end) {
                     refreshPage(false);
                     return 'hiker://empty';
                 }, index, c_id[index_c], index_c, host, mode, title, v, c,len),
-		extra:{backgroundColor:index>=start&&index<=end?bcRandom(getItem('darkMode')):'',LongClick:index>=start&&index<=end?bcLongClick():[],}
+		extra:{backgroundColor:index>=start&&index<=end?getRandomColor(getItem('darkMode')):'',LongClick:index>=start&&index<=end?bcLongClick():[],}
             });
         });
         d.push({
@@ -1077,7 +1094,7 @@ function classTop(index, data, host, d, mode, v, c, f,len,start,end) {
                     refreshPage(false);
                     return 'hiker://empty';
                 }, index, index_c, host, mode, title, v, c,len),
-		extra:{backgroundColor:index>=start&&index<=end?bcRandom(getItem('darkMode')):'',LongClick:index>=start&&index<=end?bcLongClick():[],}
+		extra:{backgroundColor:index>=start&&index<=end?getRandomColor(getItem('darkMode')):'',LongClick:index>=start&&index<=end?bcLongClick():[],}
             });
         });
         d.push({
