@@ -399,9 +399,9 @@ function sortArray(arr, key, style, order) {
             return order === 'asc' ? aType - bType : bType - aType;
         }
 
-        if (aType === 1) {
+        if (aType === 1&&style===3) {
             return order === 'asc' ? aValue - bValue : bValue - aValue;
-        } else if (aType === 2) {
+        }  else if else if (aType === 2) {
             return order === 'asc' ?
                 aValue.localeCompare(bValue, 'en') :
                 bValue.localeCompare(aValue, 'en');
