@@ -379,8 +379,8 @@ function sortArray(arr, key, style, order) {
     }
 
     function compare(a, b) {
-        const aValue = key && typeof a === 'object' ? a[key]+'': a+'';
-        const bValue = key && typeof b === 'object' ? b[key]+'': b+'';
+        const aValue = key && typeof a === 'object' ? JSON.stringify(a[key]): JSON.stringify(a);
+        const bValue = key && typeof b === 'object' ? JSON.stringify(b[key]): JSON.stringify(b);
 
         if (style == 3) {
             const aNumber = extractNumber(aValue);
