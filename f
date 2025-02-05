@@ -354,16 +354,16 @@ function sortArray(arr, key, style, order) {
     if (!Array.isArray(arr)) {
         throw new TypeError('第一个参数必须是一个数组');
     }
-    if (order === 'desc' || order === '1'||order === 1) {
-    	order = 'desc';
-    }else {
+    if (order === 'desc' || order === '1' || order === 1) {
+        order = 'desc';
+    } else {
         order = 'asc';
     }
     if (style === 1 || style === '1') {
         style = 1;
-    }else if (style === 3 || style === '3') {
+    } else if (style === 3 || style === '3') {
         style = 3;
-    }else {
+    } else {
         style = 2;
     }
 
@@ -373,35 +373,32 @@ function sortArray(arr, key, style, order) {
     }
 
     function getType(value) {
-        if (/^\d+/.test(value)) return 1; 
-        if (/^[A-Za-z]+/.test(value)) return 2; 
-        return 3; 
+        if (/^\d+/.test(value)) return 1;
+        if (/^[A-Za-z]+/.test(value)) return 2;
+        return 3;
     }
 
     function compare(a, b) {
-        const aValue = key && typeof a === 'object' ? a[key]: a;
-        const bValue = key && typeof b === 'object' ? b[key]: b;
+        const aValue = key && typeof a === 'object' ? a[key] : a;
+        const bValue = key && typeof b === 'object' ? b[key] : b;
 
         if (style == 3) {
-            const aNumber = extractNumber(aValue);
-            const bNumber = extractNumber(bValue);
+            const aNumber = typeof(aValue) == 'number' ? aValue : extractNumber(aValue);
+            const bNumber = typeof(bValue) == 'number' ? bValue : extractNumber(bValue);
             if (aNumber !== null && bNumber !== null) {
                 return order === 'asc' ? aNumber - bNumber : bNumber - aNumber;
             }
             if (aNumber !== null) return order === 'asc' ? -1 : 1;
             if (bNumber !== null) return order === 'asc' ? 1 : -1;
         }
-
         const aType = getType(aValue);
         const bType = getType(bValue);
-
         if (aType !== bType) {
             return order === 'asc' ? aType - bType : bType - aType;
         }
-
-        if (aType === 1&&style===3) {
+        if (aType === 1) {
             return order === 'asc' ? aValue - bValue : bValue - aValue;
-        }  else if (style===1) {
+        } else if (style === 1) {
             return order === 'asc' ?
                 aValue.localeCompare(bValue, 'en') :
                 bValue.localeCompare(aValue, 'en');
@@ -411,7 +408,6 @@ function sortArray(arr, key, style, order) {
                 bValue.localeCompare(aValue, 'zh');
         }
     }
-
     return arr.slice().sort(compare);
 }
 function sortSx(arr, name, style, order) {
