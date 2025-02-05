@@ -401,7 +401,7 @@ function sortArray(arr, key, style, order) {
 
         if (aType === 1&&style===3) {
             return order === 'asc' ? aValue - bValue : bValue - aValue;
-        }  else if (aType === 2) {
+        }  else if (style===1) {
             return order === 'asc' ?
                 aValue.localeCompare(bValue, 'en') :
                 bValue.localeCompare(aValue, 'en');
