@@ -354,10 +354,16 @@ function sortArray(arr, key, style, order) {
     if (!Array.isArray(arr)) {
         throw new TypeError('第一个参数必须是一个数组');
     }
-    if (order !== 'asc' && order !== 'desc'&&order !== '1'&&order !== 1) {
+    if (order === 'desc' || order === '1'||order === 1) {
+    	order = 'desc';
+    }else {
         order = 'asc';
-    }else{order = 'desc';}
-    if (style != 1 && style != 3) {
+    }
+    if (style === 1 || style === '1') {
+        style = 1;
+    }else if (style === 3 || style === '3') {
+        style = 3;
+    }else {
         style = 2;
     }
 
