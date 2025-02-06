@@ -1,4 +1,5 @@
-js:function clearClipboardText() {
+js:
+function clearClipboardText() {
     const Context = android.content.Context;
     const context = getCurrentActivity();
     let clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE);
@@ -1021,7 +1022,54 @@ function searchMain(page, d, desc) {
     }
     return d;
 }
-function classTop(index, data, host, d, mode, v, c, f,len,start,end) {
+function classTop(index, data, host, d, mode, v, c, f, len, start, end) {
+    if (!mode) mode = 0;
+    if (!v) v = 0;
+    if (!c) c = 'c';
+    if (!f) f = 'scroll_button';
+    if (!len) len = 20;
+
+    let isDarkMode = getItem('darkMode', '深色模式') === '浅色白字模式';
+    let isInRange = index >= start && index <= end;
+    let c_title = /\{/.test(JSON.stringify(data)) ? data.title.split('&') : data.split('&');
+    let c_id = /\{/.test(JSON.stringify(data)) ? (data.id === '' ? c_title : data.id === '@@@' ? data.title.replace(/^.*?&/, '&').split('&') : data.id.split('&')) : null;
+    c_title.forEach((title, index_c) => {
+        let isSelected = index_c == getMyVar(host + c + 'index' + index, mode || index == v ? '0' : '-1');
+        let titleStyled = isSelected ?
+            strong(title, isInRange ? 'FFFF00' : 'FF6699') :
+            isDarkMode && isInRange ?
+            color(title, 'FFFFFF') :
+            title;
+        d.push({
+            title: titleStyled,
+            col_type: f,
+            url: $('#noLoading#').lazyRule((index, id, index_c, host, mode, title, v, c, len) => {
+                if (mode) {
+                    putMyVar(host + c + index, id);
+                } else {
+                    putMyVar(host + c, id);
+                    for (let n = v; n <= v + len - 1; n++) {
+                        putMyVar(host + c + 'index' + n, '-1');
+                    }
+                }
+                clearMyVar(host + 'page');
+                clearMyVar(host + 'url');
+                putMyVar(host + c + 'index' + index, index_c);
+                refreshPage(false);
+                return 'hiker://empty';
+            }, index, c_id ? c_id[index_c] : title, index_c, host, mode, title, v, c, len),
+            extra: {
+                backgroundColor: isInRange ? getRandomColor(getItem('darkMode')) : '',
+                LongClick: isInRange ? bcLongClick() : [],
+            },
+        });
+    });
+    d.push({
+        col_type: 'blank_block'
+    });
+    return d;
+}
+function classTop1(index, data, host, d, mode, v, c, f,len,start,end) {
     if (!v) {
         v = 0;
     }
