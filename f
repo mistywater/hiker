@@ -17,27 +17,24 @@ function getClipboardText(source) {
     try {
         const Context = android.content.Context;
         const context = getCurrentActivity();
-        let clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE);
-        let clipData = clipboard.getPrimaryClip();
-        if (clipData != null && clipData.getItemCount() > 0) {
-            let text = clipData.getItemAt(0).getText();
-            if (text != null) {
-                var str = String(text.toString());
-                writeFile("hiker://files/cache/ClipboardText.json", str);
-                if (source && !/^\[.*?\]$|^\{.*?\}$|^http|^\/|^云|^海阔视界规则分享.*?\}$|^海阔视界规则分享.*?base64/.test(str)) {
-                    return null;
-                } else {
-                    return str;
-                }
-            } else {
-                return null;
-            }
-        } else {
+        const clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE);
+        const clipData = clipboard.getPrimaryClip();
+        if (!clipData || clipData.getItemCount() === 0) {
             return null;
         }
+        const text = clipData.getItemAt(0).getText();
+        if (!text) {
+            return null;
+        }
+        const str = text.toString();
+        writeFile("hiker://files/cache/ClipboardText.json", str);
+        if (source && !/^\[.*?\]$|^\{.*?\}$|^http|^\/|^云|^海阔视界规则分享.*?\}$|^海阔视界规则分享.*?base64/.test(str)) {
+            return null;
+        }
+        return str;
     } catch (e) {
         return null;
-    };
+    }
 }
 function decodeEvalPrivateJS(Strcode, t) {
                     Strcode = Strcode.match(/("|').*?(\\|"|')/)[0];
