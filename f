@@ -1278,6 +1278,22 @@ function dtfl() {
     }`;
     return dt;
 }
+function getFileSize(size) {
+    if (typeof size !== 'number' || size < 0) {
+        return '0B'; // 处理无效输入
+    }
+    const units = ['B', 'KB', 'MB', 'GB', 'TB'];
+    const threshold = 1024;
+    if (size < threshold) {
+        return `${size}B`;
+    }
+    let unitIndex = 0;
+    while (size >= threshold && unitIndex < units.length - 1) {
+        size /= threshold;
+        unitIndex++;
+    }
+    return `${size.toFixed(2)}${units[unitIndex]}`;
+}
 function gfs(size) {
     if (!size)
         return 0;
