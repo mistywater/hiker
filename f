@@ -1486,19 +1486,22 @@ data=data.replace(/　{1,}/g,'　　');
 function ver() {
 	return ;
 }
-function gra(arr, num) {
-            var sData = arr.slice(0);
-            var i = arr.length;
-            var min = i - num;
-            var item, index;
-            while (i-- > min) {
-                index = Math.floor((i + 1) * Math.random());
-                item = sData[index];
-                sData[index] = sData[i];
-                sData[i] = item;
-            }
-            return sData.slice(min);
-        }
+function getRandomArray(arr, num) {
+    const shuffled = arr.slice(); // 复制原数组
+    let currentIndex = arr.length;
+    if (num >= currentIndex) {
+        return shuffled;
+    }
+    while (currentIndex > arr.length - num) {
+        const randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+        [shuffled[currentIndex], shuffled[randomIndex]] = [
+            shuffled[randomIndex],
+            shuffled[currentIndex],
+        ];
+    }
+    return shuffled.slice(-num);
+}
 function imgDec(key,iv,a,b){
 	if(!b){
  		b='PKCS5Padding';
