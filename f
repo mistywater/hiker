@@ -214,7 +214,44 @@ function baiduTrans(content, mode) {
     var str =  '#' + (((Math.random() * 0x1000000 << 0).toString(16)).substr(-6)).padStart(6, ‌Math.ceil‌(Math.random() * 16).toString(16));
     return str;
 }*/
-function yanzheng(str, url) {
+function yanzheng(str, url, t) {
+    if (!t) t = host;
+    return $.toString((str, url, t) => {
+        d.push({
+            title: '人机验证',
+            url: $('hiker://empty').rule((str, url, t) => {
+                var d = [];
+                d.push({
+                    col_type: 'x5_webview_single',
+                    url: url,
+                    desc: 'list&&screen',
+                    extra: {
+                        ua: MOBILE_UA,
+                        showProgress: false,
+                        js: $.toString((str, url, t) => {
+                            function check() {
+                                let nodes = document.querySelectorAll(str);
+                                var co = fba.getCookie(url);
+                                if (nodes && nodes.length > 0 && co) {
+                                    fba.putVar(t + 'ck', co);
+                                    fba.parseLazyRule($$$().lazyRule(() => {
+                                        back();
+                                    }));
+                                } else {
+                                    setTimeout(check, 500);
+                                }
+                            }
+                            check();
+                        }, str, url, t),
+                    }
+                });
+                return setResult(d);
+            }, str, url, t),
+            col_type: 'text_1'
+        });
+    }, str, url, t);
+}
+function yanzheng1(str, url) {
         return `d.push({
             title: '人机验证',
             url: $('hiker://empty').rule((host) => {
