@@ -1176,6 +1176,68 @@ var s=`if (list.length != 0) {
         }`;
         return s;
 }
+function dtfl1(d, host) {
+    const clearVariables = (host) => {
+        clearMyVar(host + 'url');
+        clearMyVar(host + 't');
+    };
+    addListener('onClose', $.toString((host) => {
+        clearVariables(host);
+    }, host));
+    let categories;
+    try {
+        categories = pdfa(html, 大类定位).concat(pdfa(html, 拼接分类));
+    } catch (e) {
+        categories = pdfa(html, 大类定位);
+    }
+    const initCate = Array(20).fill('0');
+    const fold = getMyVar('fold', '1');
+    const cateTemp = JSON.parse(getMyVar(host + 't', JSON.stringify(initCate)));
+    if (parseInt(MY_PAGE) === 1) {
+        d.push({
+            title: fold === '1' ? strong('∨', 'FF0000') : strong('∧', '1aad19'),
+            url: $('#noLoading#').lazyRule((fold) => {
+                putMyVar('fold', fold === '1' ? '0' : '1');
+                refreshPage(false);
+                return 'hiker://empty';
+            }, fold),
+            col_type: 'scroll_button',
+        });
+        categories.forEach((category, index) => {
+            const subCategories = index === 0 && typeof 小类定位_主 !== 'undefined' ?
+                pdfa(category, 小类定位_主) :
+                pdfa(category, 小类定位);
+            if (index === 0 || fold === '1') {
+                subCategories.forEach((item, key) => {
+                    const title = pdfh(item, 分类标题);
+                    const isActive = key.toString() === cateTemp[index];
+                    d.push({
+                        title: isActive ? strong(title, 分类颜色) : strong(title, '666666'),
+                        url: $(pd(item, 分类链接) + '#noLoading#').lazyRule((params, host) => {
+                            const newCate = params.cate_temp.map((cate, i) =>
+                                i === params.index ? params.key.toString() : cate
+                            );
+                            putMyVar(host + 't', JSON.stringify(newCate));
+                            putMyVar(host + 'url', input);
+                            refreshPage(true);
+                            return 'hiker://empty';
+                        }, {
+                            cate_temp: cateTemp,
+                            index: index,
+                            key: key,
+                            page: MY_PAGE,
+                        }, host),
+                        col_type: 'scroll_button',
+                    });
+                });
+                d.push({
+                    col_type: 'blank_block',
+                });
+            }
+        });
+    }
+    return d;
+}
 function dtfl() {
     var dt = `
     const empty = 'hiker://empty'
