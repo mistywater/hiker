@@ -373,12 +373,13 @@ function sortArray(arr, key, style, order) {
         return match ? parseInt(match[0], 10) : null;
     }
 
-    function getType(value) {
+	function getType(value) {
         if (/^\d+$/.test(value)) return 1;
+        if (/^\d+/.test(value)) return 2;
         if (/^[A-Za-z]+/.test(value)) return 2;
         return 3;
     }
-
+	
     function compare(a, b) {
         const aValue = key && typeof a === 'object' ? a[key] : a;
         const bValue = key && typeof b === 'object' ? b[key] : b;
