@@ -374,7 +374,7 @@ function sortArray(arr, key, style, order) {
     }
 
     function getType(value) {
-        if (/^\d+/.test(value)) return 1;
+        if (/^\d+$/.test(value)) return 1;
         if (/^[A-Za-z]+/.test(value)) return 2;
         return 3;
     }
