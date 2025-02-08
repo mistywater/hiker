@@ -1371,22 +1371,22 @@ function gfs(size) {
         return (size / Math.pow(num, 3)).toFixed(2) + "G"; //G
     return (size / Math.pow(num, 4)).toFixed(2) + "T"; //T
 }
-function mline(n) {
+function mline(n,d) {
     for (var k = 1; k <= n; k++) {
         d.push({
             col_type: 'line',
         });
     };
-    return;;
+    return d;
 }
-function mline(n,d) {
+/*function mline(n,d) {
     for (var k = 1; k <= n; k++) {
         d.push({
             col_type: 'big_big_blank_block',
         });
     };
     return;;
-}
+}*/
 function cm(s, n) {
     if (n == 3) {
         if (s.length == 1) {
