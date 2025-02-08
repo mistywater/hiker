@@ -1379,7 +1379,7 @@ function mline(n) {
     };
     return;;
 }
-function mline(n) {
+function mline(n,d) {
     for (var k = 1; k <= n; k++) {
         d.push({
             col_type: 'big_big_blank_block',
