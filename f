@@ -81,7 +81,7 @@ function bcLongClick(){
 }
 function getRandomColor(darkMode) {
     const maxBrightness = 155;
-    const minBrightness = 50;
+    const minBrightness = 100;
     let r, g, b;
     do {
         r = Math.floor(Math.random() * 256);
