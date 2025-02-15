@@ -1,4 +1,26 @@
 js:
+function isDarkMode() {
+    if (darkModeCache&&darkModeCache !== null) {
+        return darkModeCache; // 返回缓存结果
+    }
+
+    try {
+        const Context = android.content.Context;
+        const Configuration = android.content.res.Configuration;
+        const context = getCurrentActivity();
+        const configuration = context.getResources().getConfiguration();
+        const nightModeFlags = configuration.uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        const isDark = nightModeFlags === Configuration.UI_MODE_NIGHT_YES;
+        writeFile("hiker://files/cache/darkMode.json", JSON.stringify({
+            isDarkMode: isDark
+        }));
+        var darkModeCache = isDark; // 缓存结果
+        return isDark;
+    } catch (e) {
+        console.error("Error checking dark mode:", e.message);
+        return false;
+    }
+}
 function titleBackgroundColor(title){
 	return /白字/.test(getItem('darkMode','白字'))?color(title,'FFFFFF'):color(title,'000000');
 }
