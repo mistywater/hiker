@@ -20,7 +20,7 @@ function isDarkMode() {
     }
 }
 function titleBackgroundColor(title){
-	return /白字/.test(getItem('darkMode','白字'))?color(title,'FFFFFF'):color(title,'000000');
+	return getVar('darkMode')?color(title,'FFFFFF'):color(title,'000000');
 }
 function clearClipboardText() {
     const Context = android.content.Context;
@@ -100,7 +100,7 @@ function bcLongClick(){
         }];
 }
 function getRandomColor(darkMode) {
-    const maxBrightness = 155;
+    const maxBrightness = 160;
     const minBrightness = 100;
     let r, g, b;
     do {
@@ -108,7 +108,7 @@ function getRandomColor(darkMode) {
         g = Math.floor(Math.random() * 256);
         b = Math.floor(Math.random() * 256);
         var brightness = 0.299 * r + 0.587 * g + 0.114 * b;
-    } while (/白字|深色/.test(getItem('darkMode','白色')) ? brightness > maxBrightness : brightness < minBrightness);
+    } while (getVar('darkMode')) ? brightness > maxBrightness : brightness < minBrightness);
 
     const toHex = (value) => {
         const hex = value.toString(16);
