@@ -20,7 +20,7 @@ function isDarkMode() {
     }
 }
 function titleBackgroundColor(title){
-	return getVar('darkMode')?color(title,'FFFFFF'):color(title,'000000');
+	return /白字/.test(getItem('darkMode'))?color(title,'FFFFFF'):color(title,'000000');
 }
 function clearClipboardText() {
     const Context = android.content.Context;
@@ -82,7 +82,7 @@ function bcLongClick(){
 	return [{
             title: '背景色样式',
             js: $.toString(() => {
-                var Type = ["深色模式", "浅色模式", "浅色白字模式"];
+                var Type = ["深色模式", "浅色模式", "浅色白字模式","清除"];
                 if (getItem('darkMode')) {
                     var index = Type.indexOf(getItem('darkMode'));
                     Type[index] = '👉' + getItem('darkMode');
@@ -92,7 +92,8 @@ function bcLongClick(){
                     col: 3,
                     options: Type,
                     js: $.toString(() => {
-                        setItem('darkMode', input.replace('👉', ''));
+		    if(/清除/.test(input)){clearItem('darkMode');}
+                        else{setItem('darkMode', input.replace('👉', ''));}
                         refreshPage();
                     }, )
                 });
@@ -108,7 +109,7 @@ function getRandomColor(darkMode) {
         g = Math.floor(Math.random() * 256);
         b = Math.floor(Math.random() * 256);
         var brightness = 0.299 * r + 0.587 * g + 0.114 * b;
-    } while (getVar('darkMode') ? brightness > maxBrightness : brightness < minBrightness);
+    } while (/白字/.test(getItem('darkMode'))||getVar('darkMode')==1 ? brightness > maxBrightness : brightness < minBrightness);
 
     const toHex = (value) => {
         const hex = value.toString(16);
