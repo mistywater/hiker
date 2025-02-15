@@ -1,6 +1,6 @@
 js:
 function isDarkMode() {
-    if (darkModeCache&&darkModeCache !== null) {
+    if (darkModeCache && darkModeCache !== null) {
         return darkModeCache; // 返回缓存结果
     }
 
@@ -11,9 +11,9 @@ function isDarkMode() {
         const configuration = context.getResources().getConfiguration();
         const nightModeFlags = configuration.uiMode & Configuration.UI_MODE_NIGHT_MASK;
         const isDark = nightModeFlags === Configuration.UI_MODE_NIGHT_YES;
-        writeFile("hiker://files/cache/darkMode.json", isDark?'1':'0';
-        var darkModeCache = isDark?'1':'0'; // 缓存结果
-        return isDark?'1':'0';
+        writeFile("hiker://files/cache/darkMode.json", isDark ? '1' : '0');
+        var darkModeCache = isDark ? '1' : '0'; // 缓存结果
+        return isDark ? '1' : '0';
     } catch (e) {
         console.error("Error checking dark mode:", e.message);
         return '';
