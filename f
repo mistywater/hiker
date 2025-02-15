@@ -108,7 +108,7 @@ function getRandomColor(darkMode) {
         g = Math.floor(Math.random() * 256);
         b = Math.floor(Math.random() * 256);
         var brightness = 0.299 * r + 0.587 * g + 0.114 * b;
-    } while (getVar('darkMode')) ? brightness > maxBrightness : brightness < minBrightness);
+    } while (getVar('darkMode') ? brightness > maxBrightness : brightness < minBrightness);
 
     const toHex = (value) => {
         const hex = value.toString(16);
