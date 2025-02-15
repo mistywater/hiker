@@ -1,4 +1,7 @@
 js:
+function titleBackgroundColor(title){
+	return /白字/.test(getItem('darkMode','白字'))?color(title,'FFFFFF'):color(title,'000000'),
+}
 function clearClipboardText() {
     const Context = android.content.Context;
     const context = getCurrentActivity();
