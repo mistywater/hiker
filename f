@@ -1203,13 +1203,10 @@ var s=`if (list.length != 0) {
 }
 function dtfl() {
      return `
-         const clearVariables = (host) => {
-             clearMyVar(host + 'url');
-             clearMyVar(host + 't');
-         };
-         addListener('onClose', $.toString((host) => {
-             clearVariables(host);
-         }, host));
+        addListener('onClose', $.toString((host) => {
+        	clearMyVar(host+'url');
+        	clearMyVar(host+'t');
+    	},host));
          let categories;
          try {
              categories = pdfa(html, 大类定位).concat(pdfa(html, 拼接分类));
