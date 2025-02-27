@@ -1,4 +1,16 @@
 js:
+function generateStarRating(score) {
+            var star = '';
+            var roundedScore = Math.ceil(score);
+            for (var k = 1; k <= roundedScore / 2 + 1; k++) {
+                if (roundedScore - k * 2 >= 0) {
+                    star = star + '⭐';
+                } else if (roundedScore - (k - 1) * 2 == 1) {
+                    star = star + '🌟';
+                }
+            }
+            return star;
+        }
 function isDarkMode() {
     if (darkModeCache && darkModeCache !== null) {
         return darkModeCache; // 返回缓存结果
