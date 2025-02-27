@@ -1,12 +1,13 @@
 js:
 function generateStarRating(score) {
+            //★★★☆☆//F79329
             var star = '';
             var roundedScore = Math.ceil(score);
             for (var k = 1; k <= roundedScore / 2 + 1; k++) {
                 if (roundedScore - k * 2 >= 0) {
-                    star = star + '⭐';
+                    star = star + '★';
                 } else if (roundedScore - (k - 1) * 2 == 1) {
-                    star = star + '🌟';
+                    star = star + '☆';
                 }
             }
             return star;
