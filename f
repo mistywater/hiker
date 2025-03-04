@@ -1,5 +1,6 @@
 js:
 function getArrayFromUrl(url) {
+			if(!url) url='https://moe.jitsu.top/api/?sort=setu&type=json&num=50&size=small';
             let arr = [];
             let html=fetchPC(url);
             if (html.startsWith('{') || html.startsWith('[')) {
