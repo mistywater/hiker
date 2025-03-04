@@ -1,4 +1,27 @@
 js:
+function getArrayFromUrl(url) {
+            let arr = [];
+            let html=fetchPC(url);
+            if (html.startsWith('{') || html.startsWith('[')) {
+                let json = JSON.parse(html);
+                if (Array.isArray(json)) {
+                    arr = json;
+                } else {
+                    for (let key in json) {
+                        if (Array.isArray(json[key])) {
+                            arr = json[key];
+                            break;
+                        }
+                    }
+                    if (typeof(arr[0]) === 'object') {
+                        arr = arr.map(h => h.url);
+                    }
+                }
+            } else {
+                arr = html.match(/https?:\/\/[^\s,|]+/g);
+            }
+            return arr;
+        }
 function createDynamicRegex(input) {
             const escapedInput = input.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
             return new RegExp(escapedInput);
@@ -1726,7 +1749,7 @@ function de(key, iv, data, mode, encoding) {
         s2 = s2.replace(/PKCS7Padding/, 'PKCS7').replace(/KCS/, 'kcs');
         key = CryptoJS.enc.Utf8.parse(key);
         if (iv) iv = CryptoJS.enc.Utf8.parse(iv);
-
+        if (s1=='CBC'&&!iv) iv = key;
         function De() {
             if (iv) {
                 var decrypted = CryptoJS[s0].decrypt(data, key, {
