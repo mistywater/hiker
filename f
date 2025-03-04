@@ -1,4 +1,8 @@
 js:
+function createDynamicRegex(input) {
+            const escapedInput = input.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            return new RegExp(escapedInput);
+        }
 function generateStarRating(score) {
             //★★★☆☆//F79329
             var star = '';
