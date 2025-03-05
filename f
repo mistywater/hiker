@@ -1,4 +1,9 @@
 js:
+function splitTextByPunctuation(text) {
+                    let regex = /[^。！？；]+[。！？][^"”]*?["”]?/g;
+                    let sentences = text.match(regex) || [];
+                    return sentences.filter(sentence => sentence.trim()).join('<p>');
+                }
 function getArrayFromUrl(url) {
 			if(!url) url='https://moe.jitsu.top/img/?sort=setu&type=json&num=50&size=m_fill,w_480,h_640';
             let arr = [];
