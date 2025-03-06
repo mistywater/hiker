@@ -1827,6 +1827,34 @@ function colorCode(d) {
         return true;
     }
 }
+function sub(d, c) {if (colorCode(d) && !colorCode(c)) {
+        var tmp = d;
+        d = c;
+        c = tmp;
+    }
+    return '‘‘’’<sub><small><font color=#' + (c || '000000') + '>' + d + '</font></small></sub>';
+}
+function subR(d, c) {if (colorCode(d) && !colorCode(c)) {
+        var tmp = d;
+        d = c;
+        c = tmp;
+    }
+    return '<sub><small><font color=#' + (c || '000000') + '>' + d + '</font></small></sub>';
+}
+function sup(d, c) {if (colorCode(d) && !colorCode(c)) {
+        var tmp = d;
+        d = c;
+        c = tmp;
+    }
+    return '‘‘’’<sup><small><font color=#' + (c || '000000') + '>' + d + '</font></small></sup>';
+}
+function supR(d, c) {if (colorCode(d) && !colorCode(c)) {
+        var tmp = d;
+        d = c;
+        c = tmp;
+    }
+    return '<sup><small><font color=#' + (c || '000000') + '>' + d + '</font></small></sup>';
+}
 function ss(d, c) {if (colorCode(d) && !colorCode(c)) {
         var tmp = d;
         d = c;
