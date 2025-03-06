@@ -1,4 +1,12 @@
 js:
+function numberSub(strNumber) {
+    return `${strNumber}`.split('').map(h => String.fromCharCode(h * 1 + 8320)).join('');
+}
+
+function numberSup(strNumber) {
+    const supersDigits = ['⁰', '¹', '²', '³', '⁴', '⁵', '⁶', '⁷', '⁸', '⁹'];
+    return `${strNumber}`.split('').map(h => supersDigits[h]).join('');
+}
 function splitTextByPunctuation(text) {
                     let regex = /[^。！？；]+[。！？][^"”]*?["”]?/g;
                     let sentences = text.match(regex) || [];
