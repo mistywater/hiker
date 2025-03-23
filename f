@@ -857,20 +857,30 @@ function extraPic(host, page, pages, ctype, hiker) {
         }
         var extra1 = {
             title: '跳转',
-            js: $.toString((host, arr) => {
-                return $(arr, 3, '选择页码').select((host) => {
+            js: $.toString((host, arr,num) => {
+                return $(arr, 3, '选择页码').select((host,num) => {
                     if (input == '输入页码') {
                         return $('').input((host) => {
                             putMyVar(host + 'page', input);
                             refreshPage(false);
                         }, host);
-                    } else {
+                    } else if(num==1){
                         putMyVar(host + 'page', input);
                         refreshPage(false);
                         return 'hiker://empty';
+                    }else if(num==5){
+                        let arr1=[];
+                        for(let k=0;k<num;k++){
+                            arr1.push(input*1+k*1);
+                        }
+                        return $(arr1, 3, '选择页码').select((host) => {
+                            putMyVar(host + 'page', input);
+                        refreshPage(false);
+                        return 'hiker://empty';
+                        });
                     }
-                }, host);
-            }, host, arr),
+                }, host,num);
+            }, host, arr,num),
         };
     } else {
         var extra1 = {
