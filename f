@@ -844,15 +844,15 @@ function extraPic(host, page, pages, ctype, hiker) {
         var arr = ['输入页码'];
         if (pages <= 200) {
             for (var k = 1; k <= pages; k++) {
-                arr.push(k);
+                arr.push(k);var num=1;
             }
         } else if (pages <= 1000) {
             for (var k = 1; k <= pages; k = k + 5) {
-                arr.push(k);
+                arr.push(k);var num=5;
             }
         } else {
             for (var k = 1; k <= pages; k = k + 10) {
-                arr.push(k);
+                arr.push(k);var num=10;
             }
         }
         var extra1 = {
@@ -1081,13 +1081,19 @@ function pageMoveto(host, page, ctype,pages) {
     if(typeof(pages)!='undefined'){
         
         var arr = ['输入页码'];
-        if(pages<=200){for(var k=1;k<=pages;k++){
-            arr.push(k);
-        }}else if(pages<=1000){for(var k=1;k<=pages;k=k+5){
-            arr.push(k);
-        }}else {for(var k=1;k<=pages;k=k+10){
-            arr.push(k);
-        }}
+        if (pages <= 200) {
+            for (var k = 1; k <= pages; k++) {
+                arr.push(k);var num=1;
+            }
+        } else if (pages <= 1000) {
+            for (var k = 1; k <= pages; k = k + 5) {
+                arr.push(k);var num=5;
+            }
+        } else {
+            for (var k = 1; k <= pages; k = k + 10) {
+                arr.push(k);var num=10;
+            }
+        }
         var extra1 = {
             title: '跳转',
             js: $.toString((host, arr,num) => {
