@@ -868,7 +868,7 @@ function extraPic(host, page, pages, ctype, hiker) {
                         putMyVar(host + 'page', input);
                         refreshPage(false);
                         return 'hiker://empty';
-                    }else if(num==5){
+                    }else {
                         let arr1=[];
                         for(let k=0;k<num;k++){
                             arr1.push(input*1+k*1);
@@ -1101,7 +1101,7 @@ function pageMoveto(host, page, ctype,pages) {
                         putMyVar(host + 'page', input);
                         refreshPage(false);
                         return 'hiker://empty';
-                    }else if(num==5){
+                    }else {
                         let arr1=[];
                         for(let k=0;k<num;k++){
                             arr1.push(input*1+k*1);
