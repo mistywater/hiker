@@ -4,11 +4,11 @@ function sourceJump(d, arr,blank) {
     arr.forEach((item, index) => {
         d.push({
             title: item.split('@')[0].replace(/H-|✈️|🔞|🐹/g, ''),
-            url: $(item).lazyRule((index) => {
+            url: $('#noLoading#').lazyRule((item) => {
                 let configPath = 'hiker://files/rules/Src/Ju/config.json';
                 let html = fetchPC(configPath);
-                let stype = input.split('@')[1];
-                let sname = input.split('@')[0];
+                let stype = item.split('@')[1];
+                let sname = item.split('@')[0];
                 if (html) {
                     html = html.replace(/"runMode":".*?"/, `"runMode":"${stype}"`)
                         .replace(new RegExp(`${stype}sourcename.*?,`), `${stype}sourcename":"${sname}",`);
@@ -16,7 +16,7 @@ function sourceJump(d, arr,blank) {
                 }
                 refreshPage();
                 return 'hiker://empty';
-            }, index),
+            }, item),
             col_type: 'scroll_button',
             extra: {
                 backgroundColor: info.name == item.split('@')[0] ? getRandomColor() : ''
