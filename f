@@ -877,7 +877,7 @@ function extraPic(host, page, pages, ctype, hiker) {
                             putMyVar(host + 'page', input);
                         refreshPage(false);
                         return 'hiker://empty';
-                        });
+                        },host);
                     }
                 }, host,num);
             }, host, arr,num),
@@ -1116,7 +1116,7 @@ function pageMoveto(host, page, ctype,pages) {
                             putMyVar(host + 'page', input);
                         refreshPage(false);
                         return 'hiker://empty';
-                        });
+                        },host);
                     }
                 }, host,num);
             }, host, arr,num),
