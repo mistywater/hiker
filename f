@@ -1,4 +1,9 @@
 js:
+function cfl(str) {
+    return str.replace(/\w\S*/g, function(word) {
+        return word.charAt(0) + word.slice(1).toLowerCase();
+    });
+}
 function numberSub(strNumber) {
     return `${strNumber}`.split('').map(h => String.fromCharCode(h * 1 + 8320)).join('');
 }
