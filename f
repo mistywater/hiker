@@ -1,4 +1,33 @@
 js:
+function sourceJump(d, arr) {
+    let info = storage0.getMyVar('一级源接口信息');
+    arr.forEach((item, index) => {
+        d.push({
+            title: item.split('@')[0].replace(/H-|✈️|🔞|🐹/g, ''),
+            url: $(item).lazyRule((index) => {
+                let configPath = 'hiker://files/rules/Src/Ju/config.json';
+                let html = fetchPC(configPath);
+                let stype = input.split('@')[1];
+                let sname = input.split('@')[0];
+                if (html) {
+                    html = html.replace(/"runMode":".*?"/, `"runMode":"${stype}"`)
+                        .replace(new RegExp(`${stype}sourcename.*?,`), `${stype}sourcename":"${sname}",`);
+                    writeFile(configPath, html);
+                }
+                refreshPage();
+                return 'hiker://empty';
+            }, index),
+            col_type: 'scroll_button',
+            extra: {
+                backgroundColor: info.name == item.split('@')[0] ? getRandomColor() : ''
+            }
+        });
+    });
+    d.push({
+        col_type: 'blank_block',
+    });
+    return d;
+}
 function cfl(str) {
     return str.replace(/\w\S*/g, function(word) {
         return word.charAt(0) + word.slice(1).toLowerCase();
