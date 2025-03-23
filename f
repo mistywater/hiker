@@ -1,5 +1,5 @@
 js:
-function sourceJump(d, arr) {
+function sourceJump(d, arr,blank) {
     let info = storage0.getMyVar('一级源接口信息');
     arr.forEach((item, index) => {
         d.push({
@@ -23,9 +23,9 @@ function sourceJump(d, arr) {
             }
         });
     });
-    d.push({
+    if(!blank){d.push({
         col_type: 'blank_block',
-    });
+    });}
     return d;
 }
 function cfl(str) {
