@@ -1,4 +1,20 @@
 js:
+function detectCloudStorage(link) {
+    // 统一转换为小写，避免大小写影响判断
+    link = link.toLowerCase();
+
+    if (link.includes("pan.baidu.com") || link.includes("baidupcs.com")) {
+        return "[百度网盘]";
+    } else if (link.includes("aliyundrive.com") || link.includes("alipan.com")) {
+        return "[阿里云盘]";
+    } else if (link.includes("quark.cn")) {
+        return "[夸克网盘]";
+    } else if (link.includes("uc.cn") || link.includes("yun.uc.cn")) {
+        return "[UC网盘]";
+    } else {
+        return "[未知网盘]";
+    }
+}
 function sourceJump(d, arr,blank) {
     let info = storage0.getMyVar('一级源接口信息');
     arr.forEach((item, index) => {
