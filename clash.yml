@@ -118,6 +118,9 @@ proxy-groups:
       - 🔰 选择节点
       - DIRECT
 rules:
+ - DOMAIN-SUFFIX,caouu01.xyz,🇨🇳 国内网站
+ - DOMAIN-SUFFIX,qmp4.com,🇨🇳 国内网站
+ - DOMAIN-SUFFIX,4kwang36.buzz,🇨🇳 国内网站
  - DOMAIN-SUFFIX,nhentai.net,✈️国外站点
  - DOMAIN-SUFFIX,篤學好古.jyaaa.life,✈️国外站点
  - DOMAIN-SUFFIX,e-hentai.org,✈️国外站点
@@ -8071,9 +8074,6 @@ rules:
  - DOMAIN-SUFFIX,cn-south-4.myhuaweicloud.com,🇨🇳 国内网站
  - DOMAIN-SUFFIX,cn-south-2.myhuaweicloud.com,🇨🇳 国内网站
  - DOMAIN-SUFFIX,cn-southwest-2.myhuaweicloud.com,🇨🇳 国内网站
- - DOMAIN-SUFFIX,caouu01.xyz,🇨🇳 国内网站
- - DOMAIN-SUFFIX,qmp4.com,🇨🇳 国内网站
- - DOMAIN-SUFFIX,4kwang36.buzz,🇨🇳 国内网站
  - DOMAIN-SUFFIX,cloudflare-dns.com,🌩️ Cloudflare
  - DOMAIN-SUFFIX,cloudflare-ipfs.com,🌩️ Cloudflare
  - DOMAIN-SUFFIX,cloudflare-quic.com,🌩️ Cloudflare
