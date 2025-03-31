@@ -62,25 +62,9 @@ proxies:
   - { name: 香港WAP-优化2, type: vmess, server: m.cnmjin.net, port: 16622, uuid: ea17601d-8ebf-4431-b815-4d644821ca7e, alterId: 0, cipher: auto, udp: true, network: ws, ws-opts: { path: /, headers: { Host: 3a8bb174fdb0e8b46b52962a1dcd3103.mobgslb.tbcache.com } }, ws-path: /, ws-headers: { Host: 3a8bb174fdb0e8b46b52962a1dcd3103.mobgslb.tbcache.com } }
   - { name: 香港wap-T, type: trojan, server: waphk.mjt000.com, port: 443, password: ea17601d-8ebf-4431-b815-4d644821ca7e, udp: true, sni: waphk.mjt000.com }
 proxy-groups:
-  - { name: 自动选择, type: url-test, proxies: [新加坡-优化, 新加坡-优化2, 新加坡-优化3, 香港HY-优化, 香港HY-优化2, 香港WAP-优化, 香港WAP-优化2, 香港wap-T], url: 'https://hanime1.me', interval: 600, tolerance: 200 }
-  - name: 🔰 选择节点
-    type: select
-    proxies:
-      - 🇯🇵 免费-日本1-Ver.6
-      - 🇯🇵 免费-日本2-Ver.7
-      - 🇯🇵 免费-日本3-Ver.6
-      - 🇯🇵 免费-日本4-Ver.7
-      - 🇯🇵 免费-日本5-Ver.8
-      - 🇯🇵 免费-日本6-Ver.7
-      - 🇯🇵 免费-日本7-Ver.1
-      - 新加坡-优化
-      - 新加坡-优化2
-      - 新加坡-优化3
-      - 香港HY-优化
-      - 香港HY-优化2
-      - 香港WAP-优化
-      - 香港WAP-优化2
-      - DIRECT
+  - { name: 🔰 选择节点, type: select, proxies: [DIRECT,🇯🇵 免费-日本1-Ver.6,  🇯🇵 免费-日本2-Ver.7, 🇯🇵 免费-日本3-Ver.6, 🇯🇵 免费-日本4-Ver.7,🇯🇵 免费-日本5-Ver.8,🇯🇵 免费-日本6-Ver.7,🇯🇵 免费-日本7-Ver.1,新加坡-优化, 新加坡-优化2, 新加坡-优化3, 香港HY-优化, 香港HY-优化2, 香港WAP-优化, 香港WAP-优化2, 香港wap-T] }
+  - { name: ✈️国外站点, type: select, proxies: [🇯🇵 免费-日本1-Ver.6,  🇯🇵 免费-日本2-Ver.7, 🇯🇵 免费-日本3-Ver.6, 🇯🇵 免费-日本4-Ver.7,🇯🇵 免费-日本5-Ver.8,🇯🇵 免费-日本6-Ver.7,🇯🇵 免费-日本7-Ver.1,新加坡-优化, 新加坡-优化2, 新加坡-优化3, 香港HY-优化, 香港HY-优化2, 香港WAP-优化, 香港WAP-优化2, 香港wap-T] }
+  - { name: ⚓国外站点非日本IP, type: select, proxies: [新加坡-优化, 新加坡-优化2, 新加坡-优化3, 香港HY-优化, 香港HY-优化2, 香港WAP-优化, 香港WAP-优化2, 香港wap-T] }
   - name: 🌏 爱奇艺&哔哩哔哩
     type: select
     proxies:
@@ -8019,6 +8003,8 @@ rules:
  - DOMAIN-SUFFIX,cn-south-4.myhuaweicloud.com,🇨🇳 国内网站
  - DOMAIN-SUFFIX,cn-south-2.myhuaweicloud.com,🇨🇳 国内网站
  - DOMAIN-SUFFIX,cn-southwest-2.myhuaweicloud.com,🇨🇳 国内网站
+ - DOMAIN-SUFFIX,caouu01.xyz,🇨🇳 国内网站
+ - DOMAIN-SUFFIX,qmp4.com,🇨🇳 国内网站
  - DOMAIN-SUFFIX,cloudflare-dns.com,🌩️ Cloudflare
  - DOMAIN-SUFFIX,cloudflare-ipfs.com,🌩️ Cloudflare
  - DOMAIN-SUFFIX,cloudflare-quic.com,🌩️ Cloudflare
@@ -9656,7 +9642,79 @@ rules:
  - DOMAIN-SUFFIX,up.qingdaonews.com,🛑 拦截广告
  - DOMAIN-SUFFIX,vaserviece.10jqka.com.cn,🛑 拦截广告
  - DOMAIN-SUFFIX,local,DIRECT
- - DOMAIN-SUFFIX,hanime1.me,自动选择
+ - DOMAIN-SUFFIX,nhentai.net,✈️国外站点
+ - DOMAIN-SUFFIX,篤學好古.jyaaa.life,✈️国外站点
+ - DOMAIN-SUFFIX,e-hentai.org,✈️国外站点
+ - DOMAIN-SUFFIX,roum20.xyz,✈️国外站点
+ - DOMAIN-SUFFIX,cartoon18.com,✈️国外站点
+ - DOMAIN-SUFFIX,jcomic.net,✈️国外站点
+ - DOMAIN-SUFFIX,hanmanmianfei.net,✈️国外站点
+ - DOMAIN-SUFFIX,houhuayuan.pro,✈️国外站点
+ - DOMAIN-SUFFIX,hotupub.net,✈️国外站点
+ - DOMAIN-SUFFIX,rrread.xyz,✈️国外站点
+ - DOMAIN-SUFFIX,sis.la,✈️国外站点
+ - DOMAIN-SUFFIX,xbookcn.net,✈️国外站点
+ - DOMAIN-SUFFIX,cool18.com,✈️国外站点
+ - DOMAIN-SUFFIX,book18.org,✈️国外站点
+ - DOMAIN-SUFFIX,alhs.xyz,✈️国外站点
+ - DOMAIN-SUFFIX,kangaoqing.com,✈️国外站点
+ - DOMAIN-SUFFIX,4efu.com,✈️国外站点
+ - DOMAIN-SUFFIX,wallhaven.cc,✈️国外站点
+ - DOMAIN-SUFFIX,kemono.party,✈️国外站点
+ - DOMAIN-SUFFIX,zerochan.net,✈️国外站点
+ - DOMAIN-SUFFIX,qinimg.com,✈️国外站点
+ - DOMAIN-SUFFIX,buondua.com,✈️国外站点
+ - DOMAIN-SUFFIX,taotu.org,✈️国外站点
+ - DOMAIN-SUFFIX,4kup.net,✈️国外站点
+ - DOMAIN-SUFFIX,asianude4u.net,✈️国外站点
+ - DOMAIN-SUFFIX,pixiv.net,✈️国外站点
+ - DOMAIN-SUFFIX,ai19.art,✈️国外站点
+ - DOMAIN-SUFFIX,asiantolick.com,✈️国外站点
+ - DOMAIN-SUFFIX,youwu.lol,✈️国外站点
+ - DOMAIN-SUFFIX,hotgirl.asia,✈️国外站点
+ - DOMAIN-SUFFIX,jrants.com,✈️国外站点
+ - DOMAIN-SUFFIX,photos18.com,✈️国外站点
+ - DOMAIN-SUFFIX,hitxhot.com,✈️国外站点
+ - DOMAIN-SUFFIX,jjgirls.com,✈️国外站点
+ - DOMAIN-SUFFIX,4khd.com,✈️国外站点
+ - DOMAIN-SUFFIX,pornpics.com,✈️国外站点
+ - DOMAIN-SUFFIX,metarthunter.com,✈️国外站点
+ - DOMAIN-SUFFIX,elitebabes.com,✈️国外站点
+ - DOMAIN-SUFFIX,hentaiasmr.moe,✈️国外站点
+ - DOMAIN-SUFFIX,asmrhub.site,✈️国外站点
+ - DOMAIN-SUFFIX,wffra.com,✈️国外站点
+ - DOMAIN-SUFFIX,cloudfront.net,✈️国外站点
+ - DOMAIN-SUFFIX,liidee.com,✈️国外站点
+ - DOMAIN-SUFFIX,2024api2.top,✈️国外站点
+ - DOMAIN-SUFFIX,sehuatang.org,✈️国外站点
+ - DOMAIN-SUFFIX,91jinman.com,✈️国外站点
+ - DOMAIN-SUFFIX,91shukan.com,✈️国外站点
+ - DOMAIN-SUFFIX,91tulu.com,✈️国外站点
+ - DOMAIN-SUFFIX,k55.net,✈️国外站点
+ - DOMAIN-SUFFIX,yazhouse8.com,✈️国外站点
+ - DOMAIN-SUFFIX,woxav.com,✈️国外站点
+ - DOMAIN-SUFFIX,4kwang36.buzz,✈️国外站点
+ - DOMAIN-SUFFIX,hjy6.top,✈️国外站点
+ - DOMAIN-SUFFIX,youporn.com,✈️国外站点
+ - DOMAIN-SUFFIX,youjizz.com,✈️国外站点
+ - DOMAIN-SUFFIX,taiav.com,✈️国外站点
+ - DOMAIN-SUFFIX,theav.xyz,✈️国外站点
+ - DOMAIN-SUFFIX,xojav.tv,✈️国外站点
+ - DOMAIN-SUFFIX,799.su,✈️国外站点
+ - DOMAIN-SUFFIX,guatl.shop,✈️国外站点
+ - DOMAIN-SUFFIX,ptt.sex,✈️国外站点
+ - DOMAIN-SUFFIX,xfuliji.com,✈️国外站点
+ - DOMAIN-SUFFIX,guazishequ.vip,✈️国外站点
+ - DOMAIN-SUFFIX,uaa202410.com,✈️国外站点
+ - DOMAIN-SUFFIX,uaa.com,✈️国外站点
+  - DOMAIN-SUFFIX,111,✈️国外站点
+ - DOMAIN-SUFFIX,111,✈️国外站点
+ - DOMAIN-SUFFIX,111,✈️国外站点
+ - DOMAIN-SUFFIX,111,✈️国外站点
+ - DOMAIN-SUFFIX,111,✈️国外站点
+ - DOMAIN-SUFFIX,111,✈️国外站点
+- DOMAIN-SUFFIX,hanime1.me,⚓国外站点非日本IP
+ - DOMAIN-SUFFIX,18comic.vip,⚓国外站点非日本IP
  - IP-CIDR,192.168.0.0/16,DIRECT,no-resolve
  - IP-CIDR,10.0.0.0/8,DIRECT,no-resolve
  - IP-CIDR,172.16.0.0/12,DIRECT,no-resolve
