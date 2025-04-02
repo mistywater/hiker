@@ -1,15 +1,21 @@
 js:
-function pagesBuild(html, getPages, getUrl) {
+function buildUrls(getPages, getUrl, headers) {
     let urls = [];
     try {
         var pages = eval(getPages);
     } catch (e) {
         pages = 1;
     };
-    for (k = 1; k <= pages; k++) {
-        urls.push({
-            url: eval(getUrl),
-        });
+    for (let k = 1; k <= pages; k++) {
+        let obj = {
+            url: eval(getUrl)
+        }
+        if (headers) {
+            obj.options = {
+                headers: headers
+            }
+        }
+        urls.push(object);
     }
     return urls;
 }
