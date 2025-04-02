@@ -15,7 +15,7 @@ function buildUrls(getPages, getUrl, headers) {
                 headers: headers
             }
         }
-        urls.push(object);
+        urls.push(obj);
     }
     return urls;
 }
