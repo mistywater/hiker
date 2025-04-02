@@ -1,4 +1,18 @@
 js:
+function pagesBuild(html, getPages, getUrl) {
+    let urls = [];
+    try {
+        var pages = eval(getPages);
+    } catch (e) {
+        pages = 1;
+    };
+    for (k = 1; k <= pages; k++) {
+        urls.push({
+            url: eval(getUrl),
+        });
+    }
+    return urls;
+}
 function detectCloudStorage(link) {
     // 统一转换为小写，避免大小写影响判断
     link = link.toLowerCase();
