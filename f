@@ -43,7 +43,7 @@ function link(d, urlsTemp,titleLast,titleNext, myurl, host) {
     });
     return d;
 }
-function buildUrls(getPages, getUrl, headers) {
+function buildUrls(pages, getUrl, headers) {
     let urls = [];
     for (let k = 1; k <= pages; k++) {
         let obj = {
