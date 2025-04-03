@@ -1,4 +1,48 @@
 js:
+function downloadLongClick(host) {
+    var longClick = [{
+        title: '下载',
+        js: `'hiker://page/download.view?rule=本地资源管理'`,
+    }, {
+        title: '书架',
+        js: `'hiker://page/Main.view?rule=本地资源管理'`,
+    }];
+    var extra = $.toString((host, longClick) => ({
+        chapterList: 'hiker://files/_cache/chapterList.txt',
+        info: {
+            bookName: MY_URL.split('/')[2],
+            ruleName: 'photo',
+            bookTopPic: 'https://api.xinac.net/icon/?url=' + host,
+            parseCode: downloadlazy,
+            defaultView: '1'
+        },
+        longClick: longClick,
+    }), host, longClick);
+    return extra;
+}
+function link(d, urlsTemp,titleLast,titleNext, myurl, host) {
+    d.push({
+        col_type: 'blank_block',
+    });
+    urlsTemp.forEach((it, index) => {
+        d.push({
+            title: index == 0 ? (it.startsWith('http') ? '⬅️' + titleLast : '没有了') : titleNext + '➡️',
+            url: $('#noLoading#').lazyRule((url, host, index, url1) => {
+                putMyVar(host + 'next', url);
+                refreshPage();
+                return 'hiker://empty';
+            }, it ? it : myurl, host, index, myurl),
+            col_type: 'text_2',
+            extra: {
+                lineVisible: 'false'
+            }
+        });
+    });
+    d.push({
+        col_type: 'blank_block',
+    });
+    return d;
+}
 function buildUrls(getPages, getUrl, headers) {
     let urls = [];
     try {
