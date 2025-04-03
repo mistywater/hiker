@@ -1211,6 +1211,7 @@ function classTop(index, data, host, d, mode, v, c, f, len, start, end) {
     let isInRange = index >= start && index <= end;
     let c_title = /\{/.test(JSON.stringify(data)) ? data.title.split('&') : data.split('&');
     let c_id = /\{/.test(JSON.stringify(data)) ? (data.id === '' ? c_title : data.id === '@@@' ? data.title.replace(/^.*?&/, '&').split('&') : data.id.split('&')) : null;
+    let c_img=storage0.getMyVar(host+'picsClass',[]).length!=0?storage0.getMyVar(host+'picsClass'):(data.img?data.img.split('&') :[]);
     c_title.forEach((title, index_c) => {
         let isSelected = index_c == getMyVar(host + c + 'index' + index, mode || index == v ? '0' : '-1');
         let titleStyled = isSelected ?
@@ -1220,6 +1221,7 @@ function classTop(index, data, host, d, mode, v, c, f, len, start, end) {
             title;
         d.push({
             title: titleStyled,
+            img:c_img.length!=0?c_img[index_c]:'',
             col_type: f,
             url: $('#noLoading#').lazyRule((index, id, index_c, host, mode, title, v, c, len) => {
                 if (mode) {
