@@ -43,12 +43,12 @@ function link(d, urlsTemp,titleLast,titleNext, myurl, host) {
     });
     return d;
 }
-function buildUrls(pages, getUrl, headers) {
+function buildUrls(pages, urlBuilder, headers) {
     let urls = [];
     for (let k = 1; k <= pages; k++) {
         let obj = {
-            url: eval(getUrl)
-        }
+            url: urlBuilder(k)  // 直接调用函数获取URL
+        };
         if (headers) {
             obj.options = {
                 headers: headers
