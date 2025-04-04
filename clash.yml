@@ -50,85 +50,23 @@ proxies:
   - {name: 🇯🇵 免费-日本5-Ver.8, server: lppky-g01.jp05-6786-vm0.entry.fr0307a.art, port: 46482, type: vmess, uuid: 2176c6f5-8d55-324a-928a-9ab50a4afc7c, alterId: 1, cipher: auto, tls: false, skip-cert-verify: false, udp: true}
   - {name: 🇯🇵 免费-日本6-Ver.7, server: zuv91-g01.jp06-7c5a-vm0.entry.fr0307a.art, port: 28783, type: vmess, uuid: 2176c6f5-8d55-324a-928a-9ab50a4afc7c, alterId: 1, cipher: auto, tls: true, skip-cert-verify: false, udp: true}
   - {name: 🇯🇵 免费-日本7-Ver.1, server: uxdzd-g01.jp07-1f28-vm0.entry.fr0307a.art, port: 28783, type: vmess, uuid: 2176c6f5-8d55-324a-928a-9ab50a4afc7c, alterId: 1, cipher: auto, tls: false, skip-cert-verify: false, udp: true}
-  - { name: 新加坡SG-T, type: trojan, server: sg.mjt000.com, port: 443, password: ea17601d-8ebf-4431-b815-4d644821ca7e, udp: true, sni: sg.mjt000.com, skip-cert-verify: true }
-  - { name: 柬埔寨KH-T, type: trojan, server: kh.mjt000.com, port: 443, password: ea17601d-8ebf-4431-b815-4d644821ca7e, udp: true, sni: kh.mjt000.com }
-  - { name: 美国USLA-T-GPT, type: trojan, server: usla.mjt000.com, port: 443, password: ea17601d-8ebf-4431-b815-4d644821ca7e, udp: true, sni: usla.mjt000.com }
-  - { name: 新加坡-优化, type: vmess, server: yes.mojcn.com, port: 16618, uuid: ea17601d-8ebf-4431-b815-4d644821ca7e, alterId: 0, cipher: auto, udp: true, network: ws, ws-opts: { path: /, headers: { Host: 3a8bb174fdb0e8b46b52962a1dcd3103.mobgslb.tbcache.com } }, ws-path: /, ws-headers: { Host: 3a8bb174fdb0e8b46b52962a1dcd3103.mobgslb.tbcache.com } }
-  - { name: 新加坡-优化2, type: vmess, server: m.cnmjin.net, port: 16618, uuid: ea17601d-8ebf-4431-b815-4d644821ca7e, alterId: 0, cipher: auto, udp: true, network: ws, ws-opts: { path: /, headers: { Host: 3a8bb174fdb0e8b46b52962a1dcd3103.mobgslb.tbcache.com } }, ws-path: /, ws-headers: { Host: 3a8bb174fdb0e8b46b52962a1dcd3103.mobgslb.tbcache.com } }
-  - { name: 新加坡-优化3, type: vmess, server: t.cnmjcn.cyou, port: 16618, uuid: ea17601d-8ebf-4431-b815-4d644821ca7e, alterId: 0, cipher: auto, udp: true, network: ws, ws-opts: { path: /, headers: { Host: 3a8bb174fdb0e8b46b52962a1dcd3103.mobgslb.tbcache.com } }, ws-path: /, ws-headers: { Host: 3a8bb174fdb0e8b46b52962a1dcd3103.mobgslb.tbcache.com } }
-  - { name: 香港HY-优化, type: vmess, server: yes.mojcn.com, port: 16632, uuid: ea17601d-8ebf-4431-b815-4d644821ca7e, alterId: 0, cipher: auto, udp: true, network: ws, ws-opts: { path: /, headers: { Host: 3a8bb174fdb0e8b46b52962a1dcd3103.mobgslb.tbcache.com } }, ws-path: /, ws-headers: { Host: 3a8bb174fdb0e8b46b52962a1dcd3103.mobgslb.tbcache.com } }
-  - { name: 香港HY-优化2, type: vmess, server: m.cnmjin.net, port: 16632, uuid: ea17601d-8ebf-4431-b815-4d644821ca7e, alterId: 0, cipher: auto, udp: true, network: ws, ws-opts: { path: /, headers: { Host: 3a8bb174fdb0e8b46b52962a1dcd3103.mobgslb.tbcache.com } }, ws-path: /, ws-headers: { Host: 3a8bb174fdb0e8b46b52962a1dcd3103.mobgslb.tbcache.com } }
-  - { name: 香港WAP-优化, type: vmess, server: yes.mojcn.com, port: 16622, uuid: ea17601d-8ebf-4431-b815-4d644821ca7e, alterId: 0, cipher: auto, udp: true, network: ws, ws-opts: { path: /, headers: { Host: 3a8bb174fdb0e8b46b52962a1dcd3103.mobgslb.tbcache.com } }, ws-path: /, ws-headers: { Host: 3a8bb174fdb0e8b46b52962a1dcd3103.mobgslb.tbcache.com } }
-  - { name: 香港WAP-优化2, type: vmess, server: m.cnmjin.net, port: 16622, uuid: ea17601d-8ebf-4431-b815-4d644821ca7e, alterId: 0, cipher: auto, udp: true, network: ws, ws-opts: { path: /, headers: { Host: 3a8bb174fdb0e8b46b52962a1dcd3103.mobgslb.tbcache.com } }, ws-path: /, ws-headers: { Host: 3a8bb174fdb0e8b46b52962a1dcd3103.mobgslb.tbcache.com } }
-  - { name: 香港wap-T, type: trojan, server: waphk.mjt000.com, port: 443, password: ea17601d-8ebf-4431-b815-4d644821ca7e, udp: true, sni: waphk.mjt000.com }
+  - {name: 移动4g专用02|918, server: 183.237.84.53, port: 55002, client-fingerprint: chrome, type: vmess, uuid: 418048af-a293-4b99-9b0c-98ca3580dd24, alterId: 64, cipher: auto, tls: false, tfo: false, skip-cert-verify: false}
+  - {name: 移动4g专用02|894, server: 120.198.44.126, port: 47883, client-fingerprint: chrome, type: vmess, uuid: 418048af-a293-4b99-9b0c-98ca3580dd24, alterId: 64, cipher: auto, tls: false, tfo: false, skip-cert-verify: false}
+  - {name: 移动4g专用01|805, server: 183.238.90.8, port: 41766, client-fingerprint: chrome, type: vmess, uuid: 418048af-a293-4b99-9b0c-98ca3580dd24, alterId: 64, cipher: auto, tls: false, tfo: false, skip-cert-verify: false}
+  - {name: 移动4g专用01|839, server: 183.238.90.8, port: 46920, client-fingerprint: chrome, type: vmess, uuid: 418048af-a293-4b99-9b0c-98ca3580dd24, alterId: 64, cipher: auto, tls: false, tfo: false, skip-cert-verify: false}
+  - {name: 移动4g专用03|102, server: 120.210.205.134, port: 47459, client-fingerprint: chrome, type: vmess, uuid: 83a424d8-4bcb-4cee-b016-2c8f1db4a921, alterId: 64, cipher: auto, tls: false, tfo: false, skip-cert-verify: false}
+  - {name: 🇸🇬SG_1 @wangcai_8 3, server: 120.232.153.48, port: 50136, type: ssr, cipher: chacha20, password: mPQ5C9, protocol: auth_chain_a, obfs: tls1.2_ticket_auth, protocol-param: 55454045:RqsF7g, obfs-param: TG.WangCai2, udp: true}
+  - {name: 🇸🇬SG_2 @wangcai_8 3, server: 120.232.153.48, port: 50137, type: ssr, cipher: chacha20, password: mPQ5C9, protocol: auth_chain_a, obfs: tls1.2_ticket_auth, protocol-param: 55454045:RqsF7g, obfs-param: TG.WangCai2, udp: true}
+  - {name: 🇸🇬SG_3 @wangcai_8 3, server: 120.232.153.48, port: 50138, type: ssr, cipher: chacha20, password: mPQ5C9, protocol: auth_chain_a, obfs: tls1.2_ticket_auth, protocol-param: 55454045:RqsF7g, obfs-param: TG.WangCai2, udp: true}
+  - {name: 🇸🇬SG_4 @wangcai_8 3, server: 120.232.153.48, port: 50139, type: ssr, cipher: chacha20, password: mPQ5C9, protocol: auth_chain_a, obfs: tls1.2_ticket_auth, protocol-param: 55454045:RqsF7g, obfs-param: TG.WangCai2, udp: true}
 proxy-groups:
   # ============= 原有策略组（保持完全不变）=============
-  - { name: "🔰 选择节点", type: select, proxies: [DIRECT, 🇯🇵 免费-日本1-Ver.6, 🇯🇵 免费-日本2-Ver.7, 🇯🇵 免费-日本3-Ver.6, 🇯🇵 免费-日本4-Ver.7, 🇯🇵 免费-日本5-Ver.8, 🇯🇵 免费-日本6-Ver.7, 🇯🇵 免费-日本7-Ver.1, 新加坡-优化, 新加坡-优化2, 新加坡-优化3, 香港HY-优化, 香港HY-优化2, 香港WAP-优化, 香港WAP-优化2, 香港wap-T] }
-  - { name: "✈️国外站点", type: fallback, interval: 60, tolerance: 500, url: "http://www.gstatic.com/generate_204", proxies: [🇯🇵 免费-日本1-Ver.6, 🇯🇵 免费-日本2-Ver.7, 🇯🇵 免费-日本3-Ver.6, 🇯🇵 免费-日本4-Ver.7, 🇯🇵 免费-日本5-Ver.8, 🇯🇵 免费-日本6-Ver.7, 🇯🇵 免费-日本7-Ver.1, 新加坡-优化, 新加坡-优化2, 新加坡-优化3, 香港HY-优化, 香港HY-优化2, 香港WAP-优化, 香港WAP-优化2, 香港wap-T] }
-  - { name: "⚓国外站点非日本IP", type: select, proxies: [新加坡-优化, 新加坡-优化2, 新加坡-优化3, 香港HY-优化, 香港HY-优化2, 香港WAP-优化, 香港WAP-优化2, 香港wap-T] }
-
-  # ============= 新增策略组 =============
-  # 日本节点专用自动切换组（原国外站点的子集）
-  - name: "🇯🇵日本节点优选"
-    type: url-test
-    interval: 60
-    tolerance: 150  # 比主组更严格的延迟要求
-    url: "http://www.gstatic.com/generate_204"
-    proxies:
-      - "🇯🇵 免费-日本1-Ver.6"
-      - "🇯🇵 免费-日本2-Ver.7"
-      - "🇯🇵 免费-日本3-Ver.6"
-      - "🇯🇵 免费-日本4-Ver.7"
-      - "🇯🇵 免费-日本5-Ver.8"
-      - "🇯🇵 免费-日本6-Ver.7"
-      - "🇯🇵 免费-日本7-Ver.1"
-
-  # 新版国外流量路由组（优先日本节点）
-  - name: "🌏智能国外路由"
-    type: fallback
-    interval: 300
-    tolerance: 300
-    url: "http://www.gstatic.com/generate_204"
-    proxies:
-      - "🇯🇵日本节点优选"  # 第一优先级
-      - "✈️国外站点"      # 原逻辑作为备用
-      - "⚓国外站点非日本IP"
-  - name: 🌏 爱奇艺&哔哩哔哩
-    type: select
-    proxies:
-      - DIRECT
-  - name: 📺 动画疯
-    type: select
-    proxies:
-      - 🔰 选择节点
-      - DIRECT
-  - name: 🎮 Steam 登录/下载
-    type: select
-    proxies:
-      - DIRECT
-      - 🔰 选择节点
-  - name: 🎮 Steam 商店/社区
-    type: select
-    proxies:
-      - 🔰 选择节点
-      - DIRECT
-  - name: 🌩️ Cloudflare
-    type: select
-    proxies:
-      - 🔰 选择节点
-      - DIRECT
-  - name: ☁️ OneDrive
-    type: select
-    proxies:
-      - 🔰 选择节点
-      - DIRECT
-      - 🇯🇵 免费-日本1-Ver.6
-      - 🇯🇵 免费-日本2-Ver.7
-      - 🇯🇵 免费-日本3-Ver.6
-      - 🇯🇵 免费-日本4-Ver.7
-      - 🇯🇵 免费-日本5-Ver.8
-      - 🇯🇵 免费-日本6-Ver.7
-      - 🇯🇵 免费-日本7-Ver.1
+  - { name: "🔰 选择节点", type: select, proxies: [DIRECT, 免费-日本节点,移动4g专用,新加坡节点]}
+  - { name: "✈️国外站点", type: fallback, interval: 60, tolerance: 500,timeout: 3000, url: "http://www.gstatic.com/generate_204", proxies: [免费-日本节点,移动4g专用,新加坡节点] }
+  - { name: "⚓国外站点非日本IP", type: fallback, interval: 60, tolerance: 500,timeout: 3000, url: "http://www.gstatic.com/generate_204",proxies: [新加坡节点,移动4g专用] }
+  - { name: "新加坡节点", type: fallback, interval: 60, tolerance: 500,timeout: 3000, url: "http://www.gstatic.com/generate_204",proxies: [🇸🇬SG_1 @wangcai_8 3,🇸🇬SG_2 @wangcai_8 3,🇸🇬SG_3 @wangcai_8 3,🇸🇬SG_4 @wangcai_8 3,] }
+  - { name: "移动4g专用", type: fallback, interval: 60, tolerance: 500,timeout: 3000, url: "http://www.gstatic.com/generate_204",proxies: [移动4g专用02|918,移动4g专用02|894,移动4g专用01|805,移动4g专用01|839,移动4g专用03|102] }
+  - { name: "免费-日本节点", type: fallback, interval: 60, tolerance: 500,timeout: 3000, url: "http://www.gstatic.com/generate_204",proxies: [🇯🇵 免费-日本1-Ver.6, 🇯🇵 免费-日本2-Ver.7, 🇯🇵 免费-日本3-Ver.6, 🇯🇵 免费-日本4-Ver.7, 🇯🇵 免费-日本5-Ver.8, 🇯🇵 免费-日本6-Ver.7, 🇯🇵 免费-日本7-Ver.1] }
   - name: 🇨🇳 国内网站
     type: select
     proxies:
@@ -222,41 +160,41 @@ rules:
  - DOMAIN-SUFFIX,111,✈️国外站点
  - DOMAIN-SUFFIX,hanime1.me,⚓国外站点非日本IP
  - DOMAIN-SUFFIX,18comic.vip,⚓国外站点非日本IP
- - DOMAIN,app.biliapi.net,🌏 爱奇艺&哔哩哔哩
- - DOMAIN,grpc.biliapi.net,🌏 爱奇艺&哔哩哔哩
- - DOMAIN,p-bstarstatic.akamaized.net,🌏 爱奇艺&哔哩哔哩
- - DOMAIN,p.bstarstatic.com,🌏 爱奇艺&哔哩哔哩
- - DOMAIN,upos-bstar-mirrorakam.akamaized.net,🌏 爱奇艺&哔哩哔哩
- - DOMAIN,upos-bstar1-mirrorakam.akamaized.net,🌏 爱奇艺&哔哩哔哩
- - DOMAIN,upos-hz-mirrorakam.akamaized.net,🌏 爱奇艺&哔哩哔哩
- - DOMAIN-SUFFIX,acgvideo.com,🌏 爱奇艺&哔哩哔哩
- - DOMAIN-SUFFIX,bilibili.com,🌏 爱奇艺&哔哩哔哩
- - DOMAIN-SUFFIX,bilibili.tv,🌏 爱奇艺&哔哩哔哩
- - IP-CIDR,45.43.32.234/32,🌏 爱奇艺&哔哩哔哩,no-resolve
- - IP-CIDR,103.151.150.0/23,🌏 爱奇艺&哔哩哔哩,no-resolve
- - IP-CIDR,128.1.62.200/32,🌏 爱奇艺&哔哩哔哩,no-resolve
- - IP-CIDR,128.1.62.201/32,🌏 爱奇艺&哔哩哔哩,no-resolve
- - IP-CIDR,150.116.92.250/32,🌏 爱奇艺&哔哩哔哩,no-resolve
- - IP-CIDR,164.52.33.178/32,🌏 爱奇艺&哔哩哔哩,no-resolve
- - IP-CIDR,164.52.33.182/32,🌏 爱奇艺&哔哩哔哩,no-resolve
- - IP-CIDR,164.52.76.18/32,🌏 爱奇艺&哔哩哔哩,no-resolve
- - IP-CIDR,203.107.1.33/32,🌏 爱奇艺&哔哩哔哩,no-resolve
- - IP-CIDR,203.107.1.34/32,🌏 爱奇艺&哔哩哔哩,no-resolve
- - IP-CIDR,203.107.1.65/32,🌏 爱奇艺&哔哩哔哩,no-resolve
- - IP-CIDR,203.107.1.66/32,🌏 爱奇艺&哔哩哔哩,no-resolve
- - DOMAIN,cache.video.iqiyi.com,🌏 爱奇艺&哔哩哔哩
- - DOMAIN-SUFFIX,iq.com,🌏 爱奇艺&哔哩哔哩
- - DOMAIN,bahamut.akamaized.net,📺 动画疯
- - DOMAIN,gamer-cds.cdn.hinet.net,📺 动画疯
- - DOMAIN,gamer2-cds.cdn.hinet.net,📺 动画疯
- - DOMAIN-SUFFIX,bahamut.com.tw,📺 动画疯
- - DOMAIN-SUFFIX,gamer.com.tw,📺 动画疯
+ - DOMAIN,app.biliapi.net,🇨🇳 国内网站
+ - DOMAIN,grpc.biliapi.net,🇨🇳 国内网站
+ - DOMAIN,p-bstarstatic.akamaized.net,🇨🇳 国内网站
+ - DOMAIN,p.bstarstatic.com,🇨🇳 国内网站
+ - DOMAIN,upos-bstar-mirrorakam.akamaized.net,🇨🇳 国内网站
+ - DOMAIN,upos-bstar1-mirrorakam.akamaized.net,🇨🇳 国内网站
+ - DOMAIN,upos-hz-mirrorakam.akamaized.net,🇨🇳 国内网站
+ - DOMAIN-SUFFIX,acgvideo.com,🇨🇳 国内网站
+ - DOMAIN-SUFFIX,bilibili.com,🇨🇳 国内网站
+ - DOMAIN-SUFFIX,bilibili.tv,🇨🇳 国内网站
+ - IP-CIDR,45.43.32.234/32,🇨🇳 国内网站,no-resolve
+ - IP-CIDR,103.151.150.0/23,🇨🇳 国内网站,no-resolve
+ - IP-CIDR,128.1.62.200/32,🇨🇳 国内网站,no-resolve
+ - IP-CIDR,128.1.62.201/32,🇨🇳 国内网站,no-resolve
+ - IP-CIDR,150.116.92.250/32,🇨🇳 国内网站,no-resolve
+ - IP-CIDR,164.52.33.178/32,🇨🇳 国内网站,no-resolve
+ - IP-CIDR,164.52.33.182/32,🇨🇳 国内网站,no-resolve
+ - IP-CIDR,164.52.76.18/32,🇨🇳 国内网站,no-resolve
+ - IP-CIDR,203.107.1.33/32,🇨🇳 国内网站,no-resolve
+ - IP-CIDR,203.107.1.34/32,🇨🇳 国内网站,no-resolve
+ - IP-CIDR,203.107.1.65/32,🇨🇳 国内网站,no-resolve
+ - IP-CIDR,203.107.1.66/32,🇨🇳 国内网站,no-resolve
+ - DOMAIN,cache.video.iqiyi.com,🇨🇳 国内网站
+ - DOMAIN-SUFFIX,iq.com,🇨🇳 国内网站
+ - DOMAIN,bahamut.akamaized.net,✈️国外站点
+ - DOMAIN,gamer-cds.cdn.hinet.net,✈️国外站点
+ - DOMAIN,gamer2-cds.cdn.hinet.net,✈️国外站点
+ - DOMAIN-SUFFIX,bahamut.com.tw,✈️国外站点
+ - DOMAIN-SUFFIX,gamer.com.tw,✈️国外站点
  - DOMAIN-SUFFIX,exhentai.org,🔰 选择节点
  - DOMAIN-SUFFIX,e-hentai.org,🔰 选择节点
  - DOMAIN-SUFFIX,ehgt.org,🔰 选择节点
  - DOMAIN-SUFFIX,forums.e-hentai.org,🔰 选择节点
- - DOMAIN-SUFFIX,steamserver.net,🎮 Steam 登录/下载
- - DOMAIN-SUFFIX,cm.steampowered.com,🎮 Steam 登录/下载
+ - DOMAIN-SUFFIX,steamserver.net,✈️国外站点
+ - DOMAIN-SUFFIX,cm.steampowered.com,✈️国外站点
  - DOMAIN-KEYWORD,steampipe,DIRECT
  - DOMAIN-KEYWORD,steamcontent,DIRECT
  - DOMAIN-SUFFIX,steampipe-kr.akamaized.net,DIRECT
@@ -277,39 +215,39 @@ rules:
  - DOMAIN-SUFFIX,steamchina.com,DIRECT
  - DOMAIN-SUFFIX,qtlglb.com,DIRECT
  - DOMAIN-SUFFIX,queniuqe.com,DIRECT
- - DOMAIN,steambroadcast.akamaized.net,🎮 Steam 商店/社区
- - DOMAIN,steamcdn-a.akamaihd.net,🎮 Steam 商店/社区
- - DOMAIN,steamcommunity-a.akamaihd.net,🎮 Steam 商店/社区
- - DOMAIN,steampipe.akamaized.net,🎮 Steam 商店/社区
- - DOMAIN,steamstore-a.akamaihd.net,🎮 Steam 商店/社区
- - DOMAIN,steamusercontent-a.akamaihd.net,🎮 Steam 商店/社区
- - DOMAIN,steamuserimages-a.akamaihd.net,🎮 Steam 商店/社区
- - DOMAIN-SUFFIX,fanatical.com,🎮 Steam 商店/社区
- - DOMAIN-SUFFIX,humblebundle.com,🎮 Steam 商店/社区
- - DOMAIN-SUFFIX,playartifact.com,🎮 Steam 商店/社区
- - DOMAIN-SUFFIX,steam-chat.com,🎮 Steam 商店/社区
- - DOMAIN-SUFFIX,steamcommunity.com,🎮 Steam 商店/社区
- - DOMAIN-SUFFIX,steamgames.com,🎮 Steam 商店/社区
- - DOMAIN-SUFFIX,steampowered.com,🎮 Steam 商店/社区
- - DOMAIN-SUFFIX,steamstat.us,🎮 Steam 商店/社区
- - DOMAIN-SUFFIX,steamstatic.com,🎮 Steam 商店/社区
- - DOMAIN-SUFFIX,underlords.com,🎮 Steam 商店/社区
- - DOMAIN-SUFFIX,valvesoftware.com,🎮 Steam 商店/社区
- - DOMAIN-SUFFIX,steamusercontent.com,🎮 Steam 商店/社区
- - DOMAIN-KEYWORD,1drv,☁️ OneDrive
- - DOMAIN-KEYWORD,onedrive,☁️ OneDrive
- - DOMAIN-KEYWORD,skydrive,☁️ OneDrive
- - DOMAIN-SUFFIX,livefilestore.com,☁️ OneDrive
- - DOMAIN-SUFFIX,oneclient.sfx.ms,☁️ OneDrive
- - DOMAIN-SUFFIX,onedrive.com,☁️ OneDrive
- - DOMAIN-SUFFIX,onedrive.live.com,☁️ OneDrive
- - DOMAIN-SUFFIX,photos.live.com,☁️ OneDrive
- - DOMAIN-SUFFIX,sharepoint.com,☁️ OneDrive
- - DOMAIN-SUFFIX,sharepointonline.com,☁️ OneDrive
- - DOMAIN-SUFFIX,skydrive.wns.windows.com,☁️ OneDrive
- - DOMAIN-SUFFIX,spoprod-a.akamaihd.net,☁️ OneDrive
- - DOMAIN-SUFFIX,storage.live.com,☁️ OneDrive
- - DOMAIN-SUFFIX,storage.msn.com,☁️ OneDrive
+ - DOMAIN,steambroadcast.akamaized.net,✈️国外站点
+ - DOMAIN,steamcdn-a.akamaihd.net,✈️国外站点
+ - DOMAIN,steamcommunity-a.akamaihd.net,✈️国外站点
+ - DOMAIN,steampipe.akamaized.net,✈️国外站点
+ - DOMAIN,steamstore-a.akamaihd.net,✈️国外站点
+ - DOMAIN,steamusercontent-a.akamaihd.net,✈️国外站点
+ - DOMAIN,steamuserimages-a.akamaihd.net,✈️国外站点
+ - DOMAIN-SUFFIX,fanatical.com,✈️国外站点
+ - DOMAIN-SUFFIX,humblebundle.com,✈️国外站点
+ - DOMAIN-SUFFIX,playartifact.com,✈️国外站点
+ - DOMAIN-SUFFIX,steam-chat.com,✈️国外站点
+ - DOMAIN-SUFFIX,steamcommunity.com,✈️国外站点
+ - DOMAIN-SUFFIX,steamgames.com,✈️国外站点
+ - DOMAIN-SUFFIX,steampowered.com,✈️国外站点
+ - DOMAIN-SUFFIX,steamstat.us,✈️国外站点
+ - DOMAIN-SUFFIX,steamstatic.com,✈️国外站点
+ - DOMAIN-SUFFIX,underlords.com,✈️国外站点
+ - DOMAIN-SUFFIX,valvesoftware.com,✈️国外站点
+ - DOMAIN-SUFFIX,steamusercontent.com,✈️国外站点
+ - DOMAIN-KEYWORD,1drv,✈️国外站点
+ - DOMAIN-KEYWORD,onedrive,✈️国外站点
+ - DOMAIN-KEYWORD,skydrive,✈️国外站点
+ - DOMAIN-SUFFIX,livefilestore.com,✈️国外站点
+ - DOMAIN-SUFFIX,oneclient.sfx.ms,✈️国外站点
+ - DOMAIN-SUFFIX,onedrive.com,✈️国外站点
+ - DOMAIN-SUFFIX,onedrive.live.com,✈️国外站点
+ - DOMAIN-SUFFIX,photos.live.com,✈️国外站点
+ - DOMAIN-SUFFIX,sharepoint.com,✈️国外站点
+ - DOMAIN-SUFFIX,sharepointonline.com,✈️国外站点
+ - DOMAIN-SUFFIX,skydrive.wns.windows.com,✈️国外站点
+ - DOMAIN-SUFFIX,spoprod-a.akamaihd.net,✈️国外站点
+ - DOMAIN-SUFFIX,storage.live.com,✈️国外站点
+ - DOMAIN-SUFFIX,storage.msn.com,✈️国外站点
  - DST-PORT,25,DIRECT
  - DST-PORT,57,DIRECT
  - DST-PORT,109,DIRECT
@@ -8102,27 +8040,27 @@ rules:
  - DOMAIN-SUFFIX,cn-south-4.myhuaweicloud.com,🇨🇳 国内网站
  - DOMAIN-SUFFIX,cn-south-2.myhuaweicloud.com,🇨🇳 国内网站
  - DOMAIN-SUFFIX,cn-southwest-2.myhuaweicloud.com,🇨🇳 国内网站
- - DOMAIN-SUFFIX,cloudflare-dns.com,🌩️ Cloudflare
- - DOMAIN-SUFFIX,cloudflare-ipfs.com,🌩️ Cloudflare
- - DOMAIN-SUFFIX,cloudflare-quic.com,🌩️ Cloudflare
- - DOMAIN-SUFFIX,cloudflare.com,🌩️ Cloudflare
- - DOMAIN-SUFFIX,cloudflare.net,🌩️ Cloudflare
- - DOMAIN-SUFFIX,cloudflareapps.com,🌩️ Cloudflare
- - DOMAIN-SUFFIX,cloudflarebolt.com,🌩️ Cloudflare
- - DOMAIN-SUFFIX,cloudflareclient.com,🌩️ Cloudflare
- - DOMAIN-SUFFIX,cloudflareinsights.com,🌩️ Cloudflare
- - DOMAIN-SUFFIX,cloudflareok.com,🌩️ Cloudflare
- - DOMAIN-SUFFIX,cloudflareresolve.com,🌩️ Cloudflare
- - DOMAIN-SUFFIX,cloudflaressl.com,🌩️ Cloudflare
- - DOMAIN-SUFFIX,cloudflarestatus.com,🌩️ Cloudflare
- - DOMAIN-SUFFIX,cloudflarestream.com,🌩️ Cloudflare
- - DOMAIN-SUFFIX,cloudflaretest.com,🌩️ Cloudflare
- - DOMAIN-SUFFIX,cloudflarewarp.com,🌩️ Cloudflare
- - DOMAIN-SUFFIX,one.one.one,🌩️ Cloudflare
- - DOMAIN-SUFFIX,pages.dev,🌩️ Cloudflare
- - DOMAIN-SUFFIX,videodelivery.net,🌩️ Cloudflare
- - DOMAIN-SUFFIX,warp.plus,🌩️ Cloudflare
- - DOMAIN-SUFFIX,workers.dev,🌩️ Cloudflare
+ - DOMAIN-SUFFIX,cloudflare-dns.com,✈️国外站点
+ - DOMAIN-SUFFIX,cloudflare-ipfs.com,✈️国外站点
+ - DOMAIN-SUFFIX,cloudflare-quic.com,✈️国外站点
+ - DOMAIN-SUFFIX,cloudflare.com,✈️国外站点
+ - DOMAIN-SUFFIX,cloudflare.net,✈️国外站点
+ - DOMAIN-SUFFIX,cloudflareapps.com,✈️国外站点
+ - DOMAIN-SUFFIX,cloudflarebolt.com,✈️国外站点
+ - DOMAIN-SUFFIX,cloudflareclient.com,✈️国外站点
+ - DOMAIN-SUFFIX,cloudflareinsights.com,✈️国外站点
+ - DOMAIN-SUFFIX,cloudflareok.com,✈️国外站点
+ - DOMAIN-SUFFIX,cloudflareresolve.com,✈️国外站点
+ - DOMAIN-SUFFIX,cloudflaressl.com,✈️国外站点
+ - DOMAIN-SUFFIX,cloudflarestatus.com,✈️国外站点
+ - DOMAIN-SUFFIX,cloudflarestream.com,✈️国外站点
+ - DOMAIN-SUFFIX,cloudflaretest.com,✈️国外站点
+ - DOMAIN-SUFFIX,cloudflarewarp.com,✈️国外站点
+ - DOMAIN-SUFFIX,one.one.one,✈️国外站点
+ - DOMAIN-SUFFIX,pages.dev,✈️国外站点
+ - DOMAIN-SUFFIX,videodelivery.net,✈️国外站点
+ - DOMAIN-SUFFIX,warp.plus,✈️国外站点
+ - DOMAIN-SUFFIX,workers.dev,✈️国外站点
  - DOMAIN-KEYWORD,admarvel,🛑 拦截广告
  - DOMAIN-KEYWORD,admaster,🛑 拦截广告
  - DOMAIN-KEYWORD,adsage,🛑 拦截广告
@@ -9749,21 +9687,21 @@ rules:
  - IP-CIDR6,fe80::/10,DIRECT,no-resolve
  - IP-CIDR6,fd00::/8,DIRECT,no-resolve
  - IP-CIDR,224.0.0.0/4,REJECT,no-resolve
- - IP-CIDR,173.245.48.0/20,🌩️ Cloudflare
- - IP-CIDR,103.21.244.0/22,🌩️ Cloudflare
- - IP-CIDR,103.22.200.0/22,🌩️ Cloudflare
- - IP-CIDR,103.31.4.0/22,🌩️ Cloudflare
- - IP-CIDR,141.101.64.0/18,🌩️ Cloudflare
- - IP-CIDR,108.162.192.0/18,🌩️ Cloudflare
- - IP-CIDR,190.93.240.0/20,🌩️ Cloudflare
- - IP-CIDR,188.114.96.0/20,🌩️ Cloudflare
- - IP-CIDR,197.234.240.0/22,🌩️ Cloudflare
- - IP-CIDR,198.41.128.0/17,🌩️ Cloudflare
- - IP-CIDR,162.158.0.0/15,🌩️ Cloudflare
- - IP-CIDR,104.16.0.0/13,🌩️ Cloudflare
- - IP-CIDR,104.24.0.0/14,🌩️ Cloudflare
- - IP-CIDR,172.64.0.0/13,🌩️ Cloudflare
- - IP-CIDR,131.0.72.0/22,🌩️ Cloudflare
+ - IP-CIDR,173.245.48.0/20,✈️国外站点
+ - IP-CIDR,103.21.244.0/22,✈️国外站点
+ - IP-CIDR,103.22.200.0/22,✈️国外站点
+ - IP-CIDR,103.31.4.0/22,✈️国外站点
+ - IP-CIDR,141.101.64.0/18,✈️国外站点
+ - IP-CIDR,108.162.192.0/18,✈️国外站点
+ - IP-CIDR,190.93.240.0/20,✈️国外站点
+ - IP-CIDR,188.114.96.0/20,✈️国外站点
+ - IP-CIDR,197.234.240.0/22,✈️国外站点
+ - IP-CIDR,198.41.128.0/17,✈️国外站点
+ - IP-CIDR,162.158.0.0/15,✈️国外站点
+ - IP-CIDR,104.16.0.0/13,✈️国外站点
+ - IP-CIDR,104.24.0.0/14,✈️国外站点
+ - IP-CIDR,172.64.0.0/13,✈️国外站点
+ - IP-CIDR,131.0.72.0/22,✈️国外站点
  - IP-CIDR,61.160.148.90/32,🔰 选择节点
  - IP-CIDR,221.228.32.13/32,🔰 选择节点
  - IP-CIDR,106.74.25.198/32,🔰 选择节点
