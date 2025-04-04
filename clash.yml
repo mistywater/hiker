@@ -9711,5 +9711,5 @@ rules:
  - IP-CIDR,106.74.25.198/32,🔰 选择节点
  - IP-CIDR,183.192.65.101/32,🔰 选择节点
  - GEOIP,CN,🇨🇳 国内网站
- - DOMAIN-KEYWORD,.,🐟 漏网之鱼
- - MATCH,🐟 漏网之鱼
+ - DOMAIN-KEYWORD,.,✈️国外站点
+ - MATCH,✈️国外站点
