@@ -1,4 +1,17 @@
 js:
+function secondsToHMS(seconds) {
+  seconds = Number(seconds);
+  const h = Math.floor(seconds / 3600);
+  const m = Math.floor((seconds % 3600) / 60);
+  const s = Math.floor(seconds % 60);
+  const padSec = (num) => num.toString().padStart(2, '0');
+  if (h > 0) {
+    return `${h}:${padSec(m)}:${padSec(s)}`;
+  }
+  else {
+    return `${m}:${padSec(s)}`;
+  }
+}
 function downloadLongClick(host) {
     var longClick = [{
         title: '下载',
