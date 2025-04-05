@@ -84,6 +84,7 @@ proxy-groups:
       - 🔰 选择节点
       - DIRECT
 rules:
+ - DOMAIN-SUFFIX,haokongbu.top,🇨🇳 国内网站
  - DOMAIN-SUFFIX,gh-proxy.com,🇨🇳 国内网站
  - DOMAIN-SUFFIX,ghproxy.net,🇨🇳 国内网站
  - DOMAIN-SUFFIX,ghproxy.com,🇨🇳 国内网站
