@@ -83,6 +83,12 @@ proxy-groups:
       - 🔰 选择节点
       - DIRECT
 rules:
+ - DOMAIN-SUFFIX,fexsqz.com,🇨🇳 国内网站
+ - DOMAIN-SUFFIX,pjq6he.com,🇨🇳 国内网站
+ - DOMAIN-SUFFIX,a9a2bc4.com,🇨🇳 国内网站
+ - DOMAIN-SUFFIX,53cuk7g.com,🇨🇳 国内网站
+ - DOMAIN-SUFFIX,5ebd5d.com,🇨🇳 国内网站
+ - DOMAIN-SUFFIX,ec53y2t.com,🇨🇳 国内网站
  - DOMAIN-SUFFIX,haokongbu.top,🇨🇳 国内网站
  - DOMAIN-SUFFIX,gh-proxy.com,🇨🇳 国内网站
  - DOMAIN-SUFFIX,ghproxy.net,🇨🇳 国内网站
