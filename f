@@ -431,7 +431,7 @@ function yanzheng(str, url, t) {
                         js: $.toString((str, url, t) => {
                             function check() {
                                 let nodes = document.querySelectorAll(str);
-                                var co = fba.getCookie(url);
+                                var co = fba.getCookie(url);fba.log(co);
                                 if (nodes && nodes.length > 0 && co) {
                                     fba.putVar(t + 'ck', co);
                                     fba.parseLazyRule($$$().lazyRule(() => {
