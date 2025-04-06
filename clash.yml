@@ -83,6 +83,11 @@ proxy-groups:
       - 🔰 选择节点
       - DIRECT
 rules:
+ - DOMAIN-SUFFIX,hanime1.me,⚓国外站点非日本IP
+ - DOMAIN-SUFFIX,18comic.vip,⚓国外站点非日本IP
+ - DOMAIN-SUFFIX,18comic.org,⚓国外站点非日本IP
+ - DOMAIN-KEYWORD,jmcomic,DIRECT
+ - DOMAIN-KEYWORD,18comic,DIRECT
  - DOMAIN-SUFFIX,fexsqz.com,🇨🇳 国内网站
  - DOMAIN-SUFFIX,pjq6he.com,🇨🇳 国内网站
  - DOMAIN-SUFFIX,a9a2bc4.com,🇨🇳 国内网站
@@ -168,8 +173,6 @@ rules:
  - DOMAIN-SUFFIX,111,✈️国外站点
  - DOMAIN-SUFFIX,111,✈️国外站点
  - DOMAIN-SUFFIX,111,✈️国外站点
- - DOMAIN-SUFFIX,hanime1.me,⚓国外站点非日本IP
- - DOMAIN-SUFFIX,18comic.vip,⚓国外站点非日本IP
  - DOMAIN,app.biliapi.net,🇨🇳 国内网站
  - DOMAIN,grpc.biliapi.net,🇨🇳 国内网站
  - DOMAIN,p-bstarstatic.akamaized.net,🇨🇳 国内网站
