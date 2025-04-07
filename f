@@ -1,4 +1,11 @@
 js:
+function requestQ(url,host){
+	return request(url, {
+		headers: {
+			Cookie: getVar(host + 'ck', '')
+		}
+	});
+}
 function secondsToHMS(seconds) {
   seconds = Number(seconds);
   const h = Math.floor(seconds / 3600);
