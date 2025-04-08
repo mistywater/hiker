@@ -5,6 +5,30 @@ mode: Rule
 log-level: info
 external-controller: 127.0.0.1:9090
 unified-delay: true
+url-test: &url-test {type: url-test, url: http://1.1.1.1/generate_204, interval: 300, tolerance: 0, include-all: true}
+select: &select {type: select, include-all: true}
+fallback: &fallback {type: fallback, url: http://1.1.1.1/generate_204, interval: 300, include-all: true}
+load-balance: &load-balance {type: load-balance, strategy: consistent-hashing, url: http://1.1.1.1/generate_204, interval: 300, include-all: true}
+p: &p {type: http, interval: 86400, health-check: {enable: true, url: http://1.1.1.1/generate_204, interval: 1800, timeout: 5000}}
+proxy-providers:
+  ★:
+    url: https://down.nigx.cn/subscheck.isfree.pp.ua/all.yaml
+    <<: *p
+    override:
+      additional-prefix: "🚫测速"
+      additional-suffix: "🚫流量"
+  🏊🏻‍♂️:
+    url: https://down.nigx.cn/raw.githubusercontent.com/dongchengjie/airport/main/subs/merged/tested_within.yaml
+    <<: *p
+    override:
+      additional-prefix: "🚫测速"
+      additional-suffix: "🚫流量"
+  🔥:
+    url: https://igdux.top/~Clash
+    <<: *p
+    override:
+      additional-prefix: "🚫测速"
+      additional-suffix: "🚫流量"
 hosts:
   time.facebook.com: 17.253.84.125
   time.android.com: 17.253.84.125
@@ -43,6 +67,13 @@ dns:
     - tcp://223.5.5.5
     - tcp://223.6.6.6
 proxies:
+  - {name: 🇯🇵 免费-日本1-qq, server: bq85h-g01.jp01-0986-vm0.entry.fr0307a.art, port: 21581, type: vmess, uuid: 18bc5290-fb4e-32e0-b607-4505b156ab6c, alterId: 1, cipher: auto, tls: true, skip-cert-verify: false, udp: true}
+  - {name: 🇯🇵 免费-日本2-qq, server: bkt3x-g01.jp02-9a99-vm0.entry.fr0307a.art, port: 11773, type: vmess, uuid: 18bc5290-fb4e-32e0-b607-4505b156ab6c, alterId: 1, cipher: auto, tls: false, skip-cert-verify: false, udp: true}
+  - {name: 🇯🇵 免费-日本3-qq, server: wv1zi-g01.jp03-7d22-vm0.entry.fr0307a.art, port: 21581, type: vmess, uuid: 18bc5290-fb4e-32e0-b607-4505b156ab6c, alterId: 1, cipher: auto, tls: true, skip-cert-verify: false, udp: true}
+  - {name: 🇯🇵 免费-日本4-qq, server: uk437-g01.jp04-3771-vm0.entry.fr0307a.art, port: 444, type: vmess, uuid: 18bc5290-fb4e-32e0-b607-4505b156ab6c, alterId: 1, cipher: auto, tls: false, skip-cert-verify: false, udp: true}
+  - {name: 🇯🇵 免费-日本5-qq, server: y8un9-g01.jp05-6786-vm0.entry.fr0307a.art, port: 46482, type: vmess, uuid: 18bc5290-fb4e-32e0-b607-4505b156ab6c, alterId: 1, cipher: auto, tls: false, skip-cert-verify: false, udp: true}
+  - {name: 🇯🇵 免费-日本6-qq, server: rhvpo-g01.jp06-7c5a-vm0.entry.fr0307a.art, port: 28783, type: vmess, uuid: 18bc5290-fb4e-32e0-b607-4505b156ab6c, alterId: 1, cipher: auto, tls: true, skip-cert-verify: false, udp: true}
+  - {name: 🇯🇵 免费-日本7-qq, server: ny7a8-g01.jp07-1f28-vm0.entry.fr0307a.art, port: 28783, type: vmess, uuid: 18bc5290-fb4e-32e0-b607-4505b156ab6c, alterId: 1, cipher: auto, tls: false, skip-cert-verify: false, udp: true}
   - {name: 🇯🇵 免费-日本1-Ver.6, server: a1y5v-g01.jp01-0986-vm0.entry.fr0307a.art, port: 21581, type: vmess, uuid: 2176c6f5-8d55-324a-928a-9ab50a4afc7c, alterId: 1, cipher: auto, tls: true, skip-cert-verify: false, udp: true}
   - {name: 🇯🇵 免费-日本2-Ver.7, server: 086xf-g01.jp02-9a99-vm0.entry.fr0307a.art, port: 11773, type: vmess, uuid: 2176c6f5-8d55-324a-928a-9ab50a4afc7c, alterId: 1, cipher: auto, tls: false, skip-cert-verify: false, udp: true}
   - {name: 🇯🇵 免费-日本3-Ver.6, server: l9yj3-g01.jp03-7d22-vm0.entry.fr0307a.art, port: 21581, type: vmess, uuid: 2176c6f5-8d55-324a-928a-9ab50a4afc7c, alterId: 1, cipher: auto, tls: true, skip-cert-verify: false, udp: true}
@@ -61,11 +92,13 @@ proxies:
   - {name: 新加坡2, server: support.zoom.us, port: 80, client-fingerprint: chrome, type: vless, uuid: d9074e14-c4e4-4e58-8fff-3727e83af868, tls: false, tfo: false, skip-cert-verify: false, servername: free.pranithsandaruwan.shop, network: ws, ws-opts: {path: /, headers: {Host: free.pranithsandaruwan.shop}}}
 proxy-groups:
   # ============= 原有策略组（保持完全不变）=============
-  - { name: "🔰 选择节点", type: select, proxies: [DIRECT, 免费-日本节点,移动4g专用,⚓国外站点非日本IP]}
-  - { name: "✈️国外站点", type: fallback, interval: 60, tolerance: 500,timeout: 3000, url: "http://www.gstatic.com/generate_204", proxies: [免费-日本节点,⚓国外站点非日本IP] }
-  - { name: "⚓国外站点非日本IP", type: fallback, interval: 60, tolerance: 500,timeout: 3000, url: "http://www.gstatic.com/generate_204",proxies: [台湾2,zyzzzoao,香港2,新加坡2,移动4g专用] }
+  - { name: "🔰 选择节点", type: select, proxies: [DIRECT,免费-日本节点-qq, 免费-日本节点,移动4g专用,⚓国外站点非日本IP,新加坡节点]}
+  - { name: "✈️国外站点", type: fallback, interval: 60, tolerance: 500,timeout: 3000, url: "http://www.gstatic.com/generate_204", proxies: [免费-日本节点-qq,免费-日本节点,⚓国外站点非日本IP,新加坡节点] }
+  - { name: "⚓国外站点非日本IP", type: fallback, interval: 60, tolerance: 500,timeout: 3000, url: "http://www.gstatic.com/generate_204",proxies: [台湾2,zyzzzoao,香港2,新加坡2,新加坡节点,移动4g专用] }
   - { name: "移动4g专用", type: fallback, interval: 60, tolerance: 500,timeout: 3000, url: "http://www.gstatic.com/generate_204",proxies: [移动4g专用02|918,移动4g专用02|894,移动4g专用01|805,移动4g专用01|839,移动4g专用03|102] }
   - { name: "免费-日本节点", type: fallback, interval: 60, tolerance: 500,timeout: 3000, url: "http://www.gstatic.com/generate_204",proxies: [🇯🇵 免费-日本1-Ver.6, 🇯🇵 免费-日本2-Ver.7, 🇯🇵 免费-日本3-Ver.6, 🇯🇵 免费-日本4-Ver.7, 🇯🇵 免费-日本5-Ver.8, 🇯🇵 免费-日本6-Ver.7, 🇯🇵 免费-日本7-Ver.1] }
+  - { name: "免费-日本节点-qq", type: fallback, interval: 60, tolerance: 500,timeout: 3000, url: "http://www.gstatic.com/generate_204",proxies: [🇯🇵 免费-日本1-qq, 🇯🇵 免费-日本2-qq, 🇯🇵 免费-日本3-qq, 🇯🇵 免费-日本4-qq, 🇯🇵 免费-日本5-qq, 🇯🇵 免费-日本6-qq, 🇯🇵 免费-日本7-qq] }
+  - {name: 新加坡节点, <<: *fallback, filter: "🇸🇬|新加坡|狮|SG|Singapore", icon: https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
   - name: 🇨🇳 国内网站
     type: select
     proxies:
