@@ -17,18 +17,18 @@ proxy-providers:
     override:
       additional-prefix: "🚫测速"
       additional-suffix: "🚫流量"
-  🏊🏻‍♂️:
-    url: https://down.nigx.cn/raw.githubusercontent.com/dongchengjie/airport/main/subs/merged/tested_within.yaml
-    <<: *p
-    override:
-      additional-prefix: "🚫测速"
-      additional-suffix: "🚫流量"
-  🔥:
-    url: https://igdux.top/~Clash
-    <<: *p
-    override:
-      additional-prefix: "🚫测速"
-      additional-suffix: "🚫流量"
+#  🏊🏻‍♂️:
+#    url: https://down.nigx.cn/raw.githubusercontent.com/dongchengjie/airport/main/subs/merged/tested_within.yaml
+#    <<: *p
+#    override:
+#      additional-prefix: "🚫测速"
+#      additional-suffix: "🚫流量"
+#  🔥:
+#    url: https://igdux.top/~Clash
+#    <<: *p
+#    override:
+#      additional-prefix: "🚫测速"
+#      additional-suffix: "🚫流量"
 hosts:
   time.facebook.com: 17.253.84.125
   time.android.com: 17.253.84.125
@@ -110,11 +110,6 @@ proxy-groups:
       - REJECT
       - DIRECT
       - 🔰 选择节点
-  - name: 🐟 漏网之鱼
-    type: select
-    proxies:
-      - 🔰 选择节点
-      - DIRECT
 rules:
  - DOMAIN-SUFFIX,hanime1.me,⚓国外站点非日本IP
  - DOMAIN-SUFFIX,18comic.vip,⚓国外站点非日本IP
@@ -128,6 +123,7 @@ rules:
  - DOMAIN-SUFFIX,5ebd5d.com,🇨🇳 国内网站
  - DOMAIN-SUFFIX,ec53y2t.com,🇨🇳 国内网站
  - DOMAIN-SUFFIX,haokongbu.top,🇨🇳 国内网站
+ - DOMAIN-SUFFIX,ghfast.top,🇨🇳 国内网站
  - DOMAIN-SUFFIX,gh-proxy.com,🇨🇳 国内网站
  - DOMAIN-SUFFIX,ghproxy.net,🇨🇳 国内网站
  - DOMAIN-SUFFIX,ghproxy.com,🇨🇳 国内网站
@@ -235,10 +231,10 @@ rules:
  - DOMAIN,gamer2-cds.cdn.hinet.net,✈️国外站点
  - DOMAIN-SUFFIX,bahamut.com.tw,✈️国外站点
  - DOMAIN-SUFFIX,gamer.com.tw,✈️国外站点
- - DOMAIN-SUFFIX,exhentai.org,🔰 选择节点
- - DOMAIN-SUFFIX,e-hentai.org,🔰 选择节点
- - DOMAIN-SUFFIX,ehgt.org,🔰 选择节点
- - DOMAIN-SUFFIX,forums.e-hentai.org,🔰 选择节点
+ - DOMAIN-SUFFIX,exhentai.org,✈️国外站点
+ - DOMAIN-SUFFIX,e-hentai.org,✈️国外站点
+ - DOMAIN-SUFFIX,ehgt.org,✈️国外站点
+ - DOMAIN-SUFFIX,forums.e-hentai.org,✈️国外站点
  - DOMAIN-SUFFIX,steamserver.net,✈️国外站点
  - DOMAIN-SUFFIX,cm.steampowered.com,✈️国外站点
  - DOMAIN-KEYWORD,steampipe,DIRECT
@@ -9748,10 +9744,10 @@ rules:
  - IP-CIDR,104.24.0.0/14,✈️国外站点
  - IP-CIDR,172.64.0.0/13,✈️国外站点
  - IP-CIDR,131.0.72.0/22,✈️国外站点
- - IP-CIDR,61.160.148.90/32,🔰 选择节点
- - IP-CIDR,221.228.32.13/32,🔰 选择节点
- - IP-CIDR,106.74.25.198/32,🔰 选择节点
- - IP-CIDR,183.192.65.101/32,🔰 选择节点
+ - IP-CIDR,61.160.148.90/32,✈️国外站点
+ - IP-CIDR,221.228.32.13/32,✈️国外站点
+ - IP-CIDR,106.74.25.198/32,✈️国外站点
+ - IP-CIDR,183.192.65.101/32,✈️国外站点
  - GEOIP,CN,🇨🇳 国内网站
  - DOMAIN-KEYWORD,.,✈️国外站点
  - MATCH,✈️国外站点
