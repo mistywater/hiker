@@ -421,9 +421,9 @@ function baiduTrans(content, mode) {
     var str =  '#' + (((Math.random() * 0x1000000 << 0).toString(16)).substr(-6)).padStart(6, ‌Math.ceil‌(Math.random() * 16).toString(16));
     return str;
 }*/
-function yanzheng(str, url, t) {
+function yanzheng(str, url, t, a) {
     if (!t) t = host;
-    return $.toString((str, url, t) => {
+    return $.toString((str, url, t, a) => {
         d.push({
             title: '人机验证',
             url: $('hiker://empty').rule((str, url, t) => {
@@ -435,11 +435,18 @@ function yanzheng(str, url, t) {
                     extra: {
                         ua: MOBILE_UA,
                         showProgress: false,
-                        js: $.toString((str, url, t) => {
+                        js: $.toString((str, url, t, a) => {
                             function check() {
                                 let nodes = document.querySelectorAll(str);
-                                var co = fba.getCookie(url);fba.log(co);
-                                if (nodes && nodes.length > 0 && co) {
+                                var co = fba.getCookie(url);
+                                fba.log(co);
+                                let condition;
+                                if (a) {
+                                    condition = (!nodes || nodes.length === 0) && co;
+                                } else {
+                                    condition = nodes && nodes.length > 0 && co;
+                                }
+                                if (condition) {
                                     fba.putVar(t + 'ck', co);
                                     fba.parseLazyRule($$$().lazyRule(() => {
                                         back();
@@ -449,14 +456,14 @@ function yanzheng(str, url, t) {
                                 }
                             }
                             check();
-                        }, str, url, t),
+                        }, str, url, t, a)
                     }
                 });
                 return setResult(d);
             }, str, url, t),
             col_type: 'text_1'
         });
-    }, str, url, t);
+    }, str, url, t, a);
 }
 
 function tabsWeek() {
