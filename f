@@ -426,7 +426,7 @@ function yanzheng(str, url, t, a) {
     return $.toString((str, url, t, a) => {
         d.push({
             title: '人机验证',
-            url: $('hiker://empty').rule((str, url, t) => {
+            url: $('hiker://empty').rule((str, url, t,a) => {
                 var d = [];
                 d.push({
                     col_type: 'x5_webview_single',
