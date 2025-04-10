@@ -460,7 +460,7 @@ function yanzheng(str, url, t, a) {
                     }
                 });
                 return setResult(d);
-            }, str, url, t),
+            }, str, url, t,a),
             col_type: 'text_1'
         });
     }, str, url, t, a);
