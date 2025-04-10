@@ -111,6 +111,47 @@ proxy-groups:
       - DIRECT
       - 🔰 选择节点
 rules:
+ - DOMAIN-SUFFIX,youporn.com,⚓国外站点非日本IP
+ - DOMAIN-SUFFIX,xv909.cc,⚓国外站点非日本IP
+ - DOMAIN-SUFFIX,xojav.tv,⚓国外站点非日本IP
+ - DOMAIN-SUFFIX,xfuliji.com,✈️国外站点
+ - DOMAIN-SUFFIX,yasetube.com,✈️国外站点
+ - DOMAIN-SUFFIX,100604.xyz,✈️国外站点
+ - DOMAIN-SUFFIX,hongkongdollvideo.com,✈️国外站点
+ - DOMAIN-SUFFIX,hentaiclub.net,✈️国外站点
+ - DOMAIN-SUFFIX,hentaiclub.net,✈️国外站点
+ - DOMAIN-KEYWORD,madou,✈️国外站点
+ - DOMAIN-KEYWORD,guazi,⚓国外站点非日本IP
+ - DOMAIN-KEYWORD,.aqd,⚓国外站点非日本IP
+ - IP-CIDR,38.174.115.18/32,⚓国外站点非日本IP
+ - DOMAIN-SUFFIX,avjb.com,⚓国外站点非日本IP
+ - DOMAIN-SUFFIX,xsz-av.com,⚓国外站点非日本IP
+ - DOMAIN-SUFFIX,localxh2.com,⚓国外站点非日本IP
+ - DOMAIN-SUFFIX,txtxi.com,✈️国外站点
+ - DOMAIN-SUFFIX,tktube.com,⚓国外站点非日本IP
+ - DOMAIN-SUFFIX,thotsbay.tv,⚓国外站点非日本IP
+ - DOMAIN-SUFFIX,tasexy.com,⚓国外站点非日本IP
+ - DOMAIN-SUFFIX,sxyprn.com,✈️国外站点
+ - DOMAIN-SUFFIX,supjav.com,⚓国外站点非日本IP
+ - DOMAIN-SUFFIX,pornhub.com,⚓国外站点非日本IP
+ - DOMAIN-SUFFIX,porn研究所.com,⚓国外站点非日本IP
+ - DOMAIN-SUFFIX,pigav.com,⚓国外站点非日本IP
+ - DOMAIN-SUFFIX,ohentai.org,⚓国外站点非日本IP
+ - DOMAIN-SUFFIX,nowav.tv,⚓国外站点非日本IP
+ - DOMAIN-SUFFIX,memojav.com,⚓国外站点非日本IP
+ - DOMAIN-SUFFIX,javtree.com,⚓国外站点非日本IP
+ - DOMAIN-SUFFIX,jav.si,⚓国外站点非日本IP
+ - DOMAIN-SUFFIX,jav.guru,⚓国外站点非日本IP
+ - DOMAIN-KEYWORD,javdb,⚓国外站点非日本IP
+ - DOMAIN-SUFFIX,av6k.com,✈️国外站点
+ - DOMAIN-KEYWORD,7mmtv,⚓国外站点非日本IP
+ - DOMAIN-SUFFIX,7mmtv.sx,⚓国外站点非日本IP
+ - DOMAIN-SUFFIX,eemmhh01.com,DIRECT
+ - DOMAIN-KEYWORD,18av,⚓国外站点非日本IP
+ - DOMAIN-KEYWORD,123av,⚓国外站点非日本IP
+ - DOMAIN-SUFFIX,wogg.one,🇨🇳 国内网站
+ - DOMAIN-SUFFIX,mwcy.net,🇨🇳 国内网站
+ - DOMAIN-SUFFIX,qnmp4.com,🇨🇳 国内网站
  - DOMAIN-SUFFIX,hanime1.me,⚓国外站点非日本IP
  - DOMAIN-SUFFIX,18comic.vip,⚓国外站点非日本IP
  - DOMAIN-SUFFIX,18comic.org,⚓国外站点非日本IP
@@ -9749,5 +9790,4 @@ rules:
  - IP-CIDR,106.74.25.198/32,✈️国外站点
  - IP-CIDR,183.192.65.101/32,✈️国外站点
  - GEOIP,CN,🇨🇳 国内网站
- - DOMAIN-KEYWORD,.,✈️国外站点
  - MATCH,🔰 选择节点
