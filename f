@@ -421,12 +421,11 @@ function baiduTrans(content, mode) {
     var str =  '#' + (((Math.random() * 0x1000000 << 0).toString(16)).substr(-6)).padStart(6, ‌Math.ceil‌(Math.random() * 16).toString(16));
     return str;
 }*/
-function yanzheng(str, url, t, a) {
+function yanzheng(str, url,t, a) {
     if (!t) t = host;
-    return $.toString((str, url, t, a) => {
         d.push({
             title: '人机验证',
-            url: $('hiker://empty').rule((str, url, t,a) => {
+            url: $('hiker://empty').rule((str, url,t, a) => {
                 var d = [];
                 d.push({
                     col_type: 'x5_webview_single',
@@ -460,10 +459,9 @@ function yanzheng(str, url, t, a) {
                     }
                 });
                 return setResult(d);
-            }, str, url, t,a),
+            }, str, url, t, a),
             col_type: 'text_1'
         });
-    }, str, url, t, a);
 }
 
 function tabsWeek() {
