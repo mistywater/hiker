@@ -9750,4 +9750,4 @@ rules:
  - IP-CIDR,183.192.65.101/32,✈️国外站点
  - GEOIP,CN,🇨🇳 国内网站
  - DOMAIN-KEYWORD,.,✈️国外站点
- - MATCH,✈️国外站点
+ - MATCH,🔰 选择节点
