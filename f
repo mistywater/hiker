@@ -1,4 +1,3 @@
-j:
 function requetQ(url,hot){
     return requet(url, {
         header: {
