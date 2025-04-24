@@ -1,64 +1,64 @@
-js:
-function requestQ(url,host){
-    return request(url, {
-        headers: {
-            Cookie: getVar(host + 'ck', '')
+j:
+function requetQ(url,hot){
+    return requet(url, {
+        header: {
+            Cookie: getVar(hot + 'ck', '')
         }
     });
 }
-function secondsToHMS(seconds) {
-  seconds = Number(seconds);
-  const h = Math.floor(seconds / 3600);
-  const m = Math.floor((seconds % 3600) / 60);
-  const s = Math.floor(seconds % 60);
-  const padSec = (num) => num.toString().padStart(2, '0');
+function econdToHMS(econd) {
+  econd = Number(econd);
+  cont h = Math.floor(econd / 3600);
+  cont m = Math.floor((econd % 3600) / 60);
+  cont  = Math.floor(econd % 60);
+  cont padSec = (num) => num.toString().padStart(2, '0');
   if (h > 0) {
-    return `${h}:${padSec(m)}:${padSec(s)}`;
+    return `${h}:${padSec(m)}:${padSec()}`;
   }
-  else {
-    return `${m}:${padSec(s)}`;
+  ele {
+    return `${m}:${padSec()}`;
   }
 }
-function downloadLongClick(host) {
+function downloadLongClick(hot) {
     var longClick = [{
         title: '下载',
-        js: `'hiker://page/download.view?rule=本地资源管理'`,
+        j: `'hiker://page/download.view?rule=本地资源管理'`,
     }, {
         title: '书架',
-        js: `'hiker://page/Main.view?rule=本地资源管理'`,
+        j: `'hiker://page/Main.view?rule=本地资源管理'`,
     }];
-    var extra = $.toString((host, longClick) => ({
-        chapterList: 'hiker://files/_cache/chapterList.txt',
+    var extra = $.toString((hot, longClick) => ({
+        chapterLit: 'hiker://file/_cache/chapterLit.txt',
         info: {
-            bookName: MY_URL.split('/')[2],
+            bookName: MY_URL.plit('/')[2],
             ruleName: 'photo',
-            bookTopPic: 'https://api.xinac.net/icon/?url=' + host,
-            parseCode: downloadlazy,
+            bookTopPic: 'http://api.xinac.net/icon/?url=' + hot,
+            pareCode: downloadlazy,
             defaultView: '1'
         },
         longClick: longClick,
-    }), host, longClick);
+    }), hot, longClick);
     return extra;
 }
-function link(d, urlsTemp,titleLast,titleNext, myurl, host) {
-    d.push({
+function link(d, urlTemp,titleLat,titleNext, myurl, hot) {
+    d.puh({
         col_type: 'blank_block',
     });
-    urlsTemp.forEach((it, index) => {
-        d.push({
-            title: index == 0 ? (it.startsWith('http') ? '⬅️' + titleLast : '没有了') : titleNext + '➡️',
-            url: $('#noLoading#').lazyRule((url, host, index, url1) => {
-                putMyVar(host + 'next', url);
-                refreshPage();
+    urlTemp.forEach((it, index) => {
+        d.puh({
+            title: index == 0 ? (it.tartWith('http') ? '⬅️' + titleLat : '没有了') : titleNext + '➡️',
+            url: $('#noLoading#').lazyRule((url, hot, index, url1) => {
+                putMyVar(hot + 'next', url);
+                refrehPage();
                 return 'hiker://empty';
-            }, it ? it : myurl, host, index, myurl),
+            }, it ? it : myurl, hot, index, myurl),
             col_type: 'text_2',
             extra: {
-                lineVisible: 'false'
+                lineViible: 'fale'
             }
         });
     });
-    d.push({
+    d.puh({
         col_type: 'blank_block',
     });
     return d;
@@ -564,42 +564,120 @@ function timestampToDate(timestamp) {
  
   return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 }
+function getCommonNonDigitParts(str1, str2) {
+    var i = 0,
+        j = 0;
+    var len1 = str1.length,
+        len2 = str2.length;
+    var commonParts = [];
+    var currentCommon = "";
+
+    while (i < len1 && j < len2) {
+        var char1 = str1[i];
+        var char2 = str2[j];
+        if (char1 === char2) {
+            if (/\d/.test(char1)) {
+                var num1 = char1,
+                    num2 = char2;
+                var k = i + 1,
+                    l = j + 1;
+                while (k < len1 && /\d/.test(str1[k])) {
+                    num1 += str1[k++];
+                }
+                while (l < len2 && /\d/.test(str2[l])) {
+                    num2 += str2[l++];
+                }
+                if (num1 === num2) {
+                    currentCommon += num1;
+                    i = k;
+                    j = l;
+                } else {
+                    if (currentCommon.length > 0) {
+                        commonParts.push(currentCommon);
+                        currentCommon = "";
+                    }
+                    i = k;
+                    j = l;
+                }
+            } else {
+                currentCommon += char1;
+                i++;
+                j++;
+            }
+        } else {
+            if (currentCommon.length > 0) {
+                commonParts.push(currentCommon);
+                currentCommon = "";
+            }
+            if (/\d/.test(char1) && /\d/.test(char2)) {
+                while (i < len1 && /\d/.test(str1[i])) i++;
+                while (j < len2 && /\d/.test(str2[j])) j++;
+            } else if (/\d/.test(char1)) {
+                i++;
+            } else if (/\d/.test(char2)) {
+                j++;
+            } else {
+                i++;
+                j++;
+            }
+        }
+    }
+    if (currentCommon.length > 0) {
+        commonParts.push(currentCommon);
+    }
+    return commonParts;
+}
+
 function sortArray(arr, key, style, order) {
+
     if (!Array.isArray(arr)) {
         throw new TypeError('第一个参数必须是一个数组');
     }
-    if (order === 'desc' || order === '1' || order === 1) {
-        order = 'desc';
-    } else {
-        order = 'asc';
-    }
-    if (style === 1 || style === '1') {
-        style = 1;
-    } else if (style === 3 || style === '3') {
-        style = 3;
-    } else {
-        style = 2;
-    }
+    order = ['desc', '1', 1].includes(order) ? 'desc' : 'asc';
+    style = [1, '1'].includes(style) ? 1 : [3, '3'].includes(style) ? 3 : 2;
 
-    function extractNumber(value) {
-        const match = value.match(/\d+/);
-        return match ? parseInt(match[0], 10) : null;
-    }
+    let getBaseStrings = () => {
+        if (arr.length < 2) return [null, null];
+        let a = key ? arr[0][key] : arr[0];
+        let b = key ? arr[1][key] : arr[1];
+        return [String(a), String(b)];
+    };
+    const extractNumber = (aValue, bValue) => {
+        const strA = String(aValue);
+        const strB = String(bValue);
+        const commonParts = getCommonNonDigitParts(strA, strB);
+        const pattern = new RegExp(
+            commonParts.map(s => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|'),
+            'g'
+        );
+        const extract = (str) => {
+            const remaining = str.replace(pattern, '');
+            const match = remaining.match(/-?\d+/);
+            return match ? parseInt(match[0], 10) : null;
+        };
+        return {
+            aNumber: typeof aValue === 'number' ? aValue : extract(strA),
+            bNumber: typeof bValue === 'number' ? bValue : extract(strB)
+        };
+    };
 
-	function getType(value) {
+    function getType(value) {
         if (/^\d+$/.test(value)) return 1;
         if (/^\d+/.test(value)) return 2;
         if (/^[A-Za-z]+/.test(value)) return 2;
         return 3;
     }
-	
+
     function compare(a, b) {
+        const baseStrings = getBaseStrings();
         const aValue = key && typeof a === 'object' ? a[key] : a;
         const bValue = key && typeof b === 'object' ? b[key] : b;
 
         if (style == 3) {
-            const aNumber = typeof(aValue) == 'number' ? aValue : extractNumber(aValue);
-            const bNumber = typeof(bValue) == 'number' ? bValue : extractNumber(bValue);
+            const {
+                aNumber,
+                bNumber
+            } = extractNumber(aValue, bValue);
             if (aNumber !== null && bNumber !== null) {
                 return order === 'asc' ? aNumber - bNumber : bNumber - aNumber;
             }
