@@ -1,95 +1,95 @@
 
-j:
-function requetQ(url,hot){
-    return requet(url, {
-        header: {
-            Cookie: getVar(hot + 'ck', '')
+js:
+function requestQ(url,host){
+    return request(url, {
+        headers: {
+            Cookie: getVar(host + 'ck', '')
         }
     });
 }
-function econdToHMS(econd) {
-  econd = Number(econd);
-  cont h = Math.floor(econd / 3600);
-  cont m = Math.floor((econd % 3600) / 60);
-  cont  = Math.floor(econd % 60);
-  cont padSec = (num) => num.toString().padStart(2, '0');
+function secondsToHMS(seconds) {
+  seconds = Number(seconds);
+  const h = Math.floor(seconds / 3600);
+  const m = Math.floor((seconds % 3600) / 60);
+  const s = Math.floor(seconds % 60);
+  const padSec = (num) => num.toString().padStart(2, '0');
   if (h > 0) {
-    return `${h}:${padSec(m)}:${padSec()}`;
+    return `${h}:${padSec(m)}:${padSec(s)}`;
   }
-  ele {
-    return `${m}:${padSec()}`;
+  else {
+    return `${m}:${padSec(s)}`;
   }
 }
-function downloadLongClick(hot) {
+function downloadLongClick(host) {
     var longClick = [{
         title: '下载',
-        j: `'hiker://page/download.view?rule=本地资源管理'`,
+        js: `'hiker://page/download.view?rule=本地资源管理'`,
     }, {
         title: '书架',
-        j: `'hiker://page/Main.view?rule=本地资源管理'`,
+        js: `'hiker://page/Main.view?rule=本地资源管理'`,
     }];
-    var extra = $.toString((hot, longClick) => ({
-        chapterLit: 'hiker://file/_cache/chapterLit.txt',
+    var extra = $.toString((host, longClick) => ({
+        chapterList: 'hiker://files/_cache/chapterList.txt',
         info: {
-            bookName: MY_URL.plit('/')[2],
+            bookName: MY_URL.split('/')[2],
             ruleName: 'photo',
-            bookTopPic: 'http://api.xinac.net/icon/?url=' + hot,
-            pareCode: downloadlazy,
+            bookTopPic: 'https://api.xinac.net/icon/?url=' + host,
+            parseCode: downloadlazy,
             defaultView: '1'
         },
         longClick: longClick,
-    }), hot, longClick);
+    }), host, longClick);
     return extra;
 }
-function link(d, urlTemp,titleLat,titleNext, myurl, hot) {
-    d.puh({
+function link(d, urlsTemp,titleLast,titleNext, myurl, host) {
+    d.push({
         col_type: 'blank_block',
     });
-    urlTemp.forEach((it, index) => {
-        d.puh({
-            title: index == 0 ? (it.tartWith('http') ? '⬅️' + titleLat : '没有了') : titleNext + '➡️',
-            url: $('#noLoading#').lazyRule((url, hot, index, url1) => {
-                putMyVar(hot + 'next', url);
-                refrehPage();
+    urlsTemp.forEach((it, index) => {
+        d.push({
+            title: index == 0 ? (it.startsWith('http') ? '⬅️' + titleLast : '没有了') : titleNext + '➡️',
+            url: $('#noLoading#').lazyRule((url, host, index, url1) => {
+                putMyVar(host + 'next', url);
+                refreshPage();
                 return 'hiker://empty';
-            }, it ? it : myurl, hot, index, myurl),
+            }, it ? it : myurl, host, index, myurl),
             col_type: 'text_2',
             extra: {
-                lineViible: 'fale'
+                lineVisible: 'false'
             }
         });
     });
-    d.puh({
+    d.push({
         col_type: 'blank_block',
     });
     return d;
 }
-function buildUrl(page, urlBuilder, header) {
-    let url = [];
-    for (let k = 1; k <= page; k++) {
+function buildUrls(pages, urlBuilder, headers) {
+    let urls = [];
+    for (let k = 1; k <= pages; k++) {
         let obj = {
             url: urlBuilder(k)  // 直接调用函数获取URL
         };
-        if (header) {
-            obj.option = {
-                header: header
+        if (headers) {
+            obj.options = {
+                headers: headers
             }
         }
-        url.puh(obj);
+        urls.push(obj);
     }
-    return url;
+    return urls;
 }
 function detectCloudStorage(link) {
     // 统一转换为小写，避免大小写影响判断
-    link = link.toLowerCae();
+    link = link.toLowerCase();
 
-    if (link.include("pan.baidu.com") || link.include("baidupc.com")) {
+    if (link.includes("pan.baidu.com") || link.includes("baidupcs.com")) {
         return "[百度网盘]";
-    } ele if (link.include("aliyundrive.com") || link.include("alipan.com")) {
+    } else if (link.includes("aliyundrive.com") || link.includes("alipan.com")) {
         return "[阿里云盘]";
-    } ele if (link.include("quark.cn")) {
+    } else if (link.includes("quark.cn")) {
         return "[夸克网盘]";
-    } ele if (link.include("uc.cn") || link.include("yun.uc.cn")) {
+    } else if (link.includes("uc.cn") || link.includes("yun.uc.cn")) {
         return "[UC网盘]";
     } else {
         return "[未知网盘]";
