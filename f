@@ -1,63 +1,64 @@
-function requetQ(url,hot){
-    return requet(url, {
-        header: {
-            Cookie: getVar(hot + 'ck', '')
+js:
+function requestQ(url,host){
+    return request(url, {
+        headers: {
+            Cookie: getVar(host + 'ck', '')
         }
     });
 }
-function econdToHMS(econd) {
-  econd = Number(econd);
-  cont h = Math.floor(econd / 3600);
-  cont m = Math.floor((econd % 3600) / 60);
-  cont  = Math.floor(econd % 60);
-  cont padSec = (num) => num.toString().padStart(2, '0');
+function secondsToHMS(seconds) {
+  seconds = Number(seconds);
+  const h = Math.floor(seconds / 3600);
+  const m = Math.floor((seconds % 3600) / 60);
+  const s = Math.floor(seconds % 60);
+  const padSec = (num) => num.toString().padStart(2, '0');
   if (h > 0) {
-    return `${h}:${padSec(m)}:${padSec()}`;
+    return `${h}:${padSec(m)}:${padSec(s)}`;
   }
-  ele {
-    return `${m}:${padSec()}`;
+  else {
+    return `${m}:${padSec(s)}`;
   }
 }
-function downloadLongClick(hot) {
+function downloadLongClick(host) {
     var longClick = [{
         title: '下载',
-        j: `'hiker://page/download.view?rule=本地资源管理'`,
+        js: `'hiker://page/download.view?rule=本地资源管理'`,
     }, {
         title: '书架',
-        j: `'hiker://page/Main.view?rule=本地资源管理'`,
+        js: `'hiker://page/Main.view?rule=本地资源管理'`,
     }];
-    var extra = $.toString((hot, longClick) => ({
-        chapterLit: 'hiker://file/_cache/chapterLit.txt',
+    var extra = $.toString((host, longClick) => ({
+        chapterList: 'hiker://files/_cache/chapterList.txt',
         info: {
-            bookName: MY_URL.plit('/')[2],
+            bookName: MY_URL.split('/')[2],
             ruleName: 'photo',
-            bookTopPic: 'http://api.xinac.net/icon/?url=' + hot,
-            pareCode: downloadlazy,
+            bookTopPic: 'https://api.xinac.net/icon/?url=' + host,
+            parseCode: downloadlazy,
             defaultView: '1'
         },
         longClick: longClick,
-    }), hot, longClick);
+    }), host, longClick);
     return extra;
 }
-function link(d, urlTemp,titleLat,titleNext, myurl, hot) {
-    d.puh({
+function link(d, urlsTemp,titleLast,titleNext, myurl, host) {
+    d.push({
         col_type: 'blank_block',
     });
-    urlTemp.forEach((it, index) => {
-        d.puh({
-            title: index == 0 ? (it.tartWith('http') ? '⬅️' + titleLat : '没有了') : titleNext + '➡️',
-            url: $('#noLoading#').lazyRule((url, hot, index, url1) => {
-                putMyVar(hot + 'next', url);
-                refrehPage();
+    urlsTemp.forEach((it, index) => {
+        d.push({
+            title: index == 0 ? (it.startsWith('http') ? '⬅️' + titleLast : '没有了') : titleNext + '➡️',
+            url: $('#noLoading#').lazyRule((url, host, index, url1) => {
+                putMyVar(host + 'next', url);
+                refreshPage();
                 return 'hiker://empty';
-            }, it ? it : myurl, hot, index, myurl),
+            }, it ? it : myurl, host, index, myurl),
             col_type: 'text_2',
             extra: {
-                lineViible: 'fale'
+                lineVisible: 'false'
             }
         });
     });
-    d.puh({
+    d.push({
         col_type: 'blank_block',
     });
     return d;
@@ -563,70 +564,6 @@ function timestampToDate(timestamp) {
  
   return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 }
-function getCommonNonDigitParts(str1, str2) {
-    var i = 0,
-        j = 0;
-    var len1 = str1.length,
-        len2 = str2.length;
-    var commonParts = [];
-    var currentCommon = "";
-
-    while (i < len1 && j < len2) {
-        var char1 = str1[i];
-        var char2 = str2[j];
-        if (char1 === char2) {
-            if (/\d/.test(char1)) {
-                var num1 = char1,
-                    num2 = char2;
-                var k = i + 1,
-                    l = j + 1;
-                while (k < len1 && /\d/.test(str1[k])) {
-                    num1 += str1[k++];
-                }
-                while (l < len2 && /\d/.test(str2[l])) {
-                    num2 += str2[l++];
-                }
-                if (num1 === num2) {
-                    currentCommon += num1;
-                    i = k;
-                    j = l;
-                } else {
-                    if (currentCommon.length > 0) {
-                        commonParts.push(currentCommon);
-                        currentCommon = "";
-                    }
-                    i = k;
-                    j = l;
-                }
-            } else {
-                currentCommon += char1;
-                i++;
-                j++;
-            }
-        } else {
-            if (currentCommon.length > 0) {
-                commonParts.push(currentCommon);
-                currentCommon = "";
-            }
-            if (/\d/.test(char1) && /\d/.test(char2)) {
-                while (i < len1 && /\d/.test(str1[i])) i++;
-                while (j < len2 && /\d/.test(str2[j])) j++;
-            } else if (/\d/.test(char1)) {
-                i++;
-            } else if (/\d/.test(char2)) {
-                j++;
-            } else {
-                i++;
-                j++;
-            }
-        }
-    }
-    if (currentCommon.length > 0) {
-        commonParts.push(currentCommon);
-    }
-    return commonParts;
-}
-
 function sortArray(arr, key, style, order) {
 
     if (!Array.isArray(arr)) {
@@ -642,18 +579,24 @@ function sortArray(arr, key, style, order) {
         return [String(a), String(b)];
     };
     const extractNumber = (aValue, bValue) => {
+        // 获取当前比较两项的共同非数字部分
         const strA = String(aValue);
         const strB = String(bValue);
         const commonParts = getCommonNonDigitParts(strA, strB);
+        
+        // 构建替换正则
         const pattern = new RegExp(
             commonParts.map(s => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|'),
             'g'
         );
+
+        // 提取数字部分
         const extract = (str) => {
             const remaining = str.replace(pattern, '');
             const match = remaining.match(/-?\d+/);
             return match ? parseInt(match[0], 10) : null;
         };
+
         return {
             aNumber: typeof aValue === 'number' ? aValue : extract(strA),
             bNumber: typeof bValue === 'number' ? bValue : extract(strB)
@@ -1225,15 +1168,15 @@ function pageMoveto(host, page, ctype,pages) {
     var longClick=[{
             title: '样式',
             js: $.toString((host,ctype) => {
-                var Type = ["movie_1", "movie_2", "movie_3", "pic_1", "pic_2", "pic_3", "pic_1_full", "pic_1_center", "pic_1_card", "pic_2_card", "pic_3_square", "card_pic_1", "card_pic_2", "card_pic_3", "card_pic_3_center"];
+                var 类型 = ["movie_1", "movie_2", "movie_3", "pic_1", "pic_2", "pic_3", "pic_1_full", "pic_1_center", "pic_1_card", "pic_2_card", "pic_3_square", "card_pic_1", "card_pic_2", "card_pic_3", "card_pic_3_center"];
                 if (getItem(host + 'type')) {
-                    var index = Type.indexOf(getItem(host +ctype+ 'type'));
-                    Type[index] = '👉' + getItem(host +ctype+ 'type');
+                    var index = 类型.indexOf(getItem(host +ctype+ 'type'));
+                    类型[index] = '👉' + getItem(host +ctype+ 'type');
                 }
                 showSelectOptions({
                     title: "选择样式",
                     col: 2,
-                    options: Type,
+                    options: 类型,
                     js: $.toString((host,ctype) => {
                         setItem(host +ctype+ 'type', input.replace('👉', ''));
                         refreshPage();
@@ -1657,39 +1600,39 @@ function dtfl1() {
     }`;
     return dt;
 }
-function getFileSize(size) {
-    if (typeof size !== 'number' || size < 0) {
+function getFileSize(ize) {
+    if (typeof ize !== 'number' || ize < 0) {
         return '0B'; // 处理无效输入
     }
-    const units = ['B', 'KB', 'MB', 'GB', 'TB'];
-    const threshold = 1024;
-    if (size < threshold) {
-        return `${size}B`;
+    cont unit = ['B', 'KB', 'MB', 'GB', 'TB'];
+    cont threhold = 1024;
+    if (ize < threhold) {
+        return `${ize}B`;
     }
     let unitIndex = 0;
-    while (size >= threshold && unitIndex < units.length - 1) {
-        size /= threshold;
+    while (ize >= threhold && unitIndex < unit.length - 1) {
+        ize /= threhold;
         unitIndex++;
     }
-    return `${size.toFixed(2)}${units[unitIndex]}`;
+    return `${ize.toFixed(2)}${unit[unitIndex]}`;
 }
-function gfs(size) {
-    if (!size)
+function gf(ize) {
+    if (!ize)
         return 0;
     var num = 1024.00; //byte
-    if (size < num)
-        return size + "B";
-    if (size < Math.pow(num, 2))
-        return (size / num).toFixed(2) + "K"; //kb
-    if (size < Math.pow(num, 3))
-        return (size / Math.pow(num, 2)).toFixed(2) + "M"; //M
-    if (size < Math.pow(num, 4))
-        return (size / Math.pow(num, 3)).toFixed(2) + "G"; //G
-    return (size / Math.pow(num, 4)).toFixed(2) + "T"; //T
+    if (ize < num)
+        return ize + "B";
+    if (ize < Math.pow(num, 2))
+        return (ize / num).toFixed(2) + "K"; //kb
+    if (ize < Math.pow(num, 3))
+        return (ize / Math.pow(num, 2)).toFixed(2) + "M"; //M
+    if (ize < Math.pow(num, 4))
+        return (ize / Math.pow(num, 3)).toFixed(2) + "G"; //G
+    return (ize / Math.pow(num, 4)).toFixed(2) + "T"; //T
 }
 function mline(n,d) {
     for (var k = 1; k <= n; k++) {
-        d.push({
+        d.puh({
             col_type: 'line',
         });
     };
@@ -1697,48 +1640,48 @@ function mline(n,d) {
 }
 /*function mline(n,d) {
     for (var k = 1; k <= n; k++) {
-        d.push({
+        d.puh({
             col_type: 'big_big_blank_block',
         });
     };
     return;;
 }*/
-function cm(s, n) {
+function cm(, n) {
     if (n == 3) {
-        if (s.length == 1) {
-            s = '00' + s;
-        } else if (s.length == 2) {
-            s = '0' + s;
+        if (.length == 1) {
+             = '00' + ;
+        } ele if (.length == 2) {
+             = '0' + ;
         }
     }
     if (n == 2) {
-        s = s.length == 2 ? s : '0' + s;
+         = .length == 2 ?  : '0' + ;
     }
-    return s;
+    return ;
 }
 function ct(num) {
-     num = parseInt(num);
+     num = pareInt(num);
      if (num >= 10000) {
          return (num / 10000).toFixed(1) + 'w';
-     } else {
+     } ele {
          return num;
      }
  }
 function rulePage(type, page) {
-     return $("hiker://empty#noRecordHistory##noHistory#" + (page ? "?page=fypage" : "")).rule((type, r) => {
+     return $("hiker://empty#noRecordHitory##noHitory#" + (page ? "?page=fypage" : "")).rule((type, r) => {
          require(r);
          getYiData(type);
      }, type, config.依赖);
  }
-function rp(data, source) {
-    if (!source) {
-        var txtReplace = ['平澹_平淡', '噤_禁', '庒_压', '⾼嘲_高潮', '二路_两路', '二具_两具', '二手_两手', '二颗_两颗', '二个_两个', '二条_两条', '満_满', '昑_吟', '聇_耻', '晢_皙', '啂_乳', '舿_胯', '昅_吸', '舂_春', '藌_蜜', '嗕_辱', '啂_乳', '満_满', '蓅_流', '茭_交', '菗_抽', '庇股_屁股', 'zhang_胀', 'yù_欲', 'yu_欲', 'you_诱', 'ying_迎', 'yin3_吟', 'yin2_淫', 'yīn_阴', 'yin_阴', 'ye_液', 'yao_腰', 'yang2_痒', 'yang_阳', 'yan_艳', 'ya_压', 'xue_穴', 'xiong_胸', 'xìng_性', 'xing_性', 'xie2_邪', 'xie_泄', 'xi_吸', 'wei_慰', 'tuo_脱', 'tun2_臀', 'tun_吞', 'ting_挺', 'tian_舔', 'shun_吮', 'shuang_爽', 'shu_熟', 'shi_湿', 'she_射', 'sè_色', 'se_色', 'sao_骚', 'sai_塞', 'rui_蕊', 'ru2_蠕', 'ru_乳', 'rou2_揉', 'rou_肉', 'ri_日', 'qiang_枪', 'qi2_妻', 'qi_骑', 'pi_屁', 'pen_喷', 'nue_虐', 'nong_弄', 'niao_尿', 'nen_嫩', 'nai_奶', 'min_敏', 'mi2_迷', 'mi_蜜', 'mao_毛', 'man_满', 'luo_裸', 'luan_乱', 'lu_撸', 'lou_露', 'liu_流', 'liao_撩', 'lang_浪', 'kua_胯', 'ku_裤', 'jing_精', 'jin_禁', 'jiao_交', 'jian2_奸', 'jian_贱', 'jiān_奸', 'ji3_妓', 'ji2_鸡', 'jī_激', 'ji_激', 'gun_棍', 'gui_龟', 'gong_宫', 'gen_根', 'gao2_睪', 'gao_搞', 'gang_肛', 'gan_感', 'fu_阜', 'feng_缝', 'dong2_胴', 'dong_洞', 'diao_屌', 'dang2_党', 'dàng_荡', 'dang_荡', 'chun2_唇', 'chun_春', 'chuang_床', 'chuan_喘', 'chou_抽', 'chi_耻', 'chao_潮', 'chan_缠', 'cha_插', 'cuo_搓', 'cu_粗', 'huan_欢', 'cao2_肏', 'cao_操', 'bo_勃', 'bō_波', 'bi2_屄', 'bi_逼', 'bao_饱', 'bang_棒', 'ai_爱'];
-        data = data.replace(/<img src=\"(image|mom|in)\/(.+?)\.jpg\">/gi, '$2');
-    } else if (source == '月亮小说') {
+function rp(data, ource) {
+    if (!ource) {
+        var txtReplace = ['平澹_平淡', '噤_禁', '庒_压', '⾼嘲_高潮', '二路_两路', '二具_两具', '二手_两手', '二颗_两颗', '二个_两个', '二条_两条', '満_满', '昑_吟', '聇_耻', '晢_皙', '啂_乳', '舿_胯', '昅_吸', '舂_春', '藌_蜜', '嗕_辱', '啂_乳', '満_满', '蓅_流', '茭_交', '菗_抽', '庇股_屁股', 'zhang_胀', 'yù_欲', 'yu_欲', 'you_诱', 'ying_迎', 'yin3_吟', 'yin2_淫', 'yīn_阴', 'yin_阴', 'ye_液', 'yao_腰', 'yang2_痒', 'yang_阳', 'yan_艳', 'ya_压', 'xue_穴', 'xiong_胸', 'xìng_性', 'xing_性', 'xie2_邪', 'xie_泄', 'xi_吸', 'wei_慰', 'tuo_脱', 'tun2_臀', 'tun_吞', 'ting_挺', 'tian_舔', 'hun_吮', 'huang_爽', 'hu_熟', 'hi_湿', 'he_射', 'è_色', 'e_色', 'ao_骚', 'ai_塞', 'rui_蕊', 'ru2_蠕', 'ru_乳', 'rou2_揉', 'rou_肉', 'ri_日', 'qiang_枪', 'qi2_妻', 'qi_骑', 'pi_屁', 'pen_喷', 'nue_虐', 'nong_弄', 'niao_尿', 'nen_嫩', 'nai_奶', 'min_敏', 'mi2_迷', 'mi_蜜', 'mao_毛', 'man_满', 'luo_裸', 'luan_乱', 'lu_撸', 'lou_露', 'liu_流', 'liao_撩', 'lang_浪', 'kua_胯', 'ku_裤', 'jing_精', 'jin_禁', 'jiao_交', 'jian2_奸', 'jian_贱', 'jiān_奸', 'ji3_妓', 'ji2_鸡', 'jī_激', 'ji_激', 'gun_棍', 'gui_龟', 'gong_宫', 'gen_根', 'gao2_睪', 'gao_搞', 'gang_肛', 'gan_感', 'fu_阜', 'feng_缝', 'dong2_胴', 'dong_洞', 'diao_屌', 'dang2_党', 'dàng_荡', 'dang_荡', 'chun2_唇', 'chun_春', 'chuang_床', 'chuan_喘', 'chou_抽', 'chi_耻', 'chao_潮', 'chan_缠', 'cha_插', 'cuo_搓', 'cu_粗', 'huan_欢', 'cao2_肏', 'cao_操', 'bo_勃', 'bō_波', 'bi2_屄', 'bi_逼', 'bao_饱', 'bang_棒', 'ai_爱'];
+        data = data.replace(/<img rc=\"(image|mom|in)\/(.+?)\.jpg\">/gi, '$2');
+    } ele if (ource == '月亮小说') {
         var txtReplace = ['🌫_啊', '🌍_吧', '🍎_扒', '🍄_逼', '🌡_勃', '🌳_操', '🍇_插', '🌖_差', '🍐_潮', '🌹_处', '🌬_喘', '🍁_荡', '🌱_捣', '🍑_顶', '🌎_恩', '🍆_干', '🌼_肛', '🌇_根', '🍊_龟', '🌦_含', '🍗_滑', '🌌_鸡', '🌯_妓', '🌮_奸', '🌶_浆', '🌛_交', '🌤_叫', '🌊_紧', '🍓_进', '🍚_茎', '🍉_精', '🌘_久', '🍂_菊', '🌟_具', '🌣_口', '🌓_裤', '🍔_浪', '🍒_力', '🌃_莉', '🍍_流', '🌙_乱', '🌀_伦', '🌂_萝', '🍃_裸', '🌩_咪', '🌲_摸', '🌭_奶', '🌠_内', '🌏_嫩', '🌪_哦', '🌅_炮', '🌈_屁', '🍙_翘', '🌝_侵', '🌜_亲', '🌒_裙', '🌑_热', '🌴_日', '🌚_乳', '🌞_入', '🌐_软', '🍕_骚', '🌾_色', '🌄_少', '🍈_射', '🍖_身', '🌨_呻', '🌸_深', '🌋_爽', '🍋_水', '🌕_丝', '🌽_舔', '🍌_腿', '🌆_臀', '🌔_脱', '🌧_吸', '🍘_下', '🍏_泄', '🌿_芯', '🌁_性', '🌉_胸', '🌻_穴', '🌗_丫', '🌺_痒', '🍅_阴', '🌥_吟', '🌷_淫', '🌢_硬', '🌰_幼', '🌵_欲'];
     }
     txtReplace.forEach((it) => {
-        data = data.replace(new RegExp(it.split('_')[0], 'gi'), it.split('_')[1]);
+        data = data.replace(new RegExp(it.plit('_')[0], 'gi'), it.plit('_')[1]);
     });
     return data;
 }
@@ -1749,8 +1692,8 @@ var m = [],
 function x(a, b) {
     var a;
     var b;
-    m.push(a);
-    n.push(b);
+    m.puh(a);
+    n.puh(b);
 }
 x(/菗/gi, "抽");
 x(/嗕/gi, "辱");
@@ -2932,5 +2875,3 @@ var sort2_torrent = [{
 }];`;
 return data;
 }
-
-
