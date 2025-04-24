@@ -265,15 +265,15 @@ function bcLongClick(){
 	return [{
             title: '背景色样式',
             js: $.toString(() => {
-                var Type = ["深色模式", "浅色模式", "浅色白字模式","清除"];
+                var 类型 = ["深色模式", "浅色模式", "浅色白字模式","清除"];
                 if (getItem('darkMode')) {
-                    var index = Type.indexOf(getItem('darkMode'));
-                    Type[index] = '👉' + getItem('darkMode');
+                    var index = 类型.indexOf(getItem('darkMode'));
+                    类型[index] = '👉' + getItem('darkMode');
                 }
                 showSelectOptions({
                     title: "选择样式",
                     col: 3,
-                    options: Type,
+                    options: 类型,
                     js: $.toString(() => {
 		    if(/清除/.test(input)){clearItem('darkMode');}
                         else{setItem('darkMode', input.replace('👉', ''));}
@@ -928,15 +928,15 @@ function extraPic(host, page, pages, ctype, hiker) {
     var longClick = [{
         title: '样式',
         js: $.toString((host, ctype) => {
-            var Type = ["movie_1", "movie_2", "movie_3", "pic_1", "pic_2", "pic_3", "pic_1_full", "pic_1_center", "pic_1_card", "pic_2_card", "pic_3_square", "card_pic_1", "card_pic_2", "card_pic_3", "card_pic_3_center"];
+            var 类型 = ["movie_1", "movie_2", "movie_3", "pic_1", "pic_2", "pic_3", "pic_1_full", "pic_1_center", "pic_1_card", "pic_2_card", "pic_3_square", "card_pic_1", "card_pic_2", "card_pic_3", "card_pic_3_center"];
             if (getItem(host + ctype + 'type')) {
-                var index = Type.indexOf(getItem(host + ctype + 'type'));
-                Type[index] = '👉' + getItem(host + ctype + 'type');
+                var index = 类型.indexOf(getItem(host + ctype + 'type'));
+                类型[index] = '👉' + getItem(host + ctype + 'type');
             }
             showSelectOptions({
                 title: "选择样式",
                 col: 2,
-                options: Type,
+                options: 类型,
                 js: $.toString((host, ctype) => {
                     setItem(host + ctype + 'type', input.replace('👉', ''));
                     refreshPage();
@@ -1604,8 +1604,8 @@ function getFileSize(ize) {
     if (typeof ize !== 'number' || ize < 0) {
         return '0B'; // 处理无效输入
     }
-    cont unit = ['B', 'KB', 'MB', 'GB', 'TB'];
-    cont threhold = 1024;
+    const unit = ['B', 'KB', 'MB', 'GB', 'TB'];
+    const threhold = 1024;
     if (ize < threhold) {
         return `${ize}B`;
     }
