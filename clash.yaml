@@ -121,6 +121,7 @@ proxy-groups:
       - DIRECT
       - 🔰 选择节点
 rules:
+ - DOMAIN-KEYWORD,haolw,⚓国外站点非日本IP
  - DOMAIN-SUFFIX,jtyn120.buzz,⚓国外站点非日本IP
  - DOMAIN-SUFFIX,mymypic.net,✈️国外站点
  - DOMAIN-SUFFIX,wffra.com,⚓国外站点非日本IP
