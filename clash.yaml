@@ -64,16 +64,6 @@ dns:
     - tcp://223.5.5.5
     - tcp://223.6.6.6
 proxies:
-  - {name: "速连VPN官网23903:", server: usz1.fgmcx.top, port: 23903, tfo: true, type: vmess, uuid: be443689-bc64-49ff-85a5-8eecaa2235d3, alterId: 0, cipher: auto, tls: false, skip-cert-verify: false, udp: true}
-  - {name: "速连VPN官网23908:", server: hzz9.fgmcx.top, port: 23908, tfo: true, type: vmess, uuid: be443689-bc64-49ff-85a5-8eecaa2235d3, alterId: 0, cipher: auto, tls: false, skip-cert-verify: false, udp: true}
-  - {name: "速连VPN官网23909:", server: usz1.fgmcx.top, port: 23909, tfo: true, type: vmess, uuid: be443689-bc64-49ff-85a5-8eecaa2235d3, alterId: 0, cipher: auto, tls: false, skip-cert-verify: false, udp: true}
-  - {name: "速连VPN官网23910:", server: hzz9.fgmcx.top, port: 23910, tfo: true, type: vmess, uuid: be443689-bc64-49ff-85a5-8eecaa2235d3, alterId: 0, cipher: auto, tls: false, skip-cert-verify: false, udp: true}
-  - {name: "速连VPN官网23913:", server: usz1.fgmcx.top, port: 23913, tfo: true, type: vmess, uuid: be443689-bc64-49ff-85a5-8eecaa2235d3, alterId: 0, cipher: auto, tls: false, skip-cert-verify: false, udp: true}
-  - {name: "速连VPN官网23915:", server: usz1.fgmcx.top, port: 23915, tfo: true, type: vmess, uuid: be443689-bc64-49ff-85a5-8eecaa2235d3, alterId: 0, cipher: auto, tls: false, skip-cert-verify: false, udp: true}
-  - {name: "速连VPN官网23919:", server: hzz9.fgmcx.top, port: 23919, tfo: true, type: vmess, uuid: be443689-bc64-49ff-85a5-8eecaa2235d3, alterId: 0, cipher: auto, tls: false, skip-cert-verify: false, udp: true}
-  - {name: "速连VPN官网23923:", server: hzz9.fgmcx.top, port: 23923, tfo: true, type: vmess, uuid: be443689-bc64-49ff-85a5-8eecaa2235d3, alterId: 0, cipher: auto, tls: false, skip-cert-verify: false, udp: true}
-  - {name: 速连🇭🇰  HK 中转 02, server: zz5.fgmcx.top, port: 41068, tfo: true, type: ss, cipher: chacha20-ietf-poly1305, password: be443689-bc64-49ff-85a5-8eecaa2235d3, udp: true}
-  - {name: 速连🇭🇰  HK 中转 01, server: hk2.fgmcx.top, port: 41059, tfo: true, type: ss, cipher: 2022-blake3-aes-128-gcm, password: MjMxZjQwMzNiNjQ5NTQ4ZQ==:YmU0NDM2ODktYmM2NC00OQ==, udp: true}
   - {name: 🇯🇵 免费-日本1-qq, server: bq85h-g01.jp01-0986-vm0.entry.fr0307a.art, port: 21581, type: vmess, uuid: 18bc5290-fb4e-32e0-b607-4505b156ab6c, alterId: 1, cipher: auto, tls: true, skip-cert-verify: false, udp: true}
   - {name: 🇯🇵 免费-日本2-qq, server: bkt3x-g01.jp02-9a99-vm0.entry.fr0307a.art, port: 11773, type: vmess, uuid: 18bc5290-fb4e-32e0-b607-4505b156ab6c, alterId: 1, cipher: auto, tls: false, skip-cert-verify: false, udp: true}
   - {name: 🇯🇵 免费-日本3-qq, server: wv1zi-g01.jp03-7d22-vm0.entry.fr0307a.art, port: 21581, type: vmess, uuid: 18bc5290-fb4e-32e0-b607-4505b156ab6c, alterId: 1, cipher: auto, tls: true, skip-cert-verify: false, udp: true}
@@ -99,16 +89,15 @@ proxies:
   - {name: 新加坡2, server: support.zoom.us, port: 80, client-fingerprint: chrome, type: vless, uuid: d9074e14-c4e4-4e58-8fff-3727e83af868, tls: false, tfo: false, skip-cert-verify: false, servername: free.pranithsandaruwan.shop, network: ws, ws-opts: {path: /, headers: {Host: free.pranithsandaruwan.shop}}}
 proxy-groups:
   # ============= 原有策略组（保持完全不变）=============
-  - { name: "🔰 选择节点", type: select, proxies: [DIRECT,免费-日本节点-qq, 免费-日本节点,移动4g专用,⚓国外站点非日本IP,新加坡节点,速连节点,香港节点,台湾节点]}
-  - { name: "✈️国外站点", type: fallback, interval: 60, tolerance: 500,timeout: 3000, url: "http://www.gstatic.com/generate_204", proxies: [免费-日本节点-qq,免费-日本节点,⚓国外站点非日本IP,新加坡节点,速连节点,香港节点,台湾节点] }
-  - { name: "⚓国外站点非日本IP", type: fallback, interval: 60, tolerance: 500,timeout: 3000, url: "http://www.gstatic.com/generate_204",proxies: [台湾节点,zyzzzoao,香港节点,新加坡2,新加坡节点,移动4g专用,速连节点] }
+  - { name: "🔰 选择节点", type: select, proxies: [DIRECT,免费-日本节点-qq, 免费-日本节点,移动4g专用,⚓国外站点非日本IP,新加坡节点,香港节点,台湾节点]}
+  - { name: "✈️国外站点", type: fallback, interval: 60, tolerance: 500,timeout: 3000, url: "http://www.gstatic.com/generate_204", proxies: [⚓国外站点非日本IP,免费-日本节点-qq,免费-日本节点,新加坡节点,香港节点,台湾节点] }
+  - { name: "⚓国外站点非日本IP", type: fallback, interval: 60, tolerance: 500,timeout: 3000, url: "http://www.gstatic.com/generate_204",proxies: [台湾节点,香港节点,新加坡节点,移动4g专用] }
   - { name: "移动4g专用", type: fallback, interval: 60, tolerance: 500,timeout: 3000, url: "http://www.gstatic.com/generate_204",proxies: [移动4g专用02|918,移动4g专用02|894,移动4g专用01|805,移动4g专用01|839,移动4g专用03|102] }
   - { name: "免费-日本节点", type: fallback, interval: 60, tolerance: 500,timeout: 3000, url: "http://www.gstatic.com/generate_204",proxies: [🇯🇵 免费-日本1-Ver.6, 🇯🇵 免费-日本2-Ver.7, 🇯🇵 免费-日本3-Ver.6, 🇯🇵 免费-日本4-Ver.7, 🇯🇵 免费-日本5-Ver.8, 🇯🇵 免费-日本6-Ver.7, 🇯🇵 免费-日本7-Ver.1] }
   - { name: "免费-日本节点-qq", type: fallback, interval: 60, tolerance: 500,timeout: 3000, url: "http://www.gstatic.com/generate_204",proxies: [🇯🇵 免费-日本1-qq, 🇯🇵 免费-日本2-qq, 🇯🇵 免费-日本3-qq, 🇯🇵 免费-日本4-qq, 🇯🇵 免费-日本5-qq, 🇯🇵 免费-日本6-qq, 🇯🇵 免费-日本7-qq] }
   - {name: 新加坡节点, <<: *fallback, filter: "🇸🇬|新加坡|狮|SG|Singapore", icon: https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
   - {name: 香港节点, <<: *fallback, filter: "香港|HK", icon: https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
   - {name: 台湾节点, <<: *fallback, filter: "台湾", icon: https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
-  - {name: 速连节点, <<: *fallback, filter: "速连", icon: https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
   - name: 🇨🇳 国内网站
     type: select
     proxies:
