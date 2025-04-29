@@ -110,6 +110,7 @@ proxy-groups:
       - DIRECT
       - 🔰 选择节点
 rules:
+ - DOMAIN-SUFFIX,43.132.131.30,🇨🇳 国内网站
  - DOMAIN-SUFFIX,ghfast.top,🇨🇳 国内网站
  - DOMAIN-KEYWORD,haolw,⚓国外站点非日本IP
  - DOMAIN-SUFFIX,jtyn120.buzz,⚓国外站点非日本IP
@@ -9768,7 +9769,7 @@ rules:
  - DOMAIN-SUFFIX,up.qingdaonews.com,🛑 拦截广告
  - DOMAIN-SUFFIX,vaserviece.10jqka.com.cn,🛑 拦截广告
  - DOMAIN-SUFFIX,local,DIRECT
- - IP-CIDR,192.168.0.0/16,DIRECT,no-resolve
+ - IP-CIDR,192.168.0.0/16,DIRECT,no-resolve IP-C
  - IP-CIDR,10.0.0.0/8,DIRECT,no-resolve
  - IP-CIDR,172.16.0.0/12,DIRECT,no-resolve
  - IP-CIDR,127.0.0.0/8,DIRECT,no-resolve
