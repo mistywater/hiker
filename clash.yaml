@@ -426,6 +426,7 @@ rules:
  - DOMAIN-SUFFIX,1688.com,🇨🇳 国内网站
  - DOMAIN-SUFFIX,1688.com.au,✈️国外站点
  - DOMAIN-SUFFIX,17173.com,🇨🇳 国内网站
+ - DOMAIN-SUFFIX,172.67.7.24,🇨🇳 国内网站
  - DOMAIN-SUFFIX,173ng.com,✈️国外站点
  - DOMAIN-SUFFIX,177pic.info,✈️国外站点
  - DOMAIN-SUFFIX,178.com,🇨🇳 国内网站
