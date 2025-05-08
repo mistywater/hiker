@@ -3891,6 +3891,7 @@ rules:
  - DOMAIN-SUFFIX,hkacg.net,✈️国外站点
  - DOMAIN-SUFFIX,hkatvnews.com,✈️国外站点
  - DOMAIN-SUFFIX,hkbc.net,✈️国外站点
+ - DOMAIN-SUFFIX,hkbdy.com,DIRECT
  - DOMAIN-SUFFIX,hkbf.org,✈️国外站点
  - DOMAIN-SUFFIX,hkbookcity.com,✈️国外站点
  - DOMAIN-SUFFIX,hkchronicles.com,✈️国外站点
