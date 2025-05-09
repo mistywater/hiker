@@ -90,7 +90,7 @@ proxy-groups:
   # ============= 原有策略组（保持完全不变）=============
   - { name: "🔰 选择节点", type: select, proxies: [DIRECT,免费-日本节点-qq, 免费-日本节点,移动4g专用,✈️国外站点,⚓国外站点非日本IP,新加坡节点,香港节点,台湾节点]}
   - { name: "✈️国外站点", type: fallback, interval: 60, tolerance: 500,timeout: 3000, url: "http://www.gstatic.com/generate_204", proxies: [免费-日本节点-qq,免费-日本节点,新加坡节点,香港节点,台湾节点,⚓国外站点非日本IP] }
-  - { name: "⚓国外站点非日本IP", type: fallback, interval: 60, tolerance: 500,timeout: 3000, url: "http://www.gstatic.com/generate_204",proxies: [新加坡节点,香港节点,台湾节点,移动4g专用] }
+  - { name: "⚓国外站点非日本IP", type: fallback, interval: 60, tolerance: 500,timeout: 3000, url: "http://www.gstatic.com/generate_204",proxies: [香港节点,新加坡节点,台湾节点,移动4g专用] }
   - { name: "移动4g专用", type: fallback, interval: 60, tolerance: 500,timeout: 3000, url: "http://www.gstatic.com/generate_204",proxies: [移动4g专用02|918,移动4g专用02|894,移动4g专用01|805,移动4g专用01|839,移动4g专用03|102] }
   - { name: "免费-日本节点", type: fallback, interval: 60, tolerance: 500,timeout: 3000, url: "http://www.gstatic.com/generate_204",proxies: [🇯🇵 免费-日本1-Ver.6, 🇯🇵 免费-日本2-Ver.7, 🇯🇵 免费-日本3-Ver.6, 🇯🇵 免费-日本4-Ver.7, 🇯🇵 免费-日本5-Ver.8, 🇯🇵 免费-日本6-Ver.7, 🇯🇵 免费-日本7-Ver.1] }
   - { name: "免费-日本节点-qq", type: fallback, interval: 60, tolerance: 500,timeout: 3000, url: "http://www.gstatic.com/generate_204",proxies: [🇯🇵 免费-日本1-qq, 🇯🇵 免费-日本2-qq, 🇯🇵 免费-日本3-qq, 🇯🇵 免费-日本4-qq, 🇯🇵 免费-日本5-qq, 🇯🇵 免费-日本6-qq, 🇯🇵 免费-日本7-qq] }
@@ -581,6 +581,7 @@ rules:
  - DOMAIN-SUFFIX,808.tianya.cn,🛑 拦截广告
  - DOMAIN-SUFFIX,808.tianyaui.cn,🛑 拦截广告
  - DOMAIN-SUFFIX,828751.com,⚓国外站点非日本IP
+ - DOMAIN-SUFFIX,005404.lol,⚓国外站点非日本IP
  - DOMAIN-SUFFIX,85cc.net,✈️国外站点
  - DOMAIN-SUFFIX,85cc.us,✈️国外站点
  - DOMAIN-SUFFIX,85st.com,✈️国外站点
