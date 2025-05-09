@@ -580,6 +580,7 @@ rules:
  - DOMAIN-SUFFIX,806.tianyaui.cn,🛑 拦截广告
  - DOMAIN-SUFFIX,808.tianya.cn,🛑 拦截广告
  - DOMAIN-SUFFIX,808.tianyaui.cn,🛑 拦截广告
+ - DOMAIN-SUFFIX,828751.com,⚓国外站点非日本IP
  - DOMAIN-SUFFIX,85cc.net,✈️国外站点
  - DOMAIN-SUFFIX,85cc.us,✈️国外站点
  - DOMAIN-SUFFIX,85st.com,✈️国外站点
