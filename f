@@ -7,11 +7,13 @@ function updateJu(title) {
         let pathGitee = 'https://gitee.com/mistywater/hiker_info/raw/master/sourcefile/' + title + '.json';
         let jsonGitee = JSON.parse(base64ToText(fetch(pathGitee)));
         storage0.putMyVar('jsonGitee', jsonGitee);
-        let version = jsonGitee.ver || '';
+        let version = JSON.parse(jsonGitee.parse.replace(/,[\s]+('|")页码[\s\S]*/,'}').replace(/'/g,'"')).ver || '';log('versionNew:'+version);
         let sourcefile = 'hiker://files/rules/Src/Ju/jiekou.json';
         let datalist = JSON.parse(fetch(sourcefile));
         let index = datalist.findIndex(item => item.name == jsonGitee.name && item.type == jsonGitee.type);
-        if (index == -1 || !datalist[index].ver || datalist[index].ver < version) {
+if (index != -1){
+var versionLast=JSON.parse(datalist[index].parse.replace(/,[\s]+('|")页码[\s\S]*/,'}').replace(/'/g,'"')).ver||'';log('versionLast:'+versionLast);}
+        if (index == -1 || !versionLast || versionLast < version) {
             confirm({
                 title: "有新版本",
                 content: '导入新版本吗?',
