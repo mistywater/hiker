@@ -1,4 +1,14 @@
 js:
+function TextToBase64(str) {
+            return window0.btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, (_, hex) => {
+                return String.fromCharCode(parseInt(hex, 16));
+            }));
+        }
+        function base64ToText(str) {
+            return decodeURIComponent(window0.atob(str).split('').map(c => {
+                return '%' + c.charCodeAt(0).toString(16).padStart(2, '0');
+            }).join(''));
+        }
 function yanzhengd(d,str, url, host, a) {
     d.push({
         title: '人机验证',
