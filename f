@@ -6,7 +6,7 @@ function updateJu(title) {
     if (lastTime == 'undefined' || currentTime - lastTime >= 86400000) {
         let pathGitee = 'https://gitee.com/mistywater/hiker_info/raw/master/sourcefile/' + title + '.json';
         let html = fetch(pathGitee);
-        if (html) {
+        if (!/Repository or file not found/.test(html)) {
             let jsonGitee = JSON.parse(base64ToText(fetch(pathGitee)));
             storage0.putMyVar('jsonGitee', jsonGitee);
             let version = JSON.parse(jsonGitee.parse.replace(/,[\s]+('|")页码[\s\S]*/, '}').replace(/'/g, '"')).ver || '';
