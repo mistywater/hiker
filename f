@@ -1,8 +1,8 @@
 js:
-function updateJu(title,host) {
-    let lastTime = getItem(host + 'getTime');
+function updateJu(title) {
+    let lastTime = getItem(title + 'getTime');
     let currentTime = Date.now();
-    setItem(host + 'getTime', currentTime + '');
+    setItem(title + 'getTime', currentTime + '');
     if (lastTime == 'undefined' || currentTime - lastTime >= 86400000) {
         let pathGitee = 'https://gitee.com/mistywater/hiker_info/raw/master/sourcefile/' + title + '.json';
         let jsonGitee = JSON.parse(base64ToText(fetch(pathGitee)));
