@@ -3754,6 +3754,7 @@ rules:
  - DOMAIN-SUFFIX,handcraftedsoftware.org,✈️国外站点
  - DOMAIN-SUFFIX,hanime.tv,✈️国外站点
  - DOMAIN-SUFFIX,hanime1.me,⚓国外站点非日本IP
+ - DOMAIN-SUFFIX,nhentai.net,⚓国外站点非日本IP
  - DOMAIN-SUFFIX,hanmanmianfei.net,✈️国外站点
  - DOMAIN-SUFFIX,hanminzu.org,✈️国外站点
  - DOMAIN-SUFFIX,hanunyi.com,✈️国外站点
