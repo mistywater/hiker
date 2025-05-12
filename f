@@ -914,12 +914,17 @@ function lunbo(c) {
                 }
             });
         } else {
+            var title = pdfh(c.indexbanner[n], c.title);
+            if (!title) {
+                var html = fetchPC(pd(c.indexbanner[n], c.url, c.host));
+                title = pdfh(html, c.title);
+            }
             d.push({
-                title: color(pdfh(c.indexbanner[n], c.title), 'FF3399'),
-                img: (!/##/.test(c.img) ? pd(c.indexbanner[n], c.img) : eval(c.img.replace('host', 'c.host').replace('indexbanner', 'c.indexbanner')))+ '@Referer='+c.host,
+                title: color(title, 'FF3399'),
+                img: (!/##/.test(c.img) ? pd(c.indexbanner[n], c.img) : eval(c.img.replace('host', 'c.host').replace('indexbanner', 'c.indexbanner'))) + '@Referer=' + c.host,
                 col_type: 'card_pic_1',
                 desc: '0',
-                url: pd(c.indexbanner[n], c.url),
+                url: pd(c.indexbanner[n], c.url, c.host),
                 extra: {
                     id: 'lunbo',
                     stype: c.type,
@@ -944,9 +949,14 @@ function lunbo(c) {
                     }
                 }, c.name, c.type);
             } else {
+                var title = pdfh(c.indexbanner[n], c.title);
+                if (!title) {
+                    var html = fetchPC(pd(c.indexbanner[n], c.url, c.host));
+                    title = pdfh(html, c.title);
+                }
                 var item = toerji({
-                    title: color(pdfh(c.indexbanner[n], c.title), 'FF3399'),
-                    img: (!/##/.test(c.img) ? urla(pdfh(c.indexbanner[n], c.img), c.host) : eval(c.img.replace('host', 'c.host').replace('indexbanner', 'c.indexbanner')))+ '@Referer='+c.host,
+                    title: color(title, 'FF3399'),
+                    img: (!/##/.test(c.img) ? urla(pdfh(c.indexbanner[n], c.img), c.host) : eval(c.img.replace('host', 'c.host').replace('indexbanner', 'c.indexbanner'))) + '@Referer=' + c.host,
                     url: urla(pdfh(c.indexbanner[n], c.url), c.host),
                     extra: {
                         id: 'lunbo',
