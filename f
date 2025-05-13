@@ -196,7 +196,6 @@ function detectCloudStorage(link) {
 function imgCloudStorage(link) {
     // 统一转换为小写，避免大小写影响判断
     link = link.toLowerCase();
-
     if (link.includes("pan.baidu.com") || link.includes("baidupcs.com")) {
         return "https://img2.baidu.com/it/u=2020777305,1031850894&fm=253&fmt=auto&app=138&f=PNG?w=667&h=500";
     } else if (link.includes("aliyundrive.com") || link.includes("alipan.com")) {
