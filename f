@@ -187,7 +187,9 @@ function detectCloudStorage(link) {
         return "[夸克网盘]";
     } else if (link.includes("uc.cn") || link.includes("yun.uc.cn")) {
         return "[UC网盘]";
-    } else {
+    } else if (link.includes("xunlei") || link.includes("yun.uc.cn")) {
+        return "[迅雷网盘]";
+    }else {
         return "[未知网盘]";
     }
 }
