@@ -193,6 +193,24 @@ function detectCloudStorage(link) {
         return "[未知网盘]";
     }
 }
+function imgCloudStorage(link) {
+    // 统一转换为小写，避免大小写影响判断
+    link = link.toLowerCase();
+
+    if (link.includes("pan.baidu.com") || link.includes("baidupcs.com")) {
+        return "https://img2.baidu.com/it/u=2020777305,1031850894&fm=253&fmt=auto&app=138&f=PNG?w=667&h=500";
+    } else if (link.includes("aliyundrive.com") || link.includes("alipan.com")) {
+        return "https://s1.aigei.com/src/img/png/69/69d8f122740640519216514462cc50c5.png?e=2051020800&token=P7S2Xpzfz11vAkASLTkfHN7Fw-oOZBecqeJaxypL:HqPtGpJj9S14AZbbyOcIEgzp6-U=";
+    } else if (link.includes("quark.cn")) {
+        return "https://img2.baidu.com/it/u=953706586,3782031721&fm=253&fmt=auto&app=138&f=JPEG?w=379&h=290";
+    } else if (link.includes("uc.cn") || link.includes("yun.uc.cn")) {
+        return "https://img.xz7.com/up/ico/2025/0417/1744866095811272.png";
+    } else if (link.includes("xunlei") || link.includes("yun.uc.cn")) {
+        return "https://img2.baidu.com/it/u=2190535763,2853254922&fm=253&fmt=auto&app=138&f=JPEG?w=392&h=243";
+    }else {
+        return "https://img1.baidu.com/it/u=729368853,3597651220&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500";
+    }
+}
 function sourceJump(d, arr,blank) {
     let info = storage0.getMyVar('一级源接口信息');
     arr.forEach((item, index) => {
