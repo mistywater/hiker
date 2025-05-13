@@ -1,4 +1,32 @@
 js:
+function parseUrl() {
+            return $.toString(() => {
+                if (/baidu/.test(url)) {
+                    putVar('urlBaidu', url);
+                    return "hiker://page/list?rule=百度网盘&realurl=" + url;
+                } else if (/aliyundrive|alipan|quark|uc\./.test(url)) {
+                    require(config.依赖.match(/http(s)?:\/\/.*\//)[0] + 'SrcParseS.js');
+                    return SrcParseS.聚阅(url);
+                } else if (/magnet/.test(url)) {
+                    url = url;
+                } else {
+                    var html = fetchPC(url);
+                    var html_js = fetchPC(host + '/static/js/playerconfig.js');
+                    if (/r player_/.test(html)) {
+                        var json = JSON.parse(html.match(/r player_.*?=(.*?)</)[1]);
+                        var url_t = json.url;
+                        if (json.encrypt == '1') {
+                            url_t = unescape(url_t);
+                        } else if (json.encrypt == '2') {
+                            url_t = unescape(base64Decode(url_t));
+                        }
+                        url = 'video://' + url;
+                    } else {
+                        url = 'video://' + url;
+                    }
+                }
+            });
+        }
 function updateJu(title) {
     let lastTime = getItem(title + 'getTime');
     let currentTime = Date.now();
