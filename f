@@ -1,15 +1,15 @@
 js:
-function parseUrl() {
-            return $.toString(() => {
+function parseUrl(url,依赖) {
+            
                 if (/baidu/.test(url)) {
                     putVar('urlBaidu', url);
-                    return "hiker://page/list?rule=百度网盘&realurl=" + url;
+                    url= "hiker://page/list?rule=百度网盘&realurl=" + url;
                 } else if (/aliyundrive|alipan|quark|uc\./.test(url)) {
-                    require(config.依赖.match(/http(s)?:\/\/.*\//)[0] + 'SrcParseS.js');
-                    return SrcParseS.聚阅(url);
+                    require(依赖.match(/http(s)?:\/\/.*\//)[0] + 'SrcParseS.js');
+                    url= SrcParseS.聚阅(url);
                 } else if (/magnet/.test(url)) {
                     url = url;
-                } else {
+                } else {return
                     var html = fetchPC(url);
                     var html_js = fetchPC(host + '/static/js/playerconfig.js');
                     if (/r player_/.test(html)) {
@@ -25,7 +25,7 @@ function parseUrl() {
                         url = 'video://' + url;
                     }
                 }
-            });
+            return url;
         }
 function updateJu(title) {
     let lastTime = getItem(title + 'getTime');
