@@ -2230,128 +2230,114 @@ function colorCode(d) {
         return true;
     }
 }
-function sub(d, c) {if (colorCode(d) && !colorCode(c)) {
-        var tmp = d;
-        d = c;
-        c = tmp;
-    }
-    return '‘‘’’<sub><small><font color=#' + (c || '000000') + '>' + d + '</font></small></sub>';
+function normalizeColorCode(color) {
+  let hex = String(color || '000000').replace(/^#/, '').toLowerCase();log(hex);
+  if (/^[0-9a-f]{3}$/.test(hex)) {log(hex.split('').map(c => c + c).join(''));
+    return hex.split('').map(c => c + c).join('');
+  }
+  if (/^[0-9a-f]$/.test(hex)) {
+    return hex.repeat(6);
+  }
+  return hex.padEnd(6, '0').slice(0, 6);
 }
-function subR(d, c) {if (colorCode(d) && !colorCode(c)) {
-        var tmp = d;
-        d = c;
-        c = tmp;
-    }
-    return '<sub><small><font color=#' + (c || '000000') + '>' + d + '</font></small></sub>';
+String.prototype.sub = function(c) {
+    return `‘‘’’<sub><small><font color=#${normalizeColorCode(c)}>${this}</font></small></sub>`;
+};
+String.prototype.subR = function(c) {
+    return `<sub><small><font color=#${normalizeColorCode(c)}>${this}</font></small></sub>`;
+};
+String.prototype.sup = function(c) {
+    return `‘‘’’<sup><small><font color=#${normalizeColorCode(c)}>${this}</font></small></sup>`;
+};
+String.prototype.supR = function(c) {
+    return `<sup><small><font color=#${normalizeColorCode(c)}>${this}</font></small></sup>`;
+};
+String.prototype.ss = function(c) {
+    return `‘‘’’<strong><small><font color=#${normalizeColorCode(c)}>${this}</font></small></strong>`;
+};
+String.prototype.ssR = function(c) {
+    return `<strong><small><font color=#${normalizeColorCode(c)}>${this}</font></small></strong>`;
+};
+String.prototype.sb = function(c) {
+    return `‘‘’’<strong><big><font color=#${normalizeColorCode(c)}>${this}</font></big></strong>`;
+};
+String.prototype.sbR = function(c) {
+    return `<strong><big><font color=#${normalizeColorCode(c)}>${this}</font></big></strong>`;
+};
+String.prototype.color = function(c) {
+    return `‘‘’’<font color=#${normalizeColorCode(c)}>${this}</font>`;
+};
+String.prototype.colorR = function(c) {
+    return `<font color=#${normalizeColorCode(c)}>${this}</font>`;
+};
+String.prototype.small = function(c) {
+    return `‘‘’’<small><font color=#${normalizeColorCode(c)}>${this}</font></small>`;
+};
+String.prototype.smallR = function(c) {
+    return `<small><font color=#${normalizeColorCode(c)}>${this}</font></small>`;
+};
+String.prototype.big = function(c) {
+    return `‘‘’’<big><font color=#${normalizeColorCode(c)}>${this}</font></big>`;
+};
+String.prototype.bigR = function(c) {
+    return `<big><font color=#${normalizeColorCode(c)}>${this}</font></big>`;
+};
+String.prototype.strong = function(c) {
+    return `‘‘’’<strong><font color=#${normalizeColorCode(c)}>${this}</font></strong>`;
+};
+String.prototype.strongR = function(c) {
+    return `<strong><font color=#${normalizeColorCode(c)}>${this}</font></strong>`;
+};
+String.prototype.ssR = function(c) {
+    return `<strong><small><font color=#${normalizeColorCode(c)}>${this}</font></small></strong>`;
+};
+function sub(d, c) {
+    return '‘‘’’<sub><small><font color=#' + normalizeColorCode(c) + '>' + d + '</font></small></sub>';
 }
-function sup(d, c) {if (colorCode(d) && !colorCode(c)) {
-        var tmp = d;
-        d = c;
-        c = tmp;
-    }
-    return '‘‘’’<sup><small><font color=#' + (c || '000000') + '>' + d + '</font></small></sup>';
+function subR(d, c) {
+    return '<sub><small><font color=#' + normalizeColorCode(c) + '>' + d + '</font></small></sub>';
+}  
+function sup(d, c) {
+    return '‘‘’’<sup><small><font color=#' + normalizeColorCode(c) + '>' + d + '</font></small></sup>';
 }
-function supR(d, c) {if (colorCode(d) && !colorCode(c)) {
-        var tmp = d;
-        d = c;
-        c = tmp;
-    }
-    return '<sup><small><font color=#' + (c || '000000') + '>' + d + '</font></small></sup>';
+function supR(d, c) {
+    return '<sup><small><font color=#' + normalizeColorCode(c) + '>' + d + '</font></small></sup>';
 }
-function ss(d, c) {if (colorCode(d) && !colorCode(c)) {
-        var tmp = d;
-        d = c;
-        c = tmp;
-    }
-    return '‘‘’’<strong><small><font color=#' + (c || '000000') + '>' + d + '</font></small></strong>';
+function ss(d, c) {
+    return '‘‘’’<strong><small><font color=#' + normalizeColorCode(c) + '>' + d + '</font></small></strong>';
 }
-function ssR(d, c) {if (colorCode(d) && !colorCode(c)) {
-        var tmp = d;
-        d = c;
-        c = tmp;
-    }
-    return '<strong><small><font color=#' + (c || '000000') + '>' + d + '</font></small></strong>';
+function ssR(d, c) {
+    return '<strong><small><font color=#' + normalizeColorCode(c) + '>' + d + '</font></small></strong>';
 }
-
-function sb(d, c) {if (colorCode(d) && !colorCode(c)) {
-        var tmp = d;
-        d = c;
-        c = tmp;
-    }
-    return '‘‘’’<strong><big><font color=#' + (c || '000000') + '>' + d + '</font></big></strong>';
+function sb(d, c) {
+    return '‘‘’’<strong><big><font color=#' + normalizeColorCode(c) + '>' + d + '</font></big></strong>';
 }
-
-function sbR(d, c) {if (colorCode(d) && !colorCode(c)) {
-        var tmp = d;
-        d = c;
-        c = tmp;
-    }
-    return '<strong><big><font color=#' + (c || '000000') + '>' + d + '</font></big></strong>';
+function sbR(d, c) {
+    return '<strong><big><font color=#' + normalizeColorCode(c) + '>' + d + '</font></big></strong>';
 }
-
-function color(d, c) {if (colorCode(d) && !colorCode(c)) {
-        var tmp = d;
-        d = c;
-        c = tmp;
-    }
-    return '‘‘’’<font color=#' + (c || '000000') + '>' + d + '</font>';
+function color(d, c) {
+    return '‘‘’’<font color=#' + normalizeColorCode(c) + '>' + d + '</font>';
 }
-
-function colorR(d, c) {if (colorCode(d) && !colorCode(c)) {
-        var tmp = d;
-        d = c;
-        c = tmp;
-    }
-    return '<font color=#' + (c || '000000') + '>' + d + '</font>';
+function colorR(d, c) {
+    return '<font color=#' + normalizeColorCode(c) + '>' + d + '</font>';
 }
-
-function small(d, c) {if (colorCode(d) && !colorCode(c)) {
-        var tmp = d;
-        d = c;
-        c = tmp;
-    }
-    return '‘‘’’<small><font color=#' + (c || '000000') + '>' + d + '</font></small>';
+function small(d, c) {
+    return '‘‘’’<small><font color=#' + normalizeColorCode(c) + '>' + d + '</font></small>';
 }
-
-function smallR(d, c) {if (colorCode(d) && !colorCode(c)) {
-        var tmp = d;
-        d = c;
-        c = tmp;
-    }
-    return '<small><font color=#' + (c || '000000') + '>' + d + '</font></small>';
+function smallR(d, c) {
+    return '<small><font color=#' + normalizeColorCode(c) + '>' + d + '</font></small>';
 }
-
-function big(d, c) {if (colorCode(d) && !colorCode(c)) {
-        var tmp = d;
-        d = c;
-        c = tmp;
-    }
-    return '‘‘’’<big><font color=#' + (c || '000000') + '>' + d + '</font></big>';
+function big(d, c) {
+    return '‘‘’’<big><font color=#' + normalizeColorCode(c) + '>' + d + '</font></big>';
 }
-
-function bigR(d, c) {if (colorCode(d) && !colorCode(c)) {
-        var tmp = d;
-        d = c;
-        c = tmp;
-    }
-    return '<big><font color=#' + (c || '000000') + '>' + d + '</font></big>';
+function bigR(d, c) {
+    return '<big><font color=#' + normalizeColorCode(c) + '>' + d + '</font></big>';
 }
-
 function strong(d, c) {
-    if (colorCode(d) && !colorCode(c)) {
-        var tmp = d;
-        d = c;
-        c = tmp;
-    }
-    return '‘‘’’<strong><font color=#' + (c || '000000') + '>' + d + '</font></strong>';
+    return '‘‘’’<strong><font color=#' + normalizeColorCode(c) + '>' + d + '</font></strong>';
 }
-
-function strongR(d, c) {if (colorCode(d) && !colorCode(c)) {
-        var tmp = d;
-        d = c;
-        c = tmp;
-    }
-    return '<strong><font color=#' + (c || '000000') + '>' + d + '</font></strong>';
+function strongR(d, c) {
+    return '<strong><font color=#' + normalizeColorCode(c) + '>' + d + '</font></strong>';
 }
 
 function jp(d) {
