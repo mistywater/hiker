@@ -248,6 +248,8 @@ function imgCloudStorage(link) {
         return "https://img.xz7.com/up/ico/2025/0417/1744866095811272.png";
     } else if (/xunlei|迅雷(网|云)盘/.test(link)) {
         return "https://img2.baidu.com/it/u=2190535763,2853254922&fm=253&fmt=auto&app=138&f=JPEG?w=392&h=243";
+    } else if (/magnet|磁力|磁链/.test(link)) {
+        return "https://api.imgdb.cc/favicon/ciliduo.png";
     }else {
         return "https://img1.baidu.com/it/u=729368853,3597651220&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500";
     }
