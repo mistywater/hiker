@@ -54,14 +54,14 @@ function updateJu(title) {
             storage0.putMyVar('jsonGitee', jsonGitee);
             let jsonVer=JSON.parse(jsonGitee.parse.replace(/,.*\s+('|")页码[\s\S]*/, '}').replace(/'/g, '"'));
             let version = jsonVer.ver || jsonVer.Ver||'';
-            log('versionNew:' + version);
+            'versionNew:' + version);
             let sourcefile = 'hiker://files/rules/Src/Ju/jiekou.json';
             let datalist = JSON.parse(fetch(sourcefile));
             let index = datalist.findIndex(item => item.name == jsonGitee.name && item.type == jsonGitee.type);
             if (index != -1) {
                 let jsonVersionLast=JSON.parse(datalist[index].parse.replace(/,.*\s+('|")页码[\s\S]*/, '}').replace(/'/g, '"'));
                 var versionLast = jsonVersionLast.ver||jsonVersionLast.Ver || '';
-                log('versionLast:' + versionLast);
+                'versionLast:' + versionLast);
             }
             if (index == -1 || !versionLast || versionLast < version) {
                 confirm({
@@ -114,7 +114,7 @@ function yanzhengd(d,str, url, host, a) {
                         function check() {
                             let nodes = document.querySelectorAll(str);
                             var co = fba.getCookie(url);
-                            fba.log(co);
+                            fba.co);
                             let condition;
                             if (a) {
                                 condition = (!nodes || nodes.length === 0) && co;
@@ -599,7 +599,7 @@ function yanzheng(str, url, t, a, h) {
                         function check() {
                             let nodes = document.querySelectorAll(str);
                             var co = fba.getCookie(url);
-                            fba.log(co);
+                            fba.co);
                             let condition;
                             if (a) {
                                 condition = (!nodes || nodes.length === 0) && co;
@@ -2249,7 +2249,7 @@ function colorCode(d) {
     }
 }
 function normalizeColorCode(color) {
-  let hex = String(color || '000000').replace(/^#/, '').toLowerCase();log(hex);
+  let hex = String(color || '000000').replace(/^#/, '').toLowerCase();
   if (/^[0-9a-f]{3}$/.test(hex)) {
     return hex.split('').map(c => c + c).join('');
   }
