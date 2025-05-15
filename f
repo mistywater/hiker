@@ -1,4 +1,18 @@
 js:
+function getLines() {
+            return $.toString(() => {
+                var arts = pdfa(html, 线路);
+                var conts = pdfa(html, 选集);
+                conts.forEach((cont, index) => {
+                    var list = pdfa(cont, 选集列表).map((item) => ({
+                        title: pdfh(item, 'a&&Text').replace(new RegExp('.+?(第\\d+季|第\\d+集)'), '$1'),
+                        url: pd(item, 'a&&href')
+                    }));
+                    lists.push(list);
+                    tabs.push(pdfh(arts[index], 线路名) + numberSub(list.length));
+                });
+            });
+        }
 function parseUrlVideo(url, 依赖) {
     if (/baidu/.test(url)) {
         putVar('urlBaidu', url);
