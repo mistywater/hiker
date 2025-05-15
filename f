@@ -1,5 +1,5 @@
 js:
-function parseUrl(url,依赖) {
+function parseUrlVideo(url,依赖) {
             
                 if (/baidu/.test(url)) {
                     putVar('urlBaidu', url);
@@ -9,9 +9,8 @@ function parseUrl(url,依赖) {
                     url= SrcParseS.聚阅(url);
                 } else if (/magnet/.test(url)) {
                     url = url;
-                } else {return
+                } else {
                     var html = fetchPC(url);
-                    var html_js = fetchPC(host + '/static/js/playerconfig.js');
                     if (/r player_/.test(html)) {
                         var json = JSON.parse(html.match(/r player_.*?=(.*?)</)[1]);
                         var url_t = json.url;
@@ -1148,12 +1147,12 @@ function extraPic(host, page, pages, ctype, hiker) {
             var Type = ["movie_1", "movie_2", "movie_3", "pic_1", "pic_2", "pic_3", "pic_1_full", "pic_1_center", "pic_1_card", "pic_2_card", "pic_3_square", "card_pic_1", "card_pic_2", "card_pic_3", "card_pic_3_center"];
             if (getItem(host + ctype + 'type')) {
                 var index = Type.indexOf(getItem(host + ctype + 'type'));
-                Type[index] = '👉' + getItem(host + ctype + 'type');
+                类型[index] = '👉' + getItem(host + ctype + 'type');
             }
             showSelectOptions({
                 title: "选择样式",
                 col: 2,
-                options: Type,
+                options: 类型,
                 js: $.toString((host, ctype) => {
                     setItem(host + ctype + 'type', input.replace('👉', ''));
                     refreshPage();
@@ -1385,15 +1384,15 @@ function pageMoveto(host, page, ctype,pages) {
     var longClick=[{
             title: '样式',
             js: $.toString((host,ctype) => {
-                var Type = ["movie_1", "movie_2", "movie_3", "pic_1", "pic_2", "pic_3", "pic_1_full", "pic_1_center", "pic_1_card", "pic_2_card", "pic_3_square", "card_pic_1", "card_pic_2", "card_pic_3", "card_pic_3_center"];
+                var 类型 = ["movie_1", "movie_2", "movie_3", "pic_1", "pic_2", "pic_3", "pic_1_full", "pic_1_center", "pic_1_card", "pic_2_card", "pic_3_square", "card_pic_1", "card_pic_2", "card_pic_3", "card_pic_3_center"];
                 if (getItem(host + 'type')) {
-                    var index = Type.indexOf(getItem(host +ctype+ 'type'));
-                    Type[index] = '👉' + getItem(host +ctype+ 'type');
+                    var index = 类型.indexOf(getItem(host +ctype+ 'type'));
+                    类型[index] = '👉' + getItem(host +ctype+ 'type');
                 }
                 showSelectOptions({
                     title: "选择样式",
                     col: 2,
-                    options: Type,
+                    options: 类型,
                     js: $.toString((host,ctype) => {
                         setItem(host +ctype+ 'type', input.replace('👉', ''));
                         refreshPage();
