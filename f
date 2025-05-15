@@ -2245,7 +2245,7 @@ function colorCode(d) {
 }
 function normalizeColorCode(color) {
   let hex = String(color || '000000').replace(/^#/, '').toLowerCase();log(hex);
-  if (/^[0-9a-f]{3}$/.test(hex)) {log(hex.split('').map(c => c + c).join(''));
+  if (/^[0-9a-f]{3}$/.test(hex)) {
     return hex.split('').map(c => c + c).join('');
   }
   if (/^[0-9a-f]$/.test(hex)) {
