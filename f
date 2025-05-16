@@ -51,7 +51,7 @@ function updateJu(title) {
         let html = fetch(pathGitee);
         if (html&&!/Repository or file not found/.test(html)) {
             let jsonGitee = JSON.parse(base64ToText(fetch(pathGitee)));
-            storage0.putMyVar('jsonGitee', jsonGitee);
+            //storage0.putMyVar('jsonGitee', jsonGitee);
             let jsonVer=JSON.parse(jsonGitee.parse.replace(/,.*\s+('|")页码[\s\S]*/, '}').replace(/'/g, '"'));
             let version = jsonVer.ver || jsonVer.Ver||'';
             log('versionNew:' + version);
@@ -64,23 +64,20 @@ function updateJu(title) {
                 log('versionLast:' + versionLast);
             }
             if (index == -1 || !versionLast || versionLast < version) {
-                 confirm({
-                    title: "有新版本",
+                confirm({
+                    title: `聚阅接口:${title}_${jsonGitee.type}有新版本`,
                     content: '导入新版本吗?',
-                    confirm: $.toString((title) => {
+                    confirm: $.toString((title,jsonGitee,index) => {
                         let sourcefile = 'hiker://files/rules/Src/Ju/jiekou.json';
                         let datalist = JSON.parse(fetch(sourcefile));
-                        let jsonGitee = storage0.getMyVar('jsonGitee');
-                        let index = datalist.findIndex(item => item.name == jsonGitee.name && item.type == jsonGitee.type);
                         if (index != -1) {
                             datalist.splice(index, 1);
                         }
                         datalist.push(jsonGitee);
                         writeFile(sourcefile, JSON.stringify(datalist));
-                        toast(title+'导入成功~');
+                        toast(`聚阅接口:${title}_${jsonGitee.type}导入成功~`);
                         refreshPage();return;
-
-                        },title),
+                        },title,jsonGitee,index),
                     cancel: $.toString(() => {
                         return "toast://不升级小程序，则功能不全或有异常"
                     })
