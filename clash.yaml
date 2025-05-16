@@ -586,6 +586,7 @@ rules:
  - DOMAIN-SUFFIX,85cc.us,✈️国外站点
  - DOMAIN-SUFFIX,85st.com,✈️国外站点
  - DOMAIN-SUFFIX,86.cc,🛑 拦截广告
+ - DOMAIN-SUFFIX,4k4k.live,🇨🇳 国内网站
  - DOMAIN-SUFFIX,8686c.com,🇨🇳 国内网站
  - DOMAIN-SUFFIX,881903.com,✈️国外站点
  - DOMAIN-SUFFIX,888.com,✈️国外站点
