@@ -64,10 +64,10 @@ function updateJu(title) {
                 log('versionLast:' + versionLast);
             }
             if (index == -1 || !versionLast || versionLast < version) {
-                confirm({
+                 confirm({
                     title: "有新版本",
                     content: '导入新版本吗?',
-                    confirm() {
+                    confirm: $.toString((title) => {
                         let sourcefile = 'hiker://files/rules/Src/Ju/jiekou.json';
                         let datalist = JSON.parse(fetch(sourcefile));
                         let jsonGitee = storage0.getMyVar('jsonGitee');
@@ -77,11 +77,13 @@ function updateJu(title) {
                         }
                         datalist.push(jsonGitee);
                         writeFile(sourcefile, JSON.stringify(datalist));
-                        toast('导入成功~');
-                        refreshPage();
+                        toast(title+'导入成功~');
+                        refreshPage();return;
 
-                    },
-                    cancel() {}
+                        },title),
+                    cancel: $.toString(() => {
+                        return "toast://不升级小程序，则功能不全或有异常"
+                    })
                 });
             }
         }
