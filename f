@@ -108,7 +108,7 @@ function updateJu(title) {
             }
             if (index == -1 || !versionLast || versionLast < version) {
                 confirm({
-                    title: `聚阅接口:${title}_${jsonGitee.type}有新版本`,
+                    title: `聚阅接口<${title}_${jsonGitee.type}>有新版本`,
                     content: jsonVer.更新说明?jsonVer.更新说明:'导入新版本吗?',
                     confirm: $.toString((title,jsonGitee,index) => {
                         let sourcefile = 'hiker://files/rules/Src/Ju/jiekou.json';
