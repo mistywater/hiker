@@ -1158,12 +1158,13 @@ function jinman(picUrl) {
 function extraPic(host, page, pages, ctype, hiker) {
     if (!ctype) var ctype = '';
     if (!hiker || hiker == '') var hiker = '1';
+    var 类型 = ["movie_1", "movie_2", "movie_3", "pic_1", "pic_2", "pic_3", "pic_1_full", "pic_1_center", "pic_1_card", "pic_2_card", "pic_3_square", "card_pic_1", "card_pic_2", "card_pic_3", "card_pic_3_center"];
+
     var longClick = [{
         title: '样式',
-        js: $.toString((host, ctype) => {
-            var Type = ["movie_1", "movie_2", "movie_3", "pic_1", "pic_2", "pic_3", "pic_1_full", "pic_1_center", "pic_1_card", "pic_2_card", "pic_3_square", "card_pic_1", "card_pic_2", "card_pic_3", "card_pic_3_center"];
-            if (getItem(host + ctype + 'type')) {
-                var index = Type.indexOf(getItem(host + ctype + 'type'));
+        js: $.toString((host, ctype,类型) => {
+                        if (getItem(host + ctype + 'type')) {
+                var index = 类型.indexOf(getItem(host + ctype + 'type'));
                 类型[index] = '👉' + getItem(host + ctype + 'type');
             }
             showSelectOptions({
@@ -1176,7 +1177,7 @@ function extraPic(host, page, pages, ctype, hiker) {
                 }, host, ctype)
             });
             return "hiker://empty";
-        }, host, ctype),
+        }, host, ctype,类型),
     }, {
         title: '下载',
         js: `'hiker://page/download.view?rule=本地资源管理'`,
