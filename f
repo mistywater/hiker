@@ -93,8 +93,7 @@ function updateJu(title) {
         let pathGitee = 'https://gitee.com/mistywater/hiker_info/raw/master/sourcefile/' + title + '.json';
         let html = fetch(pathGitee);
         if (html&&!/Repository or file not found/.test(html)) {
-            let jsonGitee = JSON.parse(base64ToText(fetch(pathGitee)));
-            //storage0.putMyVar('jsonGitee', jsonGitee);
+            let jsonGitee = JSON.parse(base64ToText(fetch(pathGitee)));log(jsonGitee.parse.replace(/,.*\s+('|")页码[\s\S]*/, '}').replace(/'/g, '"'));
             let jsonVer=JSON.parse(jsonGitee.parse.replace(/,.*\s+('|")页码[\s\S]*/, '}').replace(/'/g, '"'));
             let version = jsonVer.ver || jsonVer.Ver||'';
             log('versionNew:' + version);
@@ -108,8 +107,8 @@ function updateJu(title) {
             }
             if (index == -1 || !versionLast || versionLast < version) {
                 confirm({
-                    title: `聚阅接口<${title}_${jsonGitee.type}>有新版本`,
-                    content: jsonVer.更新说明?jsonVer.更新说明:'导入新版本吗?',
+                    title: `聚阅接口:<${title}_${jsonGitee.type}>有新版本`,
+                    content: jsonVer.更新说明?jsonVer.更新说明.replace(/,/g,'\n'):'导入新版本吗?',
                     confirm: $.toString((title,jsonGitee,index) => {
                         let sourcefile = 'hiker://files/rules/Src/Ju/jiekou.json';
                         let datalist = JSON.parse(fetch(sourcefile));
@@ -118,7 +117,7 @@ function updateJu(title) {
                         }
                         datalist.push(jsonGitee);
                         writeFile(sourcefile, JSON.stringify(datalist));
-                        toast(`聚阅接口:${title}_${jsonGitee.type}导入成功~`);
+                        toast(`聚阅接口<${title}_${jsonGitee.type}>导入成功~`);
                         refreshPage();return;
                         },title,jsonGitee,index),
                     cancel: $.toString(() => {
