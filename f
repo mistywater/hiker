@@ -109,7 +109,7 @@ function updateJu(title) {
             if (index == -1 || !versionLast || versionLast < version) {
                 confirm({
                     title: `聚阅接口:${title}_${jsonGitee.type}有新版本`,
-                    content: '导入新版本吗?',
+                    content: jsonVer.更新说明?jsonVer.更新说明:'导入新版本吗?',
                     confirm: $.toString((title,jsonGitee,index) => {
                         let sourcefile = 'hiker://files/rules/Src/Ju/jiekou.json';
                         let datalist = JSON.parse(fetch(sourcefile));
@@ -230,7 +230,7 @@ function link(d, urlsTemp,titleLast,titleNext, myurl, host) {
         d.push({
             title: index == 0 ? (it.startsWith('http') ? '⬅️' + titleLast : '没有了') : titleNext + '➡️',
             url: $('#noLoading#').lazyRule((url, host, index, url1) => {
-                putMyVar(host + 'next', url);
+                putMyVar(host + 'next', url);putMyVar(host + 'isNextUrl', '1');
                 refreshPage();
                 return 'hiker://empty';
             }, it ? it : myurl, host, index, myurl),
