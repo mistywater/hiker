@@ -1,4 +1,47 @@
 js:
+function searchGoogle(d,str,公共) {
+
+        d.push({
+            title: '🔍',
+            url: $.toString((str,公共) => {
+                putVar('keyword', input);
+                return $('hiker://empty').rule((str,公共) => {
+                    var d = [];
+                    d.push({
+                        url: 'https://www.google.com/search?q=' + getVar('keyword', '') + '+site:www.1000yishu.com&start=0',
+                        col_type: 'x5_webview_single',
+                        desc: 'list&&screen',
+                        extra: {
+                            ua: MOBILE_UA,
+                            showProgress: false,
+                            canBack: true,
+                            jsLoadingInject: true,
+                            urlInterceptor: $.toString((str,公共) => {
+                                if (input.match(str)) {
+                                    return $.toString((url, 公共) => {
+                                        var js = 'js:host="' + 公共.host + '";url=MY_URL;_c="";var 公共={host: "' + 公共.host + '",解析:function(){' + 公共.解析.toString().replace(/^function.*?\{|\}$/g, '') + '}};' + 公共.解析.toString().match(/addListener[\s\S]*?setResult\(d\);/)[0]
+                                        //fba.log(js);
+                                        fba.open(JSON.stringify({
+                                            title: '搜索',
+                                            url: url,
+                                            findRule: js,
+                                        }));
+                                    }, input, 公共)
+                                }
+                            }, str,公共),
+                        }
+                    });
+                    setResult(d);
+                }, str,公共);
+            }, str,公共),
+            desc: '搜你想要的...',
+            col_type: 'input',
+            extra: {
+                defaultValue: getVar('keyword', ''),
+            }
+        });
+return d;
+}
 function getLines() {
             return $.toString(() => {
                 var arts = pdfa(html, 线路);
