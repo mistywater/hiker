@@ -1,4 +1,47 @@
 js:
+function searchBaidu(d,str,公共) {
+
+        d.push({
+            title: '🔍',
+            url: $.toString((str,公共) => {
+                putVar('keyword', input);log('https://www.baidu.com/s?wd=' + getVar('keyword', '')+ '%20site%3A'+公共.host.split('/').at(-1)+'&pn=0');
+                return $('hiker://empty').rule((str,公共) => {
+                    var d = [];
+                    d.push({
+                        url: 'https://www.baidu.com/s?wd=' + getVar('keyword', '') + '%20site%3A'+公共.host.split('/').at(-1)+'&pn=0',
+                        col_type: 'x5_webview_single',
+                        desc: 'list&&screen',
+                        extra: {
+                            ua: PC_UA,
+                            showProgress: false,
+                            canBack: true,
+                            jsLoadingInject: true,
+                            urlInterceptor: $.toString((str,公共) => {
+                                if (input.match(str)) {input=fetchPC(input).match(/http.*?html/)[0];input=input.replace(/_\d+\.html/,'.html');
+                                    return $.toString((url, 公共) => {
+                                        var js = 'js:host="' + 公共.host + '";url=MY_URL;_c="";var 公共={host: "' + 公共.host + '",解析:function(){' + 公共.解析.toString().replace(/^function.*?\{|\}$/g, '') + '}};' + 公共.解析.toString().match(/addListener[\s\S]*?setResult\(d\);/)[0]
+                                        //fba.log(js);
+                                        fba.open(JSON.stringify({
+                                            title: '搜索',
+                                            url: url,
+                                            findRule: js,
+                                        }));
+                                    }, input, 公共)
+                                }
+                            }, str,公共),
+                        }
+                    });
+                    setResult(d);
+                }, str,公共);
+            }, str,公共),
+            desc:'google站内搜索,需挂梯子...',
+            col_type: 'input',
+            extra: {
+                defaultValue: getVar('keyword', ''),
+            }
+        });
+return d;
+}
 function searchGoogle(d,str,公共) {
 
         d.push({
