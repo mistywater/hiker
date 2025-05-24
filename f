@@ -8,7 +8,7 @@ function searchGoogle(d,str,公共) {
                 return $('hiker://empty').rule((str,公共) => {
                     var d = [];
                     d.push({
-                        url: 'https://www.google.com/search?q=' + getVar('keyword', '') + '+site:www.1000yishu.com&start=0',
+                        url: 'https://www.google.com/search?q=' + getVar('keyword', '') + '+site:'+公共.host+'&start=0',
                         col_type: 'x5_webview_single',
                         desc: 'list&&screen',
                         extra: {
@@ -17,7 +17,7 @@ function searchGoogle(d,str,公共) {
                             canBack: true,
                             jsLoadingInject: true,
                             urlInterceptor: $.toString((str,公共) => {
-                                if (input.match(str)) {
+                                if (input.match(str)) {input=input.replace(/_\d+\.html/,'.html');
                                     return $.toString((url, 公共) => {
                                         var js = 'js:host="' + 公共.host + '";url=MY_URL;_c="";var 公共={host: "' + 公共.host + '",解析:function(){' + 公共.解析.toString().replace(/^function.*?\{|\}$/g, '') + '}};' + 公共.解析.toString().match(/addListener[\s\S]*?setResult\(d\);/)[0]
                                         //fba.log(js);
