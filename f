@@ -34,7 +34,7 @@ function searchGoogle(d,str,公共) {
                     setResult(d);
                 }, str,公共);
             }, str,公共),
-            desc: '搜你想要的...',
+            desc: 'google站内搜索,需挂梯子...',
             col_type: 'input',
             extra: {
                 defaultValue: getVar('keyword', ''),
@@ -207,6 +207,9 @@ function downloadLongClick(host) {
     }, {
         title: '书架',
         js: `'hiker://page/Main.view?rule=本地资源管理'`,
+    }, {
+        title: getItem(host+'isMultiPage','1')==1?'分页':'不分页',
+        js: `setItem('${host}isMultiPage',getItem('${host}isMultiPage','1')=='1'?'0':'1');refreshPage();`,
     }];
     var extra = $.toString((host, longClick) => ({
         chapterList: 'hiker://files/_cache/chapterList.txt',
