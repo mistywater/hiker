@@ -34,7 +34,7 @@ function searchBaidu(d,str,公共) {
                     setResult(d);
                 }, str,公共);
             }, str,公共),
-            desc:'google站内搜索,需挂梯子...',
+            desc:'baidu站内搜索...',
             col_type: 'input',
             extra: {
                 defaultValue: getVar('keyword', ''),
