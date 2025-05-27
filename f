@@ -1,4 +1,4 @@
-js:
+js: 
 function searchBaidu(d, str, 公共) {
 
     d.push({
