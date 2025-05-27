@@ -129,10 +129,10 @@ function parseUrlVideo(url, 依赖) {
     return url;
 }
 function updateJu(title) {
-    let lastTime = getItem(title + 'getTime');
+    let lastTime = getItem(title + 'getTime','');
     let currentTime = Date.now();
     setItem(title + 'getTime', currentTime + '');
-    if (lastTime == 'undefined' || currentTime - lastTime >= 86400000) {
+    if (!lastTime|| currentTime - lastTime >= 86400000) {
         let pathGitee = 'https://gitee.com/mistywater/hiker_info/raw/master/sourcefile/' + title + '.json';
         let html = fetch(pathGitee);
         if (html&&!/Repository or file not found/.test(html)) {
@@ -167,8 +167,8 @@ function updateJu(title) {
                         return "toast://不升级小程序，则功能不全或有异常"
                     })
                 });
-            }
-        }
+            }else{toast('无新版本~');}
+        }else{toast('无新版本~');}
     }
     return;
 }
