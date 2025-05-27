@@ -1,5 +1,5 @@
 js:
-functionearchBaidu(d,str,公共) {
+function searchBaidu(d,str,公共) {
 
         d.push({
             title: '🔍',
@@ -42,7 +42,7 @@ etResult(d);
         });
 return d;
 }
-functionearchGoogle(d,str,公共) {
+function searchGoogle(d,str,公共) {
 
         d.push({
             title: '🔍',
