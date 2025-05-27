@@ -31,7 +31,7 @@ function searchBaidu(d,str,公共) {
                             }, str,公共),
                         }
                     });
-etResult(d);
+setResult(d);
                 }, str,公共);
             }, str,公共),
             desc:'baidu站内搜索...',
