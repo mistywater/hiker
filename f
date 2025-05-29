@@ -519,13 +519,13 @@ function bcLongClick(){
             js: $.toString(() => {
                 var Type = ["深色模式", "浅色模式", "浅色白字模式","清除"];
                 if (getItem('darkMode')) {
-                    var index = Type.indexOf(getItem('darkMode'));
-                    Type[index] = '👉' + getItem('darkMode');
+                    var index = 类型.indexOf(getItem('darkMode'));
+                    类型[index] = '👉' + getItem('darkMode');
                 }
                 showSelectOptions({
                     title: "选择样式",
                     col: 3,
-                    options: Type,
+                    options: 类型,
                     js: $.toString(() => {
 		    if(/清除/.test(input)){clearItem('darkMode');}
                         else{setItem('darkMode', input.replace('👉', ''));}
@@ -1610,7 +1610,7 @@ function searchMain(page, d, desc) {
     }
     return d;
 }
-function classTop(index, data, host, d, mode, v, c, f, len, start, end) {
+function classTop(index, data, host, d, mode, v, c, f, len, start, end) {if(true) refreshPage();
     if (!mode) mode = 0;
     if (!v) v = 0;
     if (!c) c = 'c';
