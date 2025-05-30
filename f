@@ -1610,7 +1610,7 @@ function searchMain(page, d, desc) {
     }
     return d;
 }
-function classTop(index, data, host, d, mode, v, c, f, len, start, end) {if(true) refreshPage();
+function classTop(index, data, host, d, mode, v, c, f, len, start, end) {
     if (!mode) mode = 0;
     if (!v) v = 0;
     if (!c) c = 'c';
