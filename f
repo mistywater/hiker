@@ -1051,7 +1051,7 @@ function sortSx(arr, name, style, order) {
     return arrNew;
 }
 function lunbo(c) {
-    return $.toString((c) => {
+    return $.toString((c,toerji) => {
         if (typeof(c.type) == 'undefined') {
             c.type = '影视';
         }
@@ -1091,7 +1091,7 @@ function lunbo(c) {
         }
         let id = 'juyue';
         let time = 4000;
-        registerTask(id, time, $.toString((c, k) => {
+        registerTask(id, time, $.toString((c, k,toerji) => {
             rc(fc('https://gitee.com/mistywater/hiker_info/raw/master/githubproxy.json') + 'https://raw.githubusercontent.com/mistywater/hiker/main/f', 24);
             var n = getVar(c.host + 'n', '0');
             if (c.json == 1) {
@@ -1128,8 +1128,8 @@ function lunbo(c) {
             } else {
                 putVar(c.host + 'n', (parseInt(n) + 1) + '');
             }
-        }, c, k));
-    }, c);
+        }, c, k,toerji));
+    }, c,toerji);
 }
 function numbersCircled(index) {
     if (index < 10) {
@@ -2214,7 +2214,7 @@ function imgDec(key,iv,a,b){
         return imgdec;
 }
 
-function toerji(item,sname,stype) {
+/*function toerji(item,sname,stype) {
             let info = storage0.getMyVar('主页源信息');
             let extra = item.extra || {};
             extra.name = extra.name || extra.pageTitle || item.title;
@@ -2233,7 +2233,7 @@ function toerji(item,sname,stype) {
                 erji();
             }) : item.url
             return item;
-        }
+        }*/
 function en(key, iv, data, mode, encoding) {
         eval(getCryptoJS());
         if (!mode) mode = 'AES/ECB/PKCS7Padding';
