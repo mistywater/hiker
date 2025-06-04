@@ -1120,7 +1120,7 @@ function lunbo(c) {
                         stype: c.type,
                         name: pdfh(c.indexbanner[n], c.title),
                     }
-                }, c.name, c.type);
+                }, {name:c.name, type:c.type});
             }
             updateItem('lunbo', item);
             if (n >= k - 1) {
