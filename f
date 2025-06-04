@@ -1,15 +1,15 @@
 js: 
-function searchBaidu(d, str, 公共) {
+function searchBaidu(d, str, parse) {
 
     d.push({
         title: '🔍',
-        url: $.toString((str, 公共) => {
+        url: $.toString((str, parse) => {
             putVar('keyword', input);
-            log('https://www.baidu.com/s?wd=' + getVar('keyword', '') + '%20site%3A' + 公共.host.split('/').at(-1) + '&pn=0');
-            return $('hiker://empty').rule((str, 公共) => {
+            log('https://www.baidu.com/s?wd=' + getVar('keyword', '') + '%20site%3A' + parse.host.split('/').at(-1) + '&pn=0');
+            return $('hiker://empty').rule((str, parse) => {
                 var d = [];
                 d.push({
-                    url: 'https://www.baidu.com/s?wd=' + getVar('keyword', '') + '%20site%3A' + 公共.host.split('/').at(-1) + '&pn=0',
+                    url: 'https://www.baidu.com/s?wd=' + getVar('keyword', '') + '%20site%3A' + parse.host.split('/').at(-1) + '&pn=0',
                     col_type: 'x5_webview_single',
                     desc: 'list&&screen',
                     extra: {
@@ -17,26 +17,26 @@ function searchBaidu(d, str, 公共) {
                         showProgress: false,
                         canBack: true,
                         jsLoadingInject: true,
-                        urlInterceptor: $.toString((str, 公共) => {
+                        urlInterceptor: $.toString((str, parse) => {
                             if (input.match(str)) {
                                 input = fetchPC(input).match(/http.*?html/)[0];
                                 input = input.replace(/_\d+\.html/, '.html');
-                                return $.toString((url, 公共) => {
-                                    var js = 'js:host="' + 公共.host + '";url=MY_URL;_c="";var 公共={host: "' + 公共.host + '",解析:function(){' + 公共.解析.toString().replace(/^function.*?\{|\}$/g, '') + '}};' + 公共.解析.toString().match(/addListener[\s\S]*?setResult\(d\);/)[0]
+                                return $.toString((url, parse) => {
+                                    var js = 'js:host="' + parse.host + '";url=MY_URL;_c="";var parse={host: "' + parse.host + '",解析:function(){' + parse.解析.toString().replace(/^function.*?\{|\}$/g, '') + '}};' + parse.解析.toString().match(/addListener[\s\S]*?setResult\(d\);/)[0]
                                     //fba.log(js);
                                     fba.open(JSON.stringify({
                                         title: '搜索',
                                         url: url,
                                         findRule: js,
                                     }));
-                                }, input, 公共)
+                                }, input, parse)
                             }
-                        }, str, 公共),
+                        }, str, parse),
                     }
                 });
                 setResult(d);
-            }, str, 公共);
-        }, str, 公共),
+            }, str, parse);
+        }, str, parse),
         desc: 'baidu站内搜索...',
         col_type: 'input',
         extra: {
@@ -46,16 +46,16 @@ function searchBaidu(d, str, 公共) {
     return d;
 }
 
-function searchGoogle(d, str, 公共) {
+function searchGoogle(d, str, parse) {
 
     d.push({
         title: '🔍',
-        url: $.toString((str, 公共) => {
+        url: $.toString((str, parse) => {
             putVar('keyword', input);
-            return $('hiker://empty').rule((str, 公共) => {
+            return $('hiker://empty').rule((str, parse) => {
                 var d = [];
                 d.push({
-                    url: 'https://www.google.com/search?q=' + getVar('keyword', '') + '+site:' + 公共.host + '&start=0',
+                    url: 'https://www.google.com/search?q=' + getVar('keyword', '') + '+site:' + parse.host + '&start=0',
                     col_type: 'x5_webview_single',
                     desc: 'list&&screen',
                     extra: {
@@ -63,25 +63,25 @@ function searchGoogle(d, str, 公共) {
                         showProgress: false,
                         canBack: true,
                         jsLoadingInject: true,
-                        urlInterceptor: $.toString((str, 公共) => {
+                        urlInterceptor: $.toString((str, parse) => {
                             if (input.match(str)) {
                                 input = input.replace(/_\d+\.html/, '.html');
-                                return $.toString((url, 公共) => {
-                                    var js = 'js:host="' + 公共.host + '";url=MY_URL;_c="";var 公共={host: "' + 公共.host + '",解析:function(){' + 公共.解析.toString().replace(/^function.*?\{|\}$/g, '') + '}};' + 公共.解析.toString().match(/addListener[\s\S]*?setResult\(d\);/)[0]
+                                return $.toString((url, parse) => {
+                                    var js = 'js:host="' + parse.host + '";url=MY_URL;_c="";var parse={host: "' + parse.host + '",解析:function(){' + parse.解析.toString().replace(/^function.*?\{|\}$/g, '') + '}};' + parse.解析.toString().match(/addListener[\s\S]*?setResult\(d\);/)[0]
                                     //fba.log(js);
                                     fba.open(JSON.stringify({
                                         title: '搜索',
                                         url: url,
                                         findRule: js,
                                     }));
-                                }, input, 公共)
+                                }, input, parse)
                             }
-                        }, str, 公共),
+                        }, str, parse),
                     }
                 });
                 setResult(d);
-            }, str, 公共);
-        }, str, 公共),
+            }, str, parse);
+        }, str, parse),
         desc: 'google站内搜索,需挂梯子...',
         col_type: 'input',
         extra: {
