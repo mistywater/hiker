@@ -1090,8 +1090,8 @@ function lunbo(c) {
             });
         }
         let id = 'juyue';
-        let time = 4000;
-        registerTask(id, time, $.toString((c, k,toerji) => {
+        let time = 4000;let jkdata=MY_RULE.title=='聚阅'?storage0.getMyVar('一级源接口信息'):{type: c.type,name: c.name};
+        registerTask(id, time, $.toString((c, k,toerji,jkdata) => {
             rc(fc('https://gitee.com/mistywater/hiker_info/raw/master/githubproxy.json') + 'https://raw.githubusercontent.com/mistywater/hiker/main/f', 24);
             var n = getVar(c.host + 'n', '0');
             if (c.json == 1) {
@@ -1104,7 +1104,7 @@ function lunbo(c) {
                         stype: c.type,
                         name: c.indexbanner[n][c.title],
                     }
-                },{name:c.name, type:c.type});
+                },jkdata);
             } else {
                 var title = pdfh(c.indexbanner[n], c.title);
                 if (!title) {
@@ -1120,7 +1120,7 @@ function lunbo(c) {
                         stype: c.type,
                         name: pdfh(c.indexbanner[n], c.title),
                     }
-                }, {name:c.name, type:c.type});
+                },jkdata);
             }
             updateItem('lunbo', item);
             if (n >= k - 1) {
@@ -1128,7 +1128,7 @@ function lunbo(c) {
             } else {
                 putVar(c.host + 'n', (parseInt(n) + 1) + '');
             }
-        }, c, k,toerji));
+        }, c, k,toerji,jkdata));
     }, c,toerji);
 }
 function numbersCircled(index) {
