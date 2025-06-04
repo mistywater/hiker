@@ -1,4 +1,44 @@
 js: 
+function hanziToPinyin(hanzi, options) {
+    var hanziMap = storage0.getMyVar('hanziMap');
+    if (!hanziMap) {
+        var html = fetchPC('https://tool.httpcn.com/Js/Convert_Pinyin.js');
+        eval('var ' + html.match(/full_dict[\s\S]*?\}/)[0]);
+        hanziMap = {};
+        for (var pinyin in full_dict) {
+            if (full_dict.hasOwnProperty(pinyin)) {
+                var chars = full_dict[pinyin];
+                for (var i = 0; i < chars.length; i++) {
+                    hanziMap[chars[i]] = pinyin;
+                }
+            }
+        }
+    }
+    var unknownChar = (options && options.unknownChar) ? options.unknownChar : 'original';
+    var result = '';
+    for (var j = 0; j < hanzi.length; j++) {
+        var char = hanzi[j];
+        if (hanziMap[char]) {
+            result += hanziMap[char];
+        } else {
+            switch (unknownChar) {
+                case 'original':
+                    result += char;
+                    break;
+                case 'skip':
+                    break;
+                case 'placeholder':
+                    result += '?';
+                    break;
+                default:
+                    result += char;
+            }
+        }
+        result += '';
+    }
+    return result.trim();
+}
+
 function searchBaidu(d, str, parse) {
 
     d.push({
