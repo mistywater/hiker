@@ -1104,7 +1104,7 @@ function lunbo(c) {
                         stype: c.type,
                         name: c.indexbanner[n][c.title],
                     }
-                }, c.name, c.type);
+                },{name:c.name, type:c.type});
             } else {
                 var title = pdfh(c.indexbanner[n], c.title);
                 if (!title) {
