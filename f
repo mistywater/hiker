@@ -3,7 +3,7 @@ function getHtml(url, headers,mode) {
     let html = getMyVar(url);
     if (!html) {
         if(mode&&mode==1){
-	    html = request(url, headers || {});}
+	    html = request(url, headers || {});
 	}else{
 	    html = fetchPC(url, headers || {});
         }
