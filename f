@@ -1,4 +1,16 @@
 js: 
+function getHtml(url, headers,mode) {
+    let html = getMyVar(url);
+    if (!html) {
+        if(mode&&mode==1){
+	    html = request(url, headers || {});}
+	}else{
+	    html = fetchPC(url, headers || {});
+        }
+        putMyVar(url, html);
+    }
+    return html;
+}
 function hanziToPinyin(hanzi, options) {
     var hanziMap = storage0.getMyVar('hanziMap');
     if (!hanziMap) {
