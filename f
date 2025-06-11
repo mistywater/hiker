@@ -382,16 +382,20 @@ function detectCloudStorage(link) {
 function imgCloudStorage(link) {
     // 统一转换为小写，避免大小写影响判断
     link = link.toLowerCase();
-    if (/pan.baidu.com|baidupcs.com|百度(网|云)盘|^baidu$/.test(link)) {
+    if (/pan.baidu.com|baidupcs.com|百度(网|云)盘|^baidu$|xiongdipan/.test(link)) {
         return "https://img2.baidu.com/it/u=2020777305,1031850894&fm=253&fmt=auto&app=138&f=PNG?w=667&h=500";
-    } else if (/aliyundrive.com|alipan.com|阿里(网|云)盘|^ali$/.test(link)) {
+    } else if (/aliyundrive.com|alipan.com|阿里(网|云)盘|^ali$|alipansou/.test(link)) {
         return "https://s1.aigei.com/src/img/png/69/69d8f122740640519216514462cc50c5.png?e=2051020800&token=P7S2Xpzfz11vAkASLTkfHN7Fw-oOZBecqeJaxypL:HqPtGpJj9S14AZbbyOcIEgzp6-U=";
-    } else if (/quark.cn|夸克(网|云)盘|^quark$/.test(link)) {
+    } else if (/quark.cn|夸克(网|云)盘|^quark$|aipanso/.test(link)) {
         return "https://img2.baidu.com/it/u=953706586,3782031721&fm=253&fmt=auto&app=138&f=JPEG?w=379&h=290";
-    } else if (/uc.cn|uc(网|云)盘|^uc$/.test(link)) {
+    } else if (/uc.cn|uc(网|云)盘|^uc$|ucyunso/.test(link)) {
         return "https://img.xz7.com/up/ico/2025/0417/1744866095811272.png";
-    } else if (/xunlei|迅雷(网|云)盘|^xunlei$/.test(link)) {
+    } else if (/xunlei|迅雷(网|云)盘|^xunlei$|xunjiso/.test(link)) {
         return "https://img2.baidu.com/it/u=2190535763,2853254922&fm=253&fmt=auto&app=138&f=JPEG?w=392&h=243";
+    }else if (/tianyi|天翼(网|云)盘|^tianyi$|tianyiso/.test(link)) {
+        return "https://img2.baidu.com/it/u=2231439781,3592563474&fm=253&fmt=auto&app=138&f=PNG?w=243&h=243";
+    }else if (/115|115(网|云)盘|^115$/.test(link)) {
+        return "https://bkimg.cdn.bcebos.com/pic/f2deb48f8c5494eeb95e781a24f5e0fe99257eb0";
     } else if (/magnet|磁力|磁链/.test(link)) {
         return "https://api.imgdb.cc/favicon/ciliduo.png";
     }else {
