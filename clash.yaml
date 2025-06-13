@@ -305,86 +305,6 @@ rules:
  - DOMAIN,yacd.haishan.me,DIRECT
  - DOMAIN,youtubei.googleapis.com,✈️国外站点
  - DOMAIN,yt3.ggpht.com,✈️国外站点
- - DOMAIN-KEYWORD,.aqd,⚓国外站点非日本IP
- - DOMAIN-KEYWORD,123av,⚓国外站点非日本IP
- - DOMAIN-KEYWORD,18av,⚓国外站点非日本IP
- - DOMAIN-KEYWORD,18comic,DIRECT
- - DOMAIN-KEYWORD,360buy,🇨🇳 国内网站
- - DOMAIN-KEYWORD,7mmtv,⚓国外站点非日本IP
- - DOMAIN-KEYWORD,abematv.akamaized.net,✈️国外站点
- - DOMAIN-KEYWORD,admarvel,🛑 拦截广告
- - DOMAIN-KEYWORD,admaster,🛑 拦截广告
- - DOMAIN-KEYWORD,adsage,🛑 拦截广告
- - DOMAIN-KEYWORD,adsensor,🛑 拦截广告
- - DOMAIN-KEYWORD,adsmogo,🛑 拦截广告
- - DOMAIN-KEYWORD,adsrvmedia,🛑 拦截广告
- - DOMAIN-KEYWORD,adsserving,🛑 拦截广告
- - DOMAIN-KEYWORD,adsystem,🛑 拦截广告
- - DOMAIN-KEYWORD,adwords,🛑 拦截广告
- - DOMAIN-KEYWORD,alicdn,🇨🇳 国内网站
- - DOMAIN-KEYWORD,alimama,🇨🇳 国内网站
- - DOMAIN-KEYWORD,alipay,🇨🇳 国内网站
- - DOMAIN-KEYWORD,announce,🇨🇳 国内网站
- - DOMAIN-KEYWORD,apiproxy-device-prod-nlb-,✈️国外站点
- - DOMAIN-KEYWORD,applovin,🛑 拦截广告
- - DOMAIN-KEYWORD,appsflyer,🛑 拦截广告
- - DOMAIN-KEYWORD,appzapp,🇨🇳 国内网站
- - DOMAIN-KEYWORD,avoddashs,✈️国外站点
- - DOMAIN-KEYWORD,baidupcs,🇨🇳 国内网站
- - DOMAIN-KEYWORD,bbcfmt,✈️国外站点
- - DOMAIN-KEYWORD,bilibili,🇨🇳 国内网站
- - DOMAIN-KEYWORD,ccgslb,🇨🇳 国内网站
- - DOMAIN-KEYWORD,chinacache,🇨🇳 国内网站
- - DOMAIN-KEYWORD,domob,🛑 拦截广告
- - DOMAIN-KEYWORD,dualstack.apiproxy-,✈️国外站点
- - DOMAIN-KEYWORD,duobao,🇨🇳 国内网站
- - DOMAIN-KEYWORD,duomeng,🛑 拦截广告
- - DOMAIN-KEYWORD,dwtrack,🛑 拦截广告
- - DOMAIN-KEYWORD,guanggao,🛑 拦截广告
- - DOMAIN-KEYWORD,guazi,⚓国外站点非日本IP
- - DOMAIN-KEYWORD,haolw,⚓国外站点非日本IP
- - DOMAIN-KEYWORD,hbogoasia,✈️国外站点
- - DOMAIN-KEYWORD,ikandy,🇨🇳 国内网站
- - DOMAIN-KEYWORD,japonx,✈️国外站点
- - DOMAIN-KEYWORD,japronx,✈️国外站点
- - DOMAIN-KEYWORD,javdb,⚓国外站点非日本IP
- - DOMAIN-KEYWORD,jdpay,🇨🇳 国内网站
- - DOMAIN-KEYWORD,jmcomic,DIRECT
- - DOMAIN-KEYWORD,jooxweb-api,✈️国外站点
- - DOMAIN-KEYWORD,madou,✈️国外站点
- - DOMAIN-KEYWORD,moke,🇨🇳 国内网站
- - DOMAIN-KEYWORD,netflixdnstest,✈️国外站点
- - DOMAIN-KEYWORD,nikke-,✈️国外站点
- - DOMAIN-KEYWORD,nivod,✈️国外站点
- - DOMAIN-KEYWORD,nowtv100,✈️国外站点
- - DOMAIN-KEYWORD,olevod,✈️国外站点
- - DOMAIN-KEYWORD,omgmta,🛑 拦截广告
- - DOMAIN-KEYWORD,omgmtaw,🛑 拦截广告
- - DOMAIN-KEYWORD,omniture,🛑 拦截广告
- - DOMAIN-KEYWORD,openai,✈️国外站点
- - DOMAIN-KEYWORD,openx,🛑 拦截广告
- - DOMAIN-KEYWORD,partnerad,🛑 拦截广告
- - DOMAIN-KEYWORD,pingfore,🛑 拦截广告
- - DOMAIN-KEYWORD,qhimg,🇨🇳 国内网站
- - DOMAIN-KEYWORD,rthklive,✈️国外站点
- - DOMAIN-KEYWORD,socdm,🛑 拦截广告
- - DOMAIN-KEYWORD,-spotify-,✈️国外站点
- - DOMAIN-KEYWORD,spotify.com,✈️国外站点
- - DOMAIN-KEYWORD,steamcontent,DIRECT
- - DOMAIN-KEYWORD,steampipe,DIRECT
- - DOMAIN-KEYWORD,supersonicads,🛑 拦截广告
- - DOMAIN-KEYWORD,tiktokcdn,✈️国外站点
- - DOMAIN-KEYWORD,torrent,🇨🇳 国内网站
- - DOMAIN-KEYWORD,tracker,🇨🇳 国内网站
- - DOMAIN-KEYWORD,voddazn,✈️国外站点
- - DOMAIN-KEYWORD,vpimg,🇨🇳 国内网站
- - DOMAIN-KEYWORD,wlmonitor,🛑 拦截广告
- - DOMAIN-KEYWORD,xiami,🇨🇳 国内网站
- - DOMAIN-KEYWORD,xiaomi,🇨🇳 国内网站
- - DOMAIN-KEYWORD,zhenbuka,🇨🇳 国内网站
- - DOMAIN-KEYWORD,zipai,🇨🇳 国内网站
- - DOMAIN-KEYWORD,zjtoolbar,🛑 拦截广告
- - DOMAIN-KEYWORD,zptkk,🇨🇳 国内网站
  - DOMAIN-SUFFIX,000webhost.com,✈️国外站点
  - DOMAIN-SUFFIX,00cdn.com,🇨🇳 国内网站
  - DOMAIN-SUFFIX,030buy.com,✈️国外站点
@@ -8867,5 +8787,86 @@ rules:
  - IP-CIDR6,fc00::/7,DIRECT,no-resolve
  - IP-CIDR6,fd00::/8,DIRECT,no-resolve
  - IP-CIDR6,fe80::/10,DIRECT,no-resolve
+ - DOMAIN-KEYWORD,xchina,✈️国外站点
+ - DOMAIN-KEYWORD,.aqd,⚓国外站点非日本IP
+ - DOMAIN-KEYWORD,123av,⚓国外站点非日本IP
+ - DOMAIN-KEYWORD,18av,⚓国外站点非日本IP
+ - DOMAIN-KEYWORD,18comic,DIRECT
+ - DOMAIN-KEYWORD,360buy,🇨🇳 国内网站
+ - DOMAIN-KEYWORD,7mmtv,⚓国外站点非日本IP
+ - DOMAIN-KEYWORD,abematv.akamaized.net,✈️国外站点
+ - DOMAIN-KEYWORD,admarvel,🛑 拦截广告
+ - DOMAIN-KEYWORD,admaster,🛑 拦截广告
+ - DOMAIN-KEYWORD,adsage,🛑 拦截广告
+ - DOMAIN-KEYWORD,adsensor,🛑 拦截广告
+ - DOMAIN-KEYWORD,adsmogo,🛑 拦截广告
+ - DOMAIN-KEYWORD,adsrvmedia,🛑 拦截广告
+ - DOMAIN-KEYWORD,adsserving,🛑 拦截广告
+ - DOMAIN-KEYWORD,adsystem,🛑 拦截广告
+ - DOMAIN-KEYWORD,adwords,🛑 拦截广告
+ - DOMAIN-KEYWORD,alicdn,🇨🇳 国内网站
+ - DOMAIN-KEYWORD,alimama,🇨🇳 国内网站
+ - DOMAIN-KEYWORD,alipay,🇨🇳 国内网站
+ - DOMAIN-KEYWORD,announce,🇨🇳 国内网站
+ - DOMAIN-KEYWORD,apiproxy-device-prod-nlb-,✈️国外站点
+ - DOMAIN-KEYWORD,applovin,🛑 拦截广告
+ - DOMAIN-KEYWORD,appsflyer,🛑 拦截广告
+ - DOMAIN-KEYWORD,appzapp,🇨🇳 国内网站
+ - DOMAIN-KEYWORD,avoddashs,✈️国外站点
+ - DOMAIN-KEYWORD,baidupcs,🇨🇳 国内网站
+ - DOMAIN-KEYWORD,bbcfmt,✈️国外站点
+ - DOMAIN-KEYWORD,bilibili,🇨🇳 国内网站
+ - DOMAIN-KEYWORD,ccgslb,🇨🇳 国内网站
+ - DOMAIN-KEYWORD,chinacache,🇨🇳 国内网站
+ - DOMAIN-KEYWORD,domob,🛑 拦截广告
+ - DOMAIN-KEYWORD,dualstack.apiproxy-,✈️国外站点
+ - DOMAIN-KEYWORD,duobao,🇨🇳 国内网站
+ - DOMAIN-KEYWORD,duomeng,🛑 拦截广告
+ - DOMAIN-KEYWORD,dwtrack,🛑 拦截广告
+ - DOMAIN-KEYWORD,guanggao,🛑 拦截广告
+ - DOMAIN-KEYWORD,guazi,⚓国外站点非日本IP
+ - DOMAIN-KEYWORD,haolw,⚓国外站点非日本IP
+ - DOMAIN-KEYWORD,hbogoasia,✈️国外站点
+ - DOMAIN-KEYWORD,ikandy,🇨🇳 国内网站
+ - DOMAIN-KEYWORD,japonx,✈️国外站点
+ - DOMAIN-KEYWORD,japronx,✈️国外站点
+ - DOMAIN-KEYWORD,javdb,⚓国外站点非日本IP
+ - DOMAIN-KEYWORD,jdpay,🇨🇳 国内网站
+ - DOMAIN-KEYWORD,jmcomic,DIRECT
+ - DOMAIN-KEYWORD,jooxweb-api,✈️国外站点
+ - DOMAIN-KEYWORD,madou,✈️国外站点
+ - DOMAIN-KEYWORD,moke,🇨🇳 国内网站
+ - DOMAIN-KEYWORD,netflixdnstest,✈️国外站点
+ - DOMAIN-KEYWORD,nikke-,✈️国外站点
+ - DOMAIN-KEYWORD,nivod,✈️国外站点
+ - DOMAIN-KEYWORD,nowtv100,✈️国外站点
+ - DOMAIN-KEYWORD,olevod,✈️国外站点
+ - DOMAIN-KEYWORD,omgmta,🛑 拦截广告
+ - DOMAIN-KEYWORD,omgmtaw,🛑 拦截广告
+ - DOMAIN-KEYWORD,omniture,🛑 拦截广告
+ - DOMAIN-KEYWORD,openai,✈️国外站点
+ - DOMAIN-KEYWORD,openx,🛑 拦截广告
+ - DOMAIN-KEYWORD,partnerad,🛑 拦截广告
+ - DOMAIN-KEYWORD,pingfore,🛑 拦截广告
+ - DOMAIN-KEYWORD,qhimg,🇨🇳 国内网站
+ - DOMAIN-KEYWORD,rthklive,✈️国外站点
+ - DOMAIN-KEYWORD,socdm,🛑 拦截广告
+ - DOMAIN-KEYWORD,-spotify-,✈️国外站点
+ - DOMAIN-KEYWORD,spotify.com,✈️国外站点
+ - DOMAIN-KEYWORD,steamcontent,DIRECT
+ - DOMAIN-KEYWORD,steampipe,DIRECT
+ - DOMAIN-KEYWORD,supersonicads,🛑 拦截广告
+ - DOMAIN-KEYWORD,tiktokcdn,✈️国外站点
+ - DOMAIN-KEYWORD,torrent,🇨🇳 国内网站
+ - DOMAIN-KEYWORD,tracker,🇨🇳 国内网站
+ - DOMAIN-KEYWORD,voddazn,✈️国外站点
+ - DOMAIN-KEYWORD,vpimg,🇨🇳 国内网站
+ - DOMAIN-KEYWORD,wlmonitor,🛑 拦截广告
+ - DOMAIN-KEYWORD,xiami,🇨🇳 国内网站
+ - DOMAIN-KEYWORD,xiaomi,🇨🇳 国内网站
+ - DOMAIN-KEYWORD,zhenbuka,🇨🇳 国内网站
+ - DOMAIN-KEYWORD,zipai,🇨🇳 国内网站
+ - DOMAIN-KEYWORD,zjtoolbar,🛑 拦截广告
+ - DOMAIN-KEYWORD,zptkk,🇨🇳 国内网站
  - GEOIP,CN,🇨🇳 国内网站
  - MATCH,🔰 选择节点
