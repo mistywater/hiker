@@ -109,6 +109,11 @@ proxy-groups:
       - DIRECT
       - 🔰 选择节点
 rules:
+ - DOMAIN-SUFFIX,meiziba.cc,✈️国外站点
+ - DOMAIN-SUFFIX,animezilla.com,✈️国外站点
+ - DOMAIN-SUFFIX,lspimg.com,✈️国外站点
+ - DOMAIN-SUFFIX,xinmeitulu.com,✈️国外站点
+ - DOMAIN-SUFFIX,yuey1.com,🇨🇳 国内网站
  - DOMAIN-SUFFIX,111.229.21.57:12345,🇨🇳 国内网站
  - DOMAIN-SUFFIX,130.162.130.196,🇨🇳 国内网站
  - DOMAIN-SUFFIX,136.243.215.211:12345,🇨🇳 国内网站
