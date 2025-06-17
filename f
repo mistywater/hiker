@@ -107,7 +107,7 @@ function searchGoogle(d, str, parse) {
             return $('hiker://empty').rule((str, parse) => {
                 var d = [];
                 d.push({
-                    url: 'https://www.google.com/search?q=' + getVar('keyword', '') + '+site:' + parse.host + '&start=0',
+                    url: 'https://www.google.com.hk/search?q=' + getVar('keyword', '') + '+site:' + parse.host + '&start=0',
                     col_type: 'x5_webview_single',
                     desc: 'list&&screen',
                     extra: {
