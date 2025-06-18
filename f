@@ -1559,7 +1559,7 @@ function pageMoveto(host, page, ctype,pages) {
                     col: 2,
                     options: 类型,
                     js: $.toString((host,ctype) => {
-                        setItem(host +ctype+ 'type', input.replace('👉', ''));
+                        setItem(host +ctype+ 'type', input.replace('👉', ''));putMyVar( 'isMoveto', '1');
                         refreshPage();
                     }, host,ctype)
                 });
@@ -1615,7 +1615,7 @@ function pageMoveto(host, page, ctype,pages) {
                             arr1.push(input*1+k*1);
                         }
                         return $(arr1, 3, '选择页码').select((host) => {
-                            putMyVar(host + 'page', input);
+                            putMyVar(host + 'page', input);putMyVar( 'isMoveto', '1');
                         refreshPage(false);
                         return 'hiker://empty';
                         },host);
@@ -1629,7 +1629,7 @@ function pageMoveto(host, page, ctype,pages) {
             title: '跳转',
             js: $.toString((host) => {
                 return $('').input((host) => {
-                    putMyVar(host + 'page', input);
+                    putMyVar(host + 'page', input);putMyVar( 'isMoveto', '1');
                     refreshPage(false);
                 }, host);
             }, host),
@@ -1650,7 +1650,7 @@ function pageMoveto(host, page, ctype,pages) {
     return {longClick:longClick};
 }
 function searchMain(page, d, desc) {
-    if (page == 1) {
+    if (page == 1||getMyVar( 'isMoveto', '0')==1) {
         d.push({
             title: '🔍',
             url: $.toString((r) => {
