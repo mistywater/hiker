@@ -1,16 +1,17 @@
-js: 
-function getHtml(url, headers,mode) {
+js:
+function getHtml(url, headers, mode) {
     let html = getMyVar(url);
     if (!html) {
-        if(mode&&mode==1){
-	    html = request(url, headers || {});
-	}else{
-	    html = fetchPC(url, headers || {});
+        if (mode && mode == 1) {
+            html = request(url, headers || {});
+        } else {
+            html = fetchPC(url, headers || {});
         }
         putMyVar(url, html);
     }
     return html;
 }
+
 function hanziToPinyin(hanzi, options) {
     var hanziMap = storage0.getMyVar('hanziMap');
     if (!hanziMap) {
@@ -142,20 +143,22 @@ function searchGoogle(d, str, parse) {
     });
     return d;
 }
+
 function getLines() {
-            return $.toString(() => {
-                var arts = pdfa(html, 线路);
-                var conts = pdfa(html, 选集);
-                conts.forEach((cont, index) => {
-                    var list = pdfa(cont, 选集列表).map((item) => ({
-                        title: pdfh(item, 'a&&Text').replace(new RegExp('.+?(第\\d+季|第\\d+集)'), '$1'),
-                        url: pd(item, 'a&&href')
-                    }));
-                    lists.push(list);
-                    tabs.push(pdfh(arts[index], 线路名) + numberSub(list.length));
-                });
-            });
-        }
+    return $.toString(() => {
+        var arts = pdfa(html, 线路);
+        var conts = pdfa(html, 选集);
+        conts.forEach((cont, index) => {
+            var list = pdfa(cont, 选集列表).map((item) => ({
+                title: pdfh(item, 'a&&Text').replace(new RegExp('.+?(第\\d+季|第\\d+集)'), '$1'),
+                url: pd(item, 'a&&href')
+            }));
+            lists.push(list);
+            tabs.push(pdfh(arts[index], 线路名) + numberSub(list.length));
+        });
+    });
+}
+
 function parseUrlVideo(url, 依赖) {
     if (/baidu/.test(url)) {
         putVar('urlBaidu', url);
@@ -164,11 +167,11 @@ function parseUrlVideo(url, 依赖) {
         if (!依赖) 依赖 = 'https://raw.gitcode.com/src48597962/hk/raw/Ju/SrcParseS.js';
         require(依赖.match(/http(s)?:\/\/.*\//)[0] + 'SrcParseS.js');
         url = SrcParseS.聚阅(url);
-    }  else if (/(xunlei|ed2k:|bt:|ftp:|\.torrent|magnet)/.test(url)) {
+    } else if (/(xunlei|ed2k:|bt:|ftp:|\.torrent|magnet)/.test(url)) {
         return "hiker://page/diaoyong?rule=迅雷&page=fypage#" + url
     } else if (/magnet/.test(url)) {
         url = url;
-    }else {
+    } else {
         var html = fetchPC(url);
         if (/r player_/.test(html)) {
             var json = JSON.parse(html.match(/r player_.*?=(.*?)</)[1]);
@@ -185,31 +188,33 @@ function parseUrlVideo(url, 依赖) {
     }
     return url;
 }
+
 function updateJu(title) {
-    let lastTime = getItem(title + 'getTime','');
+    let lastTime = getItem(title + 'getTime', '');
     let currentTime = Date.now();
     setItem(title + 'getTime', currentTime + '');
-    if (!lastTime|| currentTime - lastTime >= 86400000) {
+    if (!lastTime || currentTime - lastTime >= 86400000) {
         let pathGitee = 'https://gitee.com/mistywater/hiker_info/raw/master/sourcefile/' + title + '.json';
         let html = fetch(pathGitee);
-        if (html&&!/Repository or file not found/.test(html)) {
-            let jsonGitee = JSON.parse(base64ToText(fetch(pathGitee)));log(jsonGitee.parse.replace(/,.*\s+('|")页码[\s\S]*/, '}').replace(/'/g, '"'));
-            let jsonVer=JSON.parse(jsonGitee.parse.replace(/,.*\s+('|")页码[\s\S]*/, '}').replace(/'/g, '"'));
-            let version = jsonVer.ver || jsonVer.Ver||'';
+        if (html && !/Repository or file not found/.test(html)) {
+            let jsonGitee = JSON.parse(base64ToText(fetch(pathGitee)));
+            log(jsonGitee.parse.replace(/,.*\s+('|")页码[\s\S]*/, '}').replace(/'/g, '"'));
+            let jsonVer = JSON.parse(jsonGitee.parse.replace(/,.*\s+('|")页码[\s\S]*/, '}').replace(/'/g, '"'));
+            let version = jsonVer.ver || jsonVer.Ver || '';
             log('versionNew:' + version);
             let sourcefile = 'hiker://files/rules/Src/Ju/jiekou.json';
             let datalist = JSON.parse(fetch(sourcefile));
             let index = datalist.findIndex(item => item.name == jsonGitee.name && item.type == jsonGitee.type);
             if (index != -1) {
-                let jsonVersionLast=JSON.parse(datalist[index].parse.replace(/,.*\s+('|")页码[\s\S]*/, '}').replace(/'/g, '"'));
-                var versionLast = jsonVersionLast.ver||jsonVersionLast.Ver || '';
+                let jsonVersionLast = JSON.parse(datalist[index].parse.replace(/,.*\s+('|")页码[\s\S]*/, '}').replace(/'/g, '"'));
+                var versionLast = jsonVersionLast.ver || jsonVersionLast.Ver || '';
                 log('versionLast:' + versionLast);
             }
             if (index == -1 || !versionLast || versionLast < version) {
                 confirm({
                     title: `聚阅接口:<${title}_${jsonGitee.type}>有新版本`,
-                    content: jsonVer.更新说明?jsonVer.更新说明.replace(/,/g,'\n'):'导入新版本吗?',
-                    confirm: $.toString((title,jsonGitee,index) => {
+                    content: jsonVer.更新说明 ? jsonVer.更新说明.replace(/,/g, '\n') : '导入新版本吗?',
+                    confirm: $.toString((title, jsonGitee, index) => {
                         let sourcefile = 'hiker://files/rules/Src/Ju/jiekou.json';
                         let datalist = JSON.parse(fetch(sourcefile));
                         if (index != -1) {
@@ -218,28 +223,36 @@ function updateJu(title) {
                         datalist.push(jsonGitee);
                         writeFile(sourcefile, JSON.stringify(datalist));
                         toast(`聚阅接口<${title}_${jsonGitee.type}>导入成功~`);
-                        refreshPage();return;
-                        },title,jsonGitee,index),
+                        refreshPage();
+                        return;
+                    }, title, jsonGitee, index),
                     cancel: $.toString(() => {
                         return "toast://不升级小程序，则功能不全或有异常"
                     })
                 });
-            }else{toast('无新版本~');}
-        }else{toast('无新版本~');}
+            } else {
+                toast('无新版本~');
+            }
+        } else {
+            toast('无新版本~');
+        }
     }
     return;
 }
+
 function TextToBase64(str) {
-            return window0.btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, (_, hex) => {
-                return String.fromCharCode(parseInt(hex, 16));
-            }));
-        }
-        function base64ToText(str) {
-            return decodeURIComponent(window0.atob(str).split('').map(c => {
-                return '%' + c.charCodeAt(0).toString(16).padStart(2, '0');
-            }).join(''));
-        }
-function yanzhengd(d,str, url, host, a) {
+    return window0.btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, (_, hex) => {
+        return String.fromCharCode(parseInt(hex, 16));
+    }));
+}
+
+function base64ToText(str) {
+    return decodeURIComponent(window0.atob(str).split('').map(c => {
+        return '%' + c.charCodeAt(0).toString(16).padStart(2, '0');
+    }).join(''));
+}
+
+function yanzhengd(d, str, url, host, a) {
     d.push({
         title: '人机验证',
         url: $('hiker://empty').rule((str, url, t, a) => {
@@ -278,28 +291,31 @@ function yanzhengd(d,str, url, host, a) {
             return setResult(d);
         }, str, url, host, a),
         col_type: 'text_1'
-    });return d;
+    });
+    return d;
 }
-function requestQ(url,host){
+
+function requestQ(url, host) {
     return request(url, {
         headers: {
             Cookie: getVar(host + 'ck', '')
         }
     });
 }
+
 function secondsToHMS(seconds) {
-  seconds = Number(seconds);
-  const h = Math.floor(seconds / 3600);
-  const m = Math.floor((seconds % 3600) / 60);
-  const s = Math.floor(seconds % 60);
-  const padSec = (num) => num.toString().padStart(2, '0');
-  if (h > 0) {
-    return `${h}:${padSec(m)}:${padSec(s)}`;
-  }
-  else {
-    return `${m}:${padSec(s)}`;
-  }
+    seconds = Number(seconds);
+    const h = Math.floor(seconds / 3600);
+    const m = Math.floor((seconds % 3600) / 60);
+    const s = Math.floor(seconds % 60);
+    const padSec = (num) => num.toString().padStart(2, '0');
+    if (h > 0) {
+        return `${h}:${padSec(m)}:${padSec(s)}`;
+    } else {
+        return `${m}:${padSec(s)}`;
+    }
 }
+
 function downloadLongClick(host) {
     var longClick = [{
         title: '下载',
@@ -308,7 +324,7 @@ function downloadLongClick(host) {
         title: '书架',
         js: `'hiker://page/Main.view?rule=本地资源管理'`,
     }, {
-        title: getItem(host+'isMultiPage','1')==1?'分页':'不分页',
+        title: getItem(host + 'isMultiPage', '1') == 1 ? '分页' : '不分页',
         js: `setItem('${host}isMultiPage',getItem('${host}isMultiPage','1')=='1'?'0':'1');refreshPage();`,
     }];
     var extra = $.toString((host, longClick) => ({
@@ -324,7 +340,8 @@ function downloadLongClick(host) {
     }), host, longClick);
     return extra;
 }
-function link(d, urlsTemp,titleLast,titleNext, myurl, host) {
+
+function link(d, urlsTemp, titleLast, titleNext, myurl, host) {
     d.push({
         col_type: 'blank_block',
     });
@@ -332,7 +349,8 @@ function link(d, urlsTemp,titleLast,titleNext, myurl, host) {
         d.push({
             title: index == 0 ? (it.startsWith('http') ? '⬅️' + titleLast : '没有了') : titleNext + '➡️',
             url: $('#noLoading#').lazyRule((url, host, index, url1) => {
-                putMyVar(host + 'next', url);putMyVar(host + 'isNextUrl', '1');
+                putMyVar(host + 'next', url);
+                putMyVar(host + 'isNextUrl', '1');
                 refreshPage();
                 return 'hiker://empty';
             }, it ? it : myurl, host, index, myurl),
@@ -347,11 +365,12 @@ function link(d, urlsTemp,titleLast,titleNext, myurl, host) {
     });
     return d;
 }
+
 function buildUrls(pages, urlBuilder, headers) {
     let urls = [];
     for (let k = 1; k <= pages; k++) {
         let obj = {
-            url: urlBuilder(k)  // 直接调用函数获取URL
+            url: urlBuilder(k) // 直接调用函数获取URL
         };
         if (headers) {
             obj.options = {
@@ -362,6 +381,7 @@ function buildUrls(pages, urlBuilder, headers) {
     }
     return urls;
 }
+
 function detectCloudStorage(link) {
     // 统一转换为小写，避免大小写影响判断
     link = link.toLowerCase();
@@ -375,10 +395,11 @@ function detectCloudStorage(link) {
         return "[UC网盘]";
     } else if (link.includes("xunlei")) {
         return "[迅雷网盘]";
-    }else {
+    } else {
         return "[未知网盘]";
     }
 }
+
 function imgCloudStorage(link) {
     // 统一转换为小写，避免大小写影响判断
     link = link.toLowerCase();
@@ -392,17 +413,18 @@ function imgCloudStorage(link) {
         return "https://img.xz7.com/up/ico/2025/0417/1744866095811272.png";
     } else if (/xunlei|迅雷(网|云)盘|^xunlei$|xunjiso/.test(link)) {
         return "https://img2.baidu.com/it/u=2190535763,2853254922&fm=253&fmt=auto&app=138&f=JPEG?w=392&h=243";
-    }else if (/tianyi|天翼(网|云)盘|^tianyi$|tianyiso/.test(link)) {
+    } else if (/tianyi|天翼(网|云)盘|^tianyi$|tianyiso/.test(link)) {
         return "https://img2.baidu.com/it/u=2231439781,3592563474&fm=253&fmt=auto&app=138&f=PNG?w=243&h=243";
-    }else if (/115|115(网|云)盘|^115$/.test(link)) {
+    } else if (/115|115(网|云)盘|^115$/.test(link)) {
         return "https://bkimg.cdn.bcebos.com/pic/f2deb48f8c5494eeb95e781a24f5e0fe99257eb0";
     } else if (/magnet|磁力|磁链/.test(link)) {
         return "https://api.imgdb.cc/favicon/ciliduo.png";
-    }else {
+    } else {
         return "https://img1.baidu.com/it/u=729368853,3597651220&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500";
     }
 }
-function sourceJump(d, arr,blank) {
+
+function sourceJump(d, arr, blank) {
     let info = storage0.getMyVar('一级源接口信息');
     arr.forEach((item, index) => {
         d.push({
@@ -426,16 +448,20 @@ function sourceJump(d, arr,blank) {
             }
         });
     });
-    if(!blank){d.push({
-        col_type: 'blank_block',
-    });}
+    if (!blank) {
+        d.push({
+            col_type: 'blank_block',
+        });
+    }
     return d;
 }
+
 function cfl(str) {
     return str.replace(/\w\S*/g, function(word) {
         return word.charAt(0) + word.slice(1).toLowerCase();
     });
 }
+
 function numberSub(strNumber) {
     return `${strNumber}`.split('').map(h => String.fromCharCode(h * 1 + 8320)).join('');
 }
@@ -444,52 +470,57 @@ function numberSup(strNumber) {
     const supersDigits = ['⁰', '¹', '²', '³', '⁴', '⁵', '⁶', '⁷', '⁸', '⁹'];
     return `${strNumber}`.split('').map(h => supersDigits[h]).join('');
 }
+
 function splitTextByPunctuation(text) {
-                    let regex = /[^。！？；]+[。！？][^"”]*?["”]?/g;
-                    let sentences = text.match(regex) || [];
-                    return sentences.filter(sentence => sentence.trim()).join('<p>');
-                }
+    let regex = /[^。！？；]+[。！？][^"”]*?["”]?/g;
+    let sentences = text.match(regex) || [];
+    return sentences.filter(sentence => sentence.trim()).join('<p>');
+}
+
 function getArrayFromUrl(url) {
-			if(!url) url='https://moe.jitsu.top/img/?sort=setu&type=json&num=50&size=m_fill,w_480,h_640';
-            let arr = [];
-            let html=fetchPC(url);
-            if (html.startsWith('{') || html.startsWith('[')) {
-                let json = JSON.parse(html);
-                if (Array.isArray(json)) {
-                    arr = json;
-                } else {
-                    for (let key in json) {
-                        if (Array.isArray(json[key])) {
-                            arr = json[key];
-                            break;
-                        }
-                    }
-                    if (typeof(arr[0]) === 'object') {
-                        arr = arr.map(h => h.url);
-                    }
+    if (!url) url = 'https://moe.jitsu.top/img/?sort=setu&type=json&num=50&size=m_fill,w_480,h_640';
+    let arr = [];
+    let html = fetchPC(url);
+    if (html.startsWith('{') || html.startsWith('[')) {
+        let json = JSON.parse(html);
+        if (Array.isArray(json)) {
+            arr = json;
+        } else {
+            for (let key in json) {
+                if (Array.isArray(json[key])) {
+                    arr = json[key];
+                    break;
                 }
-            } else {
-                arr = html.match(/https?:\/\/[^\s,|]+/g);
             }
-            return arr;
+            if (typeof(arr[0]) === 'object') {
+                arr = arr.map(h => h.url);
+            }
         }
+    } else {
+        arr = html.match(/https?:\/\/[^\s,|]+/g);
+    }
+    return arr;
+}
+
 function createDynamicRegex(input) {
-            const escapedInput = input.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-            return new RegExp(escapedInput);
-        }
+    const escapedInput = input.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    return new RegExp(escapedInput);
+}
+
 function generateStarRating(score) {
-            //★★★☆☆//F79329
-            var star = '';
-            var roundedScore = Math.ceil(score);
-            for (var k = 1; k <= roundedScore / 2 + 1; k++) {
-                if (roundedScore - k * 2 >= 0) {
-                    star = star + '★';
-                } else if (roundedScore - (k - 1) * 2 == 1) {
-                    star = star + '☆';
-                }
-            }
-            return star;
+    //★★★☆☆//F79329
+    var star = '';
+    var roundedScore = Math.ceil(score);
+    for (var k = 1; k <= roundedScore / 2 + 1; k++) {
+        if (roundedScore - k * 2 >= 0) {
+            star = star + '★';
+        } else if (roundedScore - (k - 1) * 2 == 1) {
+            star = star + '☆';
         }
+    }
+    return star;
+}
+
 function isDarkMode() {
     if (darkModeCache && darkModeCache !== null) {
         return darkModeCache; // 返回缓存结果
@@ -510,9 +541,11 @@ function isDarkMode() {
         return '';
     }
 }
-function titleBackgroundColor(title){
-	return /白字/.test(getItem('darkMode'))?color(title,'FFFFFF'):color(title,'000000');
+
+function titleBackgroundColor(title) {
+    return /白字/.test(getItem('darkMode')) ? color(title, 'FFFFFF') : color(title, '000000');
 }
+
 function clearClipboardText() {
     const Context = android.content.Context;
     const context = getCurrentActivity();
@@ -551,46 +584,52 @@ function getClipboardText(source) {
         return null;
     }
 }
-function decodeEvalPrivateJS(Strcode, t) {
-                    Strcode = Strcode.match(/("|').*?(\\|"|')/)[0];
-                    Strcode = Strcode.slice(1, Strcode.length - 1);
-                    let decodedValue = aesDecode("hk6666666109", Strcode);
-                    let jsonStringified = JSON.stringify(decodedValue);
-                    jsonStringified = jsonStringified.slice(1, jsonStringified.length - 1);
-                    if (t == 1) jsonStringified = jsonStringified.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
-                    return jsonStringified;
-                }
 
-                function replaceUrl(url) {
-                    var urlCodeStr = '';
-                    for (var i = 1; i < url.length - 4; i++) {
-                        urlCodeStr += '%' + url.charCodeAt(i).toString(16);
-                    }
-                    urlCodeStr = '.' + urlCodeStr + url.slice(-4);
-                    return urlCodeStr;
-                }
-function bcLongClick(){
-	return [{
-            title: '背景色样式',
-            js: $.toString(() => {
-                var Type = ["深色模式", "浅色模式", "浅色白字模式","清除"];
-                if (getItem('darkMode')) {
-                    var index = 类型.indexOf(getItem('darkMode'));
-                    类型[index] = '👉' + getItem('darkMode');
-                }
-                showSelectOptions({
-                    title: "选择样式",
-                    col: 3,
-                    options: 类型,
-                    js: $.toString(() => {
-		    if(/清除/.test(input)){clearItem('darkMode');}
-                        else{setItem('darkMode', input.replace('👉', ''));}
-                        refreshPage();
-                    }, )
-                });
-            }),
-        }];
+function decodeEvalPrivateJS(Strcode, t) {
+    Strcode = Strcode.match(/("|').*?(\\|"|')/)[0];
+    Strcode = Strcode.slice(1, Strcode.length - 1);
+    let decodedValue = aesDecode("hk6666666109", Strcode);
+    let jsonStringified = JSON.stringify(decodedValue);
+    jsonStringified = jsonStringified.slice(1, jsonStringified.length - 1);
+    if (t == 1) jsonStringified = jsonStringified.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+    return jsonStringified;
 }
+
+function replaceUrl(url) {
+    var urlCodeStr = '';
+    for (var i = 1; i < url.length - 4; i++) {
+        urlCodeStr += '%' + url.charCodeAt(i).toString(16);
+    }
+    urlCodeStr = '.' + urlCodeStr + url.slice(-4);
+    return urlCodeStr;
+}
+
+function bcLongClick() {
+    return [{
+        title: '背景色样式',
+        js: $.toString(() => {
+            var 类型 = ["深色模式", "浅色模式", "浅色白字模式", "清除"];
+            if (getItem('darkMode')) {
+                var index = 类型.indexOf(getItem('darkMode'));
+                类型[index] = '👉' + getItem('darkMode');
+            }
+            showSelectOptions({
+                title: "选择样式",
+                col: 3,
+                options: 类型,
+                js: $.toString(() => {
+                    if (/清除/.test(input)) {
+                        clearItem('darkMode');
+                    } else {
+                        setItem('darkMode', input.replace('👉', ''));
+                    }
+                    refreshPage();
+                }, )
+            });
+        }),
+    }];
+}
+
 function getRandomColor(darkMode) {
     const maxBrightness = 160;
     const minBrightness = 100;
@@ -600,7 +639,7 @@ function getRandomColor(darkMode) {
         g = Math.floor(Math.random() * 256);
         b = Math.floor(Math.random() * 256);
         var brightness = 0.299 * r + 0.587 * g + 0.114 * b;
-    } while (/白字/.test(getItem('darkMode'))||getVar('darkMode')==1 ? brightness > maxBrightness : brightness < minBrightness);
+    } while (/白字/.test(getItem('darkMode')) || getVar('darkMode') == 1 ? brightness > maxBrightness : brightness < minBrightness);
 
     const toHex = (value) => {
         const hex = value.toString(16);
@@ -608,6 +647,7 @@ function getRandomColor(darkMode) {
     };
     return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
 }
+
 function bcRandom(darkMode) {
     if (typeof(darkMode) == 'undefined' || !darkMode) {
         darkMode = '深色模式';
@@ -633,20 +673,20 @@ function bcRandom(darkMode) {
         }
         return '#' + r.toString(16).padStart(2, '0') + g.toString(16).padStart(2, '0') + b.toString(16).padStart(2, '0');
     } else if (darkMode == '浅色白字模式') {
-        const maxBrightness = 200; 
-    	let r, g, b;
-    do {
-        r = Math.floor(Math.random() * 256);
-        g = Math.floor(Math.random() * 256);
-        b = Math.floor(Math.random() * 256);
-        var brightness = 0.299 * r + 0.587 * g + 0.114 * b;
-    } while (brightness > maxBrightness); 
+        const maxBrightness = 200;
+        let r, g, b;
+        do {
+            r = Math.floor(Math.random() * 256);
+            g = Math.floor(Math.random() * 256);
+            b = Math.floor(Math.random() * 256);
+            var brightness = 0.299 * r + 0.587 * g + 0.114 * b;
+        } while (brightness > maxBrightness);
 
-    const toHex = (value) => {
-        const hex = value.toString(16);
-        return hex.length === 1 ? '0' + hex : hex;
-    };
-    return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
+        const toHex = (value) => {
+            const hex = value.toString(16);
+            return hex.length === 1 ? '0' + hex : hex;
+        };
+        return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
         /*var s = 40 + Math.floor(Math.random() * 61);
         var h = Math.floor(Math.random() * 360);
         for (var k = 1; k <= 999; k++) {
@@ -662,6 +702,7 @@ function bcRandom(darkMode) {
         return str;
     }
 }
+
 function hsvToHex(h, s, v) {
     // 将HSV转换为RGB
     let r, g, b, i, f, p, q, t;
@@ -703,6 +744,7 @@ function hsvToHex(h, s, v) {
     const hexB = Math.round(b * 255).toString(16).padStart(2, '0');
     return `#${hexR}${hexG}${hexB}`.toUpperCase();
 }
+
 function baiduTrans(content, mode) {
     if (typeof(mode) == 'undefined' || !mode) {
         var body = `{"query":"${content}","from":"en","to":"zh","reference":"","corpusIds":[],"needPhonetic":false,"domain":"ai_advanced","milliTimestamp":${new Date().getTime()}}`
@@ -790,38 +832,41 @@ function tabsWeek() {
         });
     });
 }
-function numbersCircledColor(num,r) {            
-	if(typeof(r)=='undefined'||!r) {
-    if (num == '❶') {
-                return strongR(num, 'FF2244');
-            } else if (num == '❷') {
-                return strongR(num, 'FF6633');
-            } else if (num == '❸') {
-                return strongR(num, 'FFBB33');
-            } else {
-                return strongR(num,'333333');
-            }}else if(r==1){
-	    if (num == '❶') {
-                return strong(num, 'FF2244');
-            } else if (num == '❷') {
-                return strong(num, 'FF6633');
-            } else if (num == '❸') {
-                return strong(num, 'FFBB33');
-            } else {
-                return strong(num,'333333');
-            }
-	    }else if(r==2){
-	    
-                return num;
 
-	    }
+function numbersCircledColor(num, r) {
+    if (typeof(r) == 'undefined' || !r) {
+        if (num == '❶') {
+            return strongR(num, 'FF2244');
+        } else if (num == '❷') {
+            return strongR(num, 'FF6633');
+        } else if (num == '❸') {
+            return strongR(num, 'FFBB33');
+        } else {
+            return strongR(num, '333333');
         }
-function cytrans(text,mode) {
-   if (typeof(mode) == 'undefined' || !mode) {
-                var to = 'zh';
-            } else {
-                var to = mode;
-            }
+    } else if (r == 1) {
+        if (num == '❶') {
+            return strong(num, 'FF2244');
+        } else if (num == '❷') {
+            return strong(num, 'FF6633');
+        } else if (num == '❸') {
+            return strong(num, 'FFBB33');
+        } else {
+            return strong(num, '333333');
+        }
+    } else if (r == 2) {
+
+        return num;
+
+    }
+}
+
+function cytrans(text, mode) {
+    if (typeof(mode) == 'undefined' || !mode) {
+        var to = 'zh';
+    } else {
+        var to = mode;
+    }
     var from = 'auto';
 
     function init_data(source_lang, target_lang) {
@@ -857,21 +902,24 @@ function cytrans(text,mode) {
     var result = JSON.parse(res).target;
     return result;
 }
-function getRandomNumber(m,n) {
-        const rand = Math.floor(Math.random() * (m-n)) + n;;
-        return rand;
-    }
-function timestampToDate(timestamp) {
-  const date = new Date(timestamp);
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-  const hours = String(date.getHours()).padStart(2, '0');
-  const minutes = String(date.getMinutes()).padStart(2, '0');
-  const seconds = String(date.getSeconds()).padStart(2, '0');
- 
-  return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+
+function getRandomNumber(m, n) {
+    const rand = Math.floor(Math.random() * (m - n)) + n;;
+    return rand;
 }
+
+function timestampToDate(timestamp) {
+    const date = new Date(timestamp);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+}
+
 function getCommonNonDigitParts(str1, str2) {
     var i = 0,
         j = 0;
@@ -955,7 +1003,7 @@ function sortArray(arr, key, style, order) {
         const strA = String(aValue);
         const strB = String(bValue);
         const commonParts = getCommonNonDigitParts(strA, strB);
-        
+
         // 构建替换正则
         const pattern = new RegExp(
             commonParts.map(s => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|'),
@@ -1017,6 +1065,7 @@ function sortArray(arr, key, style, order) {
     }
     return arr.slice().sort(compare);
 }
+
 function sortSx(arr, name, style, order) {
     //0:不排序  1:英文排序 2:拼音排序 3:数字排序
     if (typeof(style) == 'undefined' || style == '') {
@@ -1057,7 +1106,7 @@ function sortSx(arr, name, style, order) {
             arrNew = arrNew.concat(arrTmp);
         }
 
-    } else if (style == 3) {        
+    } else if (style == 3) {
         function compareNumbers(a, b) {
             if (typeof(name) != 'undefined') {
                 a = a[name];
@@ -1065,21 +1114,27 @@ function sortSx(arr, name, style, order) {
             }
             a = JSON.stringify(a);
             b = JSON.stringify(b);
+
             function myFunction(str) {
                 if (/\(\d+\)/.test(str)) {
                     var num = parseInt(str.match(/\((\d+)\)/)[1]);
                 } else {
                     var num = /\d+/.test(str) ? parseInt(str.match(/\d+/)[0]) : 99999999999999;
-                } return num;
+                }
+                return num;
             }
-            
+
             var s = [a, b].map(myFunction);
-            if (s[0] < s[1]) {return -1;}
-            else if (s[0] > s[1]) {return 1;}
-            else {return 0;}
+            if (s[0] < s[1]) {
+                return -1;
+            } else if (s[0] > s[1]) {
+                return 1;
+            } else {
+                return 0;
+            }
         }
         var arrNew = arr.sort(compareNumbers);
-	for (var m in arrNew) {
+        for (var m in arrNew) {
             if (typeof(name) == 'undefined' || name == '') {
                 var mm = !/\d/.test(arrNew[m]) ? m : '-1';
             } else {
@@ -1106,8 +1161,9 @@ function sortSx(arr, name, style, order) {
     }
     return arrNew;
 }
+
 function lunbo(c) {
-    return $.toString((c,toerji) => {
+    return $.toString((c, toerji) => {
         if (typeof(c.type) == 'undefined') {
             c.type = '影视';
         }
@@ -1146,8 +1202,12 @@ function lunbo(c) {
             });
         }
         let id = 'juyue';
-        let time = 4000;let jkdata=MY_RULE.title=='聚阅'?storage0.getMyVar('一级源接口信息'):{type: c.type,name: c.name};
-        registerTask(id, time, $.toString((c, k,toerji,jkdata) => {
+        let time = 4000;
+        let jkdata = MY_RULE.title == '聚阅' ? storage0.getMyVar('一级源接口信息') : {
+            type: c.type,
+            name: c.name
+        };
+        registerTask(id, time, $.toString((c, k, toerji, jkdata) => {
             rc(fc('https://gitee.com/mistywater/hiker_info/raw/master/githubproxy.json') + 'https://raw.githubusercontent.com/mistywater/hiker/main/f', 24);
             var n = getVar(c.host + 'n', '0');
             if (c.json == 1) {
@@ -1160,7 +1220,7 @@ function lunbo(c) {
                         stype: c.type,
                         name: c.indexbanner[n][c.title],
                     }
-                },jkdata);
+                }, jkdata);
             } else {
                 var title = pdfh(c.indexbanner[n], c.title);
                 if (!title) {
@@ -1176,7 +1236,7 @@ function lunbo(c) {
                         stype: c.type,
                         name: pdfh(c.indexbanner[n], c.title),
                     }
-                },jkdata);
+                }, jkdata);
             }
             updateItem('lunbo', item);
             if (n >= k - 1) {
@@ -1184,9 +1244,10 @@ function lunbo(c) {
             } else {
                 putVar(c.host + 'n', (parseInt(n) + 1) + '');
             }
-        }, c, k,toerji,jkdata));
-    }, c,toerji);
+        }, c, k, toerji, jkdata));
+    }, c, toerji);
 }
+
 function numbersCircled(index) {
     if (index < 10) {
         var num = String.fromCharCode(parseInt(index) + 1 + 10101);
@@ -1196,47 +1257,50 @@ function numbersCircled(index) {
         var num = String.fromCharCode(parseInt(index) + 1 + 12860);
     } else if (index < 50) {
         var num = String.fromCharCode(parseInt(index) + 1 + 12941);
-    }else{
-    var num = parseInt(index)+1+'.';
+    } else {
+        var num = parseInt(index) + 1 + '.';
     }
     return num;
 }
-function clearM3u8(url,reg) {
-        let f = cacheM3u8(url);
-        let c = readFile(f.split("##")[0]);
-        let c2 = c.replace(new RegExp(reg,'g'), '');
-        writeFile(f.split("##")[0], c2);
-        return f;
+
+function clearM3u8(url, reg) {
+    let f = cacheM3u8(url);
+    let c = readFile(f.split("##")[0]);
+    let c2 = c.replace(new RegExp(reg, 'g'), '');
+    writeFile(f.split("##")[0], c2);
+    return f;
 }
+
 function ccc(title, ccc_) {
-	ccc_ = ccc_ ? ccc_ : {
-		fc: '#FFFFFF',
-		bc: '#FF435E',
-	}
-	return '‘‘’’<font color="' + ccc_.fc + '"><span style="background-color: ' + ccc_.bc + '">' + title + '</span></font>'
+    ccc_ = ccc_ ? ccc_ : {
+        fc: '#FFFFFF',
+        bc: '#FF435E',
+    }
+    return '‘‘’’<font color="' + ccc_.fc + '"><span style="background-color: ' + ccc_.bc + '">' + title + '</span></font>'
 }
+
 function sortPy(arr, name) {
-    if (typeof(name)=='undefined'||name=='') {
+    if (typeof(name) == 'undefined' || name == '') {
         var arrNew = arr.sort((a, b) => a.localeCompare(b));
     } else {
         var arrNew = arr.sort((a, b) => a[name].localeCompare(b[name]));
     }
     for (var m in arrNew) {
-        if (typeof(name)=='undefined'||name=='') {
-	       var mm = /^[\u4e00-\u9fa5]/.test(arrNew[m]) ? m : '-1';
-	}else{
+        if (typeof(name) == 'undefined' || name == '') {
+            var mm = /^[\u4e00-\u9fa5]/.test(arrNew[m]) ? m : '-1';
+        } else {
             var mm = /^[\u4e00-\u9fa5]/.test(arrNew[m][name]) ? m : '-1';
-	}
+        }
         if (mm > -1) {
             break;
         }
     }
     for (var n = arrNew.length - 1; n >= 0; n--) {
-        if (typeof(name)=='undefined'||name=='') {
-	    var nn = /^[\u4e00-\u9fa5]/.test(arrNew[n]) ? n : '-1';
-	}else{
-	    var nn = /^[\u4e00-\u9fa5]/.test(arrNew[n][name]) ? n : '-1';
-	}
+        if (typeof(name) == 'undefined' || name == '') {
+            var nn = /^[\u4e00-\u9fa5]/.test(arrNew[n]) ? n : '-1';
+        } else {
+            var nn = /^[\u4e00-\u9fa5]/.test(arrNew[n][name]) ? n : '-1';
+        }
         if (nn > -1) {
             break;
         }
@@ -1247,71 +1311,78 @@ function sortPy(arr, name) {
     }
     return arrNew
 }
-function cpage(t,c){
-	if(!c){var c='c';}
-	return `_c = getMyVar(host + '${c}', '${t}');
+
+function cpage(t, c) {
+    if (!c) {
+        var c = 'c';
+    }
+    return `_c = getMyVar(host + '${c}', '${t}');
         if (_c != getMyVar(host + '_c', '${t}')) {
             clearMyVar(host + 'page');
         }
         page = getMyVar(host + 'page', page + '');`;
 }
+
 function vPw(id) {
     evalPrivateJS('tRa+Ef6XEI8XzPzL4MD07/zSoDZsvjf+1+JA5R6hzr0ua3Ne4DB64WY9a+QNC0LkyliGQvjx58VOMjIycg6gE+OLXtJez8J+ktiS1aG934RMQ3oiJvqf/Z6XhMBvAEWqY+kHXbxZA64mVIWy5SmlgQgpYnf44KmTlAPbyUk2jwfGSOBDb3BRRe+RFhfi0WBwNdMrJ8epmmH5U3IGGZqBZcC25DdlfUcUjNmE4xw6ZMpjqySqKedcrspz8waU99FsYCH0584/TooU18Dy7w7dpJ5nM5iZtj1KMqvRjRPafqP8EP0eNQPZ94mXJHRjmZ+21l6HdcufGBEaXqmBEne2gFPwRXUjrvbgxX6wNvIHglGSvN3ZobCVZO1wOYtaiU5U0OQym5z3yvsE4PYGCOPBzrSEChgnS3KU20C15lYc5+O5KuNYzpElY2hvqtjZ37TG+Cipi1vpN+SPg85+8QtHlFArUoXGT6wUlQw22BLyLVPlqzCht3aqeZb4EK1RSRir14aK0SUa9B3wBE7SLwtBvzTRB48hxeYOvR7JvPqJXK8r6rI4l2BNamSGSoSwQ0FmS7wm7sFPy/x+1rJ6/L4Z4ty4W8vl+HthbXoeS51rpPTENZZbfb8HVWGm+uRQRG5pj+zZJR1QXr0UDXbp8VEsAD+zkbEMpQGUjCBkAUecYCaR6Sg2ceoHj5FwIwxv2xtAxqQ26BxTOxCSX6oNg/NfCa5DcNmJ0fQ6Bm2CwY6dJhzCvgmTmNbNdk76Vmv9GgV7uzV05CX3XBNqVCIh+wOLRUqkyPlagERBpwzNP+zCIdKP9rg0eInraKDX/gdHGSBISmZb42pubVagDl8OhPqUyQ340fbz/h8uWulLl3z4shZTk1uBP/Megd+vNlX+qSi4KdyOxWST/HcZh4wYb/SU7JOAXU+b3SJnR1IL1D9CbqFfmWa/TxUkQWd7ePMIL0cZ');
     return;
 }
-function pageAdd(page,host){
-    	if (getMyVar(host + 'page')) {
-        	putMyVar(host + 'page', (parseInt(page) + 1) + '');
-    	}
-	return;
+
+function pageAdd(page, host) {
+    if (getMyVar(host + 'page')) {
+        putMyVar(host + 'page', (parseInt(page) + 1) + '');
+    }
+    return;
 }
+
 function jinman(picUrl) {
-	return $.toString((picUrl)=>{
-		const ByteArrayOutputStream = java.io.ByteArrayOutputStream;
-		const ByteArrayInputStream = java.io.ByteArrayInputStream;
-		const Bitmap = android.graphics.Bitmap;
-		const BitmapFactory = android.graphics.BitmapFactory;
-		const Canvas = android.graphics.Canvas;
+    return $.toString((picUrl) => {
+        const ByteArrayOutputStream = java.io.ByteArrayOutputStream;
+        const ByteArrayInputStream = java.io.ByteArrayInputStream;
+        const Bitmap = android.graphics.Bitmap;
+        const BitmapFactory = android.graphics.BitmapFactory;
+        const Canvas = android.graphics.Canvas;
 
-		picUrl.match(/photos\/(\d+)?\/(\d+)?/);
-		let bookId = RegExp.$1;
-		let imgId = RegExp.$2;
-		if (!bookId || !imgId) return input;
-		if (Number(bookId) <= 220980){
-  			return input;
-     		}else if (Number(bookId) <= 268850) {
-			var $num = "10";
-		} else if (Number(bookId) <= 421925) {
-			var $num = parseInt(md5(bookId + imgId).slice(-1).charCodeAt() % 10) * 2 + 2;
-		} else if (Number(bookId) > 421925) {
-			var $num = parseInt(md5(bookId + imgId).slice(-1).charCodeAt() % 8) * 2 + 2;
-		}
-		let imgBitmap = BitmapFactory.decodeStream(input);
-		closeMe(input);
-		let width = imgBitmap.getWidth();
-		let height = imgBitmap.getHeight();
-		let y = Math.floor(height / $num);
-		let remainder = height % $num;
+        picUrl.match(/photos\/(\d+)?\/(\d+)?/);
+        let bookId = RegExp.$1;
+        let imgId = RegExp.$2;
+        if (!bookId || !imgId) return input;
+        if (Number(bookId) <= 220980) {
+            return input;
+        } else if (Number(bookId) <= 268850) {
+            var $num = "10";
+        } else if (Number(bookId) <= 421925) {
+            var $num = parseInt(md5(bookId + imgId).slice(-1).charCodeAt() % 10) * 2 + 2;
+        } else if (Number(bookId) > 421925) {
+            var $num = parseInt(md5(bookId + imgId).slice(-1).charCodeAt() % 8) * 2 + 2;
+        }
+        let imgBitmap = BitmapFactory.decodeStream(input);
+        closeMe(input);
+        let width = imgBitmap.getWidth();
+        let height = imgBitmap.getHeight();
+        let y = Math.floor(height / $num);
+        let remainder = height % $num;
 
-		let newImgBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-		let canvas = new Canvas(newImgBitmap);
-		for (let i = 1; i <= $num; i++) {
-			let h = i === $num ? remainder: 0;
-			canvas.drawBitmap(Bitmap.createBitmap(imgBitmap, 0, y * (i - 1), width, y + h), 0, y * ($num - i), null);
-		}
-		let baos = new ByteArrayOutputStream();
-		newImgBitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
-		return new ByteArrayInputStream(baos.toByteArray());
-	},picUrl);
+        let newImgBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        let canvas = new Canvas(newImgBitmap);
+        for (let i = 1; i <= $num; i++) {
+            let h = i === $num ? remainder : 0;
+            canvas.drawBitmap(Bitmap.createBitmap(imgBitmap, 0, y * (i - 1), width, y + h), 0, y * ($num - i), null);
+        }
+        let baos = new ByteArrayOutputStream();
+        newImgBitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        return new ByteArrayInputStream(baos.toByteArray());
+    }, picUrl);
 }
-function extraPic(host, page, pages, ctype, hiker) {
+
+function extraPic(host, page, pages, ctype, hiker, _chchePath) {
     if (!ctype) var ctype = '';
     if (!hiker || hiker == '') var hiker = '1';
-    var 类型 = ["movie_1", "movie_2", "movie_3", "movie_3_marquee","pic_1", "pic_2", "pic_3", "pic_1_full", "pic_1_center", "pic_1_card", "pic_2_card", "pic_3_square", "card_pic_1", "card_pic_2", "card_pic_3","avatar", "card_pic_3_center","icon_1_left_pic"];
+    var 类型 = ["movie_1", "movie_2", "movie_3", "movie_3_marquee", "pic_1", "pic_2", "pic_3", "pic_1_full", "pic_1_center", "pic_1_card", "pic_2_card", "pic_3_square", "card_pic_1", "card_pic_2", "card_pic_3", "avatar", "card_pic_3_center", "icon_1_left_pic"];
     var longClick = [{
         title: '样式',
-        js: $.toString((host, ctype,类型) => {
-                        if (getItem(host + ctype + 'type')) {
+        js: $.toString((host, ctype, 类型, _chchePath) => {
+            if (getItem(host + ctype + 'type')) {
                 var index = 类型.indexOf(getItem(host + ctype + 'type'));
                 类型[index] = '👉' + getItem(host + ctype + 'type');
             }
@@ -1319,13 +1390,16 @@ function extraPic(host, page, pages, ctype, hiker) {
                 title: "选择样式",
                 col: 2,
                 options: 类型,
-                js: $.toString((host, ctype) => {
+                js: $.toString((host, ctype, _chchePath) => {
                     setItem(host + ctype + 'type', input.replace('👉', ''));
+                    if (_chchePath) {
+                        writeFile(_chchePath, '');
+                    }
                     refreshPage();
-                }, host, ctype)
+                }, host, ctype, _chchePath)
             });
             return "hiker://empty";
-        }, host, ctype,类型),
+        }, host, ctype, 类型, _chchePath),
     }, {
         title: '下载',
         js: `'hiker://page/download.view?rule=本地资源管理'`,
@@ -1347,43 +1421,46 @@ function extraPic(host, page, pages, ctype, hiker) {
         var arr = ['输入页码'];
         if (pages <= 200) {
             for (var k = 1; k <= pages; k++) {
-                arr.push(k);var num=1;
+                arr.push(k);
+                var num = 1;
             }
         } else if (pages <= 1000) {
             for (var k = 1; k <= pages; k = k + 5) {
-                arr.push(k);var num=5;
+                arr.push(k);
+                var num = 5;
             }
         } else {
             for (var k = 1; k <= pages; k = k + 10) {
-                arr.push(k);var num=10;
+                arr.push(k);
+                var num = 10;
             }
         }
         var extra1 = {
             title: '跳转',
-            js: $.toString((host, arr,num) => {
-                return $(arr, 3, '选择页码').select((host,num) => {
+            js: $.toString((host, arr, num) => {
+                return $(arr, 3, '选择页码').select((host, num) => {
                     if (input == '输入页码') {
                         return $('').input((host) => {
                             putMyVar(host + 'page', input);
                             refreshPage(false);
                         }, host);
-                    } else if(num==1){
+                    } else if (num == 1) {
                         putMyVar(host + 'page', input);
                         refreshPage(false);
                         return 'hiker://empty';
-                    }else {
-                        let arr1=[];
-                        for(let k=0;k<num;k++){
-                            arr1.push(input*1+k*1);
+                    } else {
+                        let arr1 = [];
+                        for (let k = 0; k < num; k++) {
+                            arr1.push(input * 1 + k * 1);
                         }
                         return $(arr1, 3, '选择页码').select((host) => {
                             putMyVar(host + 'page', input);
-                        refreshPage(false);
-                        return 'hiker://empty';
-                        },host);
+                            refreshPage(false);
+                            return 'hiker://empty';
+                        }, host);
                     }
-                }, host,num);
-            }, host, arr,num),
+                }, host, num);
+            }, host, arr, num),
         };
     } else {
         var extra1 = {
@@ -1397,18 +1474,27 @@ function extraPic(host, page, pages, ctype, hiker) {
         };
     }
     longClick.push(extra1);
-   longClick.unshift({
-                    title: getItem(host + 'picsMode', '0') == 0 ? '漫画模式' : '图文模式',
-                    js: $.toString((host) => {
-                        if (getItem(host + 'picsMode', '0') == 0) {
-                            setItem(host + 'picsMode', '1');
-                            refreshPage(false);
-                        } else {
-                            setItem(host + 'picsMode', '0');
-                            refreshPage(false);
-                        }
-                    }, host)
-                });
+    if (_chchePath) {
+        longClick.push({
+            title: '清除缓存',
+            js: $.toString((_chchePath) => {
+                writeFile(_chchePath, '');
+                refreshPage(false);
+            }, _chchePath),
+        });
+    }
+    longClick.unshift({
+        title: getItem(host + 'picsMode', '0') == 0 ? '漫画模式' : '图文模式',
+        js: $.toString((host) => {
+            if (getItem(host + 'picsMode', '0') == 0) {
+                setItem(host + 'picsMode', '1');
+                refreshPage(false);
+            } else {
+                setItem(host + 'picsMode', '0');
+                refreshPage(false);
+            }
+        }, host)
+    });
     var extra = $.toString((host, hiker, ctype, longClick) => ({
         chapterList: hiker ? 'hiker://files/_cache/chapterList.txt' : chapterList,
         info: {
@@ -1422,6 +1508,7 @@ function extraPic(host, page, pages, ctype, hiker) {
     }), host, hiker, ctype, longClick);
     return extra;
 }
+
 function imageDecss(key, iv, kiType, mode) {
     const CryptoUtil = $.require("hiker://assets/crypto-java.js");
     let key = CryptoUtil.Data.parseUTF8(key);
@@ -1443,70 +1530,74 @@ function imageDecss(key, iv, kiType, mode) {
     }
     return encrypted0.toInputStream();
 }
+
 function imgDecs(key, iv, kiType, mode) {
     return $.toString((key, iv, kiType, mode) => {
-        if(key){var javaImport = new JavaImporter();
-        javaImport.importPackage(
-            Packages.com.example.hikerview.utils,
-            Packages.java.lang,
-            Packages.java.security,
-            Packages.javax.crypto,
-            Packages.javax.crypto.spec
-        );
-        with(javaImport) {
-            let bytes = FileUtil.toBytes(input);
-            if (!mode) {
-                mode = 'AES/CBC/PKCS5Padding';
-            }
-            if (!kiType) {
-                kiType = "String";
-            }
+        if (key) {
+            var javaImport = new JavaImporter();
+            javaImport.importPackage(
+                Packages.com.example.hikerview.utils,
+                Packages.java.lang,
+                Packages.java.security,
+                Packages.javax.crypto,
+                Packages.javax.crypto.spec
+            );
+            with(javaImport) {
+                let bytes = FileUtil.toBytes(input);
+                if (!mode) {
+                    mode = 'AES/CBC/PKCS5Padding';
+                }
+                if (!kiType) {
+                    kiType = "String";
+                }
 
-            function hexStringToBytes(cipherText) {
-                //cipherText = String(cipherText);
-                let str = cipherText.toLowerCase();
-                let length = str.length;
-                let bArr = java.lang.reflect.Array.newInstance(java.lang.Byte.TYPE, length / 2);
-                for (let i = 0, o = 0; i < length; i += 2, o++) {
-                    let a = str[i + 1],
-                        b = str[i];
-                    if (b != "0") {
-                        a = b + a;
+                function hexStringToBytes(cipherText) {
+                    //cipherText = String(cipherText);
+                    let str = cipherText.toLowerCase();
+                    let length = str.length;
+                    let bArr = java.lang.reflect.Array.newInstance(java.lang.Byte.TYPE, length / 2);
+                    for (let i = 0, o = 0; i < length; i += 2, o++) {
+                        let a = str[i + 1],
+                            b = str[i];
+                        if (b != "0") {
+                            a = b + a;
+                        }
+                        let hexInt = java.lang.Integer.parseInt(new java.lang.String(a), 16);
+                        let inty = hexInt > 127 ? hexInt - 255 - 1 : hexInt;
+                        bArr[o] = inty;
                     }
-                    let hexInt = java.lang.Integer.parseInt(new java.lang.String(a), 16);
-                    let inty = hexInt > 127 ? hexInt - 255 - 1 : hexInt;
-                    bArr[o] = inty;
+
+                    return bArr;
                 }
 
-                return bArr;
-            }
-
-            function getBytes(str) {
-                let bytes;
-                if (kiType === "Base64") {
-                    bytes = _base64.decode(str, _base64.NO_WRAP);
-                } else if (kiType === "Hex") {
-                    bytes = hexStringToBytes(str);
-                } else {
-                    bytes = String(str).getBytes("UTF-8");
+                function getBytes(str) {
+                    let bytes;
+                    if (kiType === "Base64") {
+                        bytes = _base64.decode(str, _base64.NO_WRAP);
+                    } else if (kiType === "Hex") {
+                        bytes = hexStringToBytes(str);
+                    } else {
+                        bytes = String(str).getBytes("UTF-8");
+                    }
+                    return bytes;
                 }
-                return bytes;
-            }
-            key = getBytes(key);
-            iv = getBytes(iv);
+                key = getBytes(key);
+                iv = getBytes(iv);
 
-            let algorithm = mode.split("/")[0];
+                let algorithm = mode.split("/")[0];
 
-            function decryptData(_bArr) {
-                let secretKeySpec = new SecretKeySpec(key, algorithm);
-                let ivParameterSpec = new IvParameterSpec(iv);
-                let cipher = Cipher.getInstance(mode);
-                cipher.init(2, secretKeySpec, ivParameterSpec);
-                return cipher.doFinal(_bArr);
+                function decryptData(_bArr) {
+                    let secretKeySpec = new SecretKeySpec(key, algorithm);
+                    let ivParameterSpec = new IvParameterSpec(iv);
+                    let cipher = Cipher.getInstance(mode);
+                    cipher.init(2, secretKeySpec, ivParameterSpec);
+                    return cipher.doFinal(_bArr);
+                }
+                bytes = decryptData(bytes);
+                return FileUtil.toInputStream(bytes);
             }
-            bytes = decryptData(bytes);
-            return FileUtil.toInputStream(bytes);
-        }}else{ try {
+        } else {
+            try {
                 const CryptoUtil = $.require("hiker://assets/crypto-java.js");
                 let textData = CryptoUtil.Data.parseInputStream(input);
                 let base64Text = textData.toString().split("base64,")[1];
@@ -1514,9 +1605,11 @@ function imgDecs(key, iv, kiType, mode) {
                 return encrypted0.toInputStream();
             } catch (e) {
                 return;
-            }}
+            }
+        }
     }, key, iv, kiType, mode);
 }
+
 function hexStringToBytes(cipherText) {
     var javaImport = new JavaImporter();
     javaImport.importPackage(
@@ -1530,127 +1623,152 @@ function hexStringToBytes(cipherText) {
         Packages.javax.crypto.spec,
     );
     with(javaImport) {
-    cipherText = String(cipherText);
-    let str = cipherText.toLowerCase();
-            bArr = java.lang.reflect.Array.newInstance(java.lang.Byte.TYPE, 16);
-            for (let i = 0, o = 0; i < 32; i += 2, o++) {
-                let a = str[i + 1],
-                    b = str[i];
-                if (b != "0") {
-                    a = b + a;
-                }
-                let hexInt = java.lang.Integer.parseInt(new java.lang.String(a), 16);
-                let inty = hexInt > 127 ? hexInt - 255 - 1 : hexInt;
-                bArr[o] = inty;
+        cipherText = String(cipherText);
+        let str = cipherText.toLowerCase();
+        bArr = java.lang.reflect.Array.newInstance(java.lang.Byte.TYPE, 16);
+        for (let i = 0, o = 0; i < 32; i += 2, o++) {
+            let a = str[i + 1],
+                b = str[i];
+            if (b != "0") {
+                a = b + a;
             }
-    return bArr;}
+            let hexInt = java.lang.Integer.parseInt(new java.lang.String(a), 16);
+            let inty = hexInt > 127 ? hexInt - 255 - 1 : hexInt;
+            bArr[o] = inty;
+        }
+        return bArr;
+    }
 }
-function pageMoveto(host, page, ctype,pages) {
-    if(!ctype){var ctype='';}
-    var longClick=[{
-            title: '样式',
-            js: $.toString((host,ctype) => {
-                var 类型 = ["movie_1", "movie_2", "movie_3", "movie_3_marquee","pic_1", "pic_2", "pic_3", "pic_1_full", "pic_1_center", "pic_1_card", "pic_2_card", "pic_3_square", "card_pic_1", "card_pic_2", "card_pic_3","avatar", "card_pic_3_center","icon_1_left_pic"];                if (getItem(host + 'type')) {
-                    var index = 类型.indexOf(getItem(host +ctype+ 'type'));
-                    类型[index] = '👉' + getItem(host +ctype+ 'type');
-                }
-                showSelectOptions({
-                    title: "选择样式",
-                    col: 2,
-                    options: 类型,
-                    js: $.toString((host,ctype) => {
-                        setItem(host +ctype+ 'type', input.replace('👉', ''));putMyVar( 'isMoveto', '1');
-                        refreshPage();
-                    }, host,ctype)
-                });
-                return "hiker://empty";
-            }, host,ctype),
-        }, {
-            title: '书架',
-            js: `'hiker://page/Main.view?rule=本地资源管理'`,
-        }, {
-            title: '首页',
-            js: $.toString((host) => {
-                host = host;
-                putMyVar(host + 'page', '1');
-                refreshPage(false);
-                return 'hiker://empty';
-            }, host),
-        }, {
-            title: '当前第' + page + '页',
-            js: '',
-        }, ];
-    if(typeof(pages)!='undefined'){
-        
+
+function pageMoveto(host, page, ctype, pages, _chchePath) {
+    if (!ctype) {
+        var ctype = '';
+    }
+    var longClick = [{
+        title: '样式',
+        js: $.toString((host, ctype, _chchePath) => {
+            var 类型 = ["movie_1", "movie_2", "movie_3", "movie_3_marquee", "pic_1", "pic_2", "pic_3", "pic_1_full", "pic_1_center", "pic_1_card", "pic_2_card", "pic_3_square", "card_pic_1", "card_pic_2", "card_pic_3", "avatar", "card_pic_3_center", "icon_1_left_pic"];
+            if (getItem(host + 'type')) {
+                var index = 类型.indexOf(getItem(host + ctype + 'type'));
+                类型[index] = '👉' + getItem(host + ctype + 'type');
+            }
+            showSelectOptions({
+                title: "选择样式",
+                col: 2,
+                options: 类型,
+                js: $.toString((host, ctype, _chchePath) => {
+                    setItem(host + ctype + 'type', input.replace('👉', ''));
+                    putMyVar('isMoveto', '1');
+                    if (_chchePath) {
+                        writeFile(_chchePath, '');
+                    }
+                    refreshPage();
+                }, host, ctype, _chchePath)
+            });
+            return "hiker://empty";
+        }, host, ctype, _chchePath),
+    }, {
+        title: '书架',
+        js: `'hiker://page/Main.view?rule=本地资源管理'`,
+    }, {
+        title: '首页',
+        js: $.toString((host) => {
+            host = host;
+            putMyVar(host + 'page', '1');
+            refreshPage(false);
+            return 'hiker://empty';
+        }, host),
+    }, {
+        title: '当前第' + page + '页',
+        js: '',
+    }, ];
+    if (typeof(pages) != 'undefined') {
         var arr = ['输入页码'];
         if (pages <= 200) {
             for (var k = 1; k <= pages; k++) {
-                arr.push(k);var num=1;
+                arr.push(k);
+                var num = 1;
             }
         } else if (pages <= 1000) {
             for (var k = 1; k <= pages; k = k + 5) {
-                arr.push(k);var num=5;
+                arr.push(k);
+                var num = 5;
             }
         } else {
             for (var k = 1; k <= pages; k = k + 10) {
-                arr.push(k);var num=10;
+                arr.push(k);
+                var num = 10;
             }
         }
         var extra1 = {
             title: '跳转',
-            js: $.toString((host, arr,num) => {
-                return $(arr, 3, '选择页码').select((host,num) => {
+            js: $.toString((host, arr, num) => {
+                return $(arr, 3, '选择页码').select((host, num) => {
                     if (input == '输入页码') {
                         return $('').input((host) => {
                             putMyVar(host + 'page', input);
                             refreshPage(false);
                         }, host);
-                    } else if(num==1){
+                    } else if (num == 1) {
                         putMyVar(host + 'page', input);
                         refreshPage(false);
                         return 'hiker://empty';
-                    }else {
-                        let arr1=[];
-                        for(let k=0;k<num;k++){
-                            arr1.push(input*1+k*1);
+                    } else {
+                        let arr1 = [];
+                        for (let k = 0; k < num; k++) {
+                            arr1.push(input * 1 + k * 1);
                         }
                         return $(arr1, 3, '选择页码').select((host) => {
-                            putMyVar(host + 'page', input);putMyVar( 'isMoveto', '1');
-                        refreshPage(false);
-                        return 'hiker://empty';
-                        },host);
+                            putMyVar(host + 'page', input);
+                            putMyVar('isMoveto', '1');
+                            refreshPage(false);
+                            return 'hiker://empty';
+                        }, host);
                     }
-                }, host,num);
-            }, host, arr,num),
+                }, host, num);
+            }, host, arr, num),
         };
-        
-    }else{
-        var extra1={
+    } else {
+        var extra1 = {
             title: '跳转',
             js: $.toString((host) => {
                 return $('').input((host) => {
-                    putMyVar(host + 'page', input);putMyVar( 'isMoveto', '1');
+                    putMyVar(host + 'page', input);
+                    putMyVar('isMoveto', '1');
                     refreshPage(false);
                 }, host);
             }, host),
         };
     }
-    longClick.push(extra1);longClick.unshift({
-                    title: getItem(host + 'picsMode', '0') == 0 ? '漫画模式' : '图文模式',
-                    js: $.toString((host) => {
-                        if (getItem(host + 'picsMode', '0') == 0) {
-                            setItem(host + 'picsMode', '1');
-                            refreshPage(false);
-                        } else {
-                            setItem(host + 'picsMode', '0');
-                            refreshPage(false);
-                        }
-                    }, host)
-                });
-    return {longClick:longClick};
+    longClick.push(extra1);
+    if (_chchePath) {
+        longClick.push({
+            title: '清除缓存',
+            js: $.toString((_chchePath) => {
+                writeFile(_chchePath, '');
+                refreshPage(false);
+            }, _chchePath),
+        });
+    }
+    longClick.unshift({
+        title: getItem(host + 'picsMode', '0') == 0 ? '漫画模式' : '图文模式',
+        js: $.toString((host) => {
+            if (getItem(host + 'picsMode', '0') == 0) {
+                setItem(host + 'picsMode', '1');
+                refreshPage(false);
+            } else {
+                setItem(host + 'picsMode', '0');
+                refreshPage(false);
+            }
+        }, host)
+    });
+    return {
+        longClick: longClick
+    };
 }
+
 function searchMain(page, d, desc) {
-    if (page == 1||getMyVar( 'isMoveto', '0')==1) {
+    if (page == 1 || getMyVar('isMoveto', '0') == 1) {
         d.push({
             title: '🔍',
             url: $.toString((r) => {
@@ -1666,6 +1784,7 @@ function searchMain(page, d, desc) {
     }
     return d;
 }
+
 function classTop(index, data, host, d, mode, v, c, f, len, start, end) {
     if (!mode) mode = 0;
     if (!v) v = 0;
@@ -1677,7 +1796,7 @@ function classTop(index, data, host, d, mode, v, c, f, len, start, end) {
     let isInRange = index >= start && index <= end;
     let c_title = /\{/.test(JSON.stringify(data)) ? data.title.split('&') : data.split('&');
     let c_id = /\{/.test(JSON.stringify(data)) ? (!data.id ? c_title : data.id === '@@@' ? data.title.replace(/^.*?&/, '&').split('&') : data.id.split('&')) : null;
-    let c_img=storage0.getMyVar(host+'picsClass',[]).length!=0?storage0.getMyVar(host+'picsClass'):(data.img?data.img.split('&') :[]);
+    let c_img = storage0.getMyVar(host + 'picsClass', []).length != 0 ? storage0.getMyVar(host + 'picsClass') : (data.img ? data.img.split('&') : []);
     c_title.forEach((title, index_c) => {
         let isSelected = index_c == getMyVar(host + c + 'index' + index, mode || index == v ? '0' : '-1');
         let titleStyled = isSelected ?
@@ -1687,7 +1806,7 @@ function classTop(index, data, host, d, mode, v, c, f, len, start, end) {
             title;
         d.push({
             title: titleStyled,
-            img:c_img.length!=0?c_img[index_c]:'',
+            img: c_img.length != 0 ? c_img[index_c] : '',
             col_type: f,
             url: $('#noLoading#').lazyRule((index, id, index_c, host, mode, title, v, c, len) => {
                 if (mode) {
@@ -1715,7 +1834,8 @@ function classTop(index, data, host, d, mode, v, c, f, len, start, end) {
     });
     return d;
 }
-function classTop1(index, data, host, d, mode, v, c, f,len,start,end) {
+
+function classTop1(index, data, host, d, mode, v, c, f, len, start, end) {
     if (!v) {
         v = 0;
     }
@@ -1740,15 +1860,15 @@ function classTop1(index, data, host, d, mode, v, c, f,len,start,end) {
         }
         c_title.forEach((title, index_c, data) => {
             d.push({
-                title: index_c == getMyVar(host + c + 'index' + index, (mode || index == v ? '0' : '-1')) ? (index>=start&&index<=end?strong(title, 'FFFF00'):strong(title, 'FF6699')) : (getItem('darkMode', '深色模式') == '浅色白字模式'&&index>=start&&index<=end?color(title,'FFFFFF'):title),
+                title: index_c == getMyVar(host + c + 'index' + index, (mode || index == v ? '0' : '-1')) ? (index >= start && index <= end ? strong(title, 'FFFF00') : strong(title, 'FF6699')) : (getItem('darkMode', '深色模式') == '浅色白字模式' && index >= start && index <= end ? color(title, 'FFFFFF') : title),
                 col_type: f,
-                url: $('#noLoading#').lazyRule((index, id, index_c, host, mode, title, v, c,len) => {
+                url: $('#noLoading#').lazyRule((index, id, index_c, host, mode, title, v, c, len) => {
                     if (mode) {
                         putMyVar(host + c + index, id);
 
                     } else {
                         putMyVar(host + c, id);
-                        for (let n = v; n <= v+len-1; n++) {
+                        for (let n = v; n <= v + len - 1; n++) {
                             putMyVar(host + c + 'index' + n, '-1');
                         }
                     }
@@ -1757,8 +1877,11 @@ function classTop1(index, data, host, d, mode, v, c, f,len,start,end) {
                     putMyVar(host + c + 'index' + index, index_c);
                     refreshPage(false);
                     return 'hiker://empty';
-                }, index, c_id[index_c], index_c, host, mode, title, v, c,len),
-		extra:{backgroundColor:index>=start&&index<=end?getRandomColor(getItem('darkMode')):'',LongClick:index>=start&&index<=end?bcLongClick():[],}
+                }, index, c_id[index_c], index_c, host, mode, title, v, c, len),
+                extra: {
+                    backgroundColor: index >= start && index <= end ? getRandomColor(getItem('darkMode')) : '',
+                    LongClick: index >= start && index <= end ? bcLongClick() : [],
+                }
             });
         });
         d.push({
@@ -1769,15 +1892,15 @@ function classTop1(index, data, host, d, mode, v, c, f,len,start,end) {
         var c_title = data.split('&');
         c_title.forEach((title, index_c, data) => {
             d.push({
-                title: index_c == getMyVar(host + c + 'index' + index, (mode || index == v ? '0' : '-1')) ? (index>=start&&index<=end?strong(title, 'FFFF00'):strong(title, 'FF6699')) : (getItem('darkMode', '深色模式') == '浅色白字模式'&&index>=start&&index<=end?color(title,'FFFFFF'):title),
+                title: index_c == getMyVar(host + c + 'index' + index, (mode || index == v ? '0' : '-1')) ? (index >= start && index <= end ? strong(title, 'FFFF00') : strong(title, 'FF6699')) : (getItem('darkMode', '深色模式') == '浅色白字模式' && index >= start && index <= end ? color(title, 'FFFFFF') : title),
                 col_type: f,
-                url: $('#noLoading#').lazyRule((index, index_c, host, mode, title, v, c,len) => {
+                url: $('#noLoading#').lazyRule((index, index_c, host, mode, title, v, c, len) => {
                     if (mode) {
                         putMyVar(host + c + index, title);
 
                     } else {
                         putMyVar(host + c, title);
-                        for (let n = v; n <= v+len-1; n++) {
+                        for (let n = v; n <= v + len - 1; n++) {
                             putMyVar(host + c + 'index' + n, '-1');
                         }
                     }
@@ -1786,8 +1909,11 @@ function classTop1(index, data, host, d, mode, v, c, f,len,start,end) {
                     putMyVar(host + c + 'index' + index, index_c);
                     refreshPage(false);
                     return 'hiker://empty';
-                }, index, index_c, host, mode, title, v, c,len),
-		extra:{backgroundColor:index>=start&&index<=end?getRandomColor(getItem('darkMode')):'',LongClick:index>=start&&index<=end?bcLongClick():[],}
+                }, index, index_c, host, mode, title, v, c, len),
+                extra: {
+                    backgroundColor: index >= start && index <= end ? getRandomColor(getItem('darkMode')) : '',
+                    LongClick: index >= start && index <= end ? bcLongClick() : [],
+                }
             });
         });
         d.push({
@@ -1800,7 +1926,7 @@ function classTop1(index, data, host, d, mode, v, c, f,len,start,end) {
 
 
 function downPic() {
-var s=`if (list.length != 0) {
+    var s = `if (list.length != 0) {
             d.push({
                 title: '⬇️下载⬇️',
                 desc: '',
@@ -1817,10 +1943,11 @@ var s=`if (list.length != 0) {
                 }
             });
         }`;
-        return s;
+    return s;
 }
+
 function dtfl() {
-     return `
+    return `
         addListener('onClose', $.toString((host) => {
         	clearMyVar(host+'url');
         	clearMyVar(host+'t');
@@ -1878,7 +2005,8 @@ function dtfl() {
              });
          }
      `;
- }
+}
+
 function dtfl1() {
     var dt = `
     const empty = 'hiker://empty'
@@ -1981,6 +2109,7 @@ function dtfl1() {
     }`;
     return dt;
 }
+
 function getFileSize(size) {
     if (typeof size !== 'number' || size < 0) {
         return '0B'; // 处理无效输入
@@ -1997,6 +2126,7 @@ function getFileSize(size) {
     }
     return `${size.toFixed(2)}${units[unitIndex]}`;
 }
+
 function gfs(size) {
     if (!size)
         return 0;
@@ -2011,7 +2141,8 @@ function gfs(size) {
         return (size / Math.pow(num, 3)).toFixed(2) + "G"; //G
     return (size / Math.pow(num, 4)).toFixed(2) + "T"; //T
 }
-function mline(n,d) {
+
+function mline(n, d) {
     for (var k = 1; k <= n; k++) {
         d.push({
             col_type: 'line',
@@ -2040,14 +2171,15 @@ function cm(s, n) {
     }
     return s;
 }
+
 function ct(num) {
-     num = parseInt(num);
-     if (num >= 10000) {
-         return (num / 10000).toFixed(1) + 'w';
-     } else {
-         return num;
-     }
- }
+    num = parseInt(num);
+    if (num >= 10000) {
+        return (num / 10000).toFixed(1) + 'w';
+    } else {
+        return num;
+    }
+}
 /*function rulePage(type, page) {
      return $("hiker://empty#noRecordHistory##noHistory#" + (page ? "?page=fypage" : "")).rule((type, r) => {
          require(r);
@@ -2066,149 +2198,152 @@ function rp(data, source) {
     });
     return data;
 }
-function rp1(data) {
-var m = [],
-    n = [];
 
-function x(a, b) {
-    var a;
-    var b;
-    m.push(a);
-    n.push(b);
+function rp1(data) {
+    var m = [],
+        n = [];
+
+    function x(a, b) {
+        var a;
+        var b;
+        m.push(a);
+        n.push(b);
+    }
+    x(/菗/gi, "抽");
+    x(/嗕/gi, "辱");
+    x(/蓅/gi, "流");
+    x(/茭/gi, "交");
+    x(/zhang/gi, "胀");
+    x(/chun2/gi, "唇");
+    x(/chun/gi, "春");
+    x(/chuang/gi, "床");
+    x(/chuan/gi, "喘");
+    x(/chou/gi, "抽");
+    x(/chi/gi, "耻");
+    x(/chao/gi, "潮");
+    x(/chan/gi, "缠");
+    x(/cha/gi, "插");
+    x(/yu/gi, "欲");
+    x(/yù/gi, "欲");
+    x(/you/gi, "诱");
+    x(/ying/gi, "迎");
+    x(/yin3/gi, "吟");
+    x(/yin2/gi, "淫");
+    x(/yin/gi, "阴");
+    x(/yīn/gi, "阴");
+    x(/ye/gi, "液");
+    x(/yao/gi, "腰");
+    x(/yang2/gi, "痒");
+    x(/yang/gi, "阳");
+    x(/yan/gi, "艳");
+    x(/ya/gi, "压");
+    x(/xue/gi, "穴");
+    x(/xiong/gi, "胸");
+    x(/xing/gi, "性");
+    x(/xìng/gi, "性");
+    x(/xie2/gi, "邪");
+    x(/xie/gi, "泄");
+    x(/xi/gi, "吸");
+    x(/wei/gi, "慰");
+    x(/tuo/gi, "脱");
+    x(/tun2/gi, "臀");
+    x(/tun/gi, "吞");
+    x(/ting/gi, "挺");
+    x(/tian/gi, "舔");
+    x(/shun/gi, "吮");
+    x(/shuang/gi, "爽");
+    x(/shu/gi, "熟");
+    x(/shi/gi, "湿");
+    x(/she/gi, "射");
+    x(/se/gi, "色");
+    x(/sè/gi, "色");
+    x(/sao/gi, "骚");
+    x(/sai/gi, "塞");
+    x(/rui/gi, "蕊");
+    x(/ru2/gi, "蠕");
+    x(/ru/gi, "乳");
+    x(/rou2/gi, "揉");
+    x(/rou/gi, "肉");
+    x(/ri/gi, "日");
+    x(/qiang/gi, "枪");
+    x(/qi2/gi, "妻");
+    x(/qi/gi, "骑");
+    x(/pi/gi, "屁");
+    x(/pen/gi, "喷");
+    x(/nue/gi, "虐");
+    x(/nong/gi, "弄");
+    x(/niao/gi, "尿");
+    x(/nen/gi, "嫩");
+    x(/nai/gi, "奶");
+    x(/min/gi, "敏");
+    x(/mi2/gi, "迷");
+    x(/mi/gi, "蜜");
+    x(/mao/gi, "毛");
+    x(/man/gi, "满");
+    x(/luo/gi, "裸");
+    x(/luan/gi, "乱");
+    x(/lu/gi, "撸");
+    x(/lou/gi, "露");
+    x(/liu/gi, "流");
+    x(/liao/gi, "撩");
+    x(/lang/gi, "浪");
+    x(/kua/gi, "胯");
+    x(/ku/gi, "裤");
+    x(/jing/gi, "精");
+    x(/jin/gi, "禁");
+    x(/jiao/gi, "交");
+    x(/jian2/gi, "奸");
+    x(/jiān/gi, "奸");
+    x(/jian/gi, "贱");
+    x(/ji3/gi, "妓");
+    x(/ji2/gi, "鸡");
+    x(/ji/gi, "激");
+    x(/jī/gi, "激");
+    x(/huan/gi, "欢");
+    x(/gun/gi, "棍");
+    x(/gui/gi, "龟");
+    x(/gong/gi, "宫");
+    x(/gen/gi, "根");
+    x(/gao2/gi, "睪");
+    x(/gao/gi, "搞");
+    x(/gang/gi, "肛");
+    x(/gan/gi, "感");
+    x(/fu/gi, "阜");
+    x(/feng/gi, "缝");
+    x(/dong2/gi, "胴");
+    x(/dong/gi, "洞");
+    x(/diao/gi, "屌");
+    x(/dang2/gi, "党");
+    x(/dang/gi, "荡");
+    x(/dàng/gi, "荡");
+    x(/cuo/gi, "搓");
+    x(/cu/gi, "粗");
+    x(/cao2/gi, "肏");
+    x(/cao/gi, "操");
+    x(/bo/gi, "勃");
+    x(/bō/gi, "波");
+    x(/bi2/gi, "屄");
+    x(/bi/gi, "逼");
+    x(/bao/gi, "饱");
+    x(/bang/gi, "棒");
+    x(/ai/gi, "爱");
+    x(/[MＭmｍ]\.[８8].+[MＭmｍ]/g, "");
+    x(/[wｗWＷ]{3}\.[Gｇ].+?[ＳSｓs]\...[MＭmｍ]/g, "");
+    x(/(<br>){2,}/g, "<p>");
+    data = data.replace(/<img src=\"image\/(.+?)\.jpg\">/g, '$1');
+    data = data.replace(/<img src=\"mom\/(.+?)\.jpg\">/g, '$1');
+    data = data.replace(/<img src=\"n\/(.+?)\.jpg\">/g, '$1');
+    for (var i in m) {
+        data = data.replace(m[i], n[i]);
+    }
+    data = data.replace(/　{1,}/g, '　　');
+    return data;
 }
-x(/菗/gi, "抽");
-x(/嗕/gi, "辱");
-x(/蓅/gi, "流");
-x(/茭/gi, "交");
-x(/zhang/gi, "胀");
-x(/chun2/gi, "唇");
-x(/chun/gi, "春");
-x(/chuang/gi, "床");
-x(/chuan/gi, "喘");
-x(/chou/gi, "抽");
-x(/chi/gi, "耻");
-x(/chao/gi, "潮");
-x(/chan/gi, "缠");
-x(/cha/gi, "插");
-x(/yu/gi, "欲");
-x(/yù/gi, "欲");
-x(/you/gi, "诱");
-x(/ying/gi, "迎");
-x(/yin3/gi, "吟");
-x(/yin2/gi, "淫");
-x(/yin/gi, "阴");
-x(/yīn/gi, "阴");
-x(/ye/gi, "液");
-x(/yao/gi, "腰");
-x(/yang2/gi, "痒");
-x(/yang/gi, "阳");
-x(/yan/gi, "艳");
-x(/ya/gi, "压");
-x(/xue/gi, "穴");
-x(/xiong/gi, "胸");
-x(/xing/gi, "性");
-x(/xìng/gi, "性");
-x(/xie2/gi, "邪");
-x(/xie/gi, "泄");
-x(/xi/gi, "吸");
-x(/wei/gi, "慰");
-x(/tuo/gi, "脱");
-x(/tun2/gi, "臀");
-x(/tun/gi, "吞");
-x(/ting/gi, "挺");
-x(/tian/gi, "舔");
-x(/shun/gi, "吮");
-x(/shuang/gi, "爽");
-x(/shu/gi, "熟");
-x(/shi/gi, "湿");
-x(/she/gi, "射");
-x(/se/gi, "色");
-x(/sè/gi, "色");
-x(/sao/gi, "骚");
-x(/sai/gi, "塞");
-x(/rui/gi, "蕊");
-x(/ru2/gi, "蠕");
-x(/ru/gi, "乳");
-x(/rou2/gi, "揉");
-x(/rou/gi, "肉");
-x(/ri/gi, "日");
-x(/qiang/gi, "枪");
-x(/qi2/gi, "妻");
-x(/qi/gi, "骑");
-x(/pi/gi, "屁");
-x(/pen/gi, "喷");
-x(/nue/gi, "虐");
-x(/nong/gi, "弄");
-x(/niao/gi, "尿");
-x(/nen/gi, "嫩");
-x(/nai/gi, "奶");
-x(/min/gi, "敏");
-x(/mi2/gi, "迷");
-x(/mi/gi, "蜜");
-x(/mao/gi, "毛");
-x(/man/gi, "满");
-x(/luo/gi, "裸");
-x(/luan/gi, "乱");
-x(/lu/gi, "撸");
-x(/lou/gi, "露");
-x(/liu/gi, "流");
-x(/liao/gi, "撩");
-x(/lang/gi, "浪");
-x(/kua/gi, "胯");
-x(/ku/gi, "裤");
-x(/jing/gi, "精");
-x(/jin/gi, "禁");
-x(/jiao/gi, "交");
-x(/jian2/gi, "奸");
-x(/jiān/gi, "奸");
-x(/jian/gi, "贱");
-x(/ji3/gi, "妓");
-x(/ji2/gi, "鸡");
-x(/ji/gi, "激");
-x(/jī/gi, "激");
-x(/huan/gi, "欢");
-x(/gun/gi, "棍");
-x(/gui/gi, "龟");
-x(/gong/gi, "宫");
-x(/gen/gi, "根");
-x(/gao2/gi, "睪");
-x(/gao/gi, "搞");
-x(/gang/gi, "肛");
-x(/gan/gi, "感");
-x(/fu/gi, "阜");
-x(/feng/gi, "缝");
-x(/dong2/gi, "胴");
-x(/dong/gi, "洞");
-x(/diao/gi, "屌");
-x(/dang2/gi, "党");
-x(/dang/gi, "荡");
-x(/dàng/gi, "荡");
-x(/cuo/gi, "搓");
-x(/cu/gi, "粗");
-x(/cao2/gi, "肏");
-x(/cao/gi, "操");
-x(/bo/gi, "勃");
-x(/bō/gi, "波");
-x(/bi2/gi, "屄");
-x(/bi/gi, "逼");
-x(/bao/gi, "饱");
-x(/bang/gi, "棒");
-x(/ai/gi, "爱");
-x(/[MＭmｍ]\.[８8].+[MＭmｍ]/g, "");
-x(/[wｗWＷ]{3}\.[Gｇ].+?[ＳSｓs]\...[MＭmｍ]/g, "");
-x(/(<br>){2,}/g, "<p>");
-data = data.replace(/<img src=\"image\/(.+?)\.jpg\">/g, '$1');
-data = data.replace(/<img src=\"mom\/(.+?)\.jpg\">/g, '$1');
-data = data.replace(/<img src=\"n\/(.+?)\.jpg\">/g, '$1');
-for (var i in m) {
-    data = data.replace(m[i], n[i]);
-}
-data=data.replace(/　{1,}/g,'　　');
-	return data;
-}
+
 function ver() {
-	return ;
+    return;
 }
+
 function getRandomArray(arr, num) {
     const shuffled = arr.slice(); // 复制原数组
     let currentIndex = arr.length;
@@ -2225,11 +2360,12 @@ function getRandomArray(arr, num) {
     }
     return shuffled.slice(-num);
 }
-function imgDec(key,iv,a,b){
-	if(!b){
- 		b='PKCS5Padding';
- 	}
-    	var sss = `
+
+function imgDec(key, iv, a, b) {
+    if (!b) {
+        b = 'PKCS5Padding';
+    }
+    var sss = `
             function imgDecrypt() {
                 var javaImport = new JavaImporter();
                 javaImport.importPackage(
@@ -2261,13 +2397,13 @@ function imgDec(key,iv,a,b){
                 }
             }                    
         `;
-        putVar('sss', sss);
-        var imgdec = $.toString(() => {
-            eval(getVar('sss'));
-            return imgDecrypt();
-        });        
-        putVar('imgdec', imgdec);
-        return imgdec;
+    putVar('sss', sss);
+    var imgdec = $.toString(() => {
+        eval(getVar('sss'));
+        return imgDecrypt();
+    });
+    putVar('imgdec', imgdec);
+    return imgdec;
 }
 
 /*function toerji(item,sname,stype) {
@@ -2291,97 +2427,100 @@ function imgDec(key,iv,a,b){
             return item;
         }*/
 function en(key, iv, data, mode, encoding) {
-        eval(getCryptoJS());
-        if (!mode) mode = 'AES/ECB/PKCS7Padding';
-        var s0 = mode.split('/')[0];
-        var s1 = mode.split('/')[1];
-        var s2 = mode.split('/')[2];
-        s2 = s2.replace(/PKCS7Padding/, 'PKCS7').replace(/KCS/, 'kcs');
-        key = CryptoJS.enc.Utf8.parse(key);
-        if (iv) iv = CryptoJS.enc.Utf8.parse(iv);
+    eval(getCryptoJS());
+    if (!mode) mode = 'AES/ECB/PKCS7Padding';
+    var s0 = mode.split('/')[0];
+    var s1 = mode.split('/')[1];
+    var s2 = mode.split('/')[2];
+    s2 = s2.replace(/PKCS7Padding/, 'PKCS7').replace(/KCS/, 'kcs');
+    key = CryptoJS.enc.Utf8.parse(key);
+    if (iv) iv = CryptoJS.enc.Utf8.parse(iv);
 
-        function En() {
-            if (iv) {
-                var encrypted = CryptoJS[s0].encrypt(data, key, {
-                    iv: iv,
-                    mode: CryptoJS.mode[s1],
-                    padding: CryptoJS.pad[s2]
-                });
-            } else {
-                var encrypted = CryptoJS[s0].encrypt(data, key, {
-                    mode: CryptoJS.mode[s1],
-                    padding: CryptoJS.pad[s2]
-                });
-            }
-            if (!encoding) {
-                return encrypted.toString();
-            } else {
-                return encrypted.ciphertext.toString();
-            }
-        };
-        return En(data, encoding);
-    }
-
-function de(key, iv, data, mode, encoding) {
-        eval(getCryptoJS());
-        if (!mode) mode = 'AES/ECB/PKCS7Padding';
-        var s0 = mode.split('/')[0];
-        var s1 = mode.split('/')[1];
-        var s2 = mode.split('/')[2];
-        s2 = s2.replace(/PKCS7Padding/, 'PKCS7').replace(/KCS/, 'kcs');
-        key = CryptoJS.enc.Utf8.parse(key);
-        if (iv) iv = CryptoJS.enc.Utf8.parse(iv);
-        if (s1=='CBC'&&!iv) iv = key;
-        function De() {
-            if (iv) {
-                var decrypted = CryptoJS[s0].decrypt(data, key, {
-                    iv: iv,
-                    mode: CryptoJS.mode[s1],
-                    padding: CryptoJS.pad[s2]
-                });
-            } else {
-                var decrypted = CryptoJS[s0].decrypt(data, key, {
-                    mode: CryptoJS.mode[s1],
-                    padding: CryptoJS.pad[s2]
-                });
-            }
-            if (!encoding) {
-                return decrypted.toString(CryptoJS.enc.Utf8);
-            } else {
-                return decrypted.toString(CryptoJS.enc[encoding]);
-            }
-        };
-        return De(data, encoding);
-    }
-
-function im() {
-	return '#immersiveTheme##autoCache#';
+    function En() {
+        if (iv) {
+            var encrypted = CryptoJS[s0].encrypt(data, key, {
+                iv: iv,
+                mode: CryptoJS.mode[s1],
+                padding: CryptoJS.pad[s2]
+            });
+        } else {
+            var encrypted = CryptoJS[s0].encrypt(data, key, {
+                mode: CryptoJS.mode[s1],
+                padding: CryptoJS.pad[s2]
+            });
+        }
+        if (!encoding) {
+            return encrypted.toString();
+        } else {
+            return encrypted.ciphertext.toString();
+        }
+    };
+    return En(data, encoding);
 }
 
-function urla(u,host) {
-	if (u.indexOf("http") < 0) {
-		if (u.substr(0, 2) != '//') {
-			if (u.substr(0, 1) != '/') u = host + '/' + u;
-			else u = host + u;
-		} else {
-			u = 'https:' + u;
-		}
-	}
-	return encodeURI(u);
+function de(key, iv, data, mode, encoding) {
+    eval(getCryptoJS());
+    if (!mode) mode = 'AES/ECB/PKCS7Padding';
+    var s0 = mode.split('/')[0];
+    var s1 = mode.split('/')[1];
+    var s2 = mode.split('/')[2];
+    s2 = s2.replace(/PKCS7Padding/, 'PKCS7').replace(/KCS/, 'kcs');
+    key = CryptoJS.enc.Utf8.parse(key);
+    if (iv) iv = CryptoJS.enc.Utf8.parse(iv);
+    if (s1 == 'CBC' && !iv) iv = key;
+
+    function De() {
+        if (iv) {
+            var decrypted = CryptoJS[s0].decrypt(data, key, {
+                iv: iv,
+                mode: CryptoJS.mode[s1],
+                padding: CryptoJS.pad[s2]
+            });
+        } else {
+            var decrypted = CryptoJS[s0].decrypt(data, key, {
+                mode: CryptoJS.mode[s1],
+                padding: CryptoJS.pad[s2]
+            });
+        }
+        if (!encoding) {
+            return decrypted.toString(CryptoJS.enc.Utf8);
+        } else {
+            return decrypted.toString(CryptoJS.enc[encoding]);
+        }
+    };
+    return De(data, encoding);
+}
+
+function im() {
+    return '#immersiveTheme##autoCache#';
+}
+
+function urla(u, host) {
+    if (u.indexOf("http") < 0) {
+        if (u.substr(0, 2) != '//') {
+            if (u.substr(0, 1) != '/') u = host + '/' + u;
+            else u = host + u;
+        } else {
+            u = 'https:' + u;
+        }
+    }
+    return encodeURI(u);
 }
 
 function rn(c) {
     return c.replace(/\[.+?]|丨|～|\//g, '|')
-            .replace(/\(.+?\)/g, '')
-            .replace(/第.+?(章|话) ?-?/g, '|')
-            .replace(/\| {1,}| {1,}\|/g, '|')
-            .replace(/(\|){1,}/g, '|')
-            .replace(/[\[\?!]]/g, '')
-            .replace(/^\||\|$/g, '');
+        .replace(/\(.+?\)/g, '')
+        .replace(/第.+?(章|话) ?-?/g, '|')
+        .replace(/\| {1,}| {1,}\|/g, '|')
+        .replace(/(\|){1,}/g, '|')
+        .replace(/[\[\?!]]/g, '')
+        .replace(/^\||\|$/g, '');
 }
+
 function r(c) {
     return c.replace(/（/g, '(').replace(/）/g, ')').replace(/｜/g, '|').replace(/？/g, '?').replace(/！/g, '!');
 }
+
 function colorCode(d) {
     var str = Array.from(d.toString().replace('#', ''));
     if (str.length != 6) {
@@ -2395,15 +2534,16 @@ function colorCode(d) {
         return true;
     }
 }
+
 function normalizeColorCode(color) {
-  let hex = String(color || '000000').replace(/^#/, '').toLowerCase();
-  if (/^[0-9a-f]{3}$/.test(hex)) {
-    return hex.split('').map(c => c + c).join('');
-  }
-  if (/^[0-9a-f]$/.test(hex)) {
-    return hex.repeat(6);
-  }
-  return hex.padEnd(6, '0').slice(0, 6);
+    let hex = String(color || '000000').replace(/^#/, '').toLowerCase();
+    if (/^[0-9a-f]{3}$/.test(hex)) {
+        return hex.split('').map(c => c + c).join('');
+    }
+    if (/^[0-9a-f]$/.test(hex)) {
+        return hex.repeat(6);
+    }
+    return hex.padEnd(6, '0').slice(0, 6);
 }
 String.prototype.sub = function(c) {
     return `‘‘’’<sub><small><font color=#${normalizeColorCode(c)}>${this}</font></small></sub>`;
@@ -2456,51 +2596,67 @@ String.prototype.strongR = function(c) {
 String.prototype.ssR = function(c) {
     return `<strong><small><font color=#${normalizeColorCode(c)}>${this}</font></small></strong>`;
 };
+
 function sub(d, c) {
     return '‘‘’’<sub><small><font color=#' + normalizeColorCode(c) + '>' + d + '</font></small></sub>';
 }
+
 function subR(d, c) {
     return '<sub><small><font color=#' + normalizeColorCode(c) + '>' + d + '</font></small></sub>';
-}  
+}
+
 function sup(d, c) {
     return '‘‘’’<sup><small><font color=#' + normalizeColorCode(c) + '>' + d + '</font></small></sup>';
 }
+
 function supR(d, c) {
     return '<sup><small><font color=#' + normalizeColorCode(c) + '>' + d + '</font></small></sup>';
 }
+
 function ss(d, c) {
     return '‘‘’’<strong><small><font color=#' + normalizeColorCode(c) + '>' + d + '</font></small></strong>';
 }
+
 function ssR(d, c) {
     return '<strong><small><font color=#' + normalizeColorCode(c) + '>' + d + '</font></small></strong>';
 }
+
 function sb(d, c) {
     return '‘‘’’<strong><big><font color=#' + normalizeColorCode(c) + '>' + d + '</font></big></strong>';
 }
+
 function sbR(d, c) {
     return '<strong><big><font color=#' + normalizeColorCode(c) + '>' + d + '</font></big></strong>';
 }
+
 function color(d, c) {
     return '‘‘’’<font color=#' + normalizeColorCode(c) + '>' + d + '</font>';
 }
+
 function colorR(d, c) {
     return '<font color=#' + normalizeColorCode(c) + '>' + d + '</font>';
 }
+
 function small(d, c) {
     return '‘‘’’<small><font color=#' + normalizeColorCode(c) + '>' + d + '</font></small>';
 }
+
 function smallR(d, c) {
     return '<small><font color=#' + normalizeColorCode(c) + '>' + d + '</font></small>';
 }
+
 function big(d, c) {
     return '‘‘’’<big><font color=#' + normalizeColorCode(c) + '>' + d + '</font></big>';
 }
+
 function bigR(d, c) {
     return '<big><font color=#' + normalizeColorCode(c) + '>' + d + '</font></big>';
 }
+
 function strong(d, c) {
     return '‘‘’’<strong><font color=#' + normalizeColorCode(c) + '>' + d + '</font></strong>';
 }
+
 function strongR(d, c) {
     return '<strong><font color=#' + normalizeColorCode(c) + '>' + d + '</font></strong>';
 }
@@ -2525,8 +2681,8 @@ function fy(s) {
             var s = strTmp + ' ' + list[k];
             if (s.length > 45) {
                 break
-            }else{
-                strTmp=strTmp + ' ' + list[k];
+            } else {
+                strTmp = strTmp + ' ' + list[k];
             }
         }
         urls.push({
@@ -2579,6 +2735,7 @@ function JTPYStr() {
 function FTPYStr() {
     return '呑嫰脫獃內婬盪與徵脳闆傢锺隻澹駡勐鬆綉髒鑽牆髮馀讚製豔慾氾籤姦噁妳姪佔訳発絶舖係甦僱迴僕裡錒皚藹礙愛噯嬡璦曖靄諳銨鵪骯襖奧媼驁鰲壩罷鈀擺敗唄頒辦絆鈑幫綁鎊謗剝飽寶報鮑鴇齙輩貝鋇狽備憊鵯賁錛繃筆畢斃幣閉蓽嗶潷鉍篳蹕邊編貶變辯辮芐緶籩標驃颮飆鏢鑣鰾鱉別癟瀕濱賓擯儐繽檳殯臏鑌髕鬢餅稟撥缽鉑駁餑鈸鵓補鈽財參蠶殘慚慘燦驂黲蒼艙倉滄廁側冊測惻層詫鍤儕釵攙摻蟬饞讒纏鏟產闡顫囅諂讖蕆懺嬋驏覘禪鐔場嘗長償腸廠暢倀萇悵閶鯧鈔車徹硨塵陳襯傖諶櫬磣齔撐稱懲誠騁棖檉鋮鐺癡遲馳恥齒熾飭鴟沖衝蟲寵銃疇躊籌綢儔幬讎櫥廚鋤雛礎儲觸處芻絀躕傳釧瘡闖創愴錘綞純鶉綽輟齪辭詞賜鶿聰蔥囪從叢蓯驄樅湊輳躥竄攛錯銼鹺達噠韃帶貸駘紿擔單鄲撣膽憚誕彈殫賧癉簞當擋黨蕩檔讜碭襠搗島禱導盜燾燈鄧鐙敵滌遞締糴詆諦綈覿鏑顛點墊電巔鈿癲釣調銚鯛諜疊鰈釘頂錠訂鋌丟銩東動棟凍崠鶇竇犢獨讀賭鍍瀆櫝牘篤黷鍛斷緞籪兌隊對懟鐓噸頓鈍燉躉奪墮鐸鵝額訛惡餓諤堊閼軛鋨鍔鶚顎顓鱷誒兒爾餌貳邇鉺鴯鮞發罰閥琺礬釩煩販飯訪紡鈁魴飛誹廢費緋鐨鯡紛墳奮憤糞僨豐楓鋒風瘋馮縫諷鳳灃膚輻撫輔賦復負訃婦縛鳧駙紱紼賻麩鮒鰒釓該鈣蓋賅桿趕稈贛尷搟紺岡剛鋼綱崗戇鎬睪誥縞鋯擱鴿閣鉻個紇鎘潁給亙賡綆鯁龔宮鞏貢鉤溝茍構購夠詬緱覯蠱顧詁轂鈷錮鴣鵠鶻剮掛鴰摑關觀館慣貫詿摜鸛鰥廣獷規歸龜閨軌詭貴劊匭劌媯檜鮭鱖輥滾袞緄鯀鍋國過堝咼幗槨蟈鉿駭韓漢闞絎頡號灝顥閡鶴賀訶闔蠣橫轟鴻紅黌訌葒閎鱟壺護滬戶滸鶘嘩華畫劃話驊樺鏵懷壞歡環還緩換喚瘓煥渙奐繯鍰鯇黃謊鰉揮輝毀賄穢會燴匯諱誨繪詼薈噦澮繢琿暉葷渾諢餛閽獲貨禍鈥鑊擊機積饑跡譏雞績緝極輯級擠幾薊劑濟計記際繼紀訐詰薺嘰嚌驥璣覬齏磯羈蠆躋霽鱭鯽夾莢頰賈鉀價駕郟浹鋏鎵蟯殲監堅箋間艱緘繭檢堿鹼揀撿簡儉減薦檻鑒踐賤見鍵艦劍餞漸濺澗諫縑戔戩瞼鶼筧鰹韉將漿蔣槳獎講醬絳韁膠澆驕嬌攪鉸矯僥腳餃繳絞轎較撟嶠鷦鮫階節潔結誡屆癤頜鮚緊錦僅謹進晉燼盡勁荊莖巹藎饉縉贐覲鯨驚經頸靜鏡徑痙競凈剄涇逕弳脛靚糾廄舊鬮鳩鷲駒舉據鋸懼劇詎屨櫸颶鉅鋦窶齟鵑絹錈鐫雋覺決絕譎玨鈞軍駿皸開凱剴塏愾愷鎧鍇龕閌鈧銬顆殼課騍緙軻鈳錁頷墾懇齦鏗摳庫褲嚳塊儈鄶噲膾寬獪髖礦曠況誆誑鄺壙纊貺虧巋窺饋潰匱蕢憒聵簣閫錕鯤擴闊蠐蠟臘萊來賴崍徠淶瀨賚睞錸癩籟藍欄攔籃闌蘭瀾讕攬覽懶纜爛濫嵐欖斕鑭襤瑯閬鋃撈勞澇嘮嶗銠鐒癆樂鰳鐳壘類淚誄縲籬貍離鯉禮麗厲勵礫歷瀝隸儷酈壢藶蒞蘺嚦邐驪縭櫪櫟轢礪鋰鸝癘糲躒靂鱺鱧倆聯蓮連鐮憐漣簾斂臉鏈戀煉練蘞奩瀲璉殮褳襝鰱糧涼兩輛諒魎療遼鐐繚釕鷯獵臨鄰鱗凜賃藺廩檁轔躪齡鈴靈嶺領綾欞蟶鯪餾劉瀏騮綹鎦鷚龍聾嚨籠壟攏隴蘢瀧瓏櫳朧礱樓婁摟簍僂蔞嘍嶁鏤瘺耬螻髏蘆盧顱廬爐擄鹵虜魯賂祿錄陸壚擼嚕閭瀘淥櫨櫓轤輅轆氌臚鸕鷺艫鱸巒攣孿灤亂臠孌欒鸞鑾掄輪倫侖淪綸論圇蘿羅邏鑼籮騾駱絡犖玀濼欏腡鏍驢呂鋁侶屢縷慮濾綠櫚褸鋝嘸媽瑪碼螞馬罵嗎嘜嬤榪買麥賣邁脈勱瞞饅蠻滿謾縵鏝顙鰻貓錨鉚貿麼沒鎂門悶們捫燜懣鍆錳夢瞇謎彌覓冪羋謐獼禰綿緬澠靦黽廟緲繆滅憫閩閔緡鳴銘謬謨驀饃歿鏌謀畝鉬吶鈉納難撓腦惱鬧鐃訥餒內擬膩鈮鯢攆輦鯰釀鳥蔦裊聶嚙鑷鎳隉蘗囁顢躡檸獰寧擰濘苧嚀聹鈕紐膿濃農儂噥駑釹諾儺瘧歐鷗毆嘔漚謳慪甌盤蹣龐拋皰賠轡噴鵬紕羆鈹騙諞駢飄縹頻貧嬪蘋憑評潑頗釙撲鋪樸譜鏷鐠棲臍齊騎豈啟氣棄訖蘄騏綺榿磧頎頏鰭牽釬鉛遷簽謙錢鉗潛淺譴塹僉蕁慳騫繾槧鈐槍嗆墻薔強搶嬙檣戧熗錆鏘鏹羥蹌鍬橋喬僑翹竅誚譙蕎繰磽蹺竊愜鍥篋欽親寢鋟輕氫傾頃請慶撳鯖瓊窮煢蛺巰賕蟣鰍趨區軀驅齲詘嶇闃覷鴝顴權勸詮綣輇銓卻鵲確闋闕愨讓饒擾繞蕘嬈橈熱韌認紉飪軔榮絨嶸蠑縟銣顰軟銳蜆閏潤灑薩颯鰓賽傘毿糝喪騷掃繅澀嗇銫穡殺剎紗鎩鯊篩曬釃刪閃陜贍繕訕姍騸釤鱔墑傷賞坰殤觴燒紹賒攝懾設厙灄畬紳審嬸腎滲詵諗瀋聲繩勝師獅濕詩時蝕實識駛勢適釋飾視試謚塒蒔弒軾貰鈰鰣壽獸綬樞輸書贖屬術樹豎數攄紓帥閂雙誰稅順說碩爍鑠絲飼廝駟緦鍶鷥聳慫頌訟誦擻藪餿颼鎪蘇訴肅謖穌雖隨綏歲誶孫損筍蓀猻縮瑣鎖嗩脧獺撻闥鉈鰨臺態鈦鮐攤貪癱灘壇譚談嘆曇鉭錟頇湯燙儻餳鐋鏜濤絳討韜鋱騰謄銻題體屜緹鵜闐條糶齠鰷貼鐵廳聽烴銅統慟頭鈄禿圖釷團摶頹蛻飩脫鴕馱駝橢籜鼉襪媧膃彎灣頑萬紈綰網輞韋違圍為濰維葦偉偽緯謂衛諉幃闈溈潿瑋韙煒鮪溫聞紋穩問閿甕撾蝸渦窩臥萵齷嗚鎢烏誣無蕪吳塢霧務誤鄔廡憮嫵騖鵡鶩錫犧襲習銑戲細餼鬩璽覡蝦轄峽俠狹廈嚇硤鮮纖賢銜閑顯險現獻縣餡羨憲線莧薟蘚峴獫嫻鷴癇蠔秈躚廂鑲鄉詳響項薌餉驤緗饗蕭囂銷曉嘯嘵瀟驍綃梟簫協挾攜脅諧寫瀉謝褻擷紲纈鋅釁興陘滎兇洶銹繡饈鵂虛噓須許敘緒續詡頊軒懸選癬絢諼鉉鏇學謔澩鱈勛詢尋馴訓訊遜塤潯鱘壓鴉鴨啞亞訝埡婭椏氬閹煙鹽嚴巖顏閻艷厭硯彥諺驗厴贗儼兗讞懨閆釅魘饜鼴鴦楊揚瘍陽癢養樣煬瑤搖堯遙窯謠藥軺鷂鰩爺頁業葉靨謁鄴曄燁醫銥頤遺儀蟻藝億憶義詣議誼譯異繹詒囈嶧飴懌驛縊軼貽釔鎰鐿瘞艤蔭陰銀飲隱銦癮櫻嬰鷹應纓瑩螢營熒蠅贏穎塋鶯縈鎣攖嚶瀅瀠瓔鸚癭頦罌喲擁傭癰踴詠鏞優憂郵鈾猶誘蕕銪魷輿魚漁娛與嶼語獄譽預馭傴俁諛諭蕷崳飫閾嫗紆覦歟鈺鵒鷸齬鴛淵轅園員圓緣遠櫞鳶黿約躍鑰粵悅閱鉞鄖勻隕運蘊醞暈韻鄆蕓惲慍紜韞殞氳雜災載攢暫贊瓚趲鏨贓臟駔鑿棗責擇則澤賾嘖幘簀賊譖贈綜繒軋鍘閘柵詐齋債氈盞斬輾嶄棧戰綻譫張漲帳賬脹趙詔釗蟄轍鍺這謫輒鷓貞針偵診鎮陣湞縝楨軫賑禎鴆掙睜猙爭幀癥鄭證諍崢鉦錚箏織職執紙摯擲幟質滯騭櫛梔軹輊贄鷙螄縶躓躑觶鐘終種腫眾鍾謅軸皺晝驟紂縐豬諸誅燭矚囑貯鑄駐佇櫧銖專磚轉賺囀饌顳樁莊裝妝壯狀錐贅墜綴騅縋諄準著濁諑鐲茲資漬諮緇輜貲眥錙齜鯔蹤總縱傯鄒諏騶鯫詛組鏃鉆纘躦鱒翺並蔔沈醜澱叠鬥範幹臯矽櫃後夥稭傑訣誇裏淩麽黴撚淒扡聖屍擡塗窪餵汙鍁鹹蠍彜湧遊籲禦願嶽雲竈紮劄築於誌註雕訁譾郤氹阪壟堖垵墊檾蕒葤蓧蒓菇槁摣咤唚哢噝噅撅劈謔襆嶴脊仿僥獁麅餘餷饊饢楞怵懍爿漵灩溷濫瀦淡寧糸絝緔瑉梘棬案橰櫫軲軤賫膁腖飈煳煆溜湣渺碸滾瞘鈈鉕鋣銱鋥鋶鐦';
 }
+
 function data_xchina() {
     var data = `var cvideo = [
     [{
@@ -3240,5 +3397,5 @@ var sort2_torrent = [{
     name: '下载最多',
     url: '/sort-read'
 }];`;
-return data;
+    return data;
 }
