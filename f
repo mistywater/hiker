@@ -608,7 +608,7 @@ function bcLongClick() {
     return [{
         title: '背景色样式',
         js: $.toString(() => {
-            var 类型 = ["深色模式", "浅色模式", "浅色白字模式", "清除"];
+            var Type = ["深色模式", "浅色模式", "浅色白字模式", "清除"];
             if (getItem('darkMode')) {
                 var index = 类型.indexOf(getItem('darkMode'));
                 类型[index] = '👉' + getItem('darkMode');
@@ -1375,7 +1375,7 @@ function jinman(picUrl) {
     }, picUrl);
 }
 
-function extraPic(host, page, pages, ctype, hiker, _chchePath) {
+function extraPic(host, page, pages, ctype, hiker, _chchePath) {if(!_chchePath) _chchePath='';
     if (!ctype) var ctype = '';
     if (!hiker || hiker == '') var hiker = '1';
     var 类型 = ["movie_1", "movie_2", "movie_3", "movie_3_marquee", "pic_1", "pic_2", "pic_3", "pic_1_full", "pic_1_center", "pic_1_card", "pic_2_card", "pic_3_square", "card_pic_1", "card_pic_2", "card_pic_3", "avatar", "card_pic_3_center", "icon_1_left_pic"];
@@ -1640,7 +1640,7 @@ function hexStringToBytes(cipherText) {
     }
 }
 
-function pageMoveto(host, page, ctype, pages, _chchePath) {
+function pageMoveto(host, page, ctype, pages, _chchePath) {if(!_chchePath) _chchePath='';
     if (!ctype) {
         var ctype = '';
     }
