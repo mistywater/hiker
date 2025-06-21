@@ -1,4 +1,7 @@
 js:
+function safePath(str) {
+  return String(str).replace(/[<>:"|?*\/\\]/g, '_');
+}
 function getdTemp(d, dTemp, path) {
             return $.toString((d, dTemp, path) => {
                 d = JSON.parse(fetch(_chchePath) || '[]');
