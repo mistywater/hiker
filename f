@@ -1,4 +1,16 @@
 js:
+function getdTemp(d, dTemp, path) {
+            return $.toString((d, dTemp, path) => {
+                d = JSON.parse(fetch(_chchePath) || '[]');
+                if (d.length != 0) {
+                    if (MY_RULE.title == '聚阅' && d[0].title == '🔍' && !/sarr|google|baidu/.test(d[0].url)) {
+                        d.splice(0, 1);
+                    }
+                    dTemp = d.concat(dTemp);
+                    return dTemp;
+                }
+            }, d, dTemp, path);
+        }
 function getHtml(url, headers, mode) {
     let html = getMyVar(url);
     if (!html) {
