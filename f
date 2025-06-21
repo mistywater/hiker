@@ -2,7 +2,7 @@ js:
 function safePath(str) {
   return String(str).replace(/[<>:"|?*\/\\]/g, '_');
 }
-function getdTemp(d, dTemp, path) {
+function getdTemp(d, dTemp, _chchePath) {
     d = JSON.parse(fetch(_chchePath) || "[]");
     if (d.length != 0) {
         if (MY_RULE.title == "\u805a\u9605" && d[0].title == "\ud83d\udd0d" && !/sarr|google|baidu/.test(d[0].url)) {
