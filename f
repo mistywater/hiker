@@ -13,7 +13,7 @@ function getdTemp(d, dTemp, _chchePath) {
         }
         dTemp = d.concat(dTemp);log(dTemp);
     }
-    return dTemp;
+    return dTemp.slice();
 }
 function getHtml(url, headers, mode) {
     let html = getMyVar(url);
