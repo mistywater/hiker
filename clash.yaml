@@ -2952,7 +2952,7 @@ rules:
  - DOMAIN-SUFFIX,foreignaffairs.com,✈️国外站点
  - DOMAIN-SUFFIX,foreignpolicy.com,✈️国外站点
  - DOMAIN-SUFFIX,forum4hk.com,✈️国外站点
- - DOMAIN-SUFFIX,forums.e-hentai.org,✈️国外站点
+ - DOMAIN-SUFFIX,e-hentai.org,✈️国外站点
  - DOMAIN-SUFFIX,forums-free.com,✈️国外站点
  - DOMAIN-SUFFIX,fotile.me,✈️国外站点
  - DOMAIN-SUFFIX,fourthinternational.org,✈️国外站点
@@ -8818,6 +8818,7 @@ rules:
  - DOMAIN-KEYWORD,appsflyer,🛑 拦截广告
  - DOMAIN-KEYWORD,appzapp,🇨🇳 国内网站
  - DOMAIN-KEYWORD,avoddashs,✈️国外站点
+ - DOMAIN-KEYWORD,alicesw,✈️国外站点
  - DOMAIN-KEYWORD,baidupcs,🇨🇳 国内网站
  - DOMAIN-KEYWORD,bbcfmt,✈️国外站点
  - DOMAIN-KEYWORD,bilibili,🇨🇳 国内网站
