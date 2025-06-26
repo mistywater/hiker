@@ -441,19 +441,42 @@ function imgCloudStorage(link) {
 }
 
 function sourceJump(d, arr, blank) {
-    let info = storage0.getMyVar('一级源接口信息');
+    let info = storage0.getMyVar('一级源接口信息')||jkdata;
     arr.forEach((item, index) => {
         d.push({
             title: item.split('@')[0].replace(/H-|✈️|🔞|🐹/g, ''),
             url: $('#noLoading#').lazyRule((item) => {
-                let configPath = 'hiker://files/rules/Src/Ju/config.json';
-                let html = fetchPC(configPath);
-                let stype = item.split('@')[1];
-                let sname = item.split('@')[0];
-                if (html) {
-                    html = html.replace(/"runMode":".*?"/, `"runMode":"${stype}"`)
-                        .replace(new RegExp(`${stype}sourcename.*?,`), `${stype}sourcename":"${sname}",`);
-                    writeFile(configPath, html);
+                if (MY_RULE.title != '聚阅') {
+                    let configPath = 'hiker://files/rules/Src/Ju/config.json';
+                    let html = fetchPC(configPath);
+                    let stype = item.split('@')[1];
+                    let sname = item.split('@')[0];
+                    if (html) {
+                        html = html.replace(/"runMode":".*?"/, `"runMode":"${stype}"`)
+                            .replace(new RegExp(`${stype}sourcename.*?,`), `${stype}sourcename":"${sname}",`);
+                        writeFile(configPath, html);
+                    }
+                } else {
+                    let pathConfig = 'hiker://files/rules/Src/Juyue/config.json';
+                    let jsonConfig = JSON.parse(fetch(pathConfig));
+                    let stype = item.split('@')[1];
+                    let sname = item.split('@')[0];
+                    let pathJiekou = 'hiker://files/rules/Src/Juyue/jiekou.json';
+                    let jsonJiekou = JSON.parse(fetch(pathJiekou));
+                    for (let json of jsonJiekou) {
+                        if (json.name == sname) {
+                            var id = json.id;
+                            break;
+                        } else {
+                            id = '';
+                        }
+                    }
+                    if (jsonConfig) {
+                        jsonConfig.homeGroup = stype;
+                        jsonConfig.homeSourceS[stype].name = sname;
+                        jsonConfig.homeSourceS[stype].id = id;
+                        writeFile(pathConfig, JSON.stringify(jsonConfig));
+                    }
                 }
                 refreshPage();
                 return 'hiker://empty';
@@ -471,7 +494,6 @@ function sourceJump(d, arr, blank) {
     }
     return d;
 }
-
 function cfl(str) {
     return str.replace(/\w\S*/g, function(word) {
         return word.charAt(0) + word.slice(1).toLowerCase();
