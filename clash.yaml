@@ -109,6 +109,7 @@ proxy-groups:
       - DIRECT
       - 🔰 选择节点
 rules:
+ - DOMAIN-SUFFIX,sw20250101.click,✈️国外站点
  - DOMAIN-SUFFIX,情侣自拍图库.com,DIRECT
  - DOMAIN-SUFFIX,hotlinkprotect.com,✈️国外站点
  - DOMAIN-KEYWORD,zipaipic,DIRECT
