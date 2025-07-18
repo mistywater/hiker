@@ -197,7 +197,11 @@ function parseUrlVideo(url, 依赖) {
             } else if (json.encrypt == '2') {
                 url_t = unescape(base64Decode(url_t));
             }
-            url = 'video://' + url;
+            if(/\.m3u8|\.mp4/.test(url_t)){
+                 url = url_t;
+            }else{
+                url = 'video://' + url;
+            }
         } else {
             url = 'video://' + url;
         }
