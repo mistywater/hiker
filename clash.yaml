@@ -17,21 +17,12 @@ proxy-providers:
   go4sharing:
     url: https://ghproxy.net/https://raw.githubusercontent.com/go4sharing/sub/main/sub.yaml
     <<: *p
-  ku:
-    url: https://ghproxy.net/https://raw.githubusercontent.com/mistywater/hiker/refs/heads/main/ku.yaml
+  123:
+    url: https://down.nigx.cn/raw.githubusercontent.com/dongchengjie/airport/main/subs/merged/tested_within.yaml
     <<: *p
-#  🏊🏻‍♂️:
-#    url: https://down.nigx.cn/raw.githubusercontent.com/dongchengjie/airport/main/subs/merged/tested_within.yaml
-#    <<: *p
-#    override:
-#      additional-prefix: "🚫测速"
-#      additional-suffix: "🚫流量"
-#  🔥:
-#    url: https://igdux.top/~Clash
-#    <<: *p
-#    override:
-#      additional-prefix: "🚫测速"
-#      additional-suffix: "🚫流量"
+    override:
+      additional-prefix: ""
+      additional-suffix: ""
 hosts:
   time.facebook.com: 17.253.84.125
   time.android.com: 17.253.84.125
@@ -89,17 +80,24 @@ proxies:
   - {name: 移动4g专用01|805, server: 183.238.90.8, port: 41766, client-fingerprint: chrome, type: vmess, uuid: 418048af-a293-4b99-9b0c-98ca3580dd24, alterId: 64, cipher: auto, tls: false, tfo: false, skip-cert-verify: false}
   - {name: 移动4g专用01|839, server: 183.238.90.8, port: 46920, client-fingerprint: chrome, type: vmess, uuid: 418048af-a293-4b99-9b0c-98ca3580dd24, alterId: 64, cipher: auto, tls: false, tfo: false, skip-cert-verify: false}
   - {name: 移动4g专用03|102, server: 120.210.205.134, port: 47459, client-fingerprint: chrome, type: vmess, uuid: 83a424d8-4bcb-4cee-b016-2c8f1db4a921, alterId: 64, cipher: auto, tls: false, tfo: false, skip-cert-verify: false}
+  - {name: proxy-34l.pages.dev, server: www.visa.com.sg, port: 8443, client-fingerprint: random, type: vless, uuid: 40af9131-d540-448a-bc56-5bba147a1dc3, tls: true, tfo: false, skip-cert-verify: false, servername: proxy-34l.pages.dev, network: ws, ws-opts: {path: "/?ed=2560", headers: {Host: proxy-34l.pages.dev}}}
+  - {name: proxy-1cu.pages.dev, server: www.visa.com.sg, port: 8443, client-fingerprint: random, type: vless, uuid: 40af9131-d540-448a-bc56-5bba147a1dc3, tls: true, tfo: false, skip-cert-verify: false, servername: proxy-1cu.pages.dev, network: ws, ws-opts: {path: "/?ed=2560", headers: {Host: proxy-1cu.pages.dev}}}
+  - {name: proxy-3us.pages.dev, server: www.visa.com.sg, port: 8443, client-fingerprint: random, type: vless, uuid: 40af9131-d540-448a-bc56-5bba147a1dc3, tls: true, tfo: false, skip-cert-verify: false, servername: proxy-3us.pages.dev, network: ws, ws-opts: {path: "/?ed=2560", headers: {Host: proxy-3us.pages.dev}}}
+
 proxy-groups:
   # ============= 原有策略组（保持完全不变）=============
-  - { name: "🔰 选择节点", type: select, proxies: [DIRECT,免费-日本节点-qq, 免费-日本节点,移动4g专用,✈️国外站点,⚓国外站点非日本IP,新加坡节点,香港节点,台湾节点]}
-  - { name: "✈️国外站点", type: fallback, interval: 60, tolerance: 500,timeout: 3000, url: "http://www.gstatic.com/generate_204", proxies: [免费-日本节点-qq,免费-日本节点,新加坡节点,香港节点,台湾节点,⚓国外站点非日本IP] }
-  - { name: "⚓国外站点非日本IP", type: fallback, interval: 60, tolerance: 500,timeout: 3000, url: "http://www.gstatic.com/generate_204",proxies: [香港节点,新加坡节点,台湾节点,移动4g专用] }
+  - { name: "🔰 选择节点", type: select, proxies: [DIRECT,免费-日本节点-qq, 免费-日本节点,移动4g专用,✈️国外站点,⚓国外站点非日本IP,中国节点,美国节点,新加坡节点,香港节点,台湾节点]}
+  - { name: "✈️国外站点", type: fallback, interval: 60, tolerance: 500,timeout: 3000, url: "http://www.gstatic.com/generate_204", proxies: [visa,中国节点,美国节点,免费-日本节点-qq,免费-日本节点,新加坡节点,香港节点,台湾节点,⚓国外站点非日本IP] }
+  - { name: "⚓国外站点非日本IP", type: fallback, interval: 60, tolerance: 500,timeout: 3000, url: "http://www.gstatic.com/generate_204",proxies: [visa,中国节点,美国节点,香港节点,新加坡节点,台湾节点,移动4g专用] }
+  - { name: "visa", type: fallback, interval: 60, tolerance: 500,timeout: 3000, url: "http://www.gstatic.com/generate_204",proxies: [ proxy-3us.pages.dev,proxy-34l.pages.dev,proxy-1cu.pages.dev] }
   - { name: "移动4g专用", type: fallback, interval: 60, tolerance: 500,timeout: 3000, url: "http://www.gstatic.com/generate_204",proxies: [移动4g专用02|918,移动4g专用02|894,移动4g专用01|805,移动4g专用01|839,移动4g专用03|102] }
   - { name: "免费-日本节点", type: fallback, interval: 60, tolerance: 500,timeout: 3000, url: "http://www.gstatic.com/generate_204",proxies: [🇯🇵 免费-日本1-Ver.6, 🇯🇵 免费-日本2-Ver.7, 🇯🇵 免费-日本3-Ver.6, 🇯🇵 免费-日本4-Ver.7, 🇯🇵 免费-日本5-Ver.8, 🇯🇵 免费-日本6-Ver.7, 🇯🇵 免费-日本7-Ver.1] }
   - { name: "免费-日本节点-qq", type: fallback, interval: 60, tolerance: 500,timeout: 3000, url: "http://www.gstatic.com/generate_204",proxies: [🇯🇵 免费-日本1-qq, 🇯🇵 免费-日本2-qq, 🇯🇵 免费-日本3-qq, 🇯🇵 免费-日本4-qq, 🇯🇵 免费-日本5-qq, 🇯🇵 免费-日本6-qq, 🇯🇵 免费-日本7-qq] }
-  - {name: 新加坡节点, <<: *fallback, filter: "🇸🇬|新加坡|狮|SG|Singapore", icon: https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
-  - {name: 香港节点, <<: *fallback, filter: "香港|HK", icon: https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
-  - {name: 台湾节点, <<: *fallback, filter: "台湾", icon: https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
+  - { name: 新加坡节点, <<: *fallback, filter: "🇸🇬|新加坡|狮|SG|Singapore", icon: https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
+  - { name: 香港节点, <<: *fallback, filter: "香港|HK", icon: https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
+  - { name: 台湾节点, <<: *fallback, filter: "台湾", icon: https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
+  - { name: 美国节点, <<: *fallback, filter: "美国", icon: https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
+  - { name: 中国节点, <<: *fallback, filter: "中国", icon: https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
   - name: 🇨🇳 国内网站
     type: select
     proxies:
@@ -112,6 +110,7 @@ proxy-groups:
       - DIRECT
       - 🔰 选择节点
 rules:
+ - DOMAIN-SUFFIX,cool18.com,✈️国外站点
  - DOMAIN-SUFFIX,knvod.com,DIRECT
  - DOMAIN-SUFFIX,sw20250101.click,✈️国外站点
  - DOMAIN-SUFFIX,情侣自拍图库.com,DIRECT
