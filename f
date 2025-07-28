@@ -1527,7 +1527,8 @@ function extraPic(host, page, pages, ctype, hiker, _chchePath) {if(!_chchePath) 
     }
     longClick.unshift({
         title: getItem(host + 'picsMode', '0') == 0 ? '漫画模式' : '图文模式',
-        js: $.toString((host) => {
+        js: $.toString((host,_chchePath) => {
+	    writeFile(_chchePath, '');
             if (getItem(host + 'picsMode', '0') == 0) {
                 setItem(host + 'picsMode', '1');
                 refreshPage(false);
@@ -1535,7 +1536,7 @@ function extraPic(host, page, pages, ctype, hiker, _chchePath) {if(!_chchePath) 
                 setItem(host + 'picsMode', '0');
                 refreshPage(false);
             }
-        }, host)
+        }, host,_chchePath)
     });
     var extra = $.toString((host, hiker, ctype, longClick) => ({
         chapterList: hiker ? 'hiker://files/_cache/chapterList.txt' : chapterList,
@@ -1794,7 +1795,8 @@ function pageMoveto(host, page, ctype, pages, _chchePath) {if(!_chchePath) _chch
     }
     longClick.unshift({
         title: getItem(host + 'picsMode', '0') == 0 ? '漫画模式' : '图文模式',
-        js: $.toString((host) => {
+        js: $.toString((host,_chchePath) => {
+	    writeFile(_chchePath, '');
             if (getItem(host + 'picsMode', '0') == 0) {
                 setItem(host + 'picsMode', '1');
                 refreshPage(false);
@@ -1802,7 +1804,7 @@ function pageMoveto(host, page, ctype, pages, _chchePath) {if(!_chchePath) _chch
                 setItem(host + 'picsMode', '0');
                 refreshPage(false);
             }
-        }, host)
+        }, host,_chchePath)
     });
     return {
         longClick: longClick
