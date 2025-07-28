@@ -109,6 +109,7 @@ rules:
  - DOMAIN-SUFFIX,sw20250101.click,✈️国外站点
  - DOMAIN-SUFFIX,情侣自拍图库.com,DIRECT
  - DOMAIN-SUFFIX,hotlinkprotect.com,✈️国外站点
+ - DOMAIN-KEYWORD,zipaippp,DIRECT
  - DOMAIN-KEYWORD,zipaipic,DIRECT
  - DOMAIN-SUFFIX,shinv.link,✈️国外站点
  - DOMAIN-SUFFIX,446m.com,✈️国外站点
