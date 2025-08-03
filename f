@@ -1264,10 +1264,10 @@ function lunbo(c) {
                     }
                 }, jkdata);
             } else {
-                var title = pdfh(c.indexbanner[n], c.title);
+                var title = pdfh(c.indexbanner[n], c.title)||getVar(c.host+'聚阅轮播title'+n,'');
                 if (!title) {
                     var html = fetchPC(pd(c.indexbanner[n], c.url, c.host));
-                    title = pdfh(html, c.title);
+                    title = pdfh(html, c.title);putVar(c.host+'聚阅轮播title'+n,title);
                 }
                 var item = toerji({
                     title: color(title, 'FF3399'),
