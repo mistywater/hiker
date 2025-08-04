@@ -1,4 +1,30 @@
 js:
+function getDarkColor() {
+            let hue;
+            do {
+                hue = Math.floor(Math.random() * 360);
+            } while (hue > 200 && hue < 260); // 跳过蓝色区间
+
+            const saturation = 80 + Math.floor(Math.random() * 20); // 饱和度80-100%
+            const lightness = 25 + Math.floor(Math.random() * 35); // 明度25-60%
+
+            // HSL转RGB
+            const c = (1 - Math.abs(2 * lightness / 100 - 1)) * saturation / 100;
+            const x = c * (1 - Math.abs(((hue / 60) % 2) - 1));
+            const m = lightness / 100 - c / 2;
+
+            let r, g, b;
+            if (hue < 60)[r, g, b] = [c, x, 0]; // 红-黄区间
+            else if (hue < 120)[r, g, b] = [x, c, 0]; // 黄-绿区间
+            else if (hue < 180)[r, g, b] = [0, c, x]; // 绿-青区间
+            else if (hue < 200)[r, g, b] = [0, x, c]; // 青区间（接近蓝）
+            else if (hue < 260)[r, g, b] = [x, 0, c]; // 这段不会执行
+            else [r, g, b] = [c, 0, x]; // 紫-红区间
+
+            // RGB转HEX
+            const toHex = (n) => Math.round((n + m) * 255).toString(16).padStart(2, '0');
+            return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
+        }
 function safePath(str) {
   return String(str).replace(/[<>:"|?*\/\\]/g, '_');
 }
@@ -650,7 +676,7 @@ function bcLongClick() {
     return [{
         title: '背景色样式',
         js: $.toString(() => {
-            var Type = ["深色模式", "浅色模式", "浅色白字模式", "清除"];
+            var 类型 = ["深色模式", "浅色模式", "浅色白字模式", "清除"];
             if (getItem('darkMode')) {
                 var index = 类型.indexOf(getItem('darkMode'));
                 类型[index] = '👉' + getItem('darkMode');
@@ -1316,7 +1342,7 @@ function clearM3u8(url, reg) {
 function ccc(title, ccc_) {
     ccc_ = ccc_ ? ccc_ : {
         fc: '#FFFFFF',
-        bc: '#FF435E',
+        bc: getDarkColor(),
     }
     return '‘‘’’<font color="' + ccc_.fc + '"><span style="background-color: ' + ccc_.bc + '">' + title + '</span></font>'
 }
