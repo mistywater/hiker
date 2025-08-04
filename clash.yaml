@@ -81,12 +81,11 @@ proxies:
 
 proxy-groups:
   # ============= 原有策略组（保持完全不变）=============
-  - { name: "🔰 选择节点", type: select, proxies: [DIRECT,免费-日本节点-qq, 免费-日本节点,✈️国外站点,⚓国外站点非日本IP,中国节点,美国节点,新加坡节点,香港节点,台湾节点]}
-  - { name: "✈️国外站点", type: fallback, interval: 60, tolerance: 500,timeout: 3000, url: "http://www.gstatic.com/generate_204", proxies: [免费-日本节点-qq,免费-日本节点,⚓国外站点非日本IP] }
+  - { name: "🔰 选择节点", type: select, proxies: [DIRECT, 免费-日本节点,✈️国外站点,⚓国外站点非日本IP,中国节点,美国节点,新加坡节点,香港节点,台湾节点]}
+  - { name: "✈️国外站点", type: fallback, interval: 60, tolerance: 500,timeout: 3000, url: "http://www.gstatic.com/generate_204", proxies: [免费-日本节点,⚓国外站点非日本IP] }
   - { name: "⚓国外站点非日本IP", type: fallback, interval: 60, tolerance: 500,timeout: 3000, url: "http://www.gstatic.com/generate_204",proxies: [新加坡节点,台湾节点,visa,中国节点,美国节点,香港节点] }
   - { name: "visa", type: fallback, interval: 60, tolerance: 500,timeout: 3000, url: "http://www.gstatic.com/generate_204",proxies: [ proxy-3us.pages.dev,proxy-34l.pages.dev,proxy-1cu.pages.dev] }
-  - { name: "免费-日本节点", type: fallback, interval: 60, tolerance: 500,timeout: 3000, url: "http://www.gstatic.com/generate_204",proxies: [🇯🇵 免费-日本1-Ver.6, 🇯🇵 免费-日本2-Ver.7, 🇯🇵 免费-日本3-Ver.6, 🇯🇵 免费-日本4-Ver.7, 🇯🇵 免费-日本5-Ver.8, 🇯🇵 免费-日本6-Ver.7, 🇯🇵 免费-日本7-Ver.1] }
-  - { name: "免费-日本节点-qq", type: fallback, interval: 60, tolerance: 500,timeout: 3000, url: "http://www.gstatic.com/generate_204",proxies: [🇯🇵 免费-日本1-qq, 🇯🇵 免费-日本2-qq, 🇯🇵 免费-日本3-qq, 🇯🇵 免费-日本4-qq, 🇯🇵 免费-日本5-qq, 🇯🇵 免费-日本6-qq, 🇯🇵 免费-日本7-qq] }
+  - { name: "免费-日本节点", type: fallback, interval: 60, tolerance: 500,timeout: 3000, url: "http://www.gstatic.com/generate_204",proxies: [🇯🇵 免费-日本1-Ver.6, 🇯🇵 免费-日本2-Ver.7, 🇯🇵 免费-日本3-Ver.6, 🇯🇵 免费-日本4-Ver.7, 🇯🇵 免费-日本5-Ver.8, 🇯🇵 免费-日本6-Ver.7, 🇯🇵 免费-日本7-Ver.1,🇯🇵 免费-日本1-qq, 🇯🇵 免费-日本2-qq, 🇯🇵 免费-日本3-qq, 🇯🇵 免费-日本4-qq, 🇯🇵 免费-日本5-qq, 🇯🇵 免费-日本6-qq, 🇯🇵 免费-日本7-qq] }
   - { name: 新加坡节点, <<: *fallback, filter: "🇸🇬|新加坡|狮|SG|Singapore", icon: https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
   - { name: 香港节点, <<: *fallback, filter: "香港|HK", icon: https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
   - { name: 台湾节点, <<: *fallback, filter: "台湾", icon: https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
@@ -7669,6 +7668,11 @@ rules:
  - DOMAIN-SUFFIX,u15.info,✈️国外站点
  - DOMAIN-SUFFIX,u9un.com,✈️国外站点
  - DOMAIN-SUFFIX,uaa.com,✈️国外站点
+ - DOMAIN-SUFFIX,uaa001.com,✈️国外站点
+ - DOMAIN-SUFFIX,uaa002.com,✈️国外站点
+ - DOMAIN-SUFFIX,uaa003.com,✈️国外站点
+ - DOMAIN-SUFFIX,uaa004.com,✈️国外站点
+ - DOMAIN-SUFFIX,uaa005.com,✈️国外站点
  - DOMAIN-SUFFIX,uaa202410.com,✈️国外站点
  - DOMAIN-SUFFIX,ub0.cc,✈️国外站点
  - DOMAIN-SUFFIX,ubddns.org,✈️国外站点
