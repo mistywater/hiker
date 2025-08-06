@@ -1237,13 +1237,17 @@ function lunbo(c) {
         }
         var k = c.indexbanner.length;
         var n = '0';
+        var lazy = '';
+        if (c.公共) {
+            lazy = $('').lazyRule(c.公共.解析, c.公共, '', c.公共.host);
+        }
         if (c.json == 1) {
             d.push({
                 title: color(c.indexbanner[n][c.title], 'FF3399'),
                 img: c.indexbanner[n][c.img],
                 col_type: 'card_pic_1',
                 desc: '0',
-                url: c.host + c.url.split('#')[1] + c.indexbanner[n][c.url.split('#')[0]],
+                url: c.host + c.url.split('#')[1] + c.indexbanner[n][c.url.split('#')[0]] + lazy,
                 extra: {
                     id: 'lunbo',
                     stype: c.type,
@@ -1261,7 +1265,7 @@ function lunbo(c) {
                 img: (!/##/.test(c.img) ? pd(c.indexbanner[n], c.img) : eval(c.img.replace('host', 'c.host').replace('indexbanner', 'c.indexbanner'))) + '@Referer=' + c.host,
                 col_type: 'card_pic_1',
                 desc: '0',
-                url: pd(c.indexbanner[n], c.url, c.host),
+                url: pd(c.indexbanner[n], c.url, c.host) + lazy,
                 extra: {
                     id: 'lunbo',
                     stype: c.type,
@@ -1275,36 +1279,43 @@ function lunbo(c) {
             type: c.type,
             name: c.name
         };
-        registerTask(id, time, $.toString((c, k, toerji, jkdata) => {
+        registerTask(id, time, $.toString((c, k, toerji, jkdata, 公共) => {
             rc(fc('https://gitee.com/mistywater/hiker_info/raw/master/githubproxy.json') + 'https://raw.githubusercontent.com/mistywater/hiker/main/f', 24);
             var n = getVar(c.host + 'n', '0');
+            var lazy = '';
+            if (公共) {
+                lazy = $('').lazyRule(公共.解析, 公共, '', 公共.host);
+            }
             if (c.json == 1) {
-                var item = toerji({
+                let dd = {
                     title: color(c.indexbanner[n][c.title], 'FF3399'),
                     img: c.indexbanner[n][c.img],
-                    url: c.host + c.url.split('#')[1] + c.indexbanner[n][c.url.split('#')[0]],
+                    url: c.host + c.url.split('#')[1] + c.indexbanner[n][c.url.split('#')[0]] + lazy,
                     extra: {
                         id: 'lunbo',
                         stype: c.type,
                         name: c.indexbanner[n][c.title],
                     }
-                }, jkdata);
+                };
+                var item = lazy ? toerji(dd, jkdata) : dd;
             } else {
-                var title = pdfh(c.indexbanner[n], c.title)||getVar(c.host+'聚阅轮播title'+n,'');
+                var title = pdfh(c.indexbanner[n], c.title) || getVar(c.host + '聚阅轮播title' + n, '');
                 if (!title) {
                     var html = fetchPC(pd(c.indexbanner[n], c.url, c.host));
-                    title = pdfh(html, c.title);putVar(c.host+'聚阅轮播title'+n,title);
+                    title = pdfh(html, c.title);
+                    putVar(c.host + '聚阅轮播title' + n, title);
                 }
-                var item = toerji({
+                let dd = {
                     title: color(title, 'FF3399'),
                     img: (!/##/.test(c.img) ? urla(pdfh(c.indexbanner[n], c.img), c.host) : eval(c.img.replace('host', 'c.host').replace('indexbanner', 'c.indexbanner'))) + '@Referer=' + c.host,
-                    url: urla(pdfh(c.indexbanner[n], c.url), c.host),
+                    url: urla(pdfh(c.indexbanner[n], c.url), c.host) + lazy,
                     extra: {
                         id: 'lunbo',
                         stype: c.type,
                         name: pdfh(c.indexbanner[n], c.title),
                     }
-                }, jkdata);
+                };
+                var item = lazy ? toerji(dd, jkdata) : dd;
             }
             updateItem('lunbo', item);
             if (n >= k - 1) {
@@ -1312,7 +1323,7 @@ function lunbo(c) {
             } else {
                 putVar(c.host + 'n', (parseInt(n) + 1) + '');
             }
-        }, c, k, toerji, jkdata));
+        }, c, k, toerji, jkdata, c.公共));
     }, c, toerji);
 }
 
