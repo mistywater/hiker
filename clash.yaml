@@ -61,6 +61,24 @@ dns:
     - tcp://223.5.5.5
     - tcp://223.6.6.6
 proxies:
+  - {name: "🇭🇰 香港_米哈游专线_安柏的麻花辫, 延迟: 202.225469ms", server: awes35lesl.blhao0o.dpdns.org, port: 12006, type: ss, cipher: aes-128-gcm, password: 01721e43-5389-4f97-b21c-900abb2bda9e, udp: true}
+  - {name: "🇭🇰 香港_原神专线_云堇的避孕套, 延迟: 209.893333ms", server: awes35lesl.blhao0o.dpdns.org, port: 12003, type: ss, cipher: aes-128-gcm, password: 01721e43-5389-4f97-b21c-900abb2bda9e, udp: true}
+  - {name: "🇭🇰 香港_腾讯云专线_多莉的黑丝, 延迟: 215.218229ms", server: awes35lesl.blhao0o.dpdns.org, port: 12002, type: ss, cipher: aes-128-gcm, password: 01721e43-5389-4f97-b21c-900abb2bda9e, udp: true}
+  - {name: "🇭🇰 香港_优刻得专线_莱依拉的麻花辫, 延迟: 227.567344ms", server: awes35lesl.blhao0o.dpdns.org, port: 12005, type: ss, cipher: aes-128-gcm, password: 01721e43-5389-4f97-b21c-900abb2bda9e, udp: true}
+  - {name: "🇭🇰 香港_阿里云专线_卡齐娜的高玩, 延迟: 228.948281ms", server: awes35lesl.blhao0o.dpdns.org, port: 12008, type: ss, cipher: aes-128-gcm, password: 01721e43-5389-4f97-b21c-900abb2bda9e, udp: true}
+  - {name: "🇭🇰 香港_华为云专线_安柏的手榴弹, 延迟: 244.708177ms", server: awes35lesl.blhao0o.dpdns.org, port: 12008, type: ss, cipher: aes-128-gcm, password: 01721e43-5389-4f97-b21c-900abb2bda9e, udp: true}
+  - {name: "🇨🇳 台湾_原神专线_琴的奈子, 延迟: 252.006927ms", server: awes35lesl.blhao0o.dpdns.org, port: 12029, type: ss, cipher: aes-128-gcm, password: 01721e43-5389-4f97-b21c-900abb2bda9e, udp: true}
+  - {name: "🇭🇰 香港_原神专线_神里绫华的猫耳, 延迟: 264.261406ms", server: awes35lesl.blhao0o.dpdns.org, port: 12002, type: ss, cipher: aes-128-gcm, password: 01721e43-5389-4f97-b21c-900abb2bda9e, udp: true}
+  - {name: "🇨🇳 台湾_原神专线_玛薇卡的星穹, 延迟: 266.887813ms", server: awes35lesl.blhao0o.dpdns.org, port: 12034, type: ss, cipher: aes-128-gcm, password: 01721e43-5389-4f97-b21c-900abb2bda9e, udp: true}
+  - {name: "🇨🇳 台湾_崩铁专线_芭芭拉的白丝, 延迟: 269.327343ms", server: awes35lesl.blhao0o.dpdns.org, port: 12031, type: ss, cipher: aes-128-gcm, password: 01721e43-5389-4f97-b21c-900abb2bda9e, udp: true}
+  - {name: "🇸🇬 新加坡_原神专线_那维莱特的小脚, 延迟: 280.948802ms", server: awes35lesl.blhao0o.dpdns.org, port: 12022, type: ss, cipher: aes-128-gcm, password: 01721e43-5389-4f97-b21c-900abb2bda9e, udp: true}
+  - {name: "🇨🇳 台湾_IEPL专线_芙宁娜的猫耳, 延迟: 286.343593ms", server: awes35lesl.blhao0o.dpdns.org, port: 12033, type: ss, cipher: aes-128-gcm, password: 01721e43-5389-4f97-b21c-900abb2bda9e, udp: true}
+  - {name: "🇨🇳 台湾_米哈游专线_丽莎的阴蒂, 延迟: 288.914323ms", server: awes35lesl.blhao0o.dpdns.org, port: 12030, type: ss, cipher: aes-128-gcm, password: 01721e43-5389-4f97-b21c-900abb2bda9e, udp: true}
+  - {name: "🇨🇳 台湾_明懂砖线_卡齐娜的螺旋陀螺快准狠粉鸡鸡, 延迟: 292.21224ms", server: awes35lesl.blhao0o.dpdns.org, port: 12029, type: ss, cipher: aes-128-gcm, password: 01721e43-5389-4f97-b21c-900abb2bda9e, udp: true}
+  - {name: "🇸🇬 新加坡_米哈游专线_宵宫的星穹, 延迟: 292.690468ms", server: awes35lesl.blhao0o.dpdns.org, port: 12018, type: ss, cipher: aes-128-gcm, password: 01721e43-5389-4f97-b21c-900abb2bda9e, udp: true}
+  - {name: "🇨🇳 台湾_金融专线_芙宁娜的连体袜, 延迟: 296.073385ms", server: awes35lesl.blhao0o.dpdns.org, port: 12034, type: ss, cipher: aes-128-gcm, password: 01721e43-5389-4f97-b21c-900abb2bda9e, udp: true}
+  - {name: "🇭🇰 香港_优刻得专线_旱柚的白丝, 延迟: 297.060104ms", server: awes35lesl.blhao0o.dpdns.org, port: 12010, type: ss, cipher: aes-128-gcm, password: 01721e43-5389-4f97-b21c-900abb2bda9e, udp: true}
+  - {name: "🇯🇵 日本_原神专线_草神的螺旋陀螺快准狠粉鸡鸡, 延迟: 305.096406ms", server: awes35lesl.blhao0o.dpdns.org, port: 12014, type: ss, cipher: aes-128-gcm, password: 01721e43-5389-4f97-b21c-900abb2bda9e, udp: true}
   - {name: 🇯🇵 免费-日本1-qq, server: bq85h-g01.jp01-0986-vm0.entry.fr0307a.art, port: 21581, type: vmess, uuid: 18bc5290-fb4e-32e0-b607-4505b156ab6c, alterId: 1, cipher: auto, tls: true, skip-cert-verify: false, udp: true}
   - {name: 🇯🇵 免费-日本2-qq, server: bkt3x-g01.jp02-9a99-vm0.entry.fr0307a.art, port: 11773, type: vmess, uuid: 18bc5290-fb4e-32e0-b607-4505b156ab6c, alterId: 1, cipher: auto, tls: false, skip-cert-verify: false, udp: true}
   - {name: 🇯🇵 免费-日本3-qq, server: wv1zi-g01.jp03-7d22-vm0.entry.fr0307a.art, port: 21581, type: vmess, uuid: 18bc5290-fb4e-32e0-b607-4505b156ab6c, alterId: 1, cipher: auto, tls: true, skip-cert-verify: false, udp: true}
@@ -75,22 +93,19 @@ proxies:
   - {name: 🇯🇵 免费-日本5-Ver.8, server: hso2v-g01.jp05-6786-vm0.entry.fr0307a.art, port: 46482, type: vmess, uuid: afdf489a-57ba-3c65-8eab-d59058d1283a, alterId: 1, cipher: auto, tls: false, skip-cert-verify: false, udp: true}
   - {name: 🇯🇵 免费-日本6-Ver.7, server: wai5m-g01.jp06-7c5a-vm0.entry.fr0307a.art, port: 28783, type: vmess, uuid: afdf489a-57ba-3c65-8eab-d59058d1283a, alterId: 1, cipher: auto, tls: true, skip-cert-verify: false, udp: true}
   - {name: 🇯🇵 免费-日本7-Ver.1, server: y78gv-g01.jp07-1f28-vm0.entry.fr0307a.art, port: 28783, type: vmess, uuid: afdf489a-57ba-3c65-8eab-d59058d1283a, alterId: 1, cipher: auto, tls: false, skip-cert-verify: false, udp: true}
-  - {name: proxy-34l.pages.dev, server: www.visa.com.sg, port: 8443, client-fingerprint: random, type: vless, uuid: 40af9131-d540-448a-bc56-5bba147a1dc3, tls: true, tfo: false, skip-cert-verify: false, servername: proxy-34l.pages.dev, network: ws, ws-opts: {path: "/?ed=2560", headers: {Host: proxy-34l.pages.dev}}}
-  - {name: proxy-1cu.pages.dev, server: www.visa.com.sg, port: 8443, client-fingerprint: random, type: vless, uuid: 40af9131-d540-448a-bc56-5bba147a1dc3, tls: true, tfo: false, skip-cert-verify: false, servername: proxy-1cu.pages.dev, network: ws, ws-opts: {path: "/?ed=2560", headers: {Host: proxy-1cu.pages.dev}}}
-  - {name: proxy-3us.pages.dev, server: www.visa.com.sg, port: 8443, client-fingerprint: random, type: vless, uuid: 40af9131-d540-448a-bc56-5bba147a1dc3, tls: true, tfo: false, skip-cert-verify: false, servername: proxy-3us.pages.dev, network: ws, ws-opts: {path: "/?ed=2560", headers: {Host: proxy-3us.pages.dev}}}
-
 proxy-groups:
   # ============= 原有策略组（保持完全不变）=============
-  - { name: "🔰 选择节点", type: select, proxies: [DIRECT, 免费-日本节点,✈️国外站点,⚓国外站点非日本IP,中国节点,美国节点,新加坡节点,香港节点,台湾节点]}
-  - { name: "✈️国外站点", type: fallback, interval: 60, tolerance: 500,timeout: 3000, url: "http://www.gstatic.com/generate_204", proxies: [免费-日本节点,⚓国外站点非日本IP] }
-  - { name: "⚓国外站点非日本IP", type: fallback, interval: 60, tolerance: 500,timeout: 3000, url: "http://www.gstatic.com/generate_204",proxies: [新加坡节点,台湾节点,visa,中国节点,美国节点,香港节点] }
-  - { name: "visa", type: fallback, interval: 60, tolerance: 500,timeout: 3000, url: "http://www.gstatic.com/generate_204",proxies: [ proxy-3us.pages.dev,proxy-34l.pages.dev,proxy-1cu.pages.dev] }
+  - { name: "🔰 选择节点", type: select, proxies: [DIRECT, 免费-日本节点,✈️国外站点,⚓国外站点非日本IP,专线,中国节点,美国节点,新加坡节点,香港节点,台湾节点]}
+  - { name: "✈️国外站点", type: fallback, interval: 60, tolerance: 500,timeout: 3000, url: "http://www.gstatic.com/generate_204", proxies: [专线,免费-日本节点,⚓国外站点非日本IP] }
+  - { name: "⚓国外站点非日本IP", type: fallback, interval: 60, tolerance: 500,timeout: 3000, url: "http://www.gstatic.com/generate_204",proxies: [新加坡节点,台湾节点,专线,中国节点,美国节点,香港节点] }
+  - { name: 专线, <<: *fallback, filter: "专线", icon: https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
   - { name: "免费-日本节点", type: fallback, interval: 60, tolerance: 500,timeout: 3000, url: "http://www.gstatic.com/generate_204",proxies: [🇯🇵 免费-日本1-Ver.6, 🇯🇵 免费-日本2-Ver.7, 🇯🇵 免费-日本3-Ver.6, 🇯🇵 免费-日本4-Ver.7, 🇯🇵 免费-日本5-Ver.8, 🇯🇵 免费-日本6-Ver.7, 🇯🇵 免费-日本7-Ver.1,🇯🇵 免费-日本1-qq, 🇯🇵 免费-日本2-qq, 🇯🇵 免费-日本3-qq, 🇯🇵 免费-日本4-qq, 🇯🇵 免费-日本5-qq, 🇯🇵 免费-日本6-qq, 🇯🇵 免费-日本7-qq] }
   - { name: 新加坡节点, <<: *fallback, filter: "🇸🇬|新加坡|狮|SG|Singapore", icon: https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
   - { name: 香港节点, <<: *fallback, filter: "香港|HK", icon: https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
   - { name: 台湾节点, <<: *fallback, filter: "台湾", icon: https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
   - { name: 美国节点, <<: *fallback, filter: "美国", icon: https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
   - { name: 中国节点, <<: *fallback, filter: "中国", icon: https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
+
   - name: 🇨🇳 国内网站
     type: select
     proxies:
