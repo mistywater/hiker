@@ -11,6 +11,9 @@ fallback: &fallback {type: fallback, url: http://1.1.1.1/generate_204, interval:
 load-balance: &load-balance {type: load-balance, strategy: consistent-hashing, url: http://1.1.1.1/generate_204, interval: 300, include-all: true}
 p: &p {type: http, interval: 86400, health-check: {enable: true, url: http://1.1.1.1/generate_204, interval: 1800, timeout: 5000}}
 proxy-providers:
+  clash_latency:
+    url: https://ghproxy.net/https://raw.githubusercontent.com/mistywater/hiker/refs/heads/main/clash_latency.txt
+    <<: *p
   yuanwangokk:
     url: https://down.nigx.cn/raw.githubusercontent.com/yuanwangokk-1/subscribe/refs/heads/main/Clash%20Mate/%E6%B0%B8%E4%B9%85%E8%AE%A2%E9%98%85.yaml
     <<: *p
@@ -61,24 +64,6 @@ dns:
     - tcp://223.5.5.5
     - tcp://223.6.6.6
 proxies:
-  - {name: "🇭🇰 香港_米哈游专线_安柏的麻花辫, 延迟: 202.225469ms", server: awes35lesl.blhao0o.dpdns.org, port: 12006, type: ss, cipher: aes-128-gcm, password: 01721e43-5389-4f97-b21c-900abb2bda9e, udp: true}
-  - {name: "🇭🇰 香港_原神专线_云堇的避孕套, 延迟: 209.893333ms", server: awes35lesl.blhao0o.dpdns.org, port: 12003, type: ss, cipher: aes-128-gcm, password: 01721e43-5389-4f97-b21c-900abb2bda9e, udp: true}
-  - {name: "🇭🇰 香港_腾讯云专线_多莉的黑丝, 延迟: 215.218229ms", server: awes35lesl.blhao0o.dpdns.org, port: 12002, type: ss, cipher: aes-128-gcm, password: 01721e43-5389-4f97-b21c-900abb2bda9e, udp: true}
-  - {name: "🇭🇰 香港_优刻得专线_莱依拉的麻花辫, 延迟: 227.567344ms", server: awes35lesl.blhao0o.dpdns.org, port: 12005, type: ss, cipher: aes-128-gcm, password: 01721e43-5389-4f97-b21c-900abb2bda9e, udp: true}
-  - {name: "🇭🇰 香港_阿里云专线_卡齐娜的高玩, 延迟: 228.948281ms", server: awes35lesl.blhao0o.dpdns.org, port: 12008, type: ss, cipher: aes-128-gcm, password: 01721e43-5389-4f97-b21c-900abb2bda9e, udp: true}
-  - {name: "🇭🇰 香港_华为云专线_安柏的手榴弹, 延迟: 244.708177ms", server: awes35lesl.blhao0o.dpdns.org, port: 12008, type: ss, cipher: aes-128-gcm, password: 01721e43-5389-4f97-b21c-900abb2bda9e, udp: true}
-  - {name: "🇨🇳 台湾_原神专线_琴的奈子, 延迟: 252.006927ms", server: awes35lesl.blhao0o.dpdns.org, port: 12029, type: ss, cipher: aes-128-gcm, password: 01721e43-5389-4f97-b21c-900abb2bda9e, udp: true}
-  - {name: "🇭🇰 香港_原神专线_神里绫华的猫耳, 延迟: 264.261406ms", server: awes35lesl.blhao0o.dpdns.org, port: 12002, type: ss, cipher: aes-128-gcm, password: 01721e43-5389-4f97-b21c-900abb2bda9e, udp: true}
-  - {name: "🇨🇳 台湾_原神专线_玛薇卡的星穹, 延迟: 266.887813ms", server: awes35lesl.blhao0o.dpdns.org, port: 12034, type: ss, cipher: aes-128-gcm, password: 01721e43-5389-4f97-b21c-900abb2bda9e, udp: true}
-  - {name: "🇨🇳 台湾_崩铁专线_芭芭拉的白丝, 延迟: 269.327343ms", server: awes35lesl.blhao0o.dpdns.org, port: 12031, type: ss, cipher: aes-128-gcm, password: 01721e43-5389-4f97-b21c-900abb2bda9e, udp: true}
-  - {name: "🇸🇬 新加坡_原神专线_那维莱特的小脚, 延迟: 280.948802ms", server: awes35lesl.blhao0o.dpdns.org, port: 12022, type: ss, cipher: aes-128-gcm, password: 01721e43-5389-4f97-b21c-900abb2bda9e, udp: true}
-  - {name: "🇨🇳 台湾_IEPL专线_芙宁娜的猫耳, 延迟: 286.343593ms", server: awes35lesl.blhao0o.dpdns.org, port: 12033, type: ss, cipher: aes-128-gcm, password: 01721e43-5389-4f97-b21c-900abb2bda9e, udp: true}
-  - {name: "🇨🇳 台湾_米哈游专线_丽莎的阴蒂, 延迟: 288.914323ms", server: awes35lesl.blhao0o.dpdns.org, port: 12030, type: ss, cipher: aes-128-gcm, password: 01721e43-5389-4f97-b21c-900abb2bda9e, udp: true}
-  - {name: "🇨🇳 台湾_明懂砖线_卡齐娜的螺旋陀螺快准狠粉鸡鸡, 延迟: 292.21224ms", server: awes35lesl.blhao0o.dpdns.org, port: 12029, type: ss, cipher: aes-128-gcm, password: 01721e43-5389-4f97-b21c-900abb2bda9e, udp: true}
-  - {name: "🇸🇬 新加坡_米哈游专线_宵宫的星穹, 延迟: 292.690468ms", server: awes35lesl.blhao0o.dpdns.org, port: 12018, type: ss, cipher: aes-128-gcm, password: 01721e43-5389-4f97-b21c-900abb2bda9e, udp: true}
-  - {name: "🇨🇳 台湾_金融专线_芙宁娜的连体袜, 延迟: 296.073385ms", server: awes35lesl.blhao0o.dpdns.org, port: 12034, type: ss, cipher: aes-128-gcm, password: 01721e43-5389-4f97-b21c-900abb2bda9e, udp: true}
-  - {name: "🇭🇰 香港_优刻得专线_旱柚的白丝, 延迟: 297.060104ms", server: awes35lesl.blhao0o.dpdns.org, port: 12010, type: ss, cipher: aes-128-gcm, password: 01721e43-5389-4f97-b21c-900abb2bda9e, udp: true}
-  - {name: "🇯🇵 日本_原神专线_草神的螺旋陀螺快准狠粉鸡鸡, 延迟: 305.096406ms", server: awes35lesl.blhao0o.dpdns.org, port: 12014, type: ss, cipher: aes-128-gcm, password: 01721e43-5389-4f97-b21c-900abb2bda9e, udp: true}
   - {name: 🇯🇵 免费-日本1-qq, server: bq85h-g01.jp01-0986-vm0.entry.fr0307a.art, port: 21581, type: vmess, uuid: 18bc5290-fb4e-32e0-b607-4505b156ab6c, alterId: 1, cipher: auto, tls: true, skip-cert-verify: false, udp: true}
   - {name: 🇯🇵 免费-日本2-qq, server: bkt3x-g01.jp02-9a99-vm0.entry.fr0307a.art, port: 11773, type: vmess, uuid: 18bc5290-fb4e-32e0-b607-4505b156ab6c, alterId: 1, cipher: auto, tls: false, skip-cert-verify: false, udp: true}
   - {name: 🇯🇵 免费-日本3-qq, server: wv1zi-g01.jp03-7d22-vm0.entry.fr0307a.art, port: 21581, type: vmess, uuid: 18bc5290-fb4e-32e0-b607-4505b156ab6c, alterId: 1, cipher: auto, tls: true, skip-cert-verify: false, udp: true}
