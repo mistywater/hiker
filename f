@@ -370,7 +370,7 @@ function downloadLongClick(host) {
         title: '书架',
         js: `'hiker://page/Main.view?rule=本地资源管理'`,
     }, {
-        title: getItem(host + 'isMultiPage', '1') == 1 ? '分页' : '不分页',
+        title: getItem(host + 'isMultiPage', '1') == 1 ? '=>不分页' : '=>分页',
         js: `setItem('${host}isMultiPage',getItem('${host}isMultiPage','1')=='1'?'0':'1');refreshPage();`,
     }];
     var extra = $.toString((host, longClick) => ({
