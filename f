@@ -472,8 +472,10 @@ function imgCloudStorage(link) {
 
 function sourceJump(d, arr, blank, changeSource) {
     let info = storage0.getMyVar('一级源接口信息') || jkdata;
+    putMyVar('_tempChangeSource', changeSource.toString());
     putMyVar('processSingleItem', `let stype = item.split('@')[1];
-        let sname = item.split('@')[0];       
+        let sname = item.split('@')[0]; 
+let changeSource = eval('(' + getMyVar('_tempChangeSource') + ')');
         if (MY_RULE.title != '聚阅') {
             let configPath = 'hiker://files/rules/Src/Ju/config.json';
             let html = fetchPC(configPath);
@@ -489,7 +491,8 @@ function sourceJump(d, arr, blank, changeSource) {
             for (let json of jsonJiekou) {
                 if (json.name == sname) {
                     jkdata = json;
-                    changeSource(jkdata);
+                    require(config.聚阅.replace(/[^/]*$/,'') + 'SrcJuPublic.js');
+                    changeSource(jkdata); // 使用全局变量调用
                     toast('已跳转到' + sname + '~~');
                     found = true;
                     break;
@@ -499,7 +502,8 @@ function sourceJump(d, arr, blank, changeSource) {
                 toast('没有' + sname + '接口~~');
             }
         }
-        refreshPage();`);   
+        refreshPage();`);
+        
     if (arr.length > 1) {
         arr.forEach((item, index) => {
             d.push({
@@ -513,7 +517,8 @@ function sourceJump(d, arr, blank, changeSource) {
                     backgroundColor: info.name == item.split('@')[0] ? getRandomColor() : ''
                 }
             });
-        });      
+        });
+        
         if (!blank) {
             d.push({
                 col_type: 'blank_block',
@@ -521,7 +526,7 @@ function sourceJump(d, arr, blank, changeSource) {
         }
         return d;
     } else {
-        let item = arr[0];  // 添加let声明
+        let item = arr[0];
         eval(getMyVar('processSingleItem'));
         return 'hiker://empty';
     }
