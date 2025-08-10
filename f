@@ -470,59 +470,61 @@ function imgCloudStorage(link) {
     }
 }
 
-function sourceJump(d, arr, blank) {
-    let info = storage0.getMyVar('一级源接口信息')||jkdata;
-    arr.forEach((item, index) => {
-        d.push({
-            title: item.split('@')[0].replace(/H-|✈️|🔞|🐹/g, ''),
-            url: $('#noLoading#').lazyRule((item) => {
-                if (MY_RULE.title != '聚阅') {
-                    let configPath = 'hiker://files/rules/Src/Ju/config.json';
-                    let html = fetchPC(configPath);
-                    let stype = item.split('@')[1];
-                    let sname = item.split('@')[0];
-                    if (html) {
-                        html = html.replace(/"runMode":".*?"/, `"runMode":"${stype}"`)
-                            .replace(new RegExp(`${stype}sourcename.*?,`), `${stype}sourcename":"${sname}",`);
-                        writeFile(configPath, html);
-                    }
-                } else {
-                    let pathConfig = 'hiker://files/rules/Src/Juyue/config.json';
-                    let jsonConfig = JSON.parse(fetch(pathConfig));
-                    let stype = item.split('@')[1];
-                    let sname = item.split('@')[0];
-                    let pathJiekou = 'hiker://files/rules/Src/Juyue/jiekou.json';
-                    let jsonJiekou = JSON.parse(fetch(pathJiekou));
-                    for (let json of jsonJiekou) {
-                        if (json.name == sname) {
-                            var id = json.id;
-                            break;
-                        } else {
-                            id = '';
-                        }
-                    }
-                    if (jsonConfig) {
-                        jsonConfig.homeGroup = stype;
-                        jsonConfig.homeSourceS[stype].name = sname;
-                        jsonConfig.homeSourceS[stype].id = id;
-                        writeFile(pathConfig, JSON.stringify(jsonConfig));
-                    }
-                }
-                refreshPage();
-                return 'hiker://empty';
-            }, item),
-            col_type: 'scroll_button',
-            extra: {
-                backgroundColor: info.name == item.split('@')[0] ? getRandomColor() : ''
+function sourceJump(d, arr, blank, changeSource) {
+    let info = storage0.getMyVar('一级源接口信息') || jkdata;
+    putMyVar('processSingleItem', `let stype = item.split('@')[1];
+        let sname = item.split('@')[0];       
+        if (MY_RULE.title != '聚阅') {
+            let configPath = 'hiker://files/rules/Src/Ju/config.json';
+            let html = fetchPC(configPath);
+            if (html) {
+                html = html.replace(/"runMode":".*?"/, '"runMode":"' + stype + '"')
+                    .replace(new RegExp(stype + 'sourcename.*?,'), stype + 'sourcename":"' + sname + '",');
+                writeFile(configPath, html);
             }
-        });
-    });
-    if (!blank) {
-        d.push({
-            col_type: 'blank_block',
-        });
+        } else {
+            let pathJiekou = 'hiker://files/rules/Src/Juyue/jiekou.json';
+            let jsonJiekou = JSON.parse(fetch(pathJiekou));
+            let found = false;
+            for (let json of jsonJiekou) {
+                if (json.name == sname) {
+                    jkdata = json;
+                    changeSource(jkdata);
+                    toast('已跳转到' + sname + '~~');
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                toast('没有' + sname + '接口~~');
+            }
+        }
+        refreshPage();`);   
+    if (arr.length > 1) {
+        arr.forEach((item, index) => {
+            d.push({
+                title: item.split('@')[0].replace(/H-|✈️|🔞|🐹/g, ''),
+                url: $('#noLoading#').lazyRule((item) => {
+                    eval(getMyVar('processSingleItem'));
+                    return 'hiker://empty';
+                }, item),
+                col_type: 'scroll_button',
+                extra: {
+                    backgroundColor: info.name == item.split('@')[0] ? getRandomColor() : ''
+                }
+            });
+        });      
+        if (!blank) {
+            d.push({
+                col_type: 'blank_block',
+            });
+        }
+        return d;
+    } else {
+        let item = arr[0];  // 添加let声明
+        eval(getMyVar('processSingleItem'));
+        return 'hiker://empty';
     }
-    return d;
 }
 function cfl(str) {
     return str.replace(/\w\S*/g, function(word) {
