@@ -470,7 +470,7 @@ function imgCloudStorage(link) {
     }
 }
 
-function sourceJump(d, arr, blank, changeSource) {
+function sourceJump(d, arr, blank, changeSource,_chchePath) {
     let info = storage0.getMyVar('一级源接口信息') || jkdata;
     putMyVar('_tempChangeSource', changeSource.toString());
     putMyVar('processSingleItem', `let stype = item.split('@')[1];
@@ -508,10 +508,10 @@ let changeSource = eval('(' + getMyVar('_tempChangeSource') + ')');
         arr.forEach((item, index) => {
             d.push({
                 title: item.split('@')[0].replace(/H-|✈️|🔞|🐹/g, ''),
-                url: $('#noLoading#').lazyRule((item) => {
+                url: $('#noLoading#').lazyRule((item,_chchePath) => {writeFile(_chchePath, '');
                     eval(getMyVar('processSingleItem'));
                     return 'hiker://empty';
-                }, item),
+                }, item,_chchePath),
                 col_type: 'scroll_button',
                 extra: {
                     backgroundColor: info.name == item.split('@')[0] ? getRandomColor() : ''
@@ -525,7 +525,7 @@ let changeSource = eval('(' + getMyVar('_tempChangeSource') + ')');
             });
         }
         return d;
-    } else {
+    } else {writeFile(_chchePath, '');;
         let item = arr[0];
         eval(getMyVar('processSingleItem'));
         return 'hiker://empty';
