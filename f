@@ -95,9 +95,10 @@ function hanziToPinyin(hanzi, options) {
 }
 
 function searchBaidu(d, str, parse) {
-    if (typeof str == 'object') {
-        str = str.toString().substring(1, str.length - 1);
-    } else if (typeof str == 'string' && str.startsWith('/')) {
+    if (typeof(str)== 'object') {
+        str = str.toString();
+        str=str.substring(1, str.length - 1);
+    } else if (typeof(str) == 'string' && str.startsWith('/')) {
         str = str.substring(1, str.length - 1);
     }
     d.push({
@@ -147,9 +148,10 @@ function searchBaidu(d, str, parse) {
 }
 
 function searchGoogle(d, str, parse) {
-    if (typeof str == 'object') {
-        str = str.toString().substring(1, str.length - 1);
-    } else if (typeof str == 'string' && str.startsWith('/')) {
+   if (typeof(str)== 'object') {
+        str = str.toString();
+        str=str.substring(1, str.length - 1);
+    } else if (typeof(str) == 'string' && str.startsWith('/')) {
         str = str.substring(1, str.length - 1);
     }
     d.push({
