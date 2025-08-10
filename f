@@ -1,64 +1,64 @@
-j:
+js:
 function getDarkColor() {
             let hue;
             do {
                 hue = Math.floor(Math.random() * 360);
             } while (hue > 200 && hue < 260); // 跳过蓝色区间
 
-            cont aturation = 80 + Math.floor(Math.random() * 20); // 饱和度80-100%
-            cont lightne = 25 + Math.floor(Math.random() * 35); // 明度25-60%
+            const saturation = 80 + Math.floor(Math.random() * 20); // 饱和度80-100%
+            const lightness = 25 + Math.floor(Math.random() * 35); // 明度25-60%
 
             // HSL转RGB
-            cont c = (1 - Math.ab(2 * lightne / 100 - 1)) * aturation / 100;
-            cont x = c * (1 - Math.ab(((hue / 60) % 2) - 1));
-            cont m = lightne / 100 - c / 2;
+            const c = (1 - Math.abs(2 * lightness / 100 - 1)) * saturation / 100;
+            const x = c * (1 - Math.abs(((hue / 60) % 2) - 1));
+            const m = lightness / 100 - c / 2;
 
             let r, g, b;
             if (hue < 60)[r, g, b] = [c, x, 0]; // 红-黄区间
-            ele if (hue < 120)[r, g, b] = [x, c, 0]; // 黄-绿区间
-            ele if (hue < 180)[r, g, b] = [0, c, x]; // 绿-青区间
-            ele if (hue < 200)[r, g, b] = [0, x, c]; // 青区间（接近蓝）
-            ele if (hue < 260)[r, g, b] = [x, 0, c]; // 这段不会执行
-            ele [r, g, b] = [c, 0, x]; // 紫-红区间
+            else if (hue < 120)[r, g, b] = [x, c, 0]; // 黄-绿区间
+            else if (hue < 180)[r, g, b] = [0, c, x]; // 绿-青区间
+            else if (hue < 200)[r, g, b] = [0, x, c]; // 青区间（接近蓝）
+            else if (hue < 260)[r, g, b] = [x, 0, c]; // 这段不会执行
+            else [r, g, b] = [c, 0, x]; // 紫-红区间
 
             // RGB转HEX
-            cont toHex = (n) => Math.round((n + m) * 255).toString(16).padStart(2, '0');
+            const toHex = (n) => Math.round((n + m) * 255).toString(16).padStart(2, '0');
             return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
         }
-function afePath(tr) {
-  return String(tr).replace(/[<>:"|?*\/\\]/g, '_');
+function safePath(str) {
+  return String(str).replace(/[<>:"|?*\/\\]/g, '_');
 }
 function getdTemp(d, dTemp, _chchePath) {
-    d = JSON.pare(fetch(_chchePath) || "[]");
+    d = JSON.parse(fetch(_chchePath) || "[]");
     if (d.length != 0) {
-        if (MY_RULE.title == "\u805a\u9605" && d[0].title == "\ud83d\udd0d" && !/arr|google|baidu/.tet(d[0].url)) {
-            d.plice(0, 1);
+        if (MY_RULE.title == "\u805a\u9605" && d[0].title == "\ud83d\udd0d" && !/sarr|google|baidu/.test(d[0].url)) {
+            d.splice(0, 1);
         }
       if (MY_RULE.title == "聚阅√" && d[0].title != "\ud83d\udd0d") {
-            d.unhift({"title":"🔍","url":"(\n(r) => {\n    putVar(\"keyword\", input);\n    return \"hiker://earch?rule=\" + r + \"&=\" + input;\n}\n)(\"聚阅√\")","dec":"搜索你想要的...","col_type":"input","extra":{"defaultValue":""}});
+            d.unshift({"title":"🔍","url":"(\n(r) => {\n    putVar(\"keyword\", input);\n    return \"hiker://search?rule=\" + r + \"&s=\" + input;\n}\n)(\"聚阅√\")","desc":"搜索你想要的...","col_type":"input","extra":{"defaultValue":""}});
         }
         dTemp = d.concat(dTemp);
     }
-    return dTemp.lice();
+    return dTemp.slice();
 }
-function getHtml(url, header, mode) {
+function getHtml(url, headers, mode) {
     let html = getMyVar(url);
     if (!html) {
         if (mode && mode == 1) {
-            html = requet(url, header || {});
-        } ele {
-            html = fetchPC(url, header || {});
+            html = request(url, headers || {});
+        } else {
+            html = fetchPC(url, headers || {});
         }
         putMyVar(url, html);
     }
     return html;
 }
 
-function hanziToPinyin(hanzi, option) {
-    var hanziMap = torage0.getMyVar('hanziMap');
+function hanziToPinyin(hanzi, options) {
+    var hanziMap = storage0.getMyVar('hanziMap');
     if (!hanziMap) {
-        var html = fetchPC('http://tool.httpcn.com/J/Convert_Pinyin.j');
-        eval('var ' + html.match(/full_dict[\\S]*?\}/)[0]);
+        var html = fetchPC('https://tool.httpcn.com/Js/Convert_Pinyin.js');
+        eval('var ' + html.match(/full_dict[\s\S]*?\}/)[0]);
         hanziMap = {};
         for (var pinyin in full_dict) {
             if (full_dict.hasOwnProperty(pinyin)) {
