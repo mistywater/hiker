@@ -103,6 +103,7 @@ proxy-groups:
       - DIRECT
       - 🔰 选择节点
 rules:
+ - DOMAIN-SUFFIX,google.com.hk,香港节点
  - DOMAIN-SUFFIX,hongimg.com,中国节点
  - DOMAIN-SUFFIX,cosblay.com,中国节点
  - DOMAIN-SUFFIX,trendszine.com,中国节点
