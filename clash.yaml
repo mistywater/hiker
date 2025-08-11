@@ -80,7 +80,7 @@ proxies:
   - {name: 🇯🇵 免费-日本7-Ver.1, server: y78gv-g01.jp07-1f28-vm0.entry.fr0307a.art, port: 28783, type: vmess, uuid: afdf489a-57ba-3c65-8eab-d59058d1283a, alterId: 1, cipher: auto, tls: false, skip-cert-verify: false, udp: true}
 proxy-groups:
   # ============= 原有策略组（保持完全不变）=============
-  - { name: "🔰 选择节点", type: select, proxies: [DIRECT, 免费-日本节点,✈️国外站点,⚓国外站点非日本IP,专线,中国节点,美国节点,新加坡节点,香港节点,台湾节点,中国香港,中国上海]}
+  - { name: "🔰 选择节点", type: select, proxies: [DIRECT, 免费-日本节点,✈️国外站点,⚓国外站点非日本IP,专线,中国节点,美国节点,新加坡节点,香港节点,台湾节点,中国香港,中国上海,中国其他]}
   - { name: "✈️国外站点", type: fallback, interval: 60, tolerance: 500,timeout: 3000, url: "http://www.gstatic.com/generate_204", proxies: [专线,免费-日本节点,⚓国外站点非日本IP] }
   - { name: "⚓国外站点非日本IP", type: fallback, interval: 60, tolerance: 500,timeout: 3000, url: "http://www.gstatic.com/generate_204",proxies: [新加坡节点,台湾节点,专线,中国节点,美国节点,香港节点] }
   - { name: 专线, <<: *fallback, filter: "专线|pgkj666G|wxgqlfx", icon: https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
@@ -92,6 +92,7 @@ proxy-groups:
   - { name: 中国节点, <<: *fallback, filter: "^(?=.*(中国))(?!.*专线)", icon: https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
   - { name: 中国香港, <<: *fallback, filter: "^(?=.*(中国 - 香港))(?!.*专线)", icon: https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
   - { name: 中国上海, <<: *fallback, filter: "^(?=.*(中国 - 上海))(?!.*专线)", icon: https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
+  - { name: 中国其他, <<: *fallback, filter: "中国 - 广州|中国 - 合肥|中国 - 杭州|中国-青岛", icon: https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
 
   - name: 🇨🇳 国内网站
     type: select
@@ -105,6 +106,7 @@ proxy-groups:
       - DIRECT
       - 🔰 选择节点
 rules:
+ - DOMAIN-SUFFIX,xinwenba.net,中国上海
  - DOMAIN-SUFFIX,shzx.org,中国上海
  - DOMAIN-SUFFIX,google.com.hk,香港节点
  - DOMAIN-SUFFIX,hongimg.com,中国香港
