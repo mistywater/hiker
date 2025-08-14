@@ -1575,8 +1575,8 @@ function extraPic(host, page, pages, ctype, hiker, _chchePath) {if(!_chchePath) 
         }
         var extra1 = {
             title: '跳转',
-            js: $.toString((host, arr, num) => {
-                return $(arr, 3, '选择页码').select((host, num) => {
+            js: $.toString((host, arr, num,pages) => {
+                return $(arr, 3, '选择页码').select((host, num,pages) => {
                     if (input == '输入页码') {
                         return $('').input((host) => {
                             putMyVar(host + 'page', input);
@@ -1589,7 +1589,7 @@ function extraPic(host, page, pages, ctype, hiker, _chchePath) {if(!_chchePath) 
                     } else {
                         let arr1 = [];
                         for (let k = 0; k < num; k++) {
-                            arr1.push(input * 1 + k * 1);
+                            if(input * 1 + k * 1<=pages){arr1.push(input * 1 + k * 1);}
                         }
                         return $(arr1, 3, '选择页码').select((host) => {
                             putMyVar(host + 'page', input);
@@ -1597,8 +1597,8 @@ function extraPic(host, page, pages, ctype, hiker, _chchePath) {if(!_chchePath) 
                             return 'hiker://empty';
                         }, host);
                     }
-                }, host, num);
-            }, host, arr, num),
+                }, host, num,pages);
+            }, host, arr, num,pages),
         };
     } else {
         var extra1 = {
@@ -1841,8 +1841,8 @@ function pageMoveto(host, page, ctype, pages, _chchePath) {if(!_chchePath) _chch
         }
         var extra1 = {
             title: '跳转',
-            js: $.toString((host, arr, num) => {
-                return $(arr, 3, '选择页码').select((host, num) => {
+            js: $.toString((host, arr, num,pages) => {
+                return $(arr, 3, '选择页码').select((host, num,pages) => {
                     if (input == '输入页码') {
                         return $('').input((host) => {
                             putMyVar(host + 'page', input);
@@ -1850,12 +1850,13 @@ function pageMoveto(host, page, ctype, pages, _chchePath) {if(!_chchePath) _chch
                         }, host);
                     } else if (num == 1) {
                         putMyVar(host + 'page', input);
+                        putMyVar('isMoveto', '1');
                         refreshPage(false);
                         return 'hiker://empty';
                     } else {
                         let arr1 = [];
                         for (let k = 0; k < num; k++) {
-                            arr1.push(input * 1 + k * 1);
+                            if(input * 1 + k * 1<=pages){arr1.push(input * 1 + k * 1);}
                         }
                         return $(arr1, 3, '选择页码').select((host) => {
                             putMyVar(host + 'page', input);
@@ -1864,8 +1865,8 @@ function pageMoveto(host, page, ctype, pages, _chchePath) {if(!_chchePath) _chch
                             return 'hiker://empty';
                         }, host);
                     }
-                }, host, num);
-            }, host, arr, num),
+                }, host, num,pages);
+            }, host, arr, num,pages),
         };
     } else {
         var extra1 = {
