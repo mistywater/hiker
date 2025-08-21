@@ -1356,7 +1356,7 @@ function lunbo(c) {
                         name: c.indexbanner[n][c.title],
                     }
                 };
-                var item = lazy ? toerji(dd, jkdata) : dd;
+                var item = !lazy ? toerji(dd, jkdata) : dd;
             } else {
                 var title = pdfh(c.indexbanner[n], c.title) || getVar(c.host + '聚阅轮播title' + n, '');
                 if (!title) {
@@ -1374,7 +1374,7 @@ function lunbo(c) {
                         name: pdfh(c.indexbanner[n], c.title),
                     }
                 };
-                var item = lazy ? toerji(dd, jkdata) : dd;
+                var item = !lazy ? toerji(dd, jkdata) : dd;
             }
             updateItem('lunbo', item);
             if (n >= k - 1) {
