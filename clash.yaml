@@ -106,6 +106,8 @@ proxy-groups:
       - DIRECT
       - 🔰 选择节点
 rules:
+ - DOMAIN-SUFFIX,dlsite.com,✈️国外站点
+ - DOMAIN-SUFFIX,nyaa.si,✈️国外站点
  - DOMAIN-SUFFIX,xinwenba.net,中国上海
  - DOMAIN-SUFFIX,shzx.org,中国上海
  - DOMAIN-SUFFIX,google.com.hk,香港节点
