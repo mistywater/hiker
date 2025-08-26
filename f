@@ -1853,6 +1853,7 @@ function pageMoveto(host, page, ctype, pages, _chchePath) {if(!_chchePath) _chch
                     if (input == '输入页码') {
                         return $('').input((host) => {
                             putMyVar(host + 'page', input);
+putMyVar('isMoveto', '1');
                             refreshPage(false);
                         }, host);
                     } else if (num == 1) {
