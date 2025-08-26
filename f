@@ -1580,6 +1580,7 @@ function extraPic(host, page, pages, ctype, hiker, _chchePath,imgdec) {if(!_chch
                     if (input == '输入页码') {
                         return $('').input((host) => {
                             putMyVar(host + 'page', input);
+putMyVar('isMoveto', '1');
                             refreshPage(false);
                         }, host);
                     } else if (num == 1) {
@@ -1593,6 +1594,7 @@ function extraPic(host, page, pages, ctype, hiker, _chchePath,imgdec) {if(!_chch
                         }
                         return $(arr1, 3, '选择页码').select((host) => {
                             putMyVar(host + 'page', input);
+putMyVar('isMoveto', '1');
                             refreshPage(false);
                             return 'hiker://empty';
                         }, host);
@@ -1606,6 +1608,7 @@ function extraPic(host, page, pages, ctype, hiker, _chchePath,imgdec) {if(!_chch
             js: $.toString((host) => {
                 return $('').input((host) => {
                     putMyVar(host + 'page', input);
+putMyVar('isMoveto', '1');
                     refreshPage(false);
                 }, host);
             }, host),
