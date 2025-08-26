@@ -1513,7 +1513,7 @@ function jinman(picUrl) {
     }, picUrl);
 }
 
-function extraPic(host, page, pages, ctype, hiker, _chchePath) {if(!_chchePath) _chchePath='';
+function extraPic(host, page, pages, ctype, hiker, _chchePath,imgdec) {if(!_chchePath) _chchePath='';
     if (!ctype) var ctype = '';
     if (!hiker || hiker == '') var hiker = '1';
     var 类型 = ["movie_1", "movie_2", "movie_3", "movie_3_marquee", "pic_1", "pic_2", "pic_3", "pic_1_full", "pic_1_center", "pic_1_card", "pic_2_card", "pic_3_square", "card_pic_1", "card_pic_2", "card_pic_3", "avatar", "card_pic_3_center", "icon_1_left_pic"];
@@ -1634,17 +1634,21 @@ function extraPic(host, page, pages, ctype, hiker, _chchePath) {if(!_chchePath) 
             }
         }, host,_chchePath)
     });
-    var extra = $.toString((host, hiker, ctype, longClick) => ({
-        chapterList: hiker ? 'hiker://files/_cache/chapterList.txt' : chapterList,
-        info: {
-            bookName: MY_URL.split('/')[2],
-            ruleName: 'photo',
-            bookTopPic: 'https://api.xinac.net/icon/?url=' + host,
-            parseCode: downloadlazy,
-            defaultView: '1'
-        },
-        longClick: longClick,
-    }), host, hiker, ctype, longClick);
+    var extra = $.toString((host, hiker, ctype, longClick, imgdec) => ({
+    chapterList: hiker ? 'hiker://files/_cache/chapterList.txt' : chapterList,
+    info: {
+        bookName: MY_URL.split('/')[2],
+        ruleName: 'photo',
+        bookTopPic: 'https://api.xinac.net/icon/?url=' + host,
+        decode: imgdec? $.type(imgdec) == "function" ? $.toString((imgdec) => {
+                                    let imgDecrypt = imgdec;
+                                    return imgDecrypt();
+                                }, imgdec) : imgdec : "",
+        parseCode: downloadlazy,
+        defaultView: '1'
+    },
+    longClick: longClick,
+}), host, hiker, ctype, longClick, imgdec);
     return extra;
 }
 
