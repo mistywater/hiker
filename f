@@ -38,10 +38,10 @@ function safePath(str) {
 function getdTemp(d, dTemp, _chchePath) {
     d = JSON.parse(fetch(_chchePath) || "[]");
     if (d.length != 0) {
-        if (MY_RULE.title == "\u805a\u9605" && d[0].title == "\ud83d\udd0d" && !/sarr|google|baidu/.test(d[0].url)) {
+        if (MY_RULE.title == "聚阅" && d[0].title == "🔍" && !/sarr|google|baidu/.test(JSON.stringify(d[0]))) {
             d.splice(0, 1);
         }
-      if (MY_RULE.title == "聚阅√" && d[0].title != "\ud83d\udd0d"&&!/multiPages/.test(JSON.stringify(d))) {
+      if (MY_RULE.title == "聚阅√" && d[0].title != "🔍"&&!/multiPages/.test(JSON.stringify(d))) {
             d.unshift({"title":"🔍","url":"(\n(r) => {\n    putVar(\"keyword\", input);\n    return \"hiker://search?rule=\" + r + \"&s=\" + input;\n}\n)(\"聚阅√\")","desc":"搜索你想要的...","col_type":"input","extra":{"defaultValue":""}});
         }
         dTemp = d.concat(dTemp);
