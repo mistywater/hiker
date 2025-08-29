@@ -1,4 +1,4 @@
-js:
+js:// -*- mode: js -*-
 function linkPages(d,pages,host) {
                     [Array.from({
                         length: pages
