@@ -45,6 +45,11 @@ function getdTemp(d, dTemp, _chchePath) {
             d.unshift({"title":"🔍","url":"(\n(r) => {\n    putVar(\"keyword\", input);\n    return \"hiker://search?rule=\" + r + \"&s=\" + input;\n}\n)(\"聚阅√\")","desc":"搜索你想要的...","col_type":"input","extra":{"defaultValue":""}});
         }
         dTemp = d.concat(dTemp);
+if (MY_RULE.title == "聚阅√"){
+dTemp=JSON.parse(JSON.stringify(dTemp).replace(/config.聚阅/g,'config.依赖'));
+}else if (MY_RULE.title == "聚阅"){
+dTemp=JSON.parse(JSON.stringify(dTemp).replace(/config.依赖/g,'config.聚阅'));
+}
     }
     return dTemp.slice();
 }
