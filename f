@@ -1,4 +1,31 @@
 js:// -*- mode: js -*-
+function ssyz(img, type){
+    const MAP = {
+        num: {
+            'a': '4', 'b': '6', 'd': '0', 'e': '9', 'g': '9',
+            'i': '1', 'l': '1', 'm': '3', 's': '5', 't': '7',
+            'o': '0', 'q': '9', 'u': '4', 'z': '2'
+        },
+        alpha: {
+            '4': 'a', '6': 'b', '9': 'q', '1': 'l', '3': 'm',
+            '5': 's', '7': 't', '0': 'o', '2': 'z'
+        }
+    };
+
+    const currentMap = MAP[type] || {};
+    
+    const ocrResult = request('https://api.nn.ci/ocr/b64/text', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: convertBase64Image(img).split(',')[1]
+    }).split('')
+    const result = [];
+    for (let i = 0; i < ocrResult.length; i++) {
+        let char = ocrResult[i];
+        result.push(currentMap[char] || char);
+    }
+    return result.join('')
+}
 function linkPages(d,pages,host) {
                     [Array.from({
                         length: pages
