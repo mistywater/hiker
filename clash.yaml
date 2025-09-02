@@ -64,36 +64,42 @@ dns:
     - tcp://223.5.5.5
     - tcp://223.6.6.6
 proxies:
-  - {name: 🇯🇵 免费-日本1-qq, server: bq85h-g01.jp01-0986-vm0.entry.fr0307a.art, port: 21581, type: vmess, uuid: 18bc5290-fb4e-32e0-b607-4505b156ab6c, alterId: 1, cipher: auto, tls: true, skip-cert-verify: false, udp: true}
-  - {name: 🇯🇵 免费-日本2-qq, server: bkt3x-g01.jp02-9a99-vm0.entry.fr0307a.art, port: 11773, type: vmess, uuid: 18bc5290-fb4e-32e0-b607-4505b156ab6c, alterId: 1, cipher: auto, tls: false, skip-cert-verify: false, udp: true}
-  - {name: 🇯🇵 免费-日本3-qq, server: wv1zi-g01.jp03-7d22-vm0.entry.fr0307a.art, port: 21581, type: vmess, uuid: 18bc5290-fb4e-32e0-b607-4505b156ab6c, alterId: 1, cipher: auto, tls: true, skip-cert-verify: false, udp: true}
-  - {name: 🇯🇵 免费-日本4-qq, server: uk437-g01.jp04-3771-vm0.entry.fr0307a.art, port: 444, type: vmess, uuid: 18bc5290-fb4e-32e0-b607-4505b156ab6c, alterId: 1, cipher: auto, tls: false, skip-cert-verify: false, udp: true}
-  - {name: 🇯🇵 免费-日本5-qq, server: y8un9-g01.jp05-6786-vm0.entry.fr0307a.art, port: 46482, type: vmess, uuid: 18bc5290-fb4e-32e0-b607-4505b156ab6c, alterId: 1, cipher: auto, tls: false, skip-cert-verify: false, udp: true}
-  - {name: 🇯🇵 免费-日本6-qq, server: rhvpo-g01.jp06-7c5a-vm0.entry.fr0307a.art, port: 28783, type: vmess, uuid: 18bc5290-fb4e-32e0-b607-4505b156ab6c, alterId: 1, cipher: auto, tls: true, skip-cert-verify: false, udp: true}
-  - {name: 🇯🇵 免费-日本7-qq, server: ny7a8-g01.jp07-1f28-vm0.entry.fr0307a.art, port: 28783, type: vmess, uuid: 18bc5290-fb4e-32e0-b607-4505b156ab6c, alterId: 1, cipher: auto, tls: false, skip-cert-verify: false, udp: true}
-  - {name: 🇯🇵 免费-日本1-Ver.6, server: 3gzyh-g01.jp01-0986-vm0.entry.fr0307a.art, port: 21581, type: vmess, uuid: afdf489a-57ba-3c65-8eab-d59058d1283a, alterId: 1, cipher: auto, tls: true, skip-cert-verify: false, udp: true}
-  - {name: 🇯🇵 免费-日本2-Ver.7, server: rhvfp-g01.jp02-9a99-vm0.entry.fr0307a.art, port: 11773, type: vmess, uuid: afdf489a-57ba-3c65-8eab-d59058d1283a, alterId: 1, cipher: auto, tls: false, skip-cert-verify: false, udp: true}
-  - {name: 🇯🇵 免费-日本3-Ver.6, server: m9huv-g01.jp03-7d22-vm0.entry.fr0307a.art, port: 21581, type: vmess, uuid: afdf489a-57ba-3c65-8eab-d59058d1283a, alterId: 1, cipher: auto, tls: true, skip-cert-verify: false, udp: true}
-  - {name: 🇯🇵 免费-日本4-Ver.7, server: d990y-g01.jp04-3771-vm0.entry.fr0307a.art, port: 444, type: vmess, uuid: afdf489a-57ba-3c65-8eab-d59058d1283a, alterId: 1, cipher: auto, tls: false, skip-cert-verify: false, udp: true}
-  - {name: 🇯🇵 免费-日本5-Ver.8, server: hso2v-g01.jp05-6786-vm0.entry.fr0307a.art, port: 46482, type: vmess, uuid: afdf489a-57ba-3c65-8eab-d59058d1283a, alterId: 1, cipher: auto, tls: false, skip-cert-verify: false, udp: true}
-  - {name: 🇯🇵 免费-日本6-Ver.7, server: wai5m-g01.jp06-7c5a-vm0.entry.fr0307a.art, port: 28783, type: vmess, uuid: afdf489a-57ba-3c65-8eab-d59058d1283a, alterId: 1, cipher: auto, tls: true, skip-cert-verify: false, udp: true}
-  - {name: 🇯🇵 免费-日本7-Ver.1, server: y78gv-g01.jp07-1f28-vm0.entry.fr0307a.art, port: 28783, type: vmess, uuid: afdf489a-57ba-3c65-8eab-d59058d1283a, alterId: 1, cipher: auto, tls: false, skip-cert-verify: false, udp: true}
+  - {"name": "🇭🇰 JA-HK-9950X-7", "server": "jphj-hk-500m-100g.ifuck.gay", "port": 38001, "type": "ss", "cipher": "aes-256-gcm", "password": "McRu2JvKif"}
+  - {name: "🇸🇬 SG-01-231-3", server: 142.91.102.176, port: 43597, type: hysteria2, password: 5h0hcc7wc8, sni: cn.bing.com, skip-cert-verify: true, tfo: false}
+  - {name: "🇨🇳 台湾 057-40", server: xh.dashuai.cyou, port: 50050, type: vmess, uuid: 02f0e97d-2128-481f-a23b-18909282676a, alterId: 0, cipher: auto, tls: false, udp: true}
+  - {name: "🇨🇳 台湾 152-28", server: 114.46.79.69, port: 10070, type: ss, cipher: chacha20-ietf-poly1305, password: 6bbea178-db87-4bae-a4bb-ca08590d5250, udp: true}
+  - {name: "🇨🇳 台湾 156-56", server: 125.229.191.104, port: 10033, type: ss, cipher: chacha20-ietf-poly1305, password: edb1f1c1-8b1d-4035-ba94-94a0cfd8ef82, udp: true}
+  - {name: "🇨🇳 台湾家宽 0093-72", server: 36.232.126.210, port: 10147, type: ss, cipher: chacha20-ietf-poly1305, password: 8a111a3f-5390-448a-8714-f26aaa8137f8, udp: true}
+  - {name: "🇨🇳 台湾家宽 0157-78", server: 59.126.32.59, port: 10066, type: ss, cipher: chacha20-ietf-poly1305, password: 7182ca82-f580-4e2e-9e9a-22b1c3fdfafb, udp: true}
+  - {name: "🇨🇳 台湾家宽 0326-10", server: 114.46.79.69, port: 10070, type: ss, cipher: chacha20-ietf-poly1305, password: 60f661f4-579c-45c9-8156-e0db88911dc6, udp: true}
+  - {name: "🇨🇳 台湾家宽 0459-30", server: 114.46.87.35, port: 10065, type: ss, cipher: chacha20-ietf-poly1305, password: 3feeea71-239c-43f0-a86d-5174f4a3980a, udp: true}
+  - {name: "🇨🇳 台湾家宽 0506-99", server: 125.228.180.250, port: 10081, type: ss, cipher: chacha20-ietf-poly1305, password: 7fc173fa-fbad-4cf1-94d3-3c7fe576a1ce, udp: true}
+  - {name: "🇨🇳 台湾 158-8", server: 125.229.191.104, port: 10033, type: ss, cipher: chacha20-ietf-poly1305, password: f1ad222f-b304-40a8-aeab-24a810371ea9, udp: true}
+  - {name: "🇯🇵 日本 073-97", server: 45.11.1.62, port: 50000, type: hysteria2, password: e49e3313-9676-4fce-94b9-bf59d3f873ec, auth: e49e3313-9676-4fce-94b9-bf59d3f873ec, sni: www.microsoft.com, skip-cert-verify: true, ports: 50000-55000, udp: true}
+  - {name: "🇯🇵 日本 122-55", server: 133.18.163.202, port: 50000, type: hysteria2, password: 50132b18-92b4-447f-90ef-aed8ea3a26f9, auth: 50132b18-92b4-447f-90ef-aed8ea3a26f9, sni: www.microsoft.com, skip-cert-verify: true, ports: 50000-55000, udp: true}
+  - {name: "🇯🇵 日本 133-14", server: 133.18.163.202, port: 50000, type: hysteria2, password: 4f2db08d-a6c7-47fd-ba7d-be5d5123e211, auth: 4f2db08d-a6c7-47fd-ba7d-be5d5123e211, sni: www.microsoft.com, skip-cert-verify: true, ports: 50000-55000, udp: true}
+  - {name: "🇯🇵 日本 137-93", server: 45.11.1.62, port: 50000, type: hysteria2, password: 80923a81-c839-4b94-8494-49630c4c4362, auth: 80923a81-c839-4b94-8494-49630c4c4362, sni: www.microsoft.com, skip-cert-verify: true, ports: 50000-55000, udp: true}
+  - {name: "🇯🇵 日本 168-26", server: 133.18.163.202, port: 50000, type: hysteria2, password: 89b692c5-6dc5-4381-8f99-442794c56598, auth: 89b692c5-6dc5-4381-8f99-442794c56598, sni: www.microsoft.com, skip-cert-verify: true, ports: 50000-55000, udp: true}
+  - {name: "🏴‍☠️ hysteria2-msk-4", server: 95.181.212.141, port: 16187, type: hysteria2, password: ee4a8f20-5467-4f12-bd87-ff21b7ba817c, skip-cert-verify: true, tfo: false}
+  - {name: "🏴‍☠️ hysteria2-us-6", server: 199.245.100.27, port: 16688, type: hysteria2, password: ed206fcd-c81f-4983-a6bf-bbfcc71a2664, skip-cert-verify: true, tfo: false}
+
 proxy-groups:
   # ============= 原有策略组（保持完全不变）=============
-  - { name: "🔰 选择节点", type: select, proxies: [DIRECT, 免费-日本节点,✈️国外站点,⚓国外站点非日本IP,专线,中国节点,美国节点,新加坡节点,香港节点,台湾节点,中国香港,中国上海,中国其他]}
-  - { name: "✈️国外站点", type: fallback, interval: 60, tolerance: 500,timeout: 3000, url: "http://www.gstatic.com/generate_204", proxies: [专线,免费-日本节点,⚓国外站点非日本IP] }
-  - { name: "⚓国外站点非日本IP", type: fallback, interval: 60, tolerance: 500,timeout: 3000, url: "http://www.gstatic.com/generate_204",proxies: [新加坡节点,台湾节点,专线,中国节点,美国节点,香港节点] }
+  - { name: "🔰 选择节点", type: select, proxies: [DIRECT,✈️国外站点,⚓国外站点非日本IP,日本节点,专线,中国节点,美国节点,新加坡节点,香港节点,台湾节点,中国香港,中国上海,中国其他]}
+  - { name: "✈️国外站点", type: fallback, interval: 60, tolerance: 500,timeout: 3000, url: "http://www.gstatic.com/generate_204", proxies: [日本节点,专线,⚓国外站点非日本IP] }
+  - { name: "⚓国外站点非日本IP", type: fallback, interval: 60, tolerance: 500,timeout: 3000, url: "http://www.gstatic.com/generate_204",proxies: [台湾节点,新加坡节点,美国节点,香港节点,专线,中国节点] }
   - { name: 专线, <<: *fallback, filter: "专线|pgkj666G|wxgqlfx", icon: https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
-  - { name: "免费-日本节点", type: fallback, interval: 60, tolerance: 500,timeout: 3000, url: "http://www.gstatic.com/generate_204",proxies: [🇯🇵 免费-日本1-Ver.6, 🇯🇵 免费-日本2-Ver.7, 🇯🇵 免费-日本3-Ver.6, 🇯🇵 免费-日本4-Ver.7, 🇯🇵 免费-日本5-Ver.8, 🇯🇵 免费-日本6-Ver.7, 🇯🇵 免费-日本7-Ver.1,🇯🇵 免费-日本1-qq, 🇯🇵 免费-日本2-qq, 🇯🇵 免费-日本3-qq, 🇯🇵 免费-日本4-qq, 🇯🇵 免费-日本5-qq, 🇯🇵 免费-日本6-qq, 🇯🇵 免费-日本7-qq] }
+  - { name: "日本节点", <<: *fallback, filter: "^(?=.*(🇯🇵|日本|jp))(?!.*专线)", icon: "https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png"}
   - { name: 新加坡节点, <<: *fallback, filter: "^(?=.*(🇸🇬|新加坡|狮|SG|Singapore))(?!.*专线)", icon: https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
   - { name: 香港节点, <<: *fallback, filter: "^(?=.*(香港|HK))(?!.*专线)", icon: https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
   - { name: 台湾节点, <<: *fallback, filter: "^(?=.*(台湾))(?!.*专线)", icon: https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
-  - { name: 美国节点, <<: *fallback, filter: "^(?=.*(美国))(?!.*专线)", icon: https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
+  - { name: 美国节点, <<: *fallback, filter: "^(?=.*(美国|us))(?!.*专线)", icon: https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
   - { name: 中国节点, <<: *fallback, filter: "^(?=.*(中国))(?!.*专线)", icon: https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
   - { name: 中国香港, <<: *fallback, filter: "^(?=.*(中国 - 香港))(?!.*专线)", icon: https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
   - { name: 中国上海, <<: *fallback, filter: "^(?=.*(中国 - 上海))(?!.*专线)", icon: https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
   - { name: 中国其他, <<: *fallback, filter: "中国 - 广州|中国 - 合肥|中国 - 杭州|中国-青岛", icon: https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
-
+ 
+ 
   - name: 🇨🇳 国内网站
     type: select
     proxies:
