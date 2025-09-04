@@ -1,4 +1,17 @@
 js:// -*- mode: js -*-
+function getFastestDomain(input) {
+        var urls = [];
+        if (typeof input === "string") {
+            var html = request(input);
+            urls = html.match(/https?:\/\/[^\s'"]+/g) || [];
+        } else if (Array.isArray(input)) {
+            urls = input;
+        }
+
+        let urlsFind = urls.map(h => h.replace(/https?:\/\//, '').replace(/:\d+/, ''));
+        var reachableRaw = findReachableIP(urlsFind, 2000);
+        return urls.find(item => item.includes(reachableRaw));
+    }
 function ssyz(img, type){
     const MAP = {
         num: {
