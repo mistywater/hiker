@@ -1,16 +1,19 @@
 js:// -*- mode: js -*-
 function getFastestDomain(input) {
         var urls = [];
-        if (typeof input === "string") {
+        if (typeof input === "string" && !/\.txt|\.json/.test(input)) {
+            return input.endsWith('/') ? input : input + '/';
+        } else if (typeof input === "string") {
             var html = request(input);
             urls = html.match(/https?:\/\/[^\s'"]+/g) || [];
         } else if (Array.isArray(input)) {
             urls = input;
         }
-
-        let urlsFind = urls.map(h => h.replace(/https?:\/\//, '').replace(/:\d+/, ''));
+        let urlsFind = urls.map(h => h.replace(/https?:\/\//, '').replace(/:\d+/, '').replace(/\/$/, ''));
         var reachableRaw = findReachableIP(urlsFind, 2000);
-        return urls.find(item => item.includes(reachableRaw));
+        var url = urls.find(item => item.includes(reachableRaw));
+        url = url.endsWith('/') ? url : url + '/';
+        return url;
     }
 function ssyz(img, type){
     const MAP = {
