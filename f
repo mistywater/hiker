@@ -275,7 +275,7 @@ function parseUrlVideo(url, 依赖) {
         if (!依赖) 依赖 = 'https://raw.gitcode.com/src48597962/hk/raw/Ju/SrcParseS.js';
         require(依赖.match(/http(s)?:\/\/.*\//)[0] + 'SrcParseS.js');
         url = SrcParseS.聚阅(url);
-    } else if (/(xunlei|ed2k:|bt:|ftp:|\.torrent|magnet)/.test(url)) {
+    } else if (/(xunlei|ed2k:|bt:|ftp:|\.torrent|magnet|thunder)/.test(url)) {
         return "hiker://page/diaoyong?rule=迅雷&page=fypage#" + url
     } else if (/magnet/.test(url)) {
         url = url;
