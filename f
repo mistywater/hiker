@@ -507,6 +507,8 @@ function detectCloudStorage(link) {
         return "[UC网盘]";
     } else if (link.includes("xunlei")) {
         return "[迅雷网盘]";
+    }  else if (link.includes("magnet")) {
+        return "[磁力]";
     } else {
         return "[未知网盘]";
     }
