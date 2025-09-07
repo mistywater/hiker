@@ -1,4 +1,18 @@
 js:// -*- mode: js -*-
+function searchByPinyin(keyword, list) {
+    let PinyinMatch = $.require("https://cdn.jsdelivr.net/npm/pinyin-match@1.2.8/dist/main.min.js")
+    if (!list) {
+        let jkfile = "hiker://files/rules/Src/juyue/jiekou.json";
+        list = JSON.parse(readFile(jkfile));
+    }
+    if (!keyword || !Array.isArray(list) || list.length === 0) {
+        return [];
+    }
+    return list.filter(item => {
+        let title = String(item.name ||item.title||item);
+        return PinyinMatch.match(title, keyword) !== false;
+    });
+}
 function getFastestDomain(input) {
         var urls = [];
         if (typeof input === "string" && !/\.txt|\.json/.test(input)) {
