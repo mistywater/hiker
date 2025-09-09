@@ -111,8 +111,8 @@ proxies:
 proxy-groups:
   # ============= 原有策略组（保持完全不变）=============
   - { name: "🔰 选择节点", type: select, proxies: [DIRECT,✈️国外站点,⚓国外站点非日本IP,日本节点,专线,中国节点,美国节点,新加坡节点,香港节点,台湾节点,中国香港,中国上海,中国其他]}
-  - { name: "✈️国外站点", type: fallback, interval: 60, tolerance: 500,timeout: 3000, url: "http://www.gstatic.com/generate_204", proxies: [日本节点,专线,⚓国外站点非日本IP] }
-  - { name: "⚓国外站点非日本IP", type: fallback, interval: 60, tolerance: 500,timeout: 3000, url: "http://www.gstatic.com/generate_204",proxies: [台湾节点,新加坡节点,美国节点,香港节点,专线,中国节点] }
+  - { name: "✈️国外站点", type: fallback, interval: 60, tolerance: 500,timeout: 3000, url: "http://www.gstatic.com/generate_204", proxies: [日本节点,⚓国外站点非日本IP] }
+  - { name: "⚓国外站点非日本IP", type: fallback, interval: 60, tolerance: 500,timeout: 3000, url: "http://www.gstatic.com/generate_204",proxies: [台湾节点,新加坡节点,美国节点,香港节点,中国节点] }
   - { name: 专线, <<: *fallback, filter: "专线|pgkj666G|wxgqlfx", icon: https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
   - { name: "日本节点", <<: *fallback, filter: "^(?=.*(🇯🇵|日本|jp))(?!.*专线)", icon: "https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png"}
   - { name: 新加坡节点, <<: *fallback, filter: "^(?=.*(🇸🇬|新加坡|狮|SG|Singapore))(?!.*专线)", icon: https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
