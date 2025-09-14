@@ -1649,6 +1649,7 @@ putMyVar('isMoveto', '1');
                         }, host);
                     } else if (num == 1) {
                         putMyVar(host + 'page', input);
+putMyVar('isMoveto', '1');
                         refreshPage(false);
                         return 'hiker://empty';
                     } else {
@@ -1683,7 +1684,7 @@ putMyVar('isMoveto', '1');
         longClick.push({
             title: '清除缓存',
             js: $.toString((_chchePath) => {
-                writeFile(_chchePath, '');
+                writeFile(_chchePath, '');clearMyVar(host+'page');
                 refreshPage(false);
             }, _chchePath),
         });
@@ -1922,7 +1923,7 @@ putMyVar('isMoveto', '1');
                         }, host);
                     } else if (num == 1) {
                         putMyVar(host + 'page', input);
-                        putMyVar('isMoveto', '1');
+putMyVar('isMoveto', '1');
                         refreshPage(false);
                         return 'hiker://empty';
                     } else {
@@ -1932,7 +1933,7 @@ putMyVar('isMoveto', '1');
                         }
                         return $(arr1, 3, '选择页码').select((host) => {
                             putMyVar(host + 'page', input);
-                            putMyVar('isMoveto', '1');
+putMyVar('isMoveto', '1');
                             refreshPage(false);
                             return 'hiker://empty';
                         }, host);
@@ -1957,7 +1958,7 @@ putMyVar('isMoveto', '1');
         longClick.push({
             title: '清除缓存',
             js: $.toString((_chchePath) => {
-                writeFile(_chchePath, '');
+                writeFile(_chchePath, '');clearMyVar(host+'page');
                 refreshPage(false);
             }, _chchePath),
         });
