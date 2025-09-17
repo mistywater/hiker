@@ -1683,10 +1683,10 @@ putMyVar('isMoveto', '1');
     if (_chchePath) {
         longClick.push({
             title: '清除缓存',
-            js: $.toString((_chchePath) => {
+            js: $.toString((host,_chchePath) => {
                 writeFile(_chchePath, '');clearMyVar(host+'page');
                 refreshPage(false);
-            }, _chchePath),
+            },host,_chchePath),
         });
     }
     longClick.unshift({
@@ -1957,10 +1957,10 @@ putMyVar('isMoveto', '1');
     if (_chchePath) {
         longClick.push({
             title: '清除缓存',
-            js: $.toString((_chchePath) => {
+            js: $.toString((host,_chchePath) => {
                 writeFile(_chchePath, '');clearMyVar(host+'page');
                 refreshPage(false);
-            }, _chchePath),
+            }, host,_chchePath),
         });
     }
     longClick.unshift({
