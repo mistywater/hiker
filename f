@@ -76,7 +76,8 @@ if(!jkdata.url){
         }
 
 function searchByPinyin(keyword, list) {
-    let PinyinMatch = $.require("https://cdn.jsdelivr.net/npm/pinyin-match@1.2.8/dist/main.min.js")
+    //"https://cdn.jsdelivr.net/npm/pinyin-match@1.2.8/dist/main.min.js"
+    let PinyinMatch = $.require("https://gitee.com/mistywater/hiker_info/raw/master/main.min.js")
     if (!list) {
         let jkfile = "hiker://files/rules/Src/juyue/jiekou.json";
         list = JSON.parse(readFile(jkfile));
