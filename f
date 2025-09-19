@@ -1,4 +1,80 @@
 js:// -*- mode: js -*-
+function toerji(item, jkdata) {
+if(!jkdata.url){
+    info = jkdata || storage0.getMyVar("\u4e00\u7ea7\u6e90\u63a5\u53e3\u4fe1\u606f");
+    if (item.url && !/js:|select:|=>|@|toast:|hiker:\/\/page|video:/.test(item.url) && item.col_type != "x5_webview_single" && item.url != "hiker://empty") {
+        let extra = item.extra || {};
+        extra.name = extra.name || extra.pageTitle || (item.title ? item.title.replace(/‘|’|“|”|<[^>]+>/g, "") : "");
+        extra.img = extra.img || item.pic_url || item.img;
+        extra.stype = info.type;
+        extra.pageTitle = extra.pageTitle || extra.name;
+        extra.surl = item.url.replace(/hiker:\/\/empty|#immersiveTheme#|#autoCache#|#noRecordHistory#|#noHistory#|#noLoading#|#/g, "");
+        extra.sname = info.name;
+        item.url = $("hiker://empty?type=" + info.type + "#immersiveTheme##autoCache#").rule(() => {
+            require(config.依赖);
+            erji();
+        }
+        );
+        item.extra = extra;
+    }
+    return item;} else{           try {
+                if (item.url && item.url != 'hiker://empty') {
+                    jkdata = jkdata || storage0.getMyVar('一级源接口信息');
+                    if (!jkdata.url) {
+                        jkdata = storage0.getMyVar('一级源接口信息');
+                    }
+                    let extra = item.extra || {};
+                    let extensions = ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp', '.svg', '.tiff', '.ico', '.m3u8', '.mp4'];
+                    let excludeurl = ['.m3u8?', '.mp4?']
+                    if (!extra.noDetail && !/select:|@|toast:|hiker:|video:|pics:/.test(item.url) && item.col_type != "x5_webview_single" && !extensions.some(ext => item.url.toString().toLowerCase().endsWith(ext)) && !excludeurl.some(ext => item.url.toString().includes(ext))) {
+                        extra.name = extra.name || extra.pageTitle || (item.title ? item.title.replace(/‘|’|“|”|<[^>]+>/g, "") : "");
+                        extra.img = extra.img || item.pic_url || item.img;
+                        extra.pageTitle = extra.pageTitle || extra.name;
+                        extra.url = item.url.toString().replace(/#immersiveTheme#|#autoCache#|#noRecordHistory#|#noHistory#|#noLoading#|#/g, "");
+                        extra.data = jkdata;
+                        item.url = $("hiker://empty?type=" + jkdata.type + "&page=fypage#autoCache#" + (jkdata.erjisign || "#immersiveTheme#")).rule(() => {
+                            require(config.聚阅);
+                            erji();
+                        })
+                        item.extra = extra;
+                    }
+
+                    if (/video:|pics:|\.m3u8|\.mp4|@rule=|@lazyRule=/.test(item.url) && (!/text_icon|rich_text|avatar|_button|icon_|text_/.test(item.col_type) || item.col_type == 'icon_1_left_pic')) {
+                        let caseExtra = Object.assign({}, extra);
+                        delete caseExtra.longClick;
+                        caseExtra.data = caseExtra.data || {
+                            name: jkdata.name,
+                            type: jkdata.type
+                        }
+                        let caseData = {
+                            type: item.url.includes('@rule=') ? '二级列表' : '一级列表',
+                            title: extra.pageTitle || item.title,
+                            picUrl: extra.img || item.img || item.pic_url,
+                            params: {
+                                url: item.url,
+                                find_rule: '',
+                                params: caseExtra
+                            }
+                        }
+
+                        let longClick = extra.longClick || [];
+                        longClick = longClick.filter(v => v.title != "加入收藏书架🗄")
+                        longClick.push({
+                            title: "加入收藏书架🗄",
+                            js: $.toString((caseData) => {
+                                return addBookCase(caseData);
+                            }, caseData)
+                        })
+                        extra.longClick = longClick;
+                        item.extra = extra;
+                    }
+                }
+            } catch (e) {
+                log("toerji失败>" + e.message + " 错误行#" + e.lineNumber)
+            }
+            return item;}
+        }
+
 function searchByPinyin(keyword, list) {
     let PinyinMatch = $.require("https://cdn.jsdelivr.net/npm/pinyin-match@1.2.8/dist/main.min.js")
     if (!list) {
