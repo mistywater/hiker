@@ -118,7 +118,7 @@ function convertToSingleLineYaml(yamlText) {
                         return `${key}: ${formatValue(value)}`;
                     }).join(', ');
 
-                    return `- {${entries}}`;
+                    return `  - {${entries}}`;
                 }).join('\n');
             }
 function toerji(item, jkdata) {
