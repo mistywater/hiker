@@ -14,9 +14,6 @@ proxy-providers:
   zyfx6:
     url: https://rss.zyfx6.xyz/clash/
     <<: *p
-  clash_latency:
-    url: https://ghproxy.net/https://raw.githubusercontent.com/mistywater/hiker/refs/heads/main/clash_latency.txt
-    <<: *p
   go4sharing:
     url: https://ghproxy.net/https://raw.githubusercontent.com/go4sharing/sub/main/sub.yaml
     <<: *p
@@ -64,6 +61,45 @@ dns:
     - tcp://223.5.5.5
     - tcp://223.6.6.6
 proxies:
+  - {name: "未知001", server: 150.107.46.21, port: 8083, type: ssr, cipher: aes-256-cfb, password: iFqnzSscN, protocol: origin, obfs: tls1.2_ticket_auth, protocol-param: "", obfs-param: ""}
+  - {name: CO-154.223.16.212-0325, server: 154.223.16.212, port: 989, type: ss, cipher: aes-256-cfb, password: f8f7aCzcPKbsF8p3}
+  - {name: MD-185.153.197.5-4924, server: 185.153.197.5, port: 989, type: ss, cipher: aes-256-cfb, password: f8f7aCzcPKbsF8p3}
+  - {name: NO-185.213.23.226-0216, server: 185.213.23.226, port: 989, type: ss, cipher: aes-256-cfb, password: f8f7aCzcPKbsF8p3}
+  - {name: SK-156.146.40.194-0232, server: 156.146.40.194, port: 989, type: ss, cipher: aes-256-cfb, password: f8f7aCzcPKbsF8p3}
+  - {name: 🇦🇹 _AT_奥地利->🇨🇳_CN_中国, server: 46.29.34.205, port: 59956, type: vmess, uuid: ca0c9937-58a6-44ea-9111-a6abac267d0f, alterId: 0, cipher: auto, tls: false, skip-cert-verify: true}
+  - {name: 🇦🇹 _AT_奥地利->🇨🇳_CN_中国_0@2 2, server: 46.29.34.205, port: 59956, type: vmess, uuid: ca0c9937-58a6-44ea-9111-a6abac267d0f, alterId: 0, cipher: auto, tls: false, skip-cert-verify: true}
+  - {name: 🇦🇹 _AT_奥地利->🇨🇳_CN_中国_0@2, server: 46.29.34.205, port: 59956, type: vmess, uuid: ca0c9937-58a6-44ea-9111-a6abac267d0f, alterId: 0, cipher: auto, tls: false, skip-cert-verify: true}
+  - {name: 🇦🇹 奥地利 V2CROSS.COM, server: 46.29.34.205, port: 59956, type: vmess, uuid: ca0c9937-58a6-44ea-9111-a6abac267d0f, alterId: 0, cipher: auto, tls: false, skip-cert-verify: true}
+  - {name: 🇨🇳 江苏省 移动, server: v8.heduian.link, port: 30808, type: vmess, uuid: cbb3f877-d1fb-344c-87a9-d153bffd5484, alterId: 2, cipher: auto, tls: false, skip-cert-verify: true, network: ws, ws-opts: {path: /oooo, headers: {Host: v8.heduian.link}}}
+  - {name: 🇫🇷 FR-45.158.171.146-0220, server: 45.158.171.146, port: 8080, type: ss, cipher: chacha20-ietf-poly1305, password: QCXDxuDlTTMD7jtgHUjIoj}
+  - {name: 🇬🇧 _GB_英国, server: 62.100.205.48, port: 989, type: ss, cipher: aes-256-cfb, password: f8f7aCzcPKbsF8p3}
+  - {name: 🇬🇧 _GB_英国_0@4 2, server: 62.100.205.48, port: 989, type: ss, cipher: aes-256-cfb, password: f8f7aCzcPKbsF8p3}
+  - {name: 🇬🇧 _GB_英国_0@4, server: 62.100.205.48, port: 989, type: ss, cipher: aes-256-cfb, password: f8f7aCzcPKbsF8p3}
+  - {name: 🇬🇧 GB-62.100.205.48-4852, server: 62.100.205.48, port: 989, type: ss, cipher: aes-256-cfb, password: f8f7aCzcPKbsF8p3}
+  - {name: 🇭🇰 HK-116.49.62.93-1762, server: 697dc551-t1i9s0-tm53cm-1ol97.hk3.p5pv.com, port: 80, type: vmess, uuid: 93fb69fc-77cf-11ee-85ee-f23c91369f2d, alterId: 2, cipher: auto, tls: false, skip-cert-verify: true, network: ws, ws-opts: {path: /, headers: {Host: broadcastlv.chat.bilibili.com}}}
+  - {name: 🇭🇰 HK-116.49.85.64-0260, server: 1e426046-t0fds0-t12cnj-1ol97.hk.p5pv.com, port: 80, type: vmess, uuid: 93fb69fc-77cf-11ee-85ee-f23c91369f2d, alterId: 2, cipher: auto, tls: false, skip-cert-verify: true, network: ws, ws-opts: {path: /, headers: {Host: broadcastlv.chat.bilibili.com}}}
+  - {name: 🇭🇰 HK-116.49.85.64-0261, server: 1e426046-t0fds0-t12cnj-1ol97.hk.p5pv.com, port: 80, type: vmess, uuid: 93fb69fc-77cf-11ee-85ee-f23c91369f2d, alterId: 2, cipher: auto, tls: false, skip-cert-verify: true, servername: broadcastlv.chat.bilibili.com, network: ws, ws-opts: {path: /, headers: {Host: 1e426046-t0fds0-t12cnj-1ol97.hk.p5pv.com}}}
+  - {name: 🇭🇰 香港 电讯盈科有限公司, server: 697dc551-t1i9s0-tm53cm-1ol97.hk3.p5pv.com, port: 80, type: vmess, uuid: 93fb69fc-77cf-11ee-85ee-f23c91369f2d, alterId: 2, cipher: auto, tls: false, skip-cert-verify: true, network: ws, ws-opts: {path: /, headers: {Host: 697dc551-t1i9s0-tm53cm-1ol97.hk3.p5pv.com}}}
+  - {name: 🇮🇸 IS-37.235.49.152-0318, server: 37.235.49.152, port: 989, type: ss, cipher: aes-256-cfb, password: f8f7aCzcPKbsF8p3}
+  - {name: 🇮🇸 IS-37.235.49.168-0304, server: 37.235.49.168, port: 989, type: ss, cipher: aes-256-cfb, password: f8f7aCzcPKbsF8p3}
+  - {name: 🇰🇷 KR-154.90.62.168-0349, server: 154.90.62.168, port: 989, type: ss, cipher: aes-256-cfb, password: f8f7aCzcPKbsF8p3}
+  - {name: 🇰🇷 KR-154.90.63.177-0342, server: 154.90.63.177, port: 989, type: ss, cipher: aes-256-cfb, password: f8f7aCzcPKbsF8p3}
+  - {name: 🇰🇷 KR-218.237.185.230-4889, server: p141.panda001.net, port: 4652, type: ss, cipher: aes-256-cfb, password: qwerREWQ@@}
+  - {name: 🇳🇱 NL-51.15.17.169-0272, server: 51.15.17.169, port: 989, type: ss, cipher: aes-256-cfb, password: f8f7aCzcPKbsF8p3}
+  - {name: 🇷🇺 _SK_斯洛伐克->🇷🇺_RU_俄罗斯, server: 156.146.40.194, port: 989, type: ss, cipher: aes-256-cfb, password: f8f7aCzcPKbsF8p3}
+  - {name: 🇷🇺 _SK_斯洛伐克->🇷🇺_RU_俄罗斯_0@6 2, server: 156.146.40.194, port: 989, type: ss, cipher: aes-256-cfb, password: f8f7aCzcPKbsF8p3}
+  - {name: 🇷🇺 _SK_斯洛伐克->🇷🇺_RU_俄罗斯_0@6, server: 156.146.40.194, port: 989, type: ss, cipher: aes-256-cfb, password: f8f7aCzcPKbsF8p3}
+  - {name: 🇸🇪 _SE_瑞典_0@7 2, server: 192.71.166.100, port: 989, type: ss, cipher: aes-256-cfb, password: f8f7aCzcPKbsF8p3}
+  - {name: 🇸🇪 _SE_瑞典_0@7, server: 192.71.166.100, port: 989, type: ss, cipher: aes-256-cfb, password: f8f7aCzcPKbsF8p3}
+  - {name: 🇺🇸 _CN_中国->🇺🇸_US_美国_0@1 2, server: v24.heduian.link, port: 30824, type: vmess, uuid: cbb3f877-d1fb-344c-87a9-d153bffd5484, alterId: 2, cipher: auto, tls: false, skip-cert-verify: true, network: ws, ws-opts: {path: /oooo, headers: {Host: v24.heduian.link}}}
+  - {name: 🇺🇸 _CN_中国->🇺🇸_US_美国_0@1, server: v24.heduian.link, port: 30824, type: vmess, uuid: cbb3f877-d1fb-344c-87a9-d153bffd5484, alterId: 2, cipher: auto, tls: false, skip-cert-verify: true, network: ws, ws-opts: {path: /oooo, headers: {Host: v24.heduian.link}}}
+  - {name: 🇺🇸 _US_美国, server: 104.192.226.106, port: 989, type: ss, cipher: aes-256-cfb, password: f8f7aCzcPKbsF8p3}
+  - {name: 🇺🇸 _US_美国_0@3 2, server: 104.192.226.106, port: 989, type: ss, cipher: aes-256-cfb, password: f8f7aCzcPKbsF8p3}
+  - {name: 🇺🇸 _US_美国_0@3, server: 104.192.226.106, port: 989, type: ss, cipher: aes-256-cfb, password: f8f7aCzcPKbsF8p3}
+  - {name: 🇺🇸 US-104.192.226.106-0187, server: 104.192.226.106, port: 990, type: ss, cipher: chacha20-ietf-poly1305, password: f8f7aCzcPKbsF8p3}
+  - {name: 未知, server: 103.186.154.64, port: 38388, type: ss, cipher: aes-256-cfb, password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV}
+  - {name: 未知_0@0 2, server: 103.186.154.64, port: 38388, type: ss, cipher: aes-256-cfb, password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV}
+  - {name: 未知_0@0, server: 103.186.154.64, port: 38388, type: ss, cipher: aes-256-cfb, password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV}
   - {"type":"vmess","name":"❓ 中国安徽_3","server":"112.132.215.34","port":"50007","uuid":"418048af-a293-4b99-9b0c-98ca3580dd24","alterId":"0","cipher":"auto","network":"tcp","client-fingerprint":"chrome"}
   - {"type":"vmess","name":"❓ 中国浙江_4","server":"120.26.55.225","port":"50112","uuid":"418048af-a293-4b99-9b0c-98ca3580dd24","alterId":"64","cipher":"auto","network":"tcp","client-fingerprint":"chrome"}
   - {"name":"❓ 台湾_5","server":"1.170.34.91","port":"10088","type":"ss","cipher":"chacha20-ietf-poly1305","password":"dfe2c66e-d6b9-4935-bab6-e89fc0bee005","udp":true}
@@ -78,30 +114,6 @@ proxies:
   - {"type":"hysteria2","name":"🇳🇱 荷兰","server":"yapc-1.adamhayward.co.uk","port":"35000","password":"Yet-Another-Public-Config-1","sni":"YAPC-1.afshin.ir","obfs":"salamander","obfs-password":"Yet-Another-Public-Config-1","skip-cert-verify":true,"tfo":false,"client-fingerprint":"chrome"}
   - {"name":"❓ 美国_14","server":"45.158.171.146","port":"8080","type":"ss","cipher":"chacha20-ietf-poly1305","password":"QCXDxuDlTTMD7jtgHUjIoj"}
   - {"name":"🇹🇼 台湾_6","server":"awes35lesl.blhao0o.dpdns.org","port":"12031","client-fingerprint":"chrome","type":"ss","cipher":"aes-128-gcm","password":"01721e43-5389-4f97-b21c-900abb2bda9e","tfo":false}
-  - { name: '香港 01', type: ss, server: crefthk1.middlenet.xyz, port: 563, cipher: aes-128-gcm, password: 263b8fa1-c92a-4fcd-a71c-921d744b6b8b, udp: true }
-  - { name: '香港 02', type: ss, server: crefzhkb.middlenet.xyz, port: 564, cipher: aes-128-gcm, password: 263b8fa1-c92a-4fcd-a71c-921d744b6b8b, udp: true }
-  - { name: '香港 03', type: ss, server: zrefhubhk3.middlenet.xyz, port: 564, cipher: aes-128-gcm, password: 263b8fa1-c92a-4fcd-a71c-921d744b6b8b, udp: true }
-  - { name: '香港 04', type: ss, server: chinithk.middlenet.xyz, port: 565, cipher: aes-128-gcm, password: 263b8fa1-c92a-4fcd-a71c-921d744b6b8b, udp: true }
-  - { name: '香港 05', type: ss, server: cnthk-a.middlenet.xyz, port: 601, cipher: aes-128-gcm, password: 263b8fa1-c92a-4fcd-a71c-921d744b6b8b, udp: true }
-  - { name: '香港 06', type: ss, server: crefthk1.middlenet.xyz, port: 564, cipher: aes-128-gcm, password: 263b8fa1-c92a-4fcd-a71c-921d744b6b8b, udp: true }
-  - { name: '香港 07', type: ss, server: chinithk.middlenet.xyz, port: 566, cipher: aes-128-gcm, password: 263b8fa1-c92a-4fcd-a71c-921d744b6b8b, udp: true }
-  - { name: '香港 08', type: ss, server: dcgn.middlenet.xyz, port: 563, cipher: aes-128-gcm, password: 263b8fa1-c92a-4fcd-a71c-921d744b6b8b, udp: true }
-  - { name: '香港 09', type: ss, server: dcgn.middlenet.xyz, port: 564, cipher: aes-128-gcm, password: 263b8fa1-c92a-4fcd-a71c-921d744b6b8b, udp: true }
-  - { name: '香港 10', type: ss, server: chinithk.middlenet.xyz, port: 567, cipher: aes-128-gcm, password: 263b8fa1-c92a-4fcd-a71c-921d744b6b8b, udp: true }
-  - { name: '香港 11', type: ss, server: cnthk-a.middlenet.xyz, port: 602, cipher: aes-128-gcm, password: 263b8fa1-c92a-4fcd-a71c-921d744b6b8b, udp: true }
-  - { name: '香港 12', type: ss, server: zrefhubhk3.middlenet.xyz, port: 565, cipher: aes-128-gcm, password: 263b8fa1-c92a-4fcd-a71c-921d744b6b8b, udp: true }
-  - { name: '香港 13', type: ss, server: crefzhkb.middlenet.xyz, port: 565, cipher: aes-128-gcm, password: 263b8fa1-c92a-4fcd-a71c-921d744b6b8b, udp: true }
-  - { name: '香港 14', type: ss, server: cnthk-a.middlenet.xyz, port: 603, cipher: aes-128-gcm, password: 263b8fa1-c92a-4fcd-a71c-921d744b6b8b, udp: true }
-  - { name: '香港 15', type: ss, server: cnthk-b.middlenet.xyz, port: 564, cipher: aes-128-gcm, password: 263b8fa1-c92a-4fcd-a71c-921d744b6b8b, udp: true }
-  - { name: '日本 A', type: ss, server: zominsisa.dlayernet.xyz, port: 1208, cipher: aes-128-gcm, password: 263b8fa1-c92a-4fcd-a71c-921d744b6b8b, udp: true }
-  - { name: '日本 B', type: ss, server: zominsisa.dlayernet.xyz, port: 1215, cipher: aes-128-gcm, password: 263b8fa1-c92a-4fcd-a71c-921d744b6b8b, udp: true }
-  - { name: '新加坡 A', type: ss, server: zominsisa.dlayernet.xyz, port: 1225, cipher: aes-128-gcm, password: 263b8fa1-c92a-4fcd-a71c-921d744b6b8b, udp: true }
-  - { name: '新加坡 B', type: ss, server: zominsisa.dlayernet.xyz, port: 1238, cipher: aes-128-gcm, password: 263b8fa1-c92a-4fcd-a71c-921d744b6b8b, udp: true }
-  - { name: '新加坡 C', type: ss, server: onintosaisa-b.dlayernet.xyz, port: 589, cipher: aes-128-gcm, password: 263b8fa1-c92a-4fcd-a71c-921d744b6b8b, udp: true }
-  - { name: '新加坡 D', type: ss, server: onintosaisa-b.dlayernet.xyz, port: 590, cipher: aes-128-gcm, password: 263b8fa1-c92a-4fcd-a71c-921d744b6b8b, udp: true }
-  - { name: '新加坡 E', type: ss, server: onintosaisa-b.dlayernet.xyz, port: 591, cipher: aes-128-gcm, password: 263b8fa1-c92a-4fcd-a71c-921d744b6b8b, udp: true }
-  - { name: 韩国, type: ss, server: zominsisa.dlayernet.xyz, port: 1243, cipher: aes-128-gcm, password: 263b8fa1-c92a-4fcd-a71c-921d744b6b8b, udp: true }
-  - {name: 美国zgo-falkenstein, type: ss, server: 23.165.200.112, port: 26902, cipher: chacha20-ietf-poly1305, password: zaq1@WSXcde3$RFV, udp: true, tcp-fast-open: true, plugin: obfs, plugin-opts: {mode: tls, host: falkenstein.ticoag.fun}}
   - {name: "Lv2 新加坡 00 [1.5]", server: tlbasic.com, port: 443, type: trojan, password: "@@csjTL8517", skip-cert-verify: true}
   - {"name": "🇭🇰 JA-HK-9950X-7", "server": "jphj-hk-500m-100g.ifuck.gay", "port": 38001, "type": "ss", "cipher": "aes-256-gcm", "password": "McRu2JvKif"}
   - {name: "🇸🇬 SG-01-231-3", server: 142.91.102.176, port: 43597, type: hysteria2, password: 5h0hcc7wc8, sni: cn.bing.com, skip-cert-verify: true, tfo: false}
@@ -110,21 +122,16 @@ proxies:
 
 proxy-groups:
   # ============= 原有策略组（保持完全不变）=============
-  - { name: "🔰 选择节点", type: select, proxies: [DIRECT,✈️国外站点,⚓国外站点非日本IP,日本节点,专线,中国节点,美国节点,新加坡节点,香港节点,台湾节点,中国香港,中国上海,中国其他]}
+  - { name: "🔰 选择节点", type: select, proxies: [DIRECT,✈️国外站点,⚓国外站点非日本IP,日本节点,中国节点,美国节点,新加坡节点,越南节点,香港节点,台湾节点]}
   - { name: "✈️国外站点", type: fallback, interval: 60, tolerance: 500,timeout: 3000, url: "http://www.gstatic.com/generate_204", proxies: [日本节点,⚓国外站点非日本IP] }
-  - { name: "⚓国外站点非日本IP", type: fallback, interval: 60, tolerance: 500,timeout: 3000, url: "http://www.gstatic.com/generate_204",proxies: [台湾节点,新加坡节点,美国节点,香港节点,中国节点] }
-  - { name: 专线, <<: *fallback, filter: "专线|pgkj666G|wxgqlfx", icon: https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
+  - { name: "⚓国外站点非日本IP", type: fallback, interval: 60, tolerance: 500,timeout: 3000, url: "http://www.gstatic.com/generate_204",proxies: [台湾节点,新加坡节点,越南节点,美国节点,香港节点,中国节点] }
   - { name: "日本节点", <<: *fallback, filter: "^(?=.*(🇯🇵|日本|jp))(?!.*专线)", icon: "https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png"}
   - { name: 新加坡节点, <<: *fallback, filter: "^(?=.*(🇸🇬|新加坡|狮|SG|Singapore))(?!.*专线)", icon: https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
+  - { name: 越南节点, <<: *fallback, filter: "^(?=.*(越南))(?!.*专线)", icon: https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
   - { name: 香港节点, <<: *fallback, filter: "^(?=.*(香港|HK))(?!.*专线)", icon: https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
   - { name: 台湾节点, <<: *fallback, filter: "^(?=.*(台湾))(?!.*专线)", icon: https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
   - { name: 美国节点, <<: *fallback, filter: "^(?=.*(美国|us))(?!.*专线)", icon: https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
-  - { name: 中国节点, <<: *fallback, filter: "^(?=.*(中国))(?!.*专线)", icon: https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
-  - { name: 中国香港, <<: *fallback, filter: "^(?=.*(中国 - 香港))(?!.*专线)", icon: https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
-  - { name: 中国上海, <<: *fallback, filter: "^(?=.*(中国 - 上海))(?!.*专线)", icon: https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
-  - { name: 中国其他, <<: *fallback, filter: "中国 - 广州|中国 - 合肥|中国 - 杭州|中国-青岛", icon: https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
- 
- 
+  - { name: 中国节点, <<: *fallback, filter: "^(?=.*(中国))(?!.*香港|HK)", icon: https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
   - name: 🇨🇳 国内网站
     type: select
     proxies:
@@ -139,12 +146,12 @@ proxy-groups:
 rules:
  - DOMAIN-SUFFIX,dlsite.com,✈️国外站点
  - DOMAIN-SUFFIX,nyaa.si,✈️国外站点
- - DOMAIN-SUFFIX,xinwenba.net,中国上海
- - DOMAIN-SUFFIX,shzx.org,中国上海
+ - DOMAIN-SUFFIX,xinwenba.net,中国节点
+ - DOMAIN-SUFFIX,shzx.org,中国节点
  - DOMAIN-SUFFIX,google.com.hk,香港节点
- - DOMAIN-SUFFIX,hongimg.com,中国香港
- - DOMAIN-SUFFIX,cosblay.com,中国香港
- - DOMAIN-SUFFIX,trendszine.com,中国香港
+ - DOMAIN-SUFFIX,hongimg.com,香港节点
+ - DOMAIN-SUFFIX,cosblay.com,香港节点
+ - DOMAIN-SUFFIX,trendszine.com,香港节点
  - DOMAIN-SUFFIX,cool18.com,✈️国外站点
  - DOMAIN-SUFFIX,knvod.com,DIRECT
  - DOMAIN-SUFFIX,sw20250101.click,✈️国外站点
