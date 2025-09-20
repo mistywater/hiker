@@ -61,6 +61,160 @@ dns:
     - tcp://223.5.5.5
     - tcp://223.6.6.6
 proxies:
+  - {name: 🇬🇧 英国, server: okanc.iepl.cac.cab, port: 24002, type: trojan, password: 3ebd879d-1a38-4550-8fa0-b636fb1604d8, sni: 1.gb.bilibili.com, skip-cert-verify: true}
+  - {name: 🇩🇪 德国, server: okanc.iepl.cac.cab, port: 24090, type: trojan, password: 3ebd879d-1a38-4550-8fa0-b636fb1604d8, sni: 1.de.bilibili.com, skip-cert-verify: true}
+  - {name: 🇯🇵 日本05, server: okanc.iepl.cac.cab, port: 23015, type: trojan, password: 3ebd879d-1a38-4550-8fa0-b636fb1604d8, sni: 5.jp.bilibili.com, skip-cert-verify: true}
+  - {name: 🇨🇳 台湾03, server: okanc.iepl.cac.cab, port: 23008, type: trojan, password: 3ebd879d-1a38-4550-8fa0-b636fb1604d8, sni: 3.tw.bilibili.com, skip-cert-verify: true}
+  - {name: 🇸🇬 新加坡03, server: okanc.iepl.cac.cab, port: 23018, type: trojan, password: 3ebd879d-1a38-4550-8fa0-b636fb1604d8, sni: 3.sg.bilibili.com, skip-cert-verify: true}
+  - {name: 🇭🇰 香港03, server: okanc.iepl.cac.cab, port: 23003, type: trojan, password: 3ebd879d-1a38-4550-8fa0-b636fb1604d8, sni: 3.hk.bilibili.com, skip-cert-verify: true}
+  - {name: 🇯🇵 日本03, server: okanc.iepl.cac.cab, port: 23013, type: trojan, password: 3ebd879d-1a38-4550-8fa0-b636fb1604d8, sni: 3.jp.bilibili.com, skip-cert-verify: true}
+  - {name: 🇨🇳 台湾02, server: okanc.iepl.cac.cab, port: 23007, type: trojan, password: 3ebd879d-1a38-4550-8fa0-b636fb1604d8, sni: 2.tw.bilibili.com, skip-cert-verify: true}
+  - {name: 🇵🇭 菲律宾, server: okanc.iepl.cac.cab, port: 24004, type: trojan, password: 3ebd879d-1a38-4550-8fa0-b636fb1604d8, sni: 1.ph.bilibili.com, skip-cert-verify: true}
+  - {name: 🇯🇵 日本02, server: okanc.iepl.cac.cab, port: 23012, type: trojan, password: 3ebd879d-1a38-4550-8fa0-b636fb1604d8, sni: 2.jp.bilibili.com, skip-cert-verify: true}
+  - {name: 🇸🇬 新加坡04, server: okanc.iepl.cac.cab, port: 23019, type: trojan, password: 3ebd879d-1a38-4550-8fa0-b636fb1604d8, sni: 4.sg.bilibili.com, skip-cert-verify: true}
+  - {name: 🇹🇭 泰国, server: okanc.iepl.cac.cab, port: 24118, type: trojan, password: 3ebd879d-1a38-4550-8fa0-b636fb1604d8, sni: 1.th.bilibili.com, skip-cert-verify: true}
+  - {name: 🇭🇰 香港02, server: okanc.iepl.cac.cab, port: 23002, type: trojan, password: 3ebd879d-1a38-4550-8fa0-b636fb1604d8, sni: 2.hk.bilibili.com, skip-cert-verify: true}
+  - {name: 🇺🇸 美国03, server: okanc.iepl.cac.cab, port: 23023, type: trojan, password: 3ebd879d-1a38-4550-8fa0-b636fb1604d8, sni: 3.us.bilibili.com, skip-cert-verify: true}
+  - {name: 🇺🇸 美国05, server: okanc.iepl.cac.cab, port: 23025, type: trojan, password: 3ebd879d-1a38-4550-8fa0-b636fb1604d8, sni: 5.us.bilibili.com, skip-cert-verify: true}
+  - {name: 🇭🇰 香港04, server: okanc.iepl.cac.cab, port: 23004, type: trojan, password: 3ebd879d-1a38-4550-8fa0-b636fb1604d8, sni: 4.hk.bilibili.com, skip-cert-verify: true}
+  - {name: 🇯🇵 日本04, server: okanc.iepl.cac.cab, port: 23014, type: trojan, password: 3ebd879d-1a38-4550-8fa0-b636fb1604d8, sni: 4.jp.bilibili.com, skip-cert-verify: true}
+  - {name: 🇸🇬 新加坡05, server: okanc.iepl.cac.cab, port: 23020, type: trojan, password: 3ebd879d-1a38-4550-8fa0-b636fb1604d8, sni: 5.sg.bilibili.com, skip-cert-verify: true}
+  - {name: 🇫🇷 法国, server: okanc.iepl.cac.cab, port: 24092, type: trojan, password: 3ebd879d-1a38-4550-8fa0-b636fb1604d8, sni: 1.fr.bilibili.com, skip-cert-verify: true}
+  - {name: 🇭🇰 香港01, server: okanc.iepl.cac.cab, port: 23001, type: trojan, password: 3ebd879d-1a38-4550-8fa0-b636fb1604d8, sni: 1.hk.bilibili.com, skip-cert-verify: true}
+  - {name: 🇨🇳 台湾01, server: okanc.iepl.cac.cab, port: 23006, type: trojan, password: 3ebd879d-1a38-4550-8fa0-b636fb1604d8, sni: 1.tw.bilibili.com, skip-cert-verify: true}
+  - {name: 🇸🇬 新加坡02, server: okanc.iepl.cac.cab, port: 23017, type: trojan, password: 3ebd879d-1a38-4550-8fa0-b636fb1604d8, sni: 2.sg.bilibili.com, skip-cert-verify: true}
+  - {name: 🇸🇬 新加坡01, server: okanc.iepl.cac.cab, port: 23016, type: trojan, password: 3ebd879d-1a38-4550-8fa0-b636fb1604d8, sni: 1.sg.bilibili.com, skip-cert-verify: true}
+  - {name: 🇨🇳 台湾05, server: okanc.iepl.cac.cab, port: 23010, type: trojan, password: 3ebd879d-1a38-4550-8fa0-b636fb1604d8, sni: 5.tw.bilibili.com, skip-cert-verify: true}
+  - {name: 🇺🇸 美国02, server: okanc.iepl.cac.cab, port: 23022, type: trojan, password: 3ebd879d-1a38-4550-8fa0-b636fb1604d8, sni: 2.us.bilibili.com, skip-cert-verify: true}
+  - {name: 🇨🇳 台湾04, server: okanc.iepl.cac.cab, port: 23009, type: trojan, password: 3ebd879d-1a38-4550-8fa0-b636fb1604d8, sni: 4.tw.bilibili.com, skip-cert-verify: true}
+  - {name: 🇺🇸 美国04, server: okanc.iepl.cac.cab, port: 23024, type: trojan, password: 3ebd879d-1a38-4550-8fa0-b636fb1604d8, sni: 4.us.bilibili.com, skip-cert-verify: true}
+  - {name: 🇲🇾 马来西亚, server: okanc.iepl.cac.cab, port: 24003, type: trojan, password: 3ebd879d-1a38-4550-8fa0-b636fb1604d8, sni: 1.my.bilibili.com, skip-cert-verify: true}
+  - {name: 🇯🇵 日本01, server: okanc.iepl.cac.cab, port: 23011, type: trojan, password: 3ebd879d-1a38-4550-8fa0-b636fb1604d8, sni: 1.jp.bilibili.com, skip-cert-verify: true}
+  - {name: 🇰🇷 韩国, server: okanc.iepl.cac.cab, port: 24001, type: trojan, password: 3ebd879d-1a38-4550-8fa0-b636fb1604d8, sni: 1.kr.bilibili.com, skip-cert-verify: true}
+  - {name: 🇭🇰 香港05, server: okanc.iepl.cac.cab, port: 23005, type: trojan, password: 3ebd879d-1a38-4550-8fa0-b636fb1604d8, sni: 5.hk.bilibili.com, skip-cert-verify: true}
+  - {name: 🇺🇸 美国01, server: okanc.iepl.cac.cab, port: 23021, type: trojan, password: 3ebd879d-1a38-4550-8fa0-b636fb1604d8, sni: 1.us.bilibili.com, skip-cert-verify: true}
+  - {name: 🇭🇰 香港, server: 103.244.88.111, port: 31515, type: vmess, uuid: 860b9c19-d209-40cb-a93b-2a4f1b0e8d95, alterId: 0, cipher: auto, tls: false, skip-cert-verify: true}
+  - {name: 🇨🇳 台湾 | 原生IP, server: 103.236.227.7, port: 49795, type: vmess, uuid: a9024f1d-77a1-4c56-87c7-eeee5398667e, alterId: 0, cipher: auto, tls: false, skip-cert-verify: true}
+  - {name: 🇨🇳 台湾 | 原生IP 2, server: 103.236.227.7, port: 14873, type: vmess, uuid: 592e5f3b-68ec-423b-8170-0766ffc831b2, alterId: 0, cipher: auto, tls: false, skip-cert-verify: true}
+  - {name: 🇨🇳 台湾 | 原生IP 3, server: 103.159.207.84, port: 50832, type: vmess, uuid: c31c40eb-95fc-4937-ba45-7a21e8f5da32, alterId: 0, cipher: auto, tls: false, skip-cert-verify: true}
+  - {name: 🇺🇸 United States, server: delight.appagent.net, port: 443, type: trojan, password: D0AASSpCKFjOBSwlwqylnOep8BDlgN3e3RY9S3Op2RaZZ58gID8yY3ej56CSuYacZz3EA, skip-cert-verify: true}
+  - {name: 🇺🇸 United States 2, server: blength.appagent.net, port: 18332, type: trojan, password: 0C3YaEDx46ODTFTcaF8lXlZ3zeqSlF33wZagexzRjIyODa8RDwp8XSCO93ygCSYcSYABA, skip-cert-verify: true}
+  - {name: 🇺🇸 United States 3, server: connect.appagent.net, port: 28333, type: trojan, password: eYaw9xlNDu4695IF3CyY2leZOTnY8ZSOD3Xa3DClz0xqZy7Z3eaBFaTKOSwCSAOyEap4D, skip-cert-verify: true}
+  - {name: 🇺🇸 United States 4, server: kasheet.appagent.net, port: 18333, type: trojan, password: B3AO9XlcTxaIATp08S29pS6luwZ8C4qDFzaCFYEDDSA5YDeKZAy3e2ZXRe73zIpxwByN7, skip-cert-verify: true}
+  - {name: 🇺🇸 United States 5, server: hanger.appagent.net, port: 28331, type: trojan, password: Z3aK0aZqwyNcz7S3l3ncNCODYxNFnA8SCOOSOZ3y3AX8xA4a0RZ3gxn39aqYAaBOyzR43acKOCzSX3S, skip-cert-verify: true}
+  - {name: 🇺🇸 United States 6, server: pricey.appagent.net, port: 28334, type: trojan, password: F9OKESxKjSDExSeaOw7XyINxDzaOZqeKxCeIczYYED8ewZ2Yl9AppAySO3XwFNy3lCaXDDCFnlACSB0, skip-cert-verify: true}
+  - {name: 🇺🇸 United States 7, server: metallic.isquirrel.net, port: 443, type: trojan, password: Npgx9nO3OBaZF5yxARYl93lFX08TlR3waDla733az8SqXe3YS3zjESECSZpAw428a6SID, skip-cert-verify: true}
+  - {name: 🇺🇸 United States 8, server: bolster.appagent.net, port: 28332, type: trojan, password: OaFFcTDe9pSlez6x3SY8AARXwClzCRRDwSN8F3OqZAEYC0SE6F8gp3wCTCSTDYllcNceagCDD2C59S3, skip-cert-verify: true}
+  - {name: 🇺🇸 United States 9, server: mintaka.appagent.net, port: 443, type: trojan, password: 4xS33pu88RaTF37ZxRjzAZc9zxe8OaYBX9CSO3p5SSxquFOFEySnDlCleCFA2DN3gaeDl, skip-cert-verify: true}
+  - {name: 🇺🇸 United States 10, server: seginus.appagent.net, port: 28331, type: trojan, password: nzSaSa3SFaCNFDCjOCg8A39e53p8l2xaTFCOu7qZx2Z8px4CK3DXeZYAwRRS3zY66laOE, skip-cert-verify: true}
+  - {name: 🇺🇸 United States 11, server: toaster.isquirrel.net, port: 443, type: trojan, password: 3ZFDxASRw0XIcKYFlp4RSCeSwA8ap7lEAzZB7uNnO38yDYOzDe3p23CxF0OlTx6YSK3j3, skip-cert-verify: true}
+  - {name: 🇸🇬 Singapore, server: spevoy.missionsec.us, port: 443, type: trojan, password: R3SuZDAZXDO3FYqxwK36l7gpSIBTFCxlzc89a7qg3S9p8BOCeACSFaA8nxeD2ZlT5Nl4O, skip-cert-verify: true}
+  - {name: 🇺🇸 United States 12, server: sirens.isquirrel.net, port: 28334, type: trojan, password: RzFSy3laClaxnYCcO3jBEpYgDyZx2CO78IC3X46ATFD73RSSZZTx8yCOKYDOqeD8pSeRa, skip-cert-verify: true}
+  - {name: 🇺🇸 United States 13, server: blender.appagent.net, port: 28332, type: trojan, password: CZC2eFReAwaON4nzF3zY7XC9nB3IqIaT3Eaa8S7D3B5Y3XuSEp8Z0ygl08S3SSxy6wDRC, skip-cert-verify: true}
+  - {name: 🇸🇬 Singapore 3, server: louber.missionsec.us, port: 443, type: trojan, password: BAu7ZSyD3IZppnCOxCzaFXje3SECzZgX83e3x7yZA8SDCacyagKFlEO6O0AlTSwDDe4SF, skip-cert-verify: true}
+  - {name: 🇨🇳 Taiwan, server: sevuior.missionsec.us, port: 443, type: trojan, password: SaZa3XKYya0q3SZYDuE3SAC2NpeZgA9n3CA9jRDKz48O6Cg8Dn7Fx63lRITawuDeFRpBj, skip-cert-verify: true}
+  - {name: 🇯🇵 日本⚡️TG:@iamdt009, server: 47.91.22.21, port: 10310, type: hysteria2, password: y5e0Oe1cr4ekZom8Bc3i5oUIws, auth: y5e0Oe1cr4ekZom8Bc3i5oUIws, skip-cert-verify: true}
+  - {name: 🇯🇵 JP-Aliyun, server: 47.91.22.21, port: 10310, type: hysteria2, password: y5e0Oe1cr4ekZom8Bc3i5oUIws, auth: y5e0Oe1cr4ekZom8Bc3i5oUIws, skip-cert-verify: true}
+  - {name: "🇺🇸 直连 | 洛杉矶二号", password: 117fc3d8-fd04-11ed-b345-f23c93136cb3, port: 1743, server: 56784d29-t2zz40-tgxeiy-3kis.la.shifen.uk, type: hysteria2}
+  - {name: 🇭🇰香港精品2, password: <password>, port: 443, server: 2fbca8a4-t2zz40-t3kjjg-1s0a7.hkt2.cdnhuawei.com, tls: true, type: socks5, username: 1b9c460e-f026-11ef-b737-f23c91cfbbc9}
+  - {name: 🇭🇰香港精品3, password: <password>, port: 8443, server: 8675dc32-t2zz40-t3kjjg-1s0a7.hkt.cdnhuawei.com, tls: true, type: http, username: 1b9c460e-f026-11ef-b737-f23c91cfbbc9}
+  - {alterId: 2, cipher: auto, name: "🇭🇰 HK 015", network: ws, port: 80, server: 1e426046-t0fds0-t12cnj-1ol97.hk.p5pv.com, skip-cert-verify: false, tls: false, type: vmess, uuid: 93fb69fc-77cf-11ee-85ee-f23c91369f2d, ws-opts: {headers: {Host: broadcastlv.chat.bilibili.com}, path: /}}
+  - {auth: Yet-Another-Public-Config-1, name: "🇳🇱 NL 094", obfs: salamander, obfs-password: Yet-Another-Public-Config-1, password: Yet-Another-Public-Config-1, port: 36600, server: yapc-1.adamhayward.co.uk, skip-cert-verify: false, sni: YAPC-1.afshin.ir, type: hysteria2}
+  - {cipher: aes-256-cfb, country: " CN", name: "🇨🇳 CN 122", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.154.241, type: ss}
+  - {cipher: aes-256-cfb, country: " CN", name: "🇨🇳 CN 123", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.155.234, type: ss}
+  - {cipher: aes-256-cfb, country: " CN", name: "🇨🇳 CN 127", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.154.243, type: ss}
+  - {cipher: aes-256-cfb, country: " CN", name: "🇨🇳 CN 129", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.155.206, type: ss}
+  - {name: "🇺🇳 UN 153", password: exaxgqkKkd0TAMrCxeonWg==, port: 1443, server: twmoon1-cdn-route.couldflare-cdn.com, skip-cert-verify: false, tls: true, type: http, username: mrwdfNTD8M79LCukCieldrqZWqs=}
+  - {cipher: aes-256-cfb, country: " CN", name: "🇨🇳 CN 158", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.154.31, type: ss}
+  - {cipher: aes-256-cfb, country: " CN", name: "🇨🇳 CN 160", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.154.172, type: ss}
+  - {cipher: aes-256-cfb, country: " CN", name: "🇨🇳 CN 163", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.154.174, type: ss}
+  - {cipher: aes-256-cfb, country: " CN", name: "🇨🇳 CN 169", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.154.70, type: ss}
+  - {cipher: aes-256-cfb, delay: 2031, name: "🇺🇳 UN 171", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.155.38, type: ss, udp: true}
+  - {cipher: aes-256-cfb, country: " CN", name: "🇨🇳 CN 174", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.155.130, type: ss}
+  - {cipher: aes-256-cfb, country: " CN", name: "🇨🇳 CN 184", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.155.236, type: ss}
+  - {cipher: aes-256-cfb, country: ZZ, delay: 750, name: "🇻🇳 VN 191", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.155.107, type: ss}
+  - {cipher: aes-256-cfb, country: ZZ, delay: 687, name: "🇻🇳 VN 202", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.155.110, type: ss}
+  - {cipher: aes-256-cfb, country: " CN", name: "🇨🇳 CN 204", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.154.41, type: ss}
+  - {cipher: aes-256-cfb, country: " CN", name: "🇨🇳 CN 213", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.155.140, type: ss}
+  - {cipher: aes-256-cfb, country: ZZ, delay: 1110, name: "🇻🇳 VN 214", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.155.44, type: ss}
+  - {cipher: aes-256-cfb, country: " CN", name: "🇨🇳 CN 215", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.155.124, type: ss}
+  - {cipher: aes-256-cfb, country: " CN", name: "🇨🇳 CN 218", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.154.177, type: ss}
+  - {cipher: aes-256-cfb, country: " CN", name: "🇨🇳 CN 219", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.155.149, type: ss}
+  - {cipher: aes-256-cfb, country: " CN", name: "🇨🇳 CN 220", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.154.205, type: ss}
+  - {cipher: aes-256-cfb, country: " CN", name: "🇨🇳 CN 229", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.155.109, type: ss}
+  - {cipher: aes-256-cfb, country: ZZ, delay: 724, name: "🇺🇳 UN 232", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.155.239, type: ss}
+  - {cipher: aes-256-cfb, country: " CN", name: "🇨🇳 CN 234", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.154.204, type: ss}
+  - {cipher: aes-256-cfb, delay: 764, name: "🇺🇳 UN 242", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.154.250, type: ss, udp: true}
+  - {cipher: aes-256-cfb, country: " CN", name: "🇨🇳 CN 249", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.155.117, type: ss}
+  - {cipher: aes-256-cfb, country: ZZ, delay: 742, name: "🇺🇳 UN 250", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.155.36, type: ss}
+  - {cipher: aes-256-cfb, country: " CN", name: "🇨🇳 CN 260", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.155.23, type: ss}
+  - {cipher: aes-256-cfb, country: " CN", name: "🇨🇳 CN 264", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.154.32, type: ss}
+  - {cipher: aes-256-cfb, country: ZZ, delay: 786, name: "🇺🇳 UN 265", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.154.196, type: ss}
+  - {cipher: aes-256-cfb, country: " CN", name: "🇨🇳 CN 271", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.154.202, type: ss}
+  - {cipher: aes-256-cfb, country: ZZ, delay: 671, name: "🇺🇳 UN 278", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.155.232, type: ss}
+  - {cipher: aes-256-cfb, country: " CN", name: "🇨🇳 CN 279", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.154.39, type: ss}
+  - {cipher: aes-256-cfb, country: ZZ, delay: 738, name: "🇺🇳 UN 286", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.155.3, type: ss}
+  - {cipher: aes-256-cfb, country: ZZ, delay: 1727, name: "🇺🇳 UN 287", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.154.33, type: ss}
+  - {cipher: aes-256-cfb, country: " CN", name: "🇨🇳 CN 290", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.154.230, type: ss}
+  - {cipher: aes-256-cfb, country: " CN", name: "🇨🇳 CN 294", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.155.230, type: ss}
+  - {client-fingerprint: firefox, name: "🇺🇸 US 295", port: 10001, reality-opts: {public-key: 1ltSdo2K6D9EEwebaDQPCb5ypbURcXyO9HsX4RUbbUo, short-id: 1a24af87}, server: 172.233.153.209, servername: yahoo.com, skip-cert-verify: false, tls: true, type: vless, udp: true, uuid: e4412006-94f2-4f3c-b568-22a3e31dc264}
+  - {cipher: aes-256-cfb, country: ZZ, delay: 1176, name: "🇻🇳 VN 299", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.155.203, type: ss}
+  - {cipher: aes-256-cfb, country: " CN", name: "🇨🇳 CN 301", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.155.127, type: ss}
+  - {cipher: aes-256-cfb, country: " CN", name: "🇨🇳 CN 320", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.155.238, type: ss}
+  - {cipher: aes-256-cfb, country: ZZ, delay: 664, name: "🇻🇳 VN 327", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.155.47, type: ss}
+  - {cipher: aes-256-cfb, country: " CN", name: "🇨🇳 CN 337", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.155.116, type: ss}
+  - {client-fingerprint: chrome, name: "🇺🇳 UN 354", network: tcp, port: 443, reality-opts: {public-key: TRP10HqKUXEQ3O-cfsq93DycfBmbJe9KM36yvSa8Mmw}, server: 160.187.111.222, servername: images-na.ssl-images-amazon.com, tls: true, type: vless, udp: true, uuid: 3e7f67de-648e-4871-b51a-a225214d41ee}
+  - {cipher: aes-256-cfb, country: ZZ, delay: 701, name: "🇻🇳 VN 356", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.155.35, type: ss}
+  - {cipher: aes-256-cfb, country: " CN", name: "🇨🇳 CN 360", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.154.46, type: ss}
+  - {cipher: aes-256-cfb, country: ZZ, delay: 754, name: "🇺🇳 UN 361", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.155.12, type: ss}
+  - {cipher: aes-256-cfb, country: " CN", name: "🇨🇳 CN 369", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.154.184, type: ss}
+  - {cipher: aes-256-cfb, country: " CN", name: "🇨🇳 CN 371", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.155.84, type: ss}
+  - {cipher: aes-256-cfb, country: ZZ, delay: 744, name: "🇻🇳 VN 372", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.155.15, type: ss}
+  - {cipher: aes-256-cfb, country: ZZ, delay: 1658, name: "🇻🇳 VN 377", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.155.233, type: ss}
+  - {cipher: aes-256-cfb, country: " CN", name: "🇨🇳 CN 385", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.154.179, type: ss}
+  - {cipher: chacha20-ietf-poly1305, country: SG, name: "🇸🇬 SG 396", password: 03241, port: 8899, server: sgmob222.asuscomm.com, type: ss}
+  - {cipher: aes-256-cfb, country: " CN", name: "🇨🇳 CN 397", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.155.228, type: ss}
+  - {cipher: aes-256-cfb, country: " CN", name: "🇨🇳 CN 400", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.155.123, type: ss}
+  - {cipher: aes-256-cfb, country: ZZ, delay: 746, name: "🇺🇳 UN 402", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.154.56, type: ss}
+  - {cipher: aes-256-cfb, country: ZZ, delay: 734, name: "🇻🇳 VN 403", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.154.188, type: ss}
+  - {cipher: aes-256-cfb, country: " CN", name: "🇨🇳 CN 407", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.155.138, type: ss}
+  - {client-fingerprint: chrome, name: "🇬🇧 GB 410", network: tcp, port: 443, reality-opts: {public-key: TRP10HqKUXEQ3O-cfsq93DycfBmbJe9KM36yvSa8Mmw}, server: 8.208.53.56, servername: evt.ilovepdf.com, skip-cert-verify: true, tls: true, type: vless, udp: true, uuid: 3e7f67de-648e-4871-b51a-a225214d41ee}
+  - {cipher: aes-256-cfb, country: ZZ, delay: 769, name: "🇺🇳 UN 411", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.154.167, type: ss}
+  - {cipher: aes-256-cfb, country: " CN", name: "🇨🇳 CN 412", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.154.148, type: ss}
+  - {cipher: aes-256-cfb, country: ZZ, delay: 718, name: "🇺🇳 UN 414", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.155.102, type: ss}
+  - {cipher: aes-256-cfb, country: " CN", name: "🇨🇳 CN 415", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.154.73, type: ss}
+  - {cipher: aes-256-cfb, country: " CN", name: "🇨🇳 CN 416", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.154.215, type: ss}
+  - {cipher: aes-256-cfb, country: " CN", name: "🇨🇳 CN 421", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.154.236, type: ss}
+  - {name: "🇰🇷 KR 424", password: test.+, port: 30446, server: testkr3.ssv.vc, skip-cert-verify: true, tls: true, type: http, udp: true, username: test}
+  - {name: "🇺🇳 UN 425", password: 4xdfi6v, port: 54679, server: 160.30.54.67, type: http, username: kZXMC3Z1}
+  - {client-fingerprint: chrome, name: "🇦🇺 AU 430", port: 443, reality-opts: {public-key: TRP10HqKUXEQ3O-cfsq93DycfBmbJe9KM36yvSa8Mmw}, server: 160.187.111.222, servername: images-na.ssl-images-amazon.com, skip-cert-verify: true, tls: true, type: vless, udp: true, uuid: 3e7f67de-648e-4871-b51a-a225214d41ee}
+  - {cipher: aes-256-cfb, country: " CN", name: "🇨🇳 CN 442", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.154.193, type: ss}
+  - {name: "🇺🇳 UN 455", password: 1nLWx0UVnJ, port: 52302, server: 164.152.167.94, type: http, username: 7waHp6NRjR}
+  - {cipher: aes-256-cfb, country: " CN", name: "🇨🇳 CN 460", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.154.34, type: ss}
+  - {auth: Yet-Another-Public-Config-1, name: "🇳🇱 NL 469", obfs: salamander, obfs-password: Yet-Another-Public-Config-1, password: Yet-Another-Public-Config-1, port: 36300, server: yapc-1.adamhayward.co.uk, skip-cert-verify: false, sni: YAPC-1.afshin.ir, type: hysteria2}
+  - {cipher: aes-256-cfb, name: "🇺🇳 UN 476", password: f8f7aCzcPKbsF8p3, port: 989, server: 156.146.40.194, type: ss, udp: true}
+  - {cipher: aes-256-cfb, country: ZZ, delay: 727, name: "🇺🇳 UN 480", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.155.5, type: ss}
+  - {cipher: aes-256-cfb, country: ZZ, delay: 703, name: "🇺🇳 UN 489", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.154.17, type: ss}
+  - {encryption: none, name: "🇺🇸 US 490", network: tcp, port: 29495, server: 89.44.242.222, type: vless, uuid: 4a0e3cf3-4a10-4a38-bba4-b17b592a0d2b}
+  - {cipher: aes-256-cfb, country: ZZ, delay: 689, name: "🇺🇳 UN 496", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.154.40, type: ss}
+  - {client-fingerprint: chrome, name: "🇮🇹 IT 501", port: 443, reality-opts: {public-key: TRP10HqKUXEQ3O-cfsq93DycfBmbJe9KM36yvSa8Mmw}, server: 147.45.51.160, servername: api.company-target.com, skip-cert-verify: true, tls: true, type: vless, udp: true, uuid: 3e7f67de-648e-4871-b51a-a225214d41ee}
+  - {cipher: aes-256-cfb, country: ZZ, delay: 767, name: "🇺🇳 UN 502", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.155.78, type: ss}
+  - {cipher: aes-256-cfb, country: " CN", name: "🇨🇳 CN 507", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.155.75, type: ss}
+  - {cipher: aes-256-cfb, country: " CN", name: "🇨🇳 CN 515", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.155.215, type: ss}
+  - {cipher: aes-256-cfb, delay: 1761, name: "🇻🇳 VN 516", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.155.119, type: ss, udp: true}
+  - {cipher: aes-256-cfb, country: " CN", name: "🇨🇳 CN 518", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.154.186, type: ss}
+  - {cipher: aes-256-cfb, country: " CN", name: "🇨🇳 CN 519", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.154.212, type: ss}
+  - {cipher: aes-256-cfb, country: ZZ, delay: 763, name: "🇺🇳 UN 520", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.154.252, type: ss}
+  - {country: KR, name: "🇰🇷 KR 521", password: 7de0251a-7130-43b4-852e-8209dc6dc900, port: 21092, server: yue-kr.yuetoto.net, skip-cert-verify: false, type: hysteria2, udp: true}
+  - {cipher: aes-256-cfb, country: " CN", name: "🇨🇳 CN 522", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.154.43, type: ss}
+  - {cipher: aes-256-cfb, country: ZZ, delay: 814, name: "🇺🇳 UN 523", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.155.66, type: ss}
+  - {cipher: aes-256-cfb, country: ZZ, delay: 2729, name: "🇺🇳 UN 526", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.155.22, type: ss}
+  - {cipher: aes-256-cfb, country: ZZ, delay: 741, name: "🇺🇳 UN 527", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.155.79, type: ss}
+  - {cipher: aes-256-cfb, country: ZZ, delay: 674, name: "🇺🇳 UN 528", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.155.235, type: ss}
+  - {cipher: aes-256-cfb, country: ZZ, delay: 674, name: "🇺🇳 UN 529", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.154.51, type: ss}
+  - {cipher: aes-256-cfb, country: " CN", name: "🇨🇳 CN 530", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.155.103, type: ss}
+  - {cipher: aes-256-cfb, country: " CN", name: "🇨🇳 CN 531", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.154.154, type: ss}
+  - {cipher: aes-256-cfb, country: ZZ, delay: 750, name: "🇻🇳 VN 534", password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, port: 38388, server: 103.186.154.253, type: ss}
   - {name: "未知001", server: 150.107.46.21, port: 8083, type: ssr, cipher: aes-256-cfb, password: iFqnzSscN, protocol: origin, obfs: tls1.2_ticket_auth, protocol-param: "", obfs-param: ""}
   - {name: CO-154.223.16.212-0325, server: 154.223.16.212, port: 989, type: ss, cipher: aes-256-cfb, password: f8f7aCzcPKbsF8p3}
   - {name: MD-185.153.197.5-4924, server: 185.153.197.5, port: 989, type: ss, cipher: aes-256-cfb, password: f8f7aCzcPKbsF8p3}
@@ -125,13 +279,13 @@ proxy-groups:
   - { name: "🔰 选择节点", type: select, proxies: [DIRECT,✈️国外站点,⚓国外站点非日本IP,日本节点,中国节点,美国节点,新加坡节点,越南节点,香港节点,台湾节点]}
   - { name: "✈️国外站点", type: fallback, interval: 60, tolerance: 500,timeout: 3000, url: "http://www.gstatic.com/generate_204", proxies: [日本节点,⚓国外站点非日本IP] }
   - { name: "⚓国外站点非日本IP", type: fallback, interval: 60, tolerance: 500,timeout: 3000, url: "http://www.gstatic.com/generate_204",proxies: [台湾节点,新加坡节点,越南节点,美国节点,香港节点,中国节点] }
-  - { name: "日本节点", <<: *fallback, filter: "^(?=.*(🇯🇵|日本|jp))(?!.*专线)", icon: "https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png"}
-  - { name: 新加坡节点, <<: *fallback, filter: "^(?=.*(🇸🇬|新加坡|狮|SG|Singapore))(?!.*专线)", icon: https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
-  - { name: 越南节点, <<: *fallback, filter: "^(?=.*(越南))(?!.*专线)", icon: https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
-  - { name: 香港节点, <<: *fallback, filter: "^(?=.*(香港|HK))(?!.*专线)", icon: https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
-  - { name: 台湾节点, <<: *fallback, filter: "^(?=.*(台湾))(?!.*专线)", icon: https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
-  - { name: 美国节点, <<: *fallback, filter: "^(?=.*(美国|us))(?!.*专线)", icon: https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
-  - { name: 中国节点, <<: *fallback, filter: "^(?=.*(中国))(?!.*香港|HK)", icon: https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
+  - { name: "日本节点", <<: *fallback, filter: "^(?=.*(🇯🇵|日本|jp|JP))(?!.*专线)", icon: "https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png"}
+  - { name: 新加坡节点, <<: *fallback, filter: "^(?=.*(🇸🇬|新加坡|狮|SG|sg|Singapore))(?!.*专线)", icon: https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
+  - { name: 越南节点, <<: *fallback, filter: "^(?=.*(🇻🇳|越南|vn|VN))(?!.*专线)", icon: https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
+  - { name: 香港节点, <<: *fallback, filter: "^(?=.*(🇭🇰|香港|HK|hk))(?!.*专线)", icon: https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
+  - { name: 台湾节点, <<: *fallback, filter: "^(?=.*(?:🇹🇼|台湾|\btw\b|\bTW\b))(?!(?:.*专线))", icon: https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
+  - { name: 美国节点, <<: *fallback, filter: "^(?=.*(🇺🇸|美国|us|US))(?!.*专线)", icon: https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
+  - { name: 中国节点, <<: *fallback, filter: "^(?=.*(🇨🇳|中国|CN|cn))(?!.*香港|HK|hk)", icon: https://down.nigx.cn/raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png}
   - name: 🇨🇳 国内网站
     type: select
     proxies:
