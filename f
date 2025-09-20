@@ -1,4 +1,126 @@
 js:// -*- mode: js -*-
+function convertToSingleLineYaml(yamlText) {
+                // 辅助函数：解析键值对
+                function parseKeyValue(line) {
+                    var colonIndex = line.indexOf(':');
+                    if (colonIndex === -1) return [line.trim(), undefined];
+                    var key = line.substring(0, colonIndex).trim();
+                    let value = line.substring(colonIndex + 1).trim();
+
+                    // 处理空值
+                    if (value === '') return [key, undefined];
+
+                    // 处理引号包裹的值
+                    if ((value.startsWith('"') && value.endsWith('"')) ||
+                        (value.startsWith("'") && value.endsWith("'"))) {
+                        value = value.substring(1, value.length - 1);
+                    }
+
+                    return [key, value];
+                }
+
+                // 辅助函数：格式化值（添加引号等）
+                function formatValue(value) {
+                    if (value === undefined || value === null) return 'null';
+                    if (typeof value === 'number') return value;
+                    if (typeof value === 'boolean') return value.toString();
+                    // 对于字符串，如果包含特殊字符则添加引号
+                    if (typeof value === 'string') {
+                        if (value.includes(' ') || value.includes(':') || value.includes('{') || value.includes('}')) {
+                            return `"${value}"`;
+                        }
+                        return value;
+                    }
+                    return value;
+                }
+                // 1. 按行分割输入文本
+                var lines = yamlText.split('\n');
+                let result = [];
+                let currentObject = {};
+                let currentWsOpts = null;
+                let currentRealityOpts = null;
+                let indentLevel = 0;
+                // 2. 遍历每一行
+                for (var line of lines) {
+                    var trimmedLine = line.trim();
+                    // 跳过空行和注释
+                    if (!trimmedLine || trimmedLine.startsWith('#')) continue;
+                    // 检测当前缩进级别（用于判断嵌套结构）
+                    var currentIndent = line.search(/\S|$/);
+                    if (trimmedLine.startsWith('-')) {
+                        // 如果是新项目开始，保存上一个项目（如果有）
+                        if (Object.keys(currentObject).length > 0) {
+                            result.push(currentObject);
+                            currentObject = {};
+                            currentWsOpts = null;
+                            currentRealityOpts = null;
+                        }
+                        // 解析新项目的第一个属性
+                        var firstProp = trimmedLine.substring(1).trim();
+                        if (firstProp) {
+                            var [key, value] = parseKeyValue(firstProp);
+                            if (key && value !== undefined) {
+                                currentObject[key] = value;
+                            }
+                        }
+                    } else if (trimmedLine.includes(':')) {
+                        var [key, value] = parseKeyValue(trimmedLine);
+                        if (key === 'ws-opts') {
+                            currentWsOpts = {};
+                            currentObject[key] = currentWsOpts;
+                        } else if (key === 'reality-opts') {
+                            currentRealityOpts = {};
+                            currentObject[key] = currentRealityOpts;
+                        } else if (currentWsOpts && currentIndent > indentLevel) {
+                            // 处理 ws-opts 的嵌套属性
+                            if (key === 'headers') {
+                                currentWsOpts[key] = {};
+                            } else if (currentWsOpts.headers && currentIndent > indentLevel + 2) {
+                                // 处理 headers 的嵌套属性
+                                currentWsOpts.headers[key] = value;
+                            } else {
+                                currentWsOpts[key] = value;
+                            }
+                        } else if (currentRealityOpts && currentIndent > indentLevel) {
+                            // 处理 reality-opts 的嵌套属性
+                            currentRealityOpts[key] = value;
+                        } else if (key && value !== undefined) {
+                            currentObject[key] = value;
+                        }
+                    }
+                    // 更新当前缩进级别
+                    if (trimmedLine.includes('ws-opts:') || trimmedLine.includes('reality-opts:')) {
+                        indentLevel = currentIndent;
+                    }
+                }
+                // 添加最后一个项目
+                if (Object.keys(currentObject).length > 0) {
+                    result.push(currentObject);
+                }
+
+                // 3. 转换为单行YAML格式
+                return result.map(obj => {
+                    var entries = Object.entries(obj).map(([key, value]) => {
+                        if (typeof value === 'object' && value !== null) {
+                            // 处理嵌套对象
+                            var nestedEntries = Object.entries(value).map(([nestedKey, nestedValue]) => {
+                                if (typeof nestedValue === 'object' && nestedValue !== null) {
+                                    // 处理双重嵌套对象（如headers）
+                                    var doubleNested = Object.entries(nestedValue).map(([doubleKey, doubleValue]) =>
+                                        `${doubleKey}: ${formatValue(doubleValue)}`
+                                    ).join(', ');
+                                    return `${nestedKey}: {${doubleNested}}`;
+                                }
+                                return `${nestedKey}: ${formatValue(nestedValue)}`;
+                            }).join(', ');
+                            return `${key}: {${nestedEntries}}`;
+                        }
+                        return `${key}: ${formatValue(value)}`;
+                    }).join(', ');
+
+                    return `- {${entries}}`;
+                }).join('\n');
+            }
 function toerji(item, jkdata) {
 if(!jkdata.url){
     info = jkdata || storage0.getMyVar("\u4e00\u7ea7\u6e90\u63a5\u53e3\u4fe1\u606f");
