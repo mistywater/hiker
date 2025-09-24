@@ -1,126 +1,214 @@
 js:// -*- mode: js -*-
 function convertToSingleLineYaml(yamlText) {
-                // 辅助函数：解析键值对
-                function parseKeyValue(line) {
-                    var colonIndex = line.indexOf(':');
-                    if (colonIndex === -1) return [line.trim(), undefined];
-                    var key = line.substring(0, colonIndex).trim();
-                    let value = line.substring(colonIndex + 1).trim();
+    // 获取当前日期
+    function getCurrentDate() {
+        var now = new Date();
+        var year = now.getFullYear();
+        var month = String(now.getMonth() + 1).padStart(2, '0');
+        var day = String(now.getDate()).padStart(2, '0');
+        return year + '/' + month + '/' + day;
+    }
+    
+    var currentDate = getCurrentDate();
 
-                    // 处理空值
-                    if (value === '') return [key, undefined];
+    // 辅助函数：解析键值对
+    function parseKeyValue(line) {
+        var colonIndex = line.indexOf(':');
+        if (colonIndex === -1) return [line.trim(), undefined];
+        var key = line.substring(0, colonIndex).trim();
+        let value = line.substring(colonIndex + 1).trim();
 
-                    // 处理引号包裹的值
-                    if ((value.startsWith('"') && value.endsWith('"')) ||
-                        (value.startsWith("'") && value.endsWith("'"))) {
-                        value = value.substring(1, value.length - 1);
-                    }
+        // 处理空值
+        if (value === '') return [key, undefined];
+        // 处理空对象
+        if (value === '{}') return [key, {}];
+        
+        // 处理多行字符串符号（>- 或 | 等）
+        if (value.startsWith('>-') || value.startsWith('|') || 
+            value.startsWith('>') || value.startsWith('|')) {
+            // 这些符号表示多行字符串，我们保留原始值
+            return [key, value];
+        }
 
-                    return [key, value];
-                }
+        // 处理引号包裹的值
+        if ((value.startsWith('"') && value.endsWith('"')) ||
+            (value.startsWith("'") && value.endsWith("'"))) {
+            value = value.substring(1, value.length - 1);
+        }
 
-                // 辅助函数：格式化值（添加引号等）
-                function formatValue(value) {
-                    if (value === undefined || value === null) return 'null';
-                    if (typeof value === 'number') return value;
-                    if (typeof value === 'boolean') return value.toString();
-                    // 对于字符串，如果包含特殊字符则添加引号
-                    if (typeof value === 'string') {
-                        if (value.includes(' ') || value.includes(':') || value.includes('{') || value.includes('}')) {
-                            return `"${value}"`;
-                        }
-                        return value;
-                    }
-                    return value;
-                }
-                // 1. 按行分割输入文本
-                var lines = yamlText.split('\n');
-                let result = [];
-                let currentObject = {};
-                let currentWsOpts = null;
-                let currentRealityOpts = null;
-                let indentLevel = 0;
-                // 2. 遍历每一行
-                for (var line of lines) {
-                    var trimmedLine = line.trim();
-                    // 跳过空行和注释
-                    if (!trimmedLine || trimmedLine.startsWith('#')) continue;
-                    // 检测当前缩进级别（用于判断嵌套结构）
-                    var currentIndent = line.search(/\S|$/);
-                    if (trimmedLine.startsWith('-')) {
-                        // 如果是新项目开始，保存上一个项目（如果有）
-                        if (Object.keys(currentObject).length > 0) {
-                            result.push(currentObject);
-                            currentObject = {};
-                            currentWsOpts = null;
-                            currentRealityOpts = null;
-                        }
-                        // 解析新项目的第一个属性
-                        var firstProp = trimmedLine.substring(1).trim();
-                        if (firstProp) {
-                            var [key, value] = parseKeyValue(firstProp);
-                            if (key && value !== undefined) {
-                                currentObject[key] = value;
-                            }
-                        }
-                    } else if (trimmedLine.includes(':')) {
-                        var [key, value] = parseKeyValue(trimmedLine);
-                        if (key === 'ws-opts') {
-                            currentWsOpts = {};
-                            currentObject[key] = currentWsOpts;
-                        } else if (key === 'reality-opts') {
-                            currentRealityOpts = {};
-                            currentObject[key] = currentRealityOpts;
-                        } else if (currentWsOpts && currentIndent > indentLevel) {
-                            // 处理 ws-opts 的嵌套属性
-                            if (key === 'headers') {
-                                currentWsOpts[key] = {};
-                            } else if (currentWsOpts.headers && currentIndent > indentLevel + 2) {
-                                // 处理 headers 的嵌套属性
-                                currentWsOpts.headers[key] = value;
-                            } else {
-                                currentWsOpts[key] = value;
-                            }
-                        } else if (currentRealityOpts && currentIndent > indentLevel) {
-                            // 处理 reality-opts 的嵌套属性
-                            currentRealityOpts[key] = value;
-                        } else if (key && value !== undefined) {
-                            currentObject[key] = value;
-                        }
-                    }
-                    // 更新当前缩进级别
-                    if (trimmedLine.includes('ws-opts:') || trimmedLine.includes('reality-opts:')) {
-                        indentLevel = currentIndent;
-                    }
-                }
-                // 添加最后一个项目
-                if (Object.keys(currentObject).length > 0) {
-                    result.push(currentObject);
-                }
+        return [key, value];
+    }
 
-                // 3. 转换为单行YAML格式
-                return result.map(obj => {
-                    var entries = Object.entries(obj).map(([key, value]) => {
-                        if (typeof value === 'object' && value !== null) {
-                            // 处理嵌套对象
-                            var nestedEntries = Object.entries(value).map(([nestedKey, nestedValue]) => {
-                                if (typeof nestedValue === 'object' && nestedValue !== null) {
-                                    // 处理双重嵌套对象（如headers）
-                                    var doubleNested = Object.entries(nestedValue).map(([doubleKey, doubleValue]) =>
-                                        `${doubleKey}: ${formatValue(doubleValue)}`
-                                    ).join(', ');
-                                    return `${nestedKey}: {${doubleNested}}`;
-                                }
-                                return `${nestedKey}: ${formatValue(nestedValue)}`;
-                            }).join(', ');
-                            return `${key}: {${nestedEntries}}`;
-                        }
-                        return `${key}: ${formatValue(value)}`;
-                    }).join(', ');
-
-                    return `  - {${entries}}`;
-                }).join('\n');
+    // 辅助函数：格式化值
+    function formatValue(key, value) {
+        if (value === undefined || value === null) return 'null';
+        if (typeof value === 'number') return value;
+        if (typeof value === 'boolean') return value.toString();
+        
+        // 处理空对象
+        if (typeof value === 'object' && Object.keys(value).length === 0) {
+            return '{}';
+        }
+        
+        // 处理数组
+        if (Array.isArray(value)) {
+            return `[${value.map(v => formatValue(key, v)).join(', ')}]`;
+        }
+        
+        // 对于name字段，添加日期后缀
+        if (key === 'name' && typeof value === 'string') {
+            value = value + ' ' + currentDate;
+        }
+        
+        // 对于字符串，如果包含特殊字符则添加引号
+        if (typeof value === 'string') {
+            // 如果包含多行符号，需要特殊处理
+            if (value.startsWith('>-') || value.startsWith('|') || 
+                value.startsWith('>') || value.includes('\n')) {
+                return `"${value}"`;
             }
+            
+            if (value.includes(' ') || value.includes(':') || value.includes('{') || 
+                value.includes('}') || value.includes('|') || value.includes('[') ||
+                value.includes('🇷') || value.includes('>') || value.includes('-')) {
+                return `"${value}"`;
+            }
+            return value;
+        }
+        return value;
+    }
+
+    // 其余代码保持不变...
+    // 1. 找到第一个 - 的缩进级别
+    var lines = yamlText.split('\n');
+    let firstDashIndent = -1;
+    
+    for (var i = 0; i < lines.length; i++) {
+        var line = lines[i];
+        var trimmedLine = line.trim();
+        if (trimmedLine.startsWith('-')) {
+            firstDashIndent = line.search(/\S|$/);
+            break;
+        }
+    }
+
+    // 2. 按项目分割（只有与第一个 - 相同缩进的 - 才是新项目）
+    let items = [];
+    let currentItemLines = [];
+    
+    for (var i = 0; i < lines.length; i++) {
+        var line = lines[i];
+        var trimmedLine = line.trim();
+        
+        // 跳过空行和注释
+        if (!trimmedLine || trimmedLine.startsWith('#')) continue;
+        
+        var currentIndent = line.search(/\S|$/);
+        
+        if (trimmedLine.startsWith('-') && currentIndent === firstDashIndent) {
+            // 这是新项目的开始
+            if (currentItemLines.length > 0) {
+                items.push(currentItemLines);
+            }
+            currentItemLines = [line];
+        } else {
+            // 属于当前项目的行
+            currentItemLines.push(line);
+        }
+    }
+    
+    // 添加最后一个项目
+    if (currentItemLines.length > 0) {
+        items.push(currentItemLines);
+    }
+
+    let result = [];
+    
+    // 3. 逐个处理每个项目
+    for (var itemLines of items) {
+        let obj = {};
+        let currentNestedObject = null;
+        let currentNestedKey = null;
+        let currentIndentLevel = 0;
+
+        for (var j = 0; j < itemLines.length; j++) {
+            var line = itemLines[j];
+            var trimmedLine = line.trim();
+            var currentIndent = line.search(/\S|$/);
+            
+            if (trimmedLine.startsWith('-') && j === 0) {
+                // 项目的第一行，解析第一个属性
+                var firstProp = trimmedLine.substring(1).trim();
+                if (firstProp) {
+                    var [key, value] = parseKeyValue(firstProp);
+                    if (key && value !== undefined) {
+                        obj[key] = value;
+                    }
+                }
+            } else if (trimmedLine.includes(':')) {
+                var [key, value] = parseKeyValue(trimmedLine);
+                
+                // 检查是否有嵌套内容
+                var hasNested = false;
+                if (j + 1 < itemLines.length) {
+                    var nextLine = itemLines[j + 1];
+                    var nextIndent = nextLine.search(/\S|$/);
+                    var nextTrimmed = nextLine.trim();
+                    if (nextIndent > currentIndent && nextTrimmed && 
+                        !nextTrimmed.startsWith('#') && nextTrimmed.includes(':')) {
+                        hasNested = true;
+                    }
+                }
+                
+                if (hasNested) {
+                    // 开始嵌套对象
+                    currentNestedObject = {};
+                    currentNestedKey = key;
+                    currentIndentLevel = currentIndent;
+                    
+                    if (currentNestedKey) {
+                        obj[currentNestedKey] = currentNestedObject;
+                    }
+                } else if (currentNestedObject && currentIndent > currentIndentLevel) {
+                    // 嵌套对象的属性
+                    currentNestedObject[key] = value;
+                } else {
+                    // 顶层属性
+                    obj[key] = value;
+                    currentNestedObject = null;
+                    currentNestedKey = null;
+                }
+            }
+        }
+        
+        result.push(obj);
+    }
+
+    // 4. 过滤掉不包含 type: 的不完整项目
+    result = result.filter(obj => obj.hasOwnProperty('type'));
+
+    // 5. 转换为单行YAML格式
+    return result.map(obj => {
+        var entries = Object.entries(obj).map(([key, value]) => {
+            if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
+                // 处理嵌套对象
+                if (Object.keys(value).length === 0) {
+                    return `${key}: {}`;
+                }
+                
+                var nestedEntries = Object.entries(value).map(([nestedKey, nestedValue]) => {
+                    return `${nestedKey}: ${formatValue(nestedKey, nestedValue)}`;
+                }).join(', ');
+                
+                return `${key}: {${nestedEntries}}`;
+            }
+            
+            return `${key}: ${formatValue(key, value)}`;
+        }).join(', ');
+
+        return `  - {${entries}}`;
+    }).join('\n');
+}
 function toerji(item, jkdata) {
 if(!jkdata.url){
     info = jkdata || storage0.getMyVar("\u4e00\u7ea7\u6e90\u63a5\u53e3\u4fe1\u606f");
