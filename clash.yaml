@@ -11,6 +11,9 @@ fallback: &fallback {type: fallback, url: http://1.1.1.1/generate_204, interval:
 load-balance: &load-balance {type: load-balance, strategy: consistent-hashing, url: http://1.1.1.1/generate_204, interval: 300, include-all: true}
 p: &p {type: http, interval: 86400, health-check: {enable: true, url: http://1.1.1.1/generate_204, interval: 1800, timeout: 5000}}
 proxy-providers:
+  BESTSUB:
+    url: https://bestsub.bestrui.ggff.net/share/bestsub/cdcefaa4-1f0d-462e-ba76-627b344989f2/all.yaml
+    <<: *p
   zyfx6:
     url: https://rss.zyfx6.xyz/clash/
     <<: *p
