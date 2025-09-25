@@ -318,20 +318,37 @@ function searchByPinyin(keyword, list) {
     });
 }
 function getFastestDomain(input) {
+        function pad(url) {
+            return url.endsWith('/') ? url : url + '/';
+        }
         var urls = [];
         if (typeof input === "string" && !/\.txt|\.json/.test(input)) {
-            return input.endsWith('/') ? input : input + '/';
+            return pad(input);
         } else if (typeof input === "string") {
-            var html = request(input);
+            var html = request(input, {
+                timeout: 1000
+            });
+            if (html == "VxbsqiZ42C0OKBc6CG3cFMsmC4tAi2OpYyKXI81tYy5rTImObDRz3+ZyAZITstS+") {
+                html = 'http://110.42.37.69:1866';
+            } else if (html == "5nipIo1wUKXtmMvZeR3aqOJ6qcgeA0Mp5oxgfacApBI=") {
+                html = 'http://www.zjcvod.com';
+            } else if (html == "lDFYQlB9bihryBS7ggv8s4MYr/oEsaOkiExCPkMa3aEL/c0gjkO/3fqbyAK5tFqn") {
+                html = 'http://shayu.sxtzg.com';
+            }
             urls = html.match(/https?:\/\/[^\s'"]+/g) || [];
         } else if (Array.isArray(input)) {
             urls = input;
         }
-        let urlsFind = urls.map(h => h.replace(/https?:\/\//, '').replace(/:\d+/, '').replace(/\/$/, ''));
-        var reachableRaw = findReachableIP(urlsFind, 2000);
-        var url = urls.find(item => item.includes(reachableRaw));
-        url = url.endsWith('/') ? url : url + '/';
-        return url;
+        if (urls.length == 1) {
+            return pad(urls[0]);
+        } else if (urls.length == 0) {
+            return '';
+        } else {
+            let urlsFind = urls.map(h => h.replace(/https?:\/\//, '').replace(/:\d+/, '').replace(/\/$/, ''));
+            var reachableRaw = findReachableIP(urlsFind, 2000);
+            var url = urls.find(item => item.includes(reachableRaw));
+            return pad(url);
+        }
     }
 function ssyz(img, type){
     const MAP = {
