@@ -26,7 +26,6 @@ function convertToSingleLineYaml(yamlText) {
         // 处理多行字符串符号（>- 或 | 等）
         if (value.startsWith('>-') || value.startsWith('|') || 
             value.startsWith('>') || value.startsWith('|')) {
-            // 这些符号表示多行字符串，我们保留原始值
             return [key, value];
         }
 
@@ -68,9 +67,12 @@ function convertToSingleLineYaml(yamlText) {
                 return `"${value}"`;
             }
             
-            if (value.includes(' ') || value.includes(':') || value.includes('{') || 
+            // 关键修复：包含 ? & = 等URL特殊字符的必须加引号
+            if (value.includes('?') || value.includes('&') || value.includes('=') ||
+                value.includes(' ') || value.includes(':') || value.includes('{') || 
                 value.includes('}') || value.includes('|') || value.includes('[') ||
-                value.includes('🇷') || value.includes('>') || value.includes('-')) {
+                value.includes('🇷') || value.includes('🇨') || value.includes('>') || 
+                value.includes('-') || value.includes('/')) {
                 return `"${value}"`;
             }
             return value;
@@ -78,7 +80,20 @@ function convertToSingleLineYaml(yamlText) {
         return value;
     }
 
-    // 其余代码保持不变...
+    // 清理对象，移除空对象属性
+    function cleanupObject(obj) {
+        const cleaned = {};
+        for (const [key, value] of Object.entries(obj)) {
+            // 跳过空对象属性
+            if (typeof value === 'object' && value !== null && 
+                !Array.isArray(value) && Object.keys(value).length === 0) {
+                continue;
+            }
+            cleaned[key] = value;
+        }
+        return cleaned;
+    }
+
     // 1. 找到第一个 - 的缩进级别
     var lines = yamlText.split('\n');
     let firstDashIndent = -1;
@@ -181,6 +196,8 @@ function convertToSingleLineYaml(yamlText) {
             }
         }
         
+        // 清理空对象属性
+        obj = cleanupObject(obj);
         result.push(obj);
     }
 
