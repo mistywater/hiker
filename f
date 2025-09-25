@@ -83,7 +83,7 @@ function convertToSingleLineYaml(yamlText) {
     // 清理对象，移除空对象属性
     function cleanupObject(obj) {
         const cleaned = {};
-        for (const [key, value] of Object.entries(obj)) {
+        for (var [key, value] of Object.entries(obj)) {
             // 跳过空对象属性
             if (typeof value === 'object' && value !== null && 
                 !Array.isArray(value) && Object.keys(value).length === 0) {
