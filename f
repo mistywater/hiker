@@ -436,7 +436,9 @@ function getHtml(url, headers, mode) {
     if (!html) {
         if (mode && mode == 1) {
             html = request(url, headers || {});
-        } else {
+        } else if (mode && mode == 2) {
+            html = fetchCodeByWebView(url);
+        } else{
             html = fetchPC(url, headers || {});
         }
         putMyVar(url, html);
