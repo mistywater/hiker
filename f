@@ -1,4 +1,57 @@
 js:// -*- mode: js -*-
+function getWeekdayColor(weekday) {
+    const colors = {
+        // 日曜日 - 星期日 - 周日
+        "日曜日": "#FF6B6B", 
+        "星期日": "#FF6B6B",
+        "周日": "#FF6B6B",
+        "Sunday": "#FF6B6B",
+        "Sun": "#FF6B6B",
+        
+        // 月曜日 - 星期一 - 周一
+        "月曜日": "#A0A0A0",
+        "星期一": "#A0A0A0",
+        "周一": "#A0A0A0",
+        "Monday": "#A0A0A0",
+        "Mon": "#A0A0A0",
+        
+        // 火曜日 - 星期二 - 周二
+        "火曜日": "#FF8C42",
+        "星期二": "#FF8C42",
+        "周二": "#FF8C42",
+        "Tuesday": "#FF8C42",
+        "Tue": "#FF8C42",
+        
+        // 水曜日 - 星期三 - 周三
+        "水曜日": "#4FC3F7",
+        "星期三": "#4FC3F7",
+        "周三": "#4FC3F7",
+        "Wednesday": "#4FC3F7",
+        "Wed": "#4FC3F7",
+        
+        // 木曜日 - 星期四 - 周四
+        "木曜日": "#66BB6A",
+        "星期四": "#66BB6A",
+        "周四": "#66BB6A",
+        "Thursday": "#66BB6A",
+        "Thu": "#66BB6A",
+        
+        // 金曜日 - 星期五 - 周五
+        "金曜日": "#FFD54F",
+        "星期五": "#FFD54F",
+        "周五": "#FFD54F",
+        "Friday": "#FFD54F",
+        "Fri": "#FFD54F",
+        
+        // 土曜日 - 星期六 - 周六
+        "土曜日": "#BA68C8",
+        "星期六": "#BA68C8",
+        "周六": "#BA68C8",
+        "Saturday": "#BA68C8",
+        "Sat": "#BA68C8"
+    };
+    return colors[weekday] || "#666666"; // 默认灰色
+}
 function convertToSingleLineYaml(yamlText) {
     // 获取当前日期
     function getCurrentDate() {
