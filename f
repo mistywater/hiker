@@ -1,6 +1,6 @@
 js:// -*- mode: js -*-
 function jsExtraClick(e,n) {
-            n=!n?1:n;
+            n=!n?0:n;
             return $.toString((n) => {
                 var buttons = document.querySelectorAll(e);
                 var button = buttons.item(n);
