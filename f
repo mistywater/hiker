@@ -1,4 +1,15 @@
 js:// -*- mode: js -*-
+function jsExtraClick(e,n) {
+            n=!n?1:n;
+            return $.toString((n) => {
+                var buttons = document.querySelectorAll(e);
+                var button = buttons.item(n);
+                var targets = [button, button.querySelector('svg'), button.querySelector('div')];
+                targets.forEach(function(target) {
+                    if (target) target.click();
+                });
+            }, n);
+        }
 function getWeekdayColor(weekday) {
     const colors = {
         // 日曜日 - 星期日 - 周日
