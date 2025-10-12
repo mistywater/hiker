@@ -754,12 +754,17 @@ function updateJu(title) {
 }
 
 function TextToBase64(str) {
+    if (typeof str === 'object' && str !== null) {
+        str = JSON.stringify(str);
+    }
     return window0.btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, (_, hex) => {
         return String.fromCharCode(parseInt(hex, 16));
     }));
 }
-
 function base64ToText(str) {
+    if (typeof str === 'object' && str !== null) {
+        str = JSON.stringify(str);
+    }
     return decodeURIComponent(window0.atob(str).split('').map(c => {
         return '%' + c.charCodeAt(0).toString(16).padStart(2, '0');
     }).join(''));
