@@ -2373,8 +2373,8 @@ putMyVar('isMoveto', '1');
     };
 }
 
-function searchMain(page, d, desc) {
-    if (page == 1 || getMyVar('isMoveto', '0') == 1) {
+function searchMain(page, d, desc,MY_PAGE) {
+   if (page == 1 || getMyVar('isMoveto', '0') == 1 || MY_PAGE == getMyVar('MY_PAGE')) {
         d.push({
             title: '🔍',
             url: $.toString((r) => {
