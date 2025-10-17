@@ -2391,13 +2391,14 @@ function searchMain(page, d, desc,MY_PAGE) {
     return d;
 }
 
-function classTop(index, data, host, d, mode, v, c, f, len, start, end) {
+function classTop(index, data, host, d, mode, v, c, f, len, start, end,bgcolor,bgcolorSelected) {
     if (!mode) mode = 0;
     if (!v) v = 0;
     if (!c) c = 'c';
     if (!f) f = 'scroll_button';
     if (!len) len = 20;
-
+    if (bgcolor) bgcolor=('#'+bgcolor).replace('##','');
+    if (bgcolorSelected) bgcolorSelected=('#'+bgcolorSelected).replace('##','');
     let isDarkMode = getItem('darkMode', '深色模式') === '浅色白字模式';
     let isInRange = index >= start && index <= end;
     let c_title = /\{/.test(JSON.stringify(data)) ? data.title.split('&') : data.split('&');
@@ -2430,7 +2431,9 @@ function classTop(index, data, host, d, mode, v, c, f, len, start, end) {
                 return 'hiker://empty';
             }, index, c_id ? c_id[index_c] : title, index_c, host, mode, title, v, c, len),
             extra: {
-                backgroundColor: isInRange ? getRandomColor(getItem('darkMode')) : '',
+                backgroundColor: isInRange 
+  ? (isSelected ? bgcolorSelected : bgcolor) || getRandomColor(getItem('darkMode'))
+  : '',
                 LongClick: isInRange ? bcLongClick() : [],
             },
         });
