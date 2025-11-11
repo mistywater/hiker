@@ -678,11 +678,14 @@ function parseUrlVideo(url, 依赖) {
         url = SrcParseS.聚阅(url);
     } else if (/(xunlei|ed2k:|bt:|ftp:|\.torrent|magnet|thunder)/.test(url)) {
         return "hiker://page/diaoyong?rule=迅雷&page=fypage#" + url
-    } else if (/magnet/.test(url)) {
+    } else if (/magnet|\.m3u8|\.mp4|\.mkv/.test(url)) {
         url = url;
     } else {
         var html = fetchPC(url);
-        if (/r player_/.test(html)) {
+        if (/r Vurl/.test(html)) {
+            var url_t=html.match(/r Vurl.*?['"](.*?)['"]/)[1];
+            url=/\.m3u8|\.mp4|\.mkv/.test(url_t)?url_t:'video://' + url;
+        }else   if (/r player_/.test(html)) {
             var json = JSON.parse(html.match(/r player_.*?=(.*?)</)[1]);
             var url_t = json.url;
             if (json.encrypt == '1') {
