@@ -1,4 +1,227 @@
 js:// -*- mode: js -*-
+function imgDecsRmw(picUrl){
+    return $.toString((picUrl)=>{
+        function customHash(decodedString) {
+            let inputBytes;
+            if (typeof decodedString === "string") {
+                inputBytes = [];
+                for (let i = 0; i < decodedString.length; i++) {
+                    inputBytes.push(decodedString.charCodeAt(i));
+                }
+            } else {
+                inputBytes = input;
+            }
+            function bytesToWords(bytes) {
+                let words = [];
+                for (let i = 0; i < bytes.length; i += 4) {
+                    let word = 0;
+                    if (i < bytes.length) {
+                        word |= (bytes[i] & 255) << 0;
+                    }
+                    if (i + 1 < bytes.length) {
+                        word |= (bytes[i + 1] & 255) << 8;
+                    }
+                    if (i + 2 < bytes.length) {
+                        word |= (bytes[i + 2] & 255) << 16;
+                    }
+                    if (i + 3 < bytes.length) {
+                        word |= (bytes[i + 3] & 255) << 24;
+                    }
+                    words.push(word);
+                }
+                return words;
+            }
+            function wordsToBytes(words) {
+                let bytes = [];
+                for (let i = 0; i < words.length; i++) {
+                    for (let j = 0; j < 4; j++) {
+                        bytes.push((words[i] >>> (j * 8)) & 255);
+                    }
+                }
+                return bytes;
+            }
+            function bytesToHex(bytes) {
+                let hex = "";
+                for (let i = 0; i < bytes.length; i++) {
+                    hex += (bytes[i] < 16 ? "0" : "") + bytes[i].toString(16);
+                }
+                return hex;
+            }
+            let _ff = function (t, r, e, n, o, i, f) {
+                var u = t + (r & e | ~r & n) + (o >>> 0) + f;
+                return (u << i | u >>> 32 - i) + r;
+            };
+            let _gg = function (t, r, e, n, o, i, f) {
+                var u = t + (r & n | e & ~n) + (o >>> 0) + f;
+                return (u << i | u >>> 32 - i) + r;
+            };
+            let _hh = function (t, r, e, n, o, i, f) {
+                var u = t + (r ^ e ^ n) + (o >>> 0) + f;
+                return (u << i | u >>> 32 - i) + r;
+            };
+            let _ii = function (t, r, e, n, o, i, f) {
+                var u = t + (e ^ (r | ~n)) + (o >>> 0) + f;
+                return (u << i | u >>> 32 - i) + r;
+            };
+            function u(t, r) {
+                let e = bytesToWords(t);
+                let s = 8 * t.length;
+                let a = 1732584193;
+                let c = -271733879;
+                let h = -1732584194;
+                let l = 271733878;
+                let index1 = s >>> 5;
+                while (e.length <= index1) {
+                    e.push(null);
+                }
+                e[index1] |= 128 << (s % 32);
+                let index2 = (((s + 64) >>> 9) << 4) + 14;
+                while (e.length <= index2) {
+                    e.push(null);
+                }
+                e[index2] = s;
+                for (let p = 0; p < e.length; p += 16) {
+                    let b = a, m = c, x = h, w = l;
+                    a = _ff(a, c, h, l, e[p + 0], 7, -680876936);
+                    l = _ff(l, a, c, h, e[p + 1], 12, -389564586);
+                    h = _ff(h, l, a, c, e[p + 2], 17, 606105819);
+                    c = _ff(c, h, l, a, e[p + 3], 22, -1044525330);
+                    a = _ff(a, c, h, l, e[p + 4], 7, -176418897);
+                    l = _ff(l, a, c, h, e[p + 5], 12, 1200080426);
+                    h = _ff(h, l, a, c, e[p + 6], 17, -1473231341);
+                    c = _ff(c, h, l, a, e[p + 7], 22, -45705983);
+                    a = _ff(a, c, h, l, e[p + 8], 7, 1770035416);
+                    l = _ff(l, a, c, h, e[p + 9], 12, -1958414417);
+                    h = _ff(h, l, a, c, e[p + 10], 17, -42063);
+                    c = _ff(c, h, l, a, e[p + 11], 22, -1990404162);
+                    a = _ff(a, c, h, l, e[p + 12], 7, 1804603682);
+                    l = _ff(l, a, c, h, e[p + 13], 12, -40341101);
+                    h = _ff(h, l, a, c, e[p + 14], 17, -1502002290);
+                    c = _ff(c, h, l, a, e[p + 15], 22, 1236535329);
+                    a = _gg(a, c, h, l, e[p + 1], 5, -165796510);
+                    l = _gg(l, a, c, h, e[p + 6], 9, -1069501632);
+                    h = _gg(h, l, a, c, e[p + 11], 14, 643717713);
+                    c = _gg(c, h, l, a, e[p + 0], 20, -373897302);
+                    a = _gg(a, c, h, l, e[p + 5], 5, -701558691);
+                    l = _gg(l, a, c, h, e[p + 10], 9, 38016083);
+                    h = _gg(h, l, a, c, e[p + 15], 14, -660478335);
+                    c = _gg(c, h, l, a, e[p + 4], 20, -405537848);
+                    a = _gg(a, c, h, l, e[p + 9], 5, 568446438);
+                    l = _gg(l, a, c, h, e[p + 14], 9, -1019803690);
+                    h = _gg(h, l, a, c, e[p + 3], 14, -187363961);
+                    c = _gg(c, h, l, a, e[p + 8], 20, 1163531501);
+                    a = _gg(a, c, h, l, e[p + 13], 5, -1444681467);
+                    l = _gg(l, a, c, h, e[p + 2], 9, -51403784);
+                    h = _gg(h, l, a, c, e[p + 7], 14, 1735328473);
+                    c = _gg(c, h, l, a, e[p + 12], 20, -1926607734);
+                    a = _hh(a, c, h, l, e[p + 5], 4, -378558);
+                    l = _hh(l, a, c, h, e[p + 8], 11, -2022574463);
+                    h = _hh(h, l, a, c, e[p + 11], 16, 1839030562);
+                    c = _hh(c, h, l, a, e[p + 14], 23, -35309556);
+                    a = _hh(a, c, h, l, e[p + 1], 4, -1530992060);
+                    l = _hh(l, a, c, h, e[p + 4], 11, 1272893353);
+                    h = _hh(h, l, a, c, e[p + 7], 16, -155497632);
+                    c = _hh(c, h, l, a, e[p + 10], 23, -1094730640);
+                    a = _hh(a, c, h, l, e[p + 13], 4, 681279174);
+                    l = _hh(l, a, c, h, e[p + 0], 11, -358537222);
+                    h = _hh(h, l, a, c, e[p + 3], 16, -722521979);
+                    c = _hh(c, h, l, a, e[p + 6], 23, 76029189);
+                    a = _hh(a, c, h, l, e[p + 9], 4, -640364487);
+                    l = _hh(l, a, c, h, e[p + 12], 11, -421815835);
+                    h = _hh(h, l, a, c, e[p + 15], 16, 530742520);
+                    c = _hh(c, h, l, a, e[p + 2], 23, -995338651);
+                    a = _ii(a, c, h, l, e[p + 0], 6, -198630844);
+                    l = _ii(l, a, c, h, e[p + 7], 10, 1126891415);
+                    h = _ii(h, l, a, c, e[p + 14], 15, -1416354905);
+                    c = _ii(c, h, l, a, e[p + 5], 21, -57434055);
+                    a = _ii(a, c, h, l, e[p + 12], 6, 1700485571);
+                    l = _ii(l, a, c, h, e[p + 3], 10, -1894986606);
+                    h = _ii(h, l, a, c, e[p + 10], 15, -1051523);
+                    c = _ii(c, h, l, a, e[p + 1], 21, -2054922799);
+                    a = _ii(a, c, h, l, e[p + 8], 6, 1873313359);
+                    l = _ii(l, a, c, h, e[p + 15], 10, -30611744);
+                    h = _ii(h, l, a, c, e[p + 6], 15, -1560198380);
+                    c = _ii(c, h, l, a, e[p + 13], 21, 1309151649);
+                    a = _ii(a, c, h, l, e[p + 4], 6, -145523070);
+                    l = _ii(l, a, c, h, e[p + 11], 10, -1120210379);
+                    h = _ii(h, l, a, c, e[p + 2], 15, 718787259);
+                    c = _ii(c, h, l, a, e[p + 9], 21, -343485551);
+                    a = (a + b) >>> 0;
+                    c = (c + m) >>> 0;
+                    h = (h + x) >>> 0;
+                    l = (l + w) >>> 0;
+                }
+                return [a, c, h, l];
+            }
+            let hashWords = u(inputBytes);
+            let hashBytes = wordsToBytes(hashWords);
+            return bytesToHex(hashBytes);
+        }
+        const ByteArrayOutputStream = java.io.ByteArrayOutputStream;
+        const ByteArrayInputStream = java.io.ByteArrayInputStream;
+        const Bitmap = android.graphics.Bitmap;
+        const BitmapFactory = android.graphics.BitmapFactory;
+        const Canvas = android.graphics.Canvas;
+        try {
+            let urlParts = picUrl.split("/");
+            let fileName = urlParts[urlParts.length - 1];
+            let base64Part = fileName.split(".").slice(0, -1).join(".");
+            let decodedString = window0.atob(base64Part);
+            let hexResult = customHash(decodedString);
+            let hashBytes = [];
+            for (let i = 0; i < hexResult.length; i += 2) {
+                let byteStr = hexResult.substring(i, i + 2);
+                hashBytes.push(parseInt(byteStr, 16));
+            }
+            let lastByte = hashBytes[hashBytes.length - 1];
+            let blockCount = lastByte % 10 + 5;
+            let imgBitmap = BitmapFactory.decodeStream(input);
+            if (!imgBitmap) {
+                return input;
+            }
+            let width = imgBitmap.getWidth();
+            let height = imgBitmap.getHeight();
+            let blockHeight = Math.floor(height / blockCount);
+            let remainder = height % blockCount;
+            let newImgBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+            let canvas = new Canvas(newImgBitmap);
+            for (let currentBlock = 0; currentBlock < blockCount; currentBlock++) {
+                let sourceY, destY, currentBlockHeight;
+                sourceY = height - blockHeight * (currentBlock + 1) - remainder;
+                destY = blockHeight * currentBlock;
+                if (currentBlock === 0) {
+                    currentBlockHeight = blockHeight + remainder;
+                } else {
+                    destY += remainder;
+                    currentBlockHeight = blockHeight;
+                }
+                if (currentBlockHeight <= 0) {
+                    continue;
+                }
+                if (sourceY < 0) {
+                    currentBlockHeight += sourceY;
+                    sourceY = 0;
+                }
+                if (sourceY + currentBlockHeight > height) {
+                    currentBlockHeight = height - sourceY;
+                }
+                if (currentBlockHeight > 0) {
+                    let blockBitmap = Bitmap.createBitmap(imgBitmap, 0, sourceY, width, currentBlockHeight);
+                    canvas.drawBitmap(blockBitmap, 0, destY, null);
+                    blockBitmap.recycle();
+                }
+            }
+            let baos = new ByteArrayOutputStream();
+            newImgBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+            imgBitmap.recycle();
+            newImgBitmap.recycle();
+            return new ByteArrayInputStream(baos.toByteArray());
+        }
+        catch (e) {
+            return input;
+        }
+    }, picUrl ? picUrl : '');
+}
 function jsExtraClick(e,n) {
             n=!n?0:n;
             return $.toString((n) => {
