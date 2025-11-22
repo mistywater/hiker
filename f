@@ -706,9 +706,10 @@ function parseUrlVideo(url, 依赖) {
 }
 
 function updateJu(title) {
-    let lastTime = getItem(title + 'getTime', '');
+    var path='hiker://files/rules/juyue/updateTime_'+title+'.txt';
+    let lastTime = fetch(path);
     let currentTime = Date.now();
-    setItem(title + 'getTime', currentTime + '');
+    writeFile(path, currentTime + '');
     if (!lastTime || currentTime - lastTime >= 86400000) {
         let pathGitee = 'https://gitee.com/mistywater/hiker_info/raw/master/sourcefile/' + title + '.json';
         let html = fetch(pathGitee);
