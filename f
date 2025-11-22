@@ -1,6 +1,6 @@
 js:// -*- mode: js -*-
 function imgDecsRmw(picUrl){
-    return $.toString((picUrl)=>{
+    return $.toString((picUrl)=>{log(picUrl);
         function customHash(decodedString) {
             let inputBytes;
             if (typeof decodedString === "string") {
