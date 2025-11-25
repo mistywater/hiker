@@ -1,4 +1,4 @@
-js:// -*- mode: js -*-
+js:// -*- mode: js -*- 
 function imgDecsRmw(picUrl){
     return $.toString((picUrl)=>{log(picUrl);
         function customHash(decodedString) {
@@ -364,6 +364,15 @@ function convertToSingleLineYaml(yamlText) {
             }
             return value;
         }
+        
+        // 处理嵌套对象
+        if (typeof value === 'object' && value !== null) {
+            var nestedEntries = Object.entries(value).map(([nestedKey, nestedValue]) => {
+                return `${nestedKey}: ${formatValue(nestedKey, nestedValue)}`;
+            }).join(', ');
+            return `{${nestedEntries}}`;
+        }
+
         return value;
     }
 
@@ -426,17 +435,25 @@ function convertToSingleLineYaml(yamlText) {
 
     let result = [];
     
-    // 3. 逐个处理每个项目
+    // 3. 逐个处理每个项目 - 修复嵌套对象解析
     for (var itemLines of items) {
         let obj = {};
-        let currentNestedObject = null;
-        let currentNestedKey = null;
-        let currentIndentLevel = 0;
-
+        let stack = [{ obj: obj, indent: -1 }]; // 使用栈来处理嵌套
+        
         for (var j = 0; j < itemLines.length; j++) {
             var line = itemLines[j];
             var trimmedLine = line.trim();
             var currentIndent = line.search(/\S|$/);
+            
+            // 跳过纯注释行
+            if (trimmedLine.startsWith('#')) continue;
+            
+            // 调整栈到正确的嵌套级别
+            while (stack.length > 1 && currentIndent <= stack[stack.length - 1].indent) {
+                stack.pop();
+            }
+            
+            var currentObj = stack[stack.length - 1].obj;
             
             if (trimmedLine.startsWith('-') && j === 0) {
                 // 项目的第一行，解析第一个属性
@@ -444,41 +461,34 @@ function convertToSingleLineYaml(yamlText) {
                 if (firstProp) {
                     var [key, value] = parseKeyValue(firstProp);
                     if (key && value !== undefined) {
-                        obj[key] = value;
+                        currentObj[key] = value;
                     }
                 }
             } else if (trimmedLine.includes(':')) {
                 var [key, value] = parseKeyValue(trimmedLine);
                 
-                // 检查是否有嵌套内容
-                var hasNested = false;
+                // 检查下一行是否有更深层次的嵌套
+                var hasNestedContent = false;
                 if (j + 1 < itemLines.length) {
                     var nextLine = itemLines[j + 1];
                     var nextIndent = nextLine.search(/\S|$/);
                     var nextTrimmed = nextLine.trim();
+                    
+                    // 下一行有更深的缩进且不是注释，可能包含嵌套内容
                     if (nextIndent > currentIndent && nextTrimmed && 
                         !nextTrimmed.startsWith('#') && nextTrimmed.includes(':')) {
-                        hasNested = true;
+                        hasNestedContent = true;
                     }
                 }
                 
-                if (hasNested) {
-                    // 开始嵌套对象
-                    currentNestedObject = {};
-                    currentNestedKey = key;
-                    currentIndentLevel = currentIndent;
-                    
-                    if (currentNestedKey) {
-                        obj[currentNestedKey] = currentNestedObject;
-                    }
-                } else if (currentNestedObject && currentIndent > currentIndentLevel) {
-                    // 嵌套对象的属性
-                    currentNestedObject[key] = value;
+                if (hasNestedContent) {
+                    // 创建新的嵌套对象
+                    var nestedObj = {};
+                    currentObj[key] = nestedObj;
+                    stack.push({ obj: nestedObj, indent: currentIndent });
                 } else {
-                    // 顶层属性
-                    obj[key] = value;
-                    currentNestedObject = null;
-                    currentNestedKey = null;
+                    // 普通键值对
+                    currentObj[key] = value;
                 }
             }
         }
@@ -494,25 +504,13 @@ function convertToSingleLineYaml(yamlText) {
     // 5. 转换为单行YAML格式
     return result.map(obj => {
         var entries = Object.entries(obj).map(([key, value]) => {
-            if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
-                // 处理嵌套对象
-                if (Object.keys(value).length === 0) {
-                    return `${key}: {}`;
-                }
-                
-                var nestedEntries = Object.entries(value).map(([nestedKey, nestedValue]) => {
-                    return `${nestedKey}: ${formatValue(nestedKey, nestedValue)}`;
-                }).join(', ');
-                
-                return `${key}: {${nestedEntries}}`;
-            }
-            
             return `${key}: ${formatValue(key, value)}`;
         }).join(', ');
 
         return `  - {${entries}}`;
     }).join('\n');
 }
+
 function toerji(item, jkdata) {
 if(!jkdata.url){
     info = jkdata || storage0.getMyVar("\u4e00\u7ea7\u6e90\u63a5\u53e3\u4fe1\u606f");
