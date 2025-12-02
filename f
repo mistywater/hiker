@@ -1978,8 +1978,8 @@ function lunbo(c) {
         var k = c.indexbanner.length;
         var n = '0';
         var lazy = '';
-        if (c.公共) {
-            lazy = $('').lazyRule(c.公共.解析, c.公共, '', c.公共.host);
+        if (c.公共||c.parse) {
+            lazy = $('').lazyRule((c.公共||c.parse).解析, (c.公共||c.parse), '', (c.公共||c.parse).host);
         }
         if (c.json == 1) {
             d.push({
