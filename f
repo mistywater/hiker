@@ -2023,9 +2023,9 @@ function lunbo(c) {
             rc(fc('https://gitee.com/mistywater/hiker_info/raw/master/githubproxy.json') + 'https://raw.githubusercontent.com/mistywater/hiker/main/f', 24);
             var n = getVar(c.host + 'n', '0');
             var lazy = '';
-            if (公共) {
-                lazy = $('').lazyRule(公共.解析, 公共, '', 公共.host);
-            }
+            if (c.公共||c.parse) {
+            lazy = $('').lazyRule((c.公共||c.parse).解析, (c.公共||c.parse), '', (c.公共||c.parse).host);
+        }
             if (c.json == 1) {
                 let dd = {
                     title: color(c.indexbanner[n][c.title], 'FF3399'),
