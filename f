@@ -1,4 +1,5 @@
 js:// -*- mode: js -*- 
+//
 function getRandomColor() {
             darkMode = getVar('darkMode','1') == 0 ? '浅色模式' : (getVar('darkMode') == 2 ? '浅色白字模式' : '深色模式');
             switch (darkMode) {
