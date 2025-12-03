@@ -13,7 +13,7 @@ function getRandomColor() {
             }
         }
 
-        function generateLightColor() {
+        /*function generateLightColor() {
             let h, s, v;
             do {
                 h = Math.floor(Math.random() * 360);
@@ -26,7 +26,7 @@ function getRandomColor() {
                 v = 80 + Math.floor(Math.random() * 20); // 80-100%
             }
             return hsvToHex(h, s, v);
-        }
+        }*/
 
 
         function generateLightColorForWhiteText() {
@@ -113,7 +113,80 @@ function getRandomColor() {
             const v = Math.floor(Math.random() * 60) + 40; // 40-100% 明度（原来30+20=20-50%）
             return hsvToHex(h, s, v);
         }
+function generateLightColor() {
+     const colorGroups = [{
+            weight: 1,
+            colors: [
+                // 红色系 - 包含较高饱和度的红色
+                '#FFCCCC', '#FFB6C1', '#FF9999', '#FF6666', '#FF3333',
+                '#FF5555', '#FF7777', '#FFAAAA', '#EE8888', '#FF0000'
+            ]
+        },
+        {
+            weight: 1,
+            colors: [
+                // 橙色系 - 高饱和度橙色
+                '#FFE5B4', '#FFD580', '#FFCC99', '#FFB366', '#FF9933',
+                '#FF8C00', '#FFA500', '#FF7F00', '#FF6347', '#FF4500'
+            ]
+        },
+        {
+            weight: 0.8,
+            colors: [
+                // 黄色系 - 高饱和度黄色
+                '#FFFFCC',  '#FFFF66', '#FFFF00', '#FFD700',
+                '#FFEA00', '#FFD600', '#FFFF33', '#FFFACD', '#FFF8DC'
+            ]
+        },
+        {
+            weight: 1,
+            colors: [
+                // 绿色系 - 高饱和度绿色
+                '#CCFFCC', '#99FF99', '#66FF66', '#33FF33', '#00FF00',
+                '#32CD32', '#00FA9A', '#00FF7F', '#7CFC00', '#7FFF00'
+            ]
+        },
+        {
+            weight: 1,
+            colors: [
+                // 蓝色系 - 中等饱和度蓝色（避免深蓝）
+                '#CCFFFF', '#99FFFF', '#66CCFF', '#3399FF', '#0099FF',
+                '#64B5F6', '#42A5F5', '#90CAF9', '#81D4FA', '#4FC3F7'
+            ]
+        },
+        {
+            weight: 1,
+            colors: [
+                // 紫色系 - 高饱和度紫色
+                '#E6CCFF', '#DDA0DD', '#DA70D6', '#BA55D3', '#9932CC',
+                '#8A2BE2', '#9370DB', '#C8A2C8', '#D8BFD8', '#DDA0DD'
+            ]
+        },
+        {
+            weight: 0.7,
+            colors: [
+                // 中性色系 - 各种灰白色调
+                '#EEEEEE', '#E0E0E0', '#D6D6D6', '#CCCCCC', '#DDDDDD',
+                '#F5F5F5', '#FAFAFA', '#FFFFFF', '#F0F0F0', '#E8E8E8'
+            ]
+        }
+    ];
+    
+    const totalWeight = colorGroups.reduce((sum, group) => sum + group.weight, 0);
+    let random = Math.random() * totalWeight;
+    let selectedGroup = null;
 
+    for (let group of colorGroups) {
+        random -= group.weight;
+        if (random <= 0) {
+            selectedGroup = group;
+            break;
+        }
+    }
+    
+    const colors = selectedGroup.colors;
+    return colors[Math.floor(Math.random() * colors.length)];
+}
         function calculateBrightness(r, g, b) {
             return 0.299 * r + 0.587 * g + 0.114 * b;
         }
