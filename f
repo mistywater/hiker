@@ -1,4 +1,154 @@
 js:// -*- mode: js -*- 
+function getRandomColor() {
+            darkMode = getVar('darkMode','1') == 0 ? '浅色模式' : (getVar('darkMode') == 2 ? '浅色白字模式' : '深色模式');
+            switch (darkMode) {
+                case '浅色模式':
+                    return generateLightColor();
+                case '浅色白字模式':
+                    return generateLightColorForWhiteText();
+                case '深色模式':
+                    return generateDarkColor();
+                default:
+                    return generateDarkColor();
+            }
+        }
+
+        function generateLightColor() {
+            let h, s, v;
+            do {
+                h = Math.floor(Math.random() * 360);
+            } while (h >= 200 && h <= 300);
+            if (Math.random() < 0.2) {
+                s = 60 + Math.floor(Math.random() * 40); // 60-100%
+                v = 75 + Math.floor(Math.random() * 20); // 75-95%
+            } else {
+                s = 20 + Math.floor(Math.random() * 30); // 20-50%
+                v = 80 + Math.floor(Math.random() * 20); // 80-100%
+            }
+            return hsvToHex(h, s, v);
+        }
+
+
+        function generateLightColorForWhiteText() {
+            const colorGroups = [{
+                    weight: 1,
+                    colors: [
+                        // 红色系 - 高饱和度红色
+                        '#FF0000', '#FF3333', '#FF4444', '#FF5555', '#FF6666',
+                        '#EE5566', '#FF33EE', '#993344', '#FF5588', '#FF0066'
+                    ]
+                },
+                {
+                    weight: 1,
+                    colors: [
+                        // 橙色系 - 高饱和度橙色
+                        '#FF4500', '#FF5733', '#FF6347', '#FF7F00', '#FF8C00',
+                        '#FFA500', '#FF8E53', '#FFB347', '#FFA07A',
+                    ]
+                },
+                {
+                    weight: 0.2,
+                    colors: [
+                        // 黄色系 - 中等饱和度黄色
+                        '#FFD700', '#DEBB00', '#DEA725',
+                    ]
+                },
+                {
+                    weight: 1,
+                    colors: [
+                        // 绿色系 - 高饱和度绿色
+                        '#00EE00', '#32CD32', '#00FF7F', '#00FA9A', '#06D6A0',
+                        '#8AC926', '#43AA70', '#4CAF50', '#00C853'
+                    ]
+                },
+                {
+                    weight: 1,
+                    colors: [
+                        // 蓝色系 - 中等饱和度蓝色
+                        '#4466EE', '#3355CC', '#44BBFF', '#2299FF', '#6699EE',
+                        '#4682B4', '#2222BB', '#88CCEE', '#99CCEE',
+                    ]
+                },
+                {
+                    weight: 1,
+                    colors: [
+                        // 紫色系 - 高饱和度紫色
+                        '#880088', '#8822EE', '#9900DD', '#9933CC', '#8833EE',
+                        '#7700BB', '#5500FF', '#664499', '#AA66CC', '#BB55DD'
+                    ]
+                },
+                {
+                    weight: 0.8,
+                    colors: [
+                        // 青色系 - 中等饱和度青色
+                        '#00BBFF', '#00FFDD', '#447799', '#44DDCC', '#33EEDD',
+                        '#00CCDD', '#22BBAA', '#88DDEE',
+                    ]
+                },
+                {
+                    weight: 0.5,
+                    colors: [
+                        // 中性色系 - 适中亮度的灰色（避免过暗或过亮）
+                        '#666666', '#777777', '#888888', '#999999', '#AAAAAA',
+                    ]
+                }
+            ];
+            const totalWeight = colorGroups.reduce((sum, group) => sum + group.weight, 0);
+            let random = Math.random() * totalWeight;
+            let selectedGroup = null;
+
+            for (let group of colorGroups) {
+                random -= group.weight;
+                if (random <= 0) {
+                    selectedGroup = group;
+                    break;
+                }
+            }
+            const colors = selectedGroup.colors;
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+        function generateDarkColor() {
+            const h = Math.floor(Math.random() * 360);
+            const s = Math.floor(Math.random() * 50) + 50; // 50-100% 饱和度（原来30+50=50-80%）
+            const v = Math.floor(Math.random() * 60) + 40; // 40-100% 明度（原来30+20=20-50%）
+            return hsvToHex(h, s, v);
+        }
+
+        function calculateBrightness(r, g, b) {
+            return 0.299 * r + 0.587 * g + 0.114 * b;
+        }
+
+        function rgbToHex(r, g, b) {
+            const toHex = (n) => n.toString(16).padStart(2, '0');
+            return `#${toHex(r)}${toHex(g)}${toHex(b)}`.toUpperCase();
+        }
+
+        function hsvToHex(h, s, v) {
+            h = (h % 360 + 360) % 360;
+            s = Math.max(0, Math.min(100, s)) / 100;
+            v = Math.max(0, Math.min(100, v)) / 100;
+            const c = v * s;
+            const x = c * (1 - Math.abs((h / 60) % 2 - 1));
+            const m = v - c;
+            let r, g, b;
+            if (h >= 0 && h < 60) {
+                [r, g, b] = [c, x, 0];
+            } else if (h >= 60 && h < 120) {
+                [r, g, b] = [x, c, 0];
+            } else if (h >= 120 && h < 180) {
+                [r, g, b] = [0, c, x];
+            } else if (h >= 180 && h < 240) {
+                [r, g, b] = [0, x, c];
+            } else if (h >= 240 && h < 300) {
+                [r, g, b] = [x, 0, c];
+            } else {
+                [r, g, b] = [c, 0, x];
+            }
+            r = Math.round((r + m) * 255);
+            g = Math.round((g + m) * 255);
+            b = Math.round((b + m) * 255);
+            return rgbToHex(r, g, b);
+        }
 function imgDecsRmw(picUrl){
     return $.toString((picUrl)=>{log(picUrl);
         function customHash(decodedString) {
@@ -1436,121 +1586,6 @@ function bcLongClick() {
             });
         }),
     }];
-}
-
-function getRandomColor(darkMode) {
-    const maxBrightness = 160;
-    const minBrightness = 100;
-    let r, g, b;
-    do {
-        r = Math.floor(Math.random() * 256);
-        g = Math.floor(Math.random() * 256);
-        b = Math.floor(Math.random() * 256);
-        var brightness = 0.299 * r + 0.587 * g + 0.114 * b;
-    } while (/白字/.test(getItem('darkMode')) || getVar('darkMode') == 1 ? brightness > maxBrightness : brightness < minBrightness);
-
-    const toHex = (value) => {
-        const hex = value.toString(16);
-        return hex.length === 1 ? '0' + hex : hex;
-    };
-    return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
-}
-
-function bcRandom(darkMode) {
-    if (typeof(darkMode) == 'undefined' || !darkMode) {
-        darkMode = '深色模式';
-    }
-    // 确保生成的颜色值差异较大以提高对比度
-    if (darkMode == '浅色模式') {
-        for (var k = 1; k <= 999; k++) {
-            var r = Math.floor(Math.random() * 256);
-            if (r <= 180) {
-                var g = 180 - r;
-            } else {
-                var g = Math.floor(Math.random() * 256);
-            }
-
-            for (var m = 1; m <= 999; m++) {
-                var b = Math.floor(Math.random() * 256);
-                if (g + r <= 128 && b >= 128 - Math.abs(r - g)) {
-                    continue
-                } else {
-                    break;
-                }
-            }
-        }
-        return '#' + r.toString(16).padStart(2, '0') + g.toString(16).padStart(2, '0') + b.toString(16).padStart(2, '0');
-    } else if (darkMode == '浅色白字模式') {
-        const maxBrightness = 200;
-        let r, g, b;
-        do {
-            r = Math.floor(Math.random() * 256);
-            g = Math.floor(Math.random() * 256);
-            b = Math.floor(Math.random() * 256);
-            var brightness = 0.299 * r + 0.587 * g + 0.114 * b;
-        } while (brightness > maxBrightness);
-
-        const toHex = (value) => {
-            const hex = value.toString(16);
-            return hex.length === 1 ? '0' + hex : hex;
-        };
-        return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
-        /*var s = 40 + Math.floor(Math.random() * 61);
-        var h = Math.floor(Math.random() * 360);
-        for (var k = 1; k <= 999; k++) {
-            var v = 20 + Math.floor(Math.random() * 71);
-            if ((((h >= 40 && h <= 70) || (h >= 170 && h <= 210)) && v >= 60) || ((h >= 210 && h <= 280) && v <= 60)) {
-                continue;
-            } else {
-                break;
-            }
-        }*/
-    } else if (darkMode == '深色模式') {
-        var str = '#' + (((Math.random() * 0x1000000 << 0).toString(16)).substr(-6)).padStart(6, ‌Math.ceil‌(Math.random() * 16).toString(16));
-        return str;
-    }
-}
-
-function hsvToHex(h, s, v) {
-    // 将HSV转换为RGB
-    let r, g, b, i, f, p, q, t;
-    if (arguments.length === 1) {
-        s = h.s, v = h.v, h = h.h;
-    }
-    h = h / 360;
-    s = s / 100;
-    v = v / 100;
-    i = Math.floor(h * 6);
-    f = h * 6 - i;
-    p = v * (1 - s);
-    q = v * (1 - f * s);
-    t = v * (1 - (1 - f) * s);
-
-    switch (i % 6) {
-        case 0:
-            r = v, g = t, b = p;
-            break;
-        case 1:
-            r = q, g = v, b = p;
-            break;
-        case 2:
-            r = p, g = v, b = t;
-            break;
-        case 3:
-            r = p, g = q, b = v;
-            break;
-        case 4:
-            r = t, g = p, b = v;
-            break;
-        case 5:
-            r = v, g = p, b = q;
-            break;
-    }
-    // 将RGB转换为十六进制颜色代码
-    const hexR = Math.round(r * 255).toString(16).padStart(2, '0');
-    const hexG = Math.round(g * 255).toString(16).padStart(2, '0');
-    const hexB = Math.round(b * 255).toString(16).padStart(2, '0');
-    return `#${hexR}${hexG}${hexB}`.toUpperCase();
 }
 
 function baiduTrans(content, mode) {
