@@ -1,5 +1,58 @@
 js:// -*- mode: js -*- 
-////123
+function bcRandom(darkMode) {
+    if (typeof(darkMode) == 'undefined' || !darkMode) {
+        darkMode = '深色模式';
+    }
+    // 确保生成的颜色值差异较大以提高对比度
+    if (darkMode == '浅色模式') {
+        for (var k = 1; k <= 999; k++) {
+            var r = Math.floor(Math.random() * 256);
+            if (r <= 180) {
+                var g = 180 - r;
+            } else {
+                var g = Math.floor(Math.random() * 256);
+            }
+
+            for (var m = 1; m <= 999; m++) {
+                var b = Math.floor(Math.random() * 256);
+                if (g + r <= 128 && b >= 128 - Math.abs(r - g)) {
+                    continue
+                } else {
+                    break;
+                }
+            }
+        }
+        return '#' + r.toString(16).padStart(2, '0') + g.toString(16).padStart(2, '0') + b.toString(16).padStart(2, '0');
+    } else if (darkMode == '浅色白字模式') {
+        const maxBrightness = 200;
+        let r, g, b;
+        do {
+            r = Math.floor(Math.random() * 256);
+            g = Math.floor(Math.random() * 256);
+            b = Math.floor(Math.random() * 256);
+            var brightness = 0.299 * r + 0.587 * g + 0.114 * b;
+        } while (brightness > maxBrightness);
+
+        const toHex = (value) => {
+            const hex = value.toString(16);
+            return hex.length === 1 ? '0' + hex : hex;
+        };
+        return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
+        /*var s = 40 + Math.floor(Math.random() * 61);
+        var h = Math.floor(Math.random() * 360);
+        for (var k = 1; k <= 999; k++) {
+            var v = 20 + Math.floor(Math.random() * 71);
+            if ((((h >= 40 && h <= 70) || (h >= 170 && h <= 210)) && v >= 60) || ((h >= 210 && h <= 280) && v <= 60)) {
+                continue;
+            } else {
+                break;
+            }
+        }*/
+    } else if (darkMode == '深色模式') {
+        var str = '#' + (((Math.random() * 0x1000000 << 0).toString(16)).substr(-6)).padStart(6, ‌Math.ceil‌(Math.random() * 16).toString(16));
+        return str;
+    }
+}
 function getRandomColor() {
             darkMode = getVar('darkMode','1') == 0 ? '浅色模式' : (getVar('darkMode') == 2 ? '浅色白字模式' : '深色模式');
             switch (darkMode) {
