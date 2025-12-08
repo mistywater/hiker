@@ -2778,7 +2778,7 @@ function searchMain(page, d, desc,MY_PAGE) {
     return d;
 }
 
-function classTop(index, data, host, d, mode, v, c, f, len, start, end,bgcolor,bgcolorSelected) {
+function classTop(index, data, host, d, mode, v, c, f, len, start, end,bgcolor,bgcolorSelected,textcolor) {
     if (!mode) mode = 0;
     if (!v) v = 0;
     if (!c) c = 'c';
@@ -2786,6 +2786,7 @@ function classTop(index, data, host, d, mode, v, c, f, len, start, end,bgcolor,b
     if (!len) len = 20;
     if (bgcolor) bgcolor=('#'+bgcolor).replace('##','');
     if (bgcolorSelected) bgcolorSelected=('#'+bgcolorSelected).replace('##','');
+    if(!textcolor) textcolor='#000000';
     let isDarkMode = getItem('darkMode', '深色模式') === '浅色白字模式';
     let isInRange = index >= start && index <= end;
     let c_title = /\{/.test(JSON.stringify(data)) ? data.title.split('&') : data.split('&');
@@ -2795,9 +2796,9 @@ function classTop(index, data, host, d, mode, v, c, f, len, start, end,bgcolor,b
         let isSelected = index_c == getMyVar(host + c + 'index' + index, mode || index == v ? '0' : '-1');
         let titleStyled = isSelected ?
             strong(title, isInRange ? 'FFFF00' : 'FF6699') :
-            isDarkMode && isInRange ?
+             isInRange ?
             color(title, 'FFFFFF') :
-            title;
+            color(title, textcolor);
         d.push({
             title: titleStyled,
             img: c_img.length != 0 ? c_img[index_c] : '',
