@@ -973,7 +973,7 @@ function getDarkColor() {
             return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
         }
 function safePath(str) {
-  return String(str).replace(/https?:\/\//g, '_').replace(/[<>:"|?*\/\\]/g, '_');
+  return String(str).replace(/https?:\/\//g, '').replace(/[<>:"|?*\/\\]/g, '_');
 }
 function getdTemp(d, dTemp, _chchePath) {
     d = JSON.parse(fetch(_chchePath) || "[]");
