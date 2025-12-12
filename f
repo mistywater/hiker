@@ -1879,7 +1879,7 @@ function getRandomNumber(m, n) {
 }
 
 function timestampToDate(timestamp) {
-    timestamp=+(timestamp.padEnd(13,'0'));
+    timestamp=+((timestamp+'').padEnd(13,'0'));
     const date = new Date(timestamp);
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0');
