@@ -53,8 +53,10 @@ function bcRandom(darkMode) {
         return str;
     }
 }
-function getRandomColor() {
-            darkMode = getVar('darkMode','1') == 0 ? '浅色模式' : (getVar('darkMode') == 2 ? '浅色白字模式' : '深色模式');
+function getRandomColor(mode){
+if(typeof(mode)=='undefined'){
+darkMode = getVar('darkMode','1') == 0 ? '浅色模式' : (getVar('darkMode') == 2 ? '浅色白字模式' : '深色模式');}else{
+darkMode = mode == 0 ? '浅色模式' : (mode == 2 ? '浅色白字模式' : '深色模式');}
             switch (darkMode) {
                 case '浅色模式':
                     return generateLightColor();
