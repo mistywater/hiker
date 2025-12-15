@@ -995,7 +995,10 @@ dTemp=JSON.parse(JSON.stringify(dTemp).replace(/config.依赖/g,'config.聚阅')
     }
     return dTemp.slice();
 }
-function getHtml(url, headers, mode) {
+function getHtml(url, headers, mode,proxy) {
+if(proxy&&!url.startsWith('https://wdkj.eu.org/')){
+url='https://wdkj.eu.org/'+url.replace('?','%3f')
+}
     let html = getMyVar(url);
     if (!html) {
         if (mode && mode == 1) {
