@@ -1000,7 +1000,7 @@ if(proxy&&!url.startsWith('https://wdkj.eu.org/')){
 url='https://wdkj.eu.org/'+url.replace('?','%3f')
 }
     let html = getMyVar(url);
-    if (!html) {
+    if (!html || html.includes('error code: 1015')) {
         if (mode && mode == 1) {
             html = request(url, headers || {});
         } else if (mode && mode == 2) {
@@ -1008,7 +1008,7 @@ url='https://wdkj.eu.org/'+url.replace('?','%3f')
         } else{
             html = fetchPC(url, headers || {});
         }
-        putMyVar(url, html);
+        if (html && !html.includes('error code: 1015')) {putMyVar(url, html);}
     }
     return html;
 }
