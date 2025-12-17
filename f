@@ -1,5 +1,5 @@
 js:// -*- mode: js -*- 
-proxyPic(url, mode) {
+function proxyPic(url, mode) {
         if (url.startsWith('https://images.weserv.nl/?url=') || url.startsWith('https://i1.wp.com/')) return url;
         if (!mode) return 'https://i1.wp.com/' + url.replace(/https?:\/\//, '');
         if (mode == 1) return 'https://images.weserv.nl/?url=' + url;
