@@ -1,4 +1,26 @@
 js:// -*- mode: js -*- 
+proxyPic(url, mode) {
+        if (url.startsWith('https://images.weserv.nl/?url=') || url.startsWith('https://i1.wp.com/')) return url;
+        if (!mode) return 'https://i1.wp.com/' + url.replace(/https?:\/\//, '');
+        if (mode == 1) return 'https://images.weserv.nl/?url=' + url;
+        return url;
+    }
+function fetchWithRetry(urls, maxRetry) {
+    maxRetry = maxRetry || 5;
+    let htmls = bf(urls);
+    let retryCount = 0;
+    function isFailed(html) {
+        return !html || html.includes('error code: 1015');
+    }
+    while (retryCount < maxRetry && htmls.some(html => isFailed(html))) {
+        let needRetry = urls.map((urlObj, i) => isFailed(htmls[i]) ? urlObj : {url: 'hiker://empty'});
+        let retryResults = bf(needRetry);
+        htmls = htmls.map((html, i) => isFailed(html) ? retryResults[i] : html);
+        retryCount++;
+        if (htmls.every(html => !isFailed(html))) break;
+    }
+    return htmls.map(html => isFailed(html) ? '' : html);
+}
 function bcRandom(darkMode) {
     if (typeof(darkMode) == 'undefined' || !darkMode) {
         darkMode = '深色模式';
