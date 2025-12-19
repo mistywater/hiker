@@ -1299,19 +1299,19 @@ function base64ToText(str) {
     }).join(''));
 }
 
-function yanzhengd(d, str, url, host, a) {
+function yanzhengd(d, str, url, host, a,ua) {
     d.push({
         title: '人机验证',
-        url: $('hiker://empty').rule((str, url, t, a) => {
+        url: $('hiker://empty').rule((str, url, t, a,ua) => {
             var d = [];
             d.push({
                 col_type: 'x5_webview_single',
                 url: url,
                 desc: 'list&&screen',
                 extra: {
-                    ua: MOBILE_UA,
+                    ua: !ua?MOBILE_UA:PC_UA,
                     showProgress: false,
-                    js: $.toString((str, url, t, a) => {
+                    js: $.toString((str, url, t, a,ua) => {
                         function check() {
                             let nodes = document.querySelectorAll(str);
                             var co = fba.getCookie(url);
@@ -1332,11 +1332,11 @@ function yanzhengd(d, str, url, host, a) {
                             }
                         }
                         check();
-                    }, str, url, t, a)
+                    }, str, url, t, a,ua)
                 }
             });
             return setResult(d);
-        }, str, url, host, a),
+        }, str, url, host, a,ua),
         col_type: 'text_1'
     });
     return d;
