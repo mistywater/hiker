@@ -1018,22 +1018,20 @@ dTemp=JSON.parse(JSON.stringify(dTemp).replace(/config.依赖/g,'config.聚阅')
     }
     return dTemp.slice();
 }
-function getHtml(url, headers, mode,proxy) {
-const decodedUrl = decodeURIComponent(url);
-const chinesePattern = /[\u4e00-\u9fff\u3400-\u4dbf\uf900-\ufaff]/;
-if(proxy&&!url.startsWith('https://wdkj.eu.org/')&&!chinesePattern.test(decodedUrl)){
-url='https://wdkj.eu.org/'+url.replace('?','%3f')
-}
+function getHtml(url, headers, mode, proxy) {
     let html = getMyVar(url);
     if (!html || html.includes('error code: 1015')) {
-        if (mode && mode == 1) {
-            html = request(url, headers || {});
-        } else if (mode && mode == 2) {
-            html = fetchCodeByWebView(url);
-        } else{
-            html = fetchPC(url, headers || {});
+        const decodedUrl = decodeURIComponent(url);
+        const chinesePattern = /[\u4e00-\u9fff\u3400-\u4dbf\uf900-\ufaff]/;
+        if (proxy && !chinesePattern.test(decodedUrl)) {
+            urlTrue = url.startsWith('https://wdkj.eu.org/') ? url.replace('?', '%3f') : 'https://wdkj.eu.org/' + url.replace('?', '%3f');
+        } else {
+            urlTrue = url;
         }
-        if (html && !html.includes('error code: 1015')) {putMyVar(url, html);}
+        if (mode && mode == 1) html = request(urlTrue, headers || {});
+        else if (mode && mode == 2) html = fetchCodeByWebView(urlTrue);
+        else html = fetchPC(urlTrue, headers || {});
+        if (html && !html.includes('error code: 1015')) putMyVar(url, html);
     }
     return html;
 }
