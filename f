@@ -1474,7 +1474,7 @@ function imgCloudStorage(link) {
     } else if (/aliyundrive.com|alipan.com|阿里(网|云)盘|^ali$|alipansou/.test(link)) {
         return "https://pp.myapp.com/ma_icon/0/icon_54120208_1764918750/256";
     } else if (/quark.cn|夸克(网|云)盘|^quark$|aipanso/.test(link)) {
-        return "https://pp.myapp.com/ma_icon/0/icon_42375936_1766711021/256";
+        return "https://img.onlinedown.net/download/202403/184714-65e849b2afdf5.jpg";
     } else if (/uc.cn|uc(网|云)盘|^uc$|ucyunso/.test(link)) {
         return "https://pp.myapp.com/ma_icon/0/icon_10936_1766990795/256";
     } else if (/xunlei|thunder|迅雷(网|云)盘|^xunlei$|xunjiso/.test(link)) {
