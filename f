@@ -1455,7 +1455,9 @@ function detectCloudStorage(link) {
 function imgCloudStorage(link) {
     // 统一转换为小写，避免大小写影响判断
     link = link.toLowerCase();
-    if (/pan.baidu.com|baidupcs.com|百度(网|云)盘|^baidu$|xiongdipan/.test(link)) {
+    if (/magnet|磁力|磁链/.test(link)) {
+        return "https://api.imgdb.cc/favicon/ciliduo.png";
+    } else if(/pan.baidu.com|baidupcs.com|百度(网|云)盘|^baidu$|xiongdipan/.test(link)) {
         return "https://img2.baidu.com/it/u=2020777305,1031850894&fm=253&fmt=auto&app=138&f=PNG?w=667&h=500";
     } else if (/aliyundrive.com|alipan.com|阿里(网|云)盘|^ali$|alipansou/.test(link)) {
         return "https://s1.aigei.com/src/img/png/69/69d8f122740640519216514462cc50c5.png?e=2051020800&token=P7S2Xpzfz11vAkASLTkfHN7Fw-oOZBecqeJaxypL:HqPtGpJj9S14AZbbyOcIEgzp6-U=";
@@ -1466,15 +1468,15 @@ function imgCloudStorage(link) {
     } else if (/xunlei|迅雷(网|云)盘|^xunlei$|xunjiso/.test(link)) {
         return "https://img2.baidu.com/it/u=2190535763,2853254922&fm=253&fmt=auto&app=138&f=JPEG?w=392&h=243";
     } else if (/tianyi|天翼(网|云)盘|^tianyi$|tianyiso/.test(link)) {
-        return "https://img2.baidu.com/it/u=2231439781,3592563474&fm=253&fmt=auto&app=138&f=PNG?w=243&h=243";
-    }  else if (/magnet|磁力|磁链/.test(link)) {
-        return "https://api.imgdb.cc/favicon/ciliduo.png";
-    } else if (/移动|139|mobile/.test(link)) {
+        return "https://b.zol-img.com.cn/soft/7/617/ceQDZnfsQPXs.png";
+    }   else if (/移动|139|mobile/.test(link)) {
         return "https://bkimg.cdn.bcebos.com/pic/58ee3d6d55fbb2fb4316d9f6261e37a4462308f77680";
     } else if (/115|115(网|云)盘|^115$/.test(link)) {
         return "https://bkimg.cdn.bcebos.com/pic/f2deb48f8c5494eeb95e781a24f5e0fe99257eb0";
-    } else {
-        return "https://img1.baidu.com/it/u=729368853,3597651220&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500";
+    } else if (/123|123(网|云)盘|^115$/.test(link)) {
+        return "https://img.xiazainiao.com/up/2025/0819/68a426f127dd0.png";
+    }else {
+        return "https://img95.699pic.com/xsj/1h/7k/4k.jpg!/fw/700/watermark/url/L3hzai93YXRlcl9kZXRhaWwyLnBuZw/align/southeast";
     }
 }
 
