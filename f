@@ -1199,21 +1199,31 @@ function getLines() {
 function parseUrlVideo(url, 依赖) {
     if (/baidu/.test(url)) {
         putVar('urlBaidu', url);
-        url = "hiker://page/list?rule=百度网盘&realurl=" + url;
+        return "hiker://page/list?rule=百度网盘&realurl=" + url;
     } else if (/aliyundrive|alipan|quark|uc\./.test(url)) {
-        if (!依赖) 依赖 = 'https://raw.gitcode.com/src48597962/hk/raw/Ju/SrcParseS.js';
+        //url = "hiker://page/aliyun?page=fypage&rule=云盘君.简&realurl=" + url;
+        if (!依赖) 依赖 = 'https://codeberg.org/src48597962/hk/raw/branch/Ju/SrcJu.js';
         require(依赖.match(/http(s)?:\/\/.*\//)[0] + 'SrcParseS.js');
-        url = SrcParseS.聚阅(url);
-    } else if (/(xunlei|ed2k:|bt:|ftp:|\.torrent|magnet|thunder)/.test(url)) {
-        return "hiker://page/diaoyong?rule=迅雷&page=fypage#" + url
-    } else if (/magnet|\.m3u8|\.mp4|\.mkv/.test(url)) {
-        url = url;
-    } else {
+        return SrcParseS.聚阅(url);
+    } else if (/(thunder|xunlei|ed2k:|bt:|ftp:|\.torrent|magnet)/.test(url)) {
+        if (input.includes('thunder')) {
+            input = base64Decode(input.split('//')[1]);
+        }
+        return "hiker://page/diaoyong?rule=迅雷&page=fypage#" + url;
+    } else if (/cloud\.189\.cn|content\.21cn\.com/.test(input)) {
+        return "hiker://page/diaoyong?rule=天翼网盘&realurl=" + encodeURIComponent(input)
+    } else if (/lanzou/.test(input)) {
+        return "hiker://page/diaoyong?rule=蓝奏云盘&page=fypage&realurl=" + encodeURIComponent(input);
+    } else if (/123.*?(com|cn)/.test(input)) {
+        return "hiker://page/diaoyong?rule=123云盘&page=fypage&realurl=" + encodeURIComponent(input);
+    } else if (/yun\.139\.com/.test(input)) {
+        return "hiker://page/diaoyong?rule=移动云盘&page=fypage&realurl=" + encodeURIComponent(input);
+    }  else {
         var html = fetchPC(url);
         if (/r Vurl/.test(html)) {
-            var url_t=html.match(/r Vurl.*?['"](.*?)['"]/)[1];
-            url=/\.m3u8|\.mp4|\.mkv/.test(url_t)?url_t:'video://' + url;
-        }else   if (/r player_/.test(html)) {
+            var url_t = html.match(/r Vurl.*?['"](.*?)['"]/)[1];
+            url = /\.m3u8|\.mp4|\.mkv/.test(url_t) ? url_t : 'video://' + url;
+        } else if (/r player_/.test(html)) {
             var json = JSON.parse(html.match(/r player_.*?=(.*?)</)[1]);
             var url_t = json.url;
             if (json.encrypt == '1') {
@@ -1221,16 +1231,16 @@ function parseUrlVideo(url, 依赖) {
             } else if (json.encrypt == '2') {
                 url_t = unescape(base64Decode(url_t));
             }
-            if(/\.m3u8|\.mp4/.test(url_t)){
-                 url = url_t;
-            }else{
+            if (/\.m3u8|\.mp4/.test(url_t)) {
+                url = url_t;
+            } else {
                 url = 'video://' + url;
             }
         } else {
             url = 'video://' + url;
         }
-    }
-    return url;
+        return url;
+    }   
 }
 
 function updateJu(title) {
@@ -1467,13 +1477,13 @@ function imgCloudStorage(link) {
         return "https://img.xz7.com/up/ico/2025/0417/1744866095811272.png";
     } else if (/xunlei|迅雷(网|云)盘|^xunlei$|xunjiso/.test(link)) {
         return "https://img2.baidu.com/it/u=2190535763,2853254922&fm=253&fmt=auto&app=138&f=JPEG?w=392&h=243";
-    } else if (/tianyi|天翼(网|云)盘|^tianyi$|tianyiso/.test(link)) {
+    } else if (/115|anxia|115(网|云)盘|^115$/.test(link)) {
+        return "https://bkimg.cdn.bcebos.com/pic/f2deb48f8c5494eeb95e781a24f5e0fe99257eb0";
+    } else if (/tianyi|189|天翼(网|云)盘|^tianyi$|tianyiso/.test(link)) {
         return "https://b.zol-img.com.cn/soft/7/617/ceQDZnfsQPXs.png";
     }   else if (/移动|139|mobile/.test(link)) {
         return "https://bkimg.cdn.bcebos.com/pic/58ee3d6d55fbb2fb4316d9f6261e37a4462308f77680";
-    } else if (/115|115(网|云)盘|^115$/.test(link)) {
-        return "https://bkimg.cdn.bcebos.com/pic/f2deb48f8c5494eeb95e781a24f5e0fe99257eb0";
-    } else if (/123|123(网|云)盘|^115$/.test(link)) {
+    }  else if (/123|123(网|云)盘|^115$/.test(link)) {
         return "https://img.xiazainiao.com/up/2025/0819/68a426f127dd0.png";
     }else {
         return "https://img95.699pic.com/xsj/1h/7k/4k.jpg!/fw/700/watermark/url/L3hzai93YXRlcl9kZXRhaWwyLnBuZw/align/southeast";
