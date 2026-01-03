@@ -1467,10 +1467,12 @@ function imgCloudStorage(link) {
         return "https://img2.baidu.com/it/u=2190535763,2853254922&fm=253&fmt=auto&app=138&f=JPEG?w=392&h=243";
     } else if (/tianyi|天翼(网|云)盘|^tianyi$|tianyiso/.test(link)) {
         return "https://img2.baidu.com/it/u=2231439781,3592563474&fm=253&fmt=auto&app=138&f=PNG?w=243&h=243";
+    }  else if (/magnet|磁力|磁链/.test(link)) {
+        return "https://api.imgdb.cc/favicon/ciliduo.png";
+    } else if (/移动|139|mobile/.test(link)) {
+        return "https://bkimg.cdn.bcebos.com/pic/58ee3d6d55fbb2fb4316d9f6261e37a4462308f77680";
     } else if (/115|115(网|云)盘|^115$/.test(link)) {
         return "https://bkimg.cdn.bcebos.com/pic/f2deb48f8c5494eeb95e781a24f5e0fe99257eb0";
-    } else if (/magnet|磁力|磁链/.test(link)) {
-        return "https://api.imgdb.cc/favicon/ciliduo.png";
     } else {
         return "https://img1.baidu.com/it/u=729368853,3597651220&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500";
     }
