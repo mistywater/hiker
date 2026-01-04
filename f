@@ -1077,6 +1077,9 @@ function getHtml(url, headers, mode, proxy) {
         const chinesePattern = /[\u4e00-\u9fff\u3400-\u4dbf\uf900-\ufaff]/;
         if (proxy && !chinesePattern.test(decodedUrl)) {
             urlTrue = url.startsWith('https://wdkj.eu.org/') ? url.replace('?', '%3f') : 'https://wdkj.eu.org/' + url.replace('?', '%3f');
+        } else if (proxy && chinesePattern.test(decodedUrl)) {
+            toast('中文网址需挂梯子~');
+			urlTrue=url;
         } else if (url.startsWith('https://wdkj.eu.org/') && chinesePattern.test(decodedUrl)) {
             urlTrue=decodeURIComponent(url.replace('https://wdkj.eu.org/',''));
         }else{
