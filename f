@@ -1296,56 +1296,88 @@ function parseUrlVideo(url, 依赖) {
 }
 
 function updateJu(title) {
-    var path='hiker://files/rules/juyue/updateTime_'+title+'.txt';
-    let lastTime = fetch(path);
-    let currentTime = Date.now();
-    writeFile(path, currentTime + '');
-    if (!lastTime || currentTime - lastTime >= 86400000) {
-        let pathGitee = 'https://gitee.com/mistywater/hiker_info/raw/master/sourcefile/' + title + '.json';
-        let html = fetch(pathGitee);
-        if (html && !/Repository or file not found/.test(html)) {
-            let jsonGitee = JSON.parse(base64ToText(fetch(pathGitee)));
-            log(jsonGitee.parse.replace(/,.*\s+('|")页码[\s\S]*/, '}').replace(/'/g, '"'));
-            let jsonVer = JSON.parse(jsonGitee.parse.replace(/,.*\s+('|")页码[\s\S]*/, '}').replace(/'/g, '"'));
-            let version = jsonVer.ver || jsonVer.Ver || '';
-            log('versionNew:' + version);
-            let sourcefile = 'hiker://files/rules/Src/Ju/jiekou.json';
-            let datalist = JSON.parse(fetch(sourcefile));
-            let index = datalist.findIndex(item => item.name == jsonGitee.name && item.type == jsonGitee.type);
-            if (index != -1) {
-                let jsonVersionLast = JSON.parse(datalist[index].parse.replace(/,.*\s+('|")页码[\s\S]*/, '}').replace(/'/g, '"'));
-                var versionLast = jsonVersionLast.ver || jsonVersionLast.Ver || '';
-                log('versionLast:' + versionLast);
+            log(MY_RULE.title);
+            if (MY_RULE.title == '聚阅') {
+                var path = 'hiker://files/rules/juyue/updateTime_' + title + '_新.txt';
+                let lastTime = fetch(path);
+                log('lastTime:' + lastTime);
+                let currentTime = Date.now();
+                writeFile(path, currentTime + '');
+                if (!lastTime || currentTime - lastTime >= 86400000) {
+                    let pathGitee = 'https://gitee.com/mistywater/hiker_info/raw/master/sourcefile/' + title + '_新.json';
+                    let html = fetch(pathGitee);
+                    if (html && !/Repository or file not found/.test(html)) {
+                        var codeNew = base64ToText(html);
+                        eval(codeNew);
+                        var verNew = parse.ver || parse.Ver || parse.VER || '';
+                        log('verNew:' + verNew);
+                        let pathJiekou = 'hiker://files/rules/Src/Juyue/jiekou.json';
+                        eval('let jsonJiekou =' + (fetchPC(pathJiekou)));
+                        for (let k in jsonJiekou) {
+                            if (jsonJiekou[k].name.includes('🐹')&&jsonJiekou[k].name.includes(title)) {
+                                var verLocal = jsonJiekou[k].version || '';
+                                log('verLocal:' + verLocal);
+                                var url = jsonJiekou[k].url;
+                                if (verNew > verLocal) {
+                                    writeFile(url, codeNew);
+                                }
+                                break;
+                            };
+                        }
+                    }
+                }
             }
-            if (index == -1 || !versionLast || versionLast < version) {
-                confirm({
-                    title: `聚阅接口:<${title}_${jsonGitee.type}>有新版本`,
-                    content: jsonVer.更新说明 ? jsonVer.更新说明.replace(/,/g, '\n') : '导入新版本吗?',
-                    confirm: $.toString((title, jsonGitee, index) => {
+            if (MY_RULE.title == '聚阅√') {
+                var path = 'hiker://files/rules/juyue/updateTime_' + title + '.txt';
+                let lastTime = fetch(path);
+                let currentTime = Date.now();
+                writeFile(path, currentTime + '');
+                if (!lastTime || currentTime - lastTime >= 86400000) {
+                    let pathGitee = 'https://gitee.com/mistywater/hiker_info/raw/master/sourcefile/' + title + '.json';
+                    let html = fetch(pathGitee);
+                    if (html && !/Repository or file not found/.test(html)) {
+                        let jsonGitee = JSON.parse(base64ToText(html));
+                        let jsonVer = JSON.parse(jsonGitee.parse.replace(/,.*\s+('|")页码[\s\S]*/, '}').replace(/'/g, '"'));
+                        let version = jsonVer.ver || jsonVer.Ver || '';
+                        log('versionNew:' + version);
                         let sourcefile = 'hiker://files/rules/Src/Ju/jiekou.json';
                         let datalist = JSON.parse(fetch(sourcefile));
+                        let index = datalist.findIndex(item => item.name == jsonGitee.name && item.type == jsonGitee.type);
                         if (index != -1) {
-                            datalist.splice(index, 1);
+                            let jsonVersionLast = JSON.parse(datalist[index].parse.replace(/,.*\s+('|")页码[\s\S]*/, '}').replace(/'/g, '"'));
+                            var versionLast = jsonVersionLast.ver || jsonVersionLast.Ver || '';
+                            log('versionLast:' + versionLast);
                         }
-                        datalist.push(jsonGitee);
-                        writeFile(sourcefile, JSON.stringify(datalist));
-                        toast(`聚阅接口<${title}_${jsonGitee.type}>导入成功~`);
-                        refreshPage();
-                        return;
-                    }, title, jsonGitee, index),
-                    cancel: $.toString(() => {
-                        return "toast://不升级小程序，则功能不全或有异常"
-                    })
-                });
-            } else {
-                toast('无新版本~');
+                        if (index == -1 || !versionLast || versionLast < version) {
+                            confirm({
+                                title: `聚阅接口:<${title}_${jsonGitee.type}>有新版本`,
+                                content: jsonVer.更新说明 ? jsonVer.更新说明.replace(/,/g, '\n') : '导入新版本吗?',
+                                confirm: $.toString((title, jsonGitee, index) => {
+                                    let sourcefile = 'hiker://files/rules/Src/Ju/jiekou.json';
+                                    let datalist = JSON.parse(fetch(sourcefile));
+                                    if (index != -1) {
+                                        datalist.splice(index, 1);
+                                    }
+                                    datalist.push(jsonGitee);
+                                    writeFile(sourcefile, JSON.stringify(datalist));
+                                    toast(`聚阅接口<${title}_${jsonGitee.type}>导入成功~`);
+                                    refreshPage();
+                                    return;
+                                }, title, jsonGitee, index),
+                                cancel: $.toString(() => {
+                                    return "toast://不升级小程序，则功能不全或有异常"
+                                })
+                            });
+                        } else {
+                            toast('无新版本~');
+                        }
+                    } else {
+                        toast('无新版本~');
+                    }
+                }
             }
-        } else {
-            toast('无新版本~');
+            return;
         }
-    }
-    return;
-}
 
 function TextToBase64(str) {
     if (typeof str === 'object' && str !== null) {
