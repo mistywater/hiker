@@ -1,4 +1,56 @@
 js:// -*- mode: js -*- 
+function banner(start, arr, data, cfg) {
+    if (!data || data.length == 0) {
+        return;
+    }
+    let id = "juyue";
+    let rnum = Math.floor(Math.random() * data.length);
+    let item = data[rnum];
+    putMyVar("rnum", rnum);
+    cfg = cfg || {};
+    let time = cfg.time || 4000;
+    let col_type = cfg.col_type || "card_pic_1";
+    let desc = cfg.desc || "0";
+    let extra = item.extra || {};
+    extra["id"] = "bar";
+    arr.push({
+        title: item.title,
+        url: item.url,
+        img: item.img || item.pic_url,
+        desc: desc,
+        col_type: col_type,
+        extra: extra
+    });
+    if (start == false || getMyVar("benstart", "true") == "false") {
+        unRegisterTask(id);
+        return;
+    }
+    let obj = {
+        data: data,
+        jkdata: cfg.jkdata || storage0.getMyVar("一级源接口信息"),
+    };
+    registerTask(id, time, $.toString((obj, toerji) => {
+        let data = obj.data;
+        let rum = getMyVar("rnum");
+        let i = Number(getMyVar("banneri", "0"));
+        if (rum != "") {
+            i = Number(rum) + 1;
+            clearMyVar("rnum");
+        } else {
+            i = i + 1;
+        }
+        if (i > data.length - 1) {
+            i = 0;
+        }
+        let item = data[i];
+        try {
+            updateItem("bar", toerji(item, obj.jkdata));
+        } catch (e) {
+            unRegisterTask("juyue");
+        }
+        putMyVar("banneri", i);
+    }, obj, toerji));
+}
 function proxyPic(url, mode) {
         if (url.startsWith('https://images.weserv.nl/?url=') || url.startsWith('https://i1.wp.com/')) return url;
         if (!mode) return 'https://i1.wp.com/' + url.replace(/https?:\/\//, '');
