@@ -13,7 +13,7 @@ function searchX5(d, str,url) {
                         return $('hiker://empty').rule((str, x5toerji, MY_RULE, jkdata) => {
                             var d = [];
                             d.push({
-                                url: url',
+                                url: url,
                                 col_type: 'x5_webview_single',
                                 desc: 'list&&screen',
                                 extra: {
