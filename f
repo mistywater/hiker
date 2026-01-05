@@ -1377,7 +1377,7 @@ function updateJu(title,record) {
                         var codeNew = base64ToText(html);
                         eval(codeNew);
                         var verNew = parse.ver || parse.Ver || parse.VER || '';
-						record=record?record||parse['更新说明'];
+						record=record?record:parse['更新说明'];
                         log('verNew:' + verNew);
                         let pathJiekou = 'hiker://files/rules/Src/Juyue/jiekou.json';
                         eval('let jsonJiekou =' + (fetchPC(pathJiekou)));
