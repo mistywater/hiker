@@ -1321,7 +1321,7 @@ function updateJu(title,record) {
                                 log('verLocal:' + verLocal);
                                 var url = jsonJiekou[k].url;
                                 if (verNew > verLocal) {
-jsonJiekou[k].version=verNew;writeFile(pathJiekou, JSON.strinigfy(jsonJiekou));
+jsonJiekou[k].version=verNew;writeFile(pathJiekou, JSON.stringify(jsonJiekou));
                                     writeFile(url, codeNew);
                                     const hikerPop = $.require("https://gitee.com/mistywater/hiker_info/raw/master/Popup.js");
                                    record?hikerPop.updateRecordsBottom(record):'';
