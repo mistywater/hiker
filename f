@@ -1,4 +1,28 @@
-js:// -*- mode: js -*- 
+js:// -*- mode: js -*-
+function x5toerji(MY_RULE, jkdata, extra) {
+    MY_RULE = MY_RULE || JSON.parse(fetch("hiker://home@\u805a\u9605"));
+    jkdata = jkdata || storage0.getMyVar("\u4e00\u7ea7\u6e90\u63a5\u53e3\u4fe1\u606f");
+    extra = extra || getVar("\u8f6e\u64ad\u6570\u636e") || {};
+    extra.name = extra.title || extra.name || extra.pageTitle;
+    clearVar("\u8f6e\u64ad\u6570\u636e");
+    return $.toString((MY_RULE, jkdata, extra) => {
+        if (!extra.url && typeof window.item == "object") {
+            extra.name = window.item.title;
+            extra.pageTitle = window.item.title;
+            extra.img = window.item.img;
+            extra.url = window.item.url;
+        }
+        extra.data = jkdata;
+        let findRule = "js:" + $$$.toString((extra) => {
+            storage0.putMyVar("\u4e8c\u7ea7\u9644\u52a0\u4e34\u65f6\u5bf9\u8c61", extra);
+            require(config.聚阅);
+            erji();
+        }
+        , extra);
+        fba.open(JSON.stringify({rule: "\u805a\u9605", title: extra.name || "\u8be6\u60c5", url: "hiker://empty?type=" + jkdata.type + "&page=fypage" + (jkdata.erjisign || "#immersiveTheme#"), group: MY_RULE.group, findRule: findRule, params: JSON.stringify(extra), preRule: MY_RULE.preRule, pages: MY_RULE.pages}));
+    }
+    , MY_RULE, jkdata, extra);
+}
 function searchX5(d, str, url, jkdata, href, title) {
                 if (typeof(str) == 'object') {
                     str = str.toString();
