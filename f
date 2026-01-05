@@ -1,4 +1,53 @@
 js:// -*- mode: js -*- 
+function searchX5(d, str,url) {
+                if (typeof(str) == 'object') {
+                    str = str.toString();
+                    str = str.substring(1, str.length - 1);
+                } else if (typeof(str) == 'string' && str.startsWith('/')) {
+                    str = str.substring(1, str.length - 1);
+                }
+                d.push({
+                    title: '🔍',
+                    url: $.toString((str, x5toerji, MY_RULE, jkdata) => {
+                        putVar('keyword', input);
+                        return $('hiker://empty').rule((str, x5toerji, MY_RULE, jkdata) => {
+                            var d = [];
+                            d.push({
+                                url: url',
+                                col_type: 'x5_webview_single',
+                                desc: 'list&&screen',
+                                extra: {
+                                    ua: MOBILE_UA,
+                                    showProgress: false,
+                                    canBack: true,
+                                    jsLoadingInject: true,
+                                    urlInterceptor: $.toString((str, x5toerji, MY_RULE, jkdata) => {
+                                        let regex = new RegExp(str);
+                                        if (input.match(regex)) {
+                                            return x5toerji(MY_RULE, jkdata, {
+                                                url: input
+                                            });
+                                        }
+                                    }, str, x5toerji, MY_RULE, jkdata),
+                                }
+                            });
+                            setResult(d);
+                        }, str, x5toerji, MY_RULE, jkdata);
+                    }, str, x5toerji, MY_RULE, jkdata),
+                    desc: '',
+                    col_type: 'input',
+                    extra: {
+                        defaultValue: getVar('keyword', ''),
+                    }
+                });
+                return d;
+            }
+function bgcolorArr(arr,bc){
+return arr.map(h => ccc(/<\//.test(h)?pdfh(h, 'body&&Text'):h, {
+                        fc: '#FFFFFF',
+                        bc: !bc?getDarkColor():'',
+                    })).join(' ');
+}
 function banner(start, arr, data, cfg) {
     if (!data || data.length == 0) {
         return;
