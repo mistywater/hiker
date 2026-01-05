@@ -1,5 +1,5 @@
 js:// -*- mode: js -*- 
-function searchX5(d, str,url,jkdata) {
+function searchX5(d, str, url, jkdata, href, title) {
                 if (typeof(str) == 'object') {
                     str = str.toString();
                     str = str.substring(1, str.length - 1);
@@ -8,9 +8,9 @@ function searchX5(d, str,url,jkdata) {
                 }
                 d.push({
                     title: '🔍',
-                    url: $.toString((str,url, x5toerji, MY_RULE, jkdata) => {
+                    url: $.toString((str, url, x5toerji, MY_RULE, jkdata, href, title) => {
                         putVar('keyword', input);
-                        return $('hiker://empty').rule((str, url,x5toerji, MY_RULE, jkdata) => {
+                        return $('hiker://empty').rule((str, url, x5toerji, MY_RULE, jkdata, href, title) => {
                             var d = [];
                             d.push({
                                 url: url,
@@ -21,19 +21,35 @@ function searchX5(d, str,url,jkdata) {
                                     showProgress: false,
                                     canBack: true,
                                     jsLoadingInject: true,
+                                    js: $.toString((href, title) => {
+                                        if (href && title) {
+                                            document.addEventListener('click', function(e) {
+                                                const bookLink = e.target.closest(href);
+                                                if (bookLink) {
+                                                    const name = bookLink.querySelector(title).textContent.trim();
+                                                    fba.putVar('name', name);
+
+                                                }
+                                            });
+                                        } else {
+                                            fba.putVar('name', '');
+                                        }
+                                    }, href, title),
                                     urlInterceptor: $.toString((str, x5toerji, MY_RULE, jkdata) => {
                                         let regex = new RegExp(str);
                                         if (input.match(regex)) {
+                                            log(getVar('name'));
                                             return x5toerji(MY_RULE, jkdata, {
-                                                url: input
+                                                url: input,
+                                                name: getVar('name','')
                                             });
                                         }
                                     }, str, x5toerji, MY_RULE, jkdata),
                                 }
                             });
                             setResult(d);
-                        }, str, url,x5toerji, MY_RULE, jkdata);
-                    }, str,url ,x5toerji, MY_RULE, jkdata),
+                        }, str, url, x5toerji, MY_RULE, jkdata, href, title);
+                    }, str, url, x5toerji, MY_RULE, jkdata, href, title),
                     desc: '',
                     col_type: 'input',
                     extra: {
