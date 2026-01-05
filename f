@@ -1104,7 +1104,7 @@ function safePath(str) {
 function getdTemp(d, dTemp, _chchePath) {
     d = JSON.parse(fetch(_chchePath) || "[]");
     if (d.length != 0) {
-        if (MY_RULE.title == "聚阅" && d[0].title == "🔍" && !/sarr|google|baidu/.test(JSON.stringify(d[0]))) {
+        if (MY_RULE.title == "聚阅" && d[0].title == "🔍" && !/searchX5|sarr|google|baidu/.test(JSON.stringify(d[0]))) {
             d.splice(0, 1);
         }
       if (MY_RULE.title == "聚阅√" && d[0].title != "🔍"&&!/multiPages/.test(JSON.stringify(d))) {
