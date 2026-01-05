@@ -23,7 +23,7 @@ function searchX5(d, str,url,jkdata) {
                                     jsLoadingInject: true,
                                     urlInterceptor: $.toString((str, x5toerji, MY_RULE, jkdata) => {
                                         let regex = new RegExp(str);
-                                        if (input.match(regex)) {log(input);log(x5toerji.toString());log(jkdata);log(MY_RULE);
+                                        if (input.match(regex)) {
                                             return x5toerji(MY_RULE, jkdata, {
                                                 url: input
                                             });
@@ -1104,7 +1104,7 @@ function safePath(str) {
 function getdTemp(d, dTemp, _chchePath) {
     d = JSON.parse(fetch(_chchePath) || "[]");
     if (d.length != 0) {
-        if (MY_RULE.title == "聚阅" && d[0].title == "🔍" && !/searchX5|sarr|google|baidu/.test(JSON.stringify(d[0]))) {
+        if (MY_RULE.title == "聚阅" && d[0].title == "🔍" && !/x5toerji|sarr|google|baidu/.test(JSON.stringify(d[0]))) {
             d.splice(0, 1);
         }
       if (MY_RULE.title == "聚阅√" && d[0].title != "🔍"&&!/multiPages/.test(JSON.stringify(d))) {
