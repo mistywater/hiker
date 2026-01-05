@@ -1177,7 +1177,7 @@ function getHtml(url, headers, mode, proxy) {
         if (mode && mode == 1) html = request(urlTrue, headers || {});
         else if (mode && mode == 2) html = fetchCodeByWebView(urlTrue);
         else html = fetchPC(urlTrue, headers || {});
-        if (html && !html.includes('error code: 1015')) putMyVar(url, html);
+        if (html &&/error code: 1015|__cf_chl_tk/.test(html)) putMyVar(url, html);
     }
     return html;
 }
