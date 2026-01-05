@@ -1298,8 +1298,7 @@ function parseUrlVideo(url, 依赖) {
     }   
 }
 
-function updateJu(title) {
-            log(MY_RULE.title);
+function updateJu(title,record) {
             if (MY_RULE.title == '聚阅') {
                 var path = 'hiker://files/rules/juyue/updateTime_' + title + '_新.txt';
                 let lastTime = fetch(path);
@@ -1322,7 +1321,10 @@ function updateJu(title) {
                                 log('verLocal:' + verLocal);
                                 var url = jsonJiekou[k].url;
                                 if (verNew > verLocal) {
+jsonJiekou[k].version=verNew;writeFile(pathJiekou, JSON.strinigfy(jsonJiekou));
                                     writeFile(url, codeNew);
+                                    const hikerPop = $.require("https://gitee.com/mistywater/hiker_info/raw/master/Popup.js");
+                                   record?hikerPop.updateRecordsBottom(record):'';
                                 }
                                 break;
                             };
@@ -1368,7 +1370,7 @@ function updateJu(title) {
                                     return;
                                 }, title, jsonGitee, index),
                                 cancel: $.toString(() => {
-                                    return "toast://不升级小程序，则功能不全或有异常"
+                                    return "toast://更新接口，则功能不全或有异常"
                                 })
                             });
                         } else {
