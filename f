@@ -1,5 +1,5 @@
 js:// -*- mode: js -*- 
-function searchX5(d, str,url) {
+function searchX5(d, str,url,jkdata) {
                 if (typeof(str) == 'object') {
                     str = str.toString();
                     str = str.substring(1, str.length - 1);
@@ -8,9 +8,9 @@ function searchX5(d, str,url) {
                 }
                 d.push({
                     title: '🔍',
-                    url: $.toString((str, x5toerji, MY_RULE, jkdata) => {
+                    url: $.toString((str,url, x5toerji, MY_RULE, jkdata) => {
                         putVar('keyword', input);
-                        return $('hiker://empty').rule((str, x5toerji, MY_RULE, jkdata) => {
+                        return $('hiker://empty').rule((str, url,x5toerji, MY_RULE, jkdata) => {
                             var d = [];
                             d.push({
                                 url: url,
@@ -23,7 +23,7 @@ function searchX5(d, str,url) {
                                     jsLoadingInject: true,
                                     urlInterceptor: $.toString((str, x5toerji, MY_RULE, jkdata) => {
                                         let regex = new RegExp(str);
-                                        if (input.match(regex)) {
+                                        if (input.match(regex)) {log(input);log(x5toerji.toString());log(jkdata);log(MY_RULE);
                                             return x5toerji(MY_RULE, jkdata, {
                                                 url: input
                                             });
@@ -32,8 +32,8 @@ function searchX5(d, str,url) {
                                 }
                             });
                             setResult(d);
-                        }, str, x5toerji, MY_RULE, jkdata);
-                    }, str, x5toerji, MY_RULE, jkdata),
+                        }, str, url,x5toerji, MY_RULE, jkdata);
+                    }, str,url ,x5toerji, MY_RULE, jkdata),
                     desc: '',
                     col_type: 'input',
                     extra: {
