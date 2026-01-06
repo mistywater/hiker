@@ -1163,7 +1163,7 @@ function getHtml(url, headers, mode, proxy) {
     let html = getMyVar(url);
     if (!html || html.includes('error code: 1015')) {
         const decodedUrl = decodeURIComponent(url);
-        const chinesePattern = /[\u4e00-\u9fff\u3400-\u4dbf\uf900-\ufaff]/;
+        const chinesePattern = /[\u3040-\u309F\u30A0-\u30FF\u4E00-\u9FFF\u3400-\u4DBF\uF900-\uFAFF\uAC00-\uD7AF]/;
         if (proxy && !chinesePattern.test(decodedUrl)) {
             urlTrue = url.startsWith('https://wdkj.eu.org/') ? url.replace('?', '%3f') : 'https://wdkj.eu.org/' + url.replace('?', '%3f');
         } else if (proxy && chinesePattern.test(decodedUrl)) {
