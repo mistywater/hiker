@@ -144,6 +144,7 @@ function proxyPic(url, mode) {
         if (url.startsWith('https://images.weserv.nl/?url=') || url.startsWith('https://i1.wp.com/')) return url;
         if(/blogspot/.test(url))  return 'https://images.weserv.nl/?url=' + url;
         if(/mrcong|misskon/.test(url))  return 'https://i1.wp.com/' + url.replace(/https?:\/\//, '');
+        if(/meitu\.jrants\.com/.test(url))  return 'https://wdkj.eu.org/' + url;
         if (!mode) return 'https://i1.wp.com/' + url.replace(/https?:\/\//, '');
         if (mode == 1) return 'https://images.weserv.nl/?url=' + url;
 		if (mode == 2) return 'https://wdkj.eu.org/' + url;
@@ -1588,7 +1589,7 @@ function link(d, urlsTemp, titleLast, titleNext, myurl, host) {
     });
     urlsTemp.forEach((it, index) => {
         d.push({
-            title: index == 0 ? (it.startsWith('http') ? '⬅️' + titleLast : '没有了') : titleNext + '➡️',
+            title: index == 0 ? (it.startsWith('http') ? '⬅️' + titleLast : '没有了') :  '➡️'+titleNext,
             url: $('#noLoading#').lazyRule((url, host, index, url1) => {
                 putMyVar(host + 'next', url);
                 putMyVar(host + 'isNextUrl', '1');
@@ -1597,7 +1598,8 @@ function link(d, urlsTemp, titleLast, titleNext, myurl, host) {
             }, it ? it : myurl, host, index, myurl),
             col_type: 'text_2',
             extra: {
-                lineVisible: 'false'
+                lineVisible: 'false',
+               textAlign: 'left'
             }
         });
     });
@@ -1677,8 +1679,9 @@ function sourceJump(d, arr, blank, changeSource) {
     let info = storage0.getMyVar('一级源接口信息') || jkdata;
     if (arr.length > 1) {
         arr.forEach((item, index) => {
+            let title=item.split('@')[0].replace(/H-|✈️|🔞|🐹/g, '');
             d.push({
-                title: item.split('@')[0].replace(/H-|✈️|🔞|🐹/g, ''),
+                title: info.name == item.split('@')[0]?title.color('fff'):title,
                 url: $('#noLoading#').lazyRule((item) => {
                     if (MY_RULE.title != '聚阅') {
                         let configPath = 'hiker://files/rules/Src/Ju/config.json';
@@ -1719,7 +1722,7 @@ function sourceJump(d, arr, blank, changeSource) {
                 }, item),
                 col_type: 'scroll_button',
                 extra: {
-                    backgroundColor: info.name == item.split('@')[0] ? getRandomColor() : ''
+                    backgroundColor: info.name == item.split('@')[0] ? getRandomColor(2) : ''
                 }
             });
         });
