@@ -1589,13 +1589,13 @@ function link(d, urlsTemp, titleLast, titleNext, myurl, host) {
     });
     urlsTemp.forEach((it, index) => {
         d.push({
-            title: index == 0 ? (it.startsWith('http') ? '⬅️' + titleLast : '没有了') :  '➡️'+titleNext,
+            title: index == 0 ? (it.startsWith('http') ? '⬅️' + titleLast : '⬅️没有了') :  '➡️'+titleNext,
             url: $('#noLoading#').lazyRule((url, host, index, url1) => {
-                putMyVar(host + 'next', url);
+                if(url){putMyVar(host + 'next', url);
                 putMyVar(host + 'isNextUrl', '1');
-                refreshPage();
+                refreshPage();}
                 return 'hiker://empty';
-            }, it ? it : myurl, host, index, myurl),
+            }, it, host, index, myurl),
             col_type: 'text_2',
             extra: {
                 lineVisible: 'false',
@@ -1608,6 +1608,7 @@ function link(d, urlsTemp, titleLast, titleNext, myurl, host) {
     });
     return d;
 }
+
 
 function buildUrls(pages, urlBuilder, headers) {
     let urls = [];
