@@ -1,5 +1,11 @@
-js:
-// -*- mode: js -*-
+js:// -*- mode: js -*-
+function generatePageLinks(d, pages, str) {
+                    [Array.from({
+                        length: pages
+                    }, (_, i) => i + 1).join('&')].forEach((item, index, data) => {
+                        classTop(index, item, host, d, 0, 0, 'multiPage', 'scroll_button', '', 0, 0);
+                    });
+                }       
 function x5toerji(MY_RULE, jkdata, extra) {
     MY_RULE = MY_RULE || JSON.parse(fetch("hiker://home@\u805a\u9605"));
     jkdata = jkdata || storage0.getMyVar("\u4e00\u7ea7\u6e90\u63a5\u53e3\u4fe1\u606f");
@@ -18,87 +24,77 @@ function x5toerji(MY_RULE, jkdata, extra) {
             storage0.putMyVar("\u4e8c\u7ea7\u9644\u52a0\u4e34\u65f6\u5bf9\u8c61", extra);
             require(config.聚阅);
             erji();
-        }, extra);
-        fba.open(JSON.stringify({
-            rule: "\u805a\u9605",
-            title: extra.name || "\u8be6\u60c5",
-            url: "hiker://empty?type=" + jkdata.type + "&page=fypage" + (jkdata.erjisign || "#immersiveTheme#"),
-            group: MY_RULE.group,
-            findRule: findRule,
-            params: JSON.stringify(extra),
-            preRule: MY_RULE.preRule,
-            pages: MY_RULE.pages
-        }));
-    }, MY_RULE, jkdata, extra);
-}
-
-function searchX5(d, str, url, jkdata, href, title) {
-    if (typeof(str) == 'object') {
-        str = str.toString();
-        str = str.substring(1, str.length - 1);
-    } else if (typeof(str) == 'string' && str.startsWith('/')) {
-        str = str.substring(1, str.length - 1);
+        }
+        , extra);
+        fba.open(JSON.stringify({rule: "\u805a\u9605", title: extra.name || "\u8be6\u60c5", url: "hiker://empty?type=" + jkdata.type + "&page=fypage" + (jkdata.erjisign || "#immersiveTheme#"), group: MY_RULE.group, findRule: findRule, params: JSON.stringify(extra), preRule: MY_RULE.preRule, pages: MY_RULE.pages}));
     }
-    d.push({
-        title: '🔍',
-        url: $.toString((str, url, x5toerji, MY_RULE, jkdata, href, title) => {
-            putVar('keyword', input);
-            return $('hiker://empty').rule((str, url, x5toerji, MY_RULE, jkdata, href, title) => {
-                var d = [];
+    , MY_RULE, jkdata, extra);
+}
+function searchX5(d, str, url, jkdata, href, title) {
+                if (typeof(str) == 'object') {
+                    str = str.toString();
+                    str = str.substring(1, str.length - 1);
+                } else if (typeof(str) == 'string' && str.startsWith('/')) {
+                    str = str.substring(1, str.length - 1);
+                }
                 d.push({
-                    url: url,
-                    col_type: 'x5_webview_single',
-                    desc: 'list&&screen',
-                    extra: {
-                        ua: MOBILE_UA,
-                        showProgress: false,
-                        canBack: true,
-                        jsLoadingInject: true,
-                        js: $.toString((href, title) => {
-                            if (href && title) {
-                                document.addEventListener('click', function(e) {
-                                    const bookLink = e.target.closest(href);
-                                    if (bookLink) {
-                                        const name = bookLink.querySelector(title).textContent.trim();
-                                        fba.putVar('name', name);
+                    title: '🔍',
+                    url: $.toString((str, url, x5toerji, MY_RULE, jkdata, href, title) => {
+                        putVar('keyword', input);
+                        return $('hiker://empty').rule((str, url, x5toerji, MY_RULE, jkdata, href, title) => {
+                            var d = [];
+                            d.push({
+                                url: url,
+                                col_type: 'x5_webview_single',
+                                desc: 'list&&screen',
+                                extra: {
+                                    ua: MOBILE_UA,
+                                    showProgress: false,
+                                    canBack: true,
+                                    jsLoadingInject: true,
+                                    js: $.toString((href, title) => {
+                                        if (href && title) {
+                                            document.addEventListener('click', function(e) {
+                                                const bookLink = e.target.closest(href);
+                                                if (bookLink) {
+                                                    const name = bookLink.querySelector(title).textContent.trim();
+                                                    fba.putVar('name', name);
 
-                                    }
-                                });
-                            } else {
-                                fba.putVar('name', '');
-                            }
-                        }, href, title),
-                        urlInterceptor: $.toString((str, x5toerji, MY_RULE, jkdata) => {
-                            let regex = new RegExp(str);
-                            if (input.match(regex)) {
-                                log(getVar('name'));
-                                return x5toerji(MY_RULE, jkdata, {
-                                    url: input,
-                                    name: getVar('name', '')
-                                });
-                            }
-                        }, str, x5toerji, MY_RULE, jkdata),
+                                                }
+                                            });
+                                        } else {
+                                            fba.putVar('name', '');
+                                        }
+                                    }, href, title),
+                                    urlInterceptor: $.toString((str, x5toerji, MY_RULE, jkdata) => {
+                                        let regex = new RegExp(str);
+                                        if (input.match(regex)) {
+                                            log(getVar('name'));
+                                            return x5toerji(MY_RULE, jkdata, {
+                                                url: input,
+                                                name: getVar('name','')
+                                            });
+                                        }
+                                    }, str, x5toerji, MY_RULE, jkdata),
+                                }
+                            });
+                            setResult(d);
+                        }, str, url, x5toerji, MY_RULE, jkdata, href, title);
+                    }, str, url, x5toerji, MY_RULE, jkdata, href, title),
+                    desc: '',
+                    col_type: 'input',
+                    extra: {
+                        defaultValue: getVar('keyword', ''),
                     }
                 });
-                setResult(d);
-            }, str, url, x5toerji, MY_RULE, jkdata, href, title);
-        }, str, url, x5toerji, MY_RULE, jkdata, href, title),
-        desc: '',
-        col_type: 'input',
-        extra: {
-            defaultValue: getVar('keyword', ''),
-        }
-    });
-    return d;
+                return d;
+            }
+function bgcolorArr(arr,bc){
+return arr.map(h => ccc(/<\//.test(h)?pdfh(h, 'body&&Text'):h, {
+                        fc: '#FFFFFF',
+                        bc: !bc?getDarkColor():'',
+                    })).join(' ');
 }
-
-function bgcolorArr(arr, bc) {
-    return arr.map(h => ccc(/<\//.test(h) ? pdfh(h, 'body&&Text') : h, {
-        fc: '#FFFFFF',
-        bc: !bc ? getDarkColor() : '',
-    })).join(' ');
-}
-
 function banner(start, arr, data, cfg) {
     if (!data || data.length == 0) {
         return;
@@ -151,30 +147,25 @@ function banner(start, arr, data, cfg) {
         putMyVar("banneri", i);
     }, obj, toerji));
 }
-
 function proxyPic(url, mode) {
-    if (url.startsWith('https://images.weserv.nl/?url=') || url.startsWith('https://i1.wp.com/')) return url;
-    if (/blogspot/.test(url)) return 'https://images.weserv.nl/?url=' + url;
-    if (/mrcong|misskon/.test(url)) return 'https://i1.wp.com/' + url.replace(/https?:\/\//, '');
-    if (/meitu\.jrants\.com/.test(url)) return 'https://wdkj.eu.org/' + url;
-    if (!mode) return 'https://i1.wp.com/' + url.replace(/https?:\/\//, '');
-    if (mode == 1) return 'https://images.weserv.nl/?url=' + url;
-    if (mode == 2) return 'https://wdkj.eu.org/' + url;
-    return url;
-}
-
+        if (url.startsWith('https://images.weserv.nl/?url=') || url.startsWith('https://i1.wp.com/')) return url;
+        if(/blogspot/.test(url))  return 'https://images.weserv.nl/?url=' + url;
+        if(/mrcong|misskon/.test(url))  return 'https://i1.wp.com/' + url.replace(/https?:\/\//, '');
+        if(/meitu\.jrants\.com/.test(url))  return 'https://wdkj.eu.org/' + url;
+        if (!mode) return 'https://i1.wp.com/' + url.replace(/https?:\/\//, '');
+        if (mode == 1) return 'https://images.weserv.nl/?url=' + url;
+		if (mode == 2) return 'https://wdkj.eu.org/' + url;
+        return url;
+    }
 function fetchWithRetry(urls, maxRetry) {
     maxRetry = maxRetry || 5;
     let htmls = bf(urls);
     let retryCount = 0;
-
     function isFailed(html) {
         return !html || html.includes('error code: 1015');
     }
     while (retryCount < maxRetry && htmls.some(html => isFailed(html))) {
-        let needRetry = urls.map((urlObj, i) => isFailed(htmls[i]) ? urlObj : {
-            url: 'hiker://empty'
-        });
+        let needRetry = urls.map((urlObj, i) => isFailed(htmls[i]) ? urlObj : {url: 'hiker://empty'});
         let retryResults = bf(needRetry);
         htmls = htmls.map((html, i) => isFailed(html) ? retryResults[i] : html);
         retryCount++;
@@ -182,7 +173,6 @@ function fetchWithRetry(urls, maxRetry) {
     }
     return htmls.map(html => isFailed(html) ? '' : html);
 }
-
 function bcRandom(darkMode) {
     if (typeof(darkMode) == 'undefined' || !darkMode) {
         darkMode = '深色模式';
@@ -237,129 +227,124 @@ function bcRandom(darkMode) {
         return str;
     }
 }
-
-function getRandomColor(mode) {
-    if (typeof(mode) == 'undefined') {
-        darkMode = getVar('darkMode', '1') == 0 ? '浅色模式' : (getVar('darkMode') == 2 ? '浅色白字模式' : '深色模式');
-    } else {
-        darkMode = mode == 0 ? '浅色模式' : (mode == 2 ? '浅色白字模式' : '深色模式');
-    }
-    switch (darkMode) {
-        case '浅色模式':
-            return generateLightColor();
-        case '浅色白字模式':
-            return generateLightColorForWhiteText();
-        case '深色模式':
-            return generateDarkColor();
-        default:
-            return generateDarkColor();
-    }
-}
-
-/*function generateLightColor() {
-    let h, s, v;
-    do {
-        h = Math.floor(Math.random() * 360);
-    } while (h >= 200 && h <= 300);
-    if (Math.random() < 0.2) {
-        s = 60 + Math.floor(Math.random() * 40); // 60-100%
-        v = 75 + Math.floor(Math.random() * 20); // 75-95%
-    } else {
-        s = 20 + Math.floor(Math.random() * 30); // 20-50%
-        v = 80 + Math.floor(Math.random() * 20); // 80-100%
-    }
-    return hsvToHex(h, s, v);
-}*/
-
-
-function generateLightColorForWhiteText() {
-    const colorGroups = [{
-            weight: 1,
-            colors: [
-                // 红色系 - 高饱和度红色
-                '#FF0000', '#FF3333', '#FF4444', '#FF5555', '#FF6666',
-                '#EE5566', '#FF33EE', '#993344', '#FF5588', '#FF0066'
-            ]
-        },
-        {
-            weight: 1,
-            colors: [
-                // 橙色系 - 高饱和度橙色
-                '#FF4500', '#FF5733', '#FF6347', '#FF7F00', '#FF8C00',
-                '#FFA500', '#FF8E53', '#FFB347', '#FFA07A',
-            ]
-        },
-        {
-            weight: 0.2,
-            colors: [
-                // 黄色系 - 中等饱和度黄色
-                '#FFD700', '#DEBB00', '#DEA725',
-            ]
-        },
-        {
-            weight: 1,
-            colors: [
-                // 绿色系 - 高饱和度绿色
-                '#00EE00', '#32CD32', '#00FF7F', '#00FA9A', '#06D6A0',
-                '#8AC926', '#43AA70', '#4CAF50', '#00C853'
-            ]
-        },
-        {
-            weight: 1,
-            colors: [
-                // 蓝色系 - 中等饱和度蓝色
-                '#4466EE', '#3355CC', '#44BBFF', '#2299FF', '#6699EE',
-                '#4682B4', '#2222BB', '#88CCEE', '#99CCEE',
-            ]
-        },
-        {
-            weight: 1,
-            colors: [
-                // 紫色系 - 高饱和度紫色
-                '#880088', '#8822EE', '#9900DD', '#9933CC', '#8833EE',
-                '#7700BB', '#5500FF', '#664499', '#AA66CC', '#BB55DD'
-            ]
-        },
-        {
-            weight: 0.8,
-            colors: [
-                // 青色系 - 中等饱和度青色
-                '#00BBFF', '#00FFDD', '#447799', '#44DDCC', '#33EEDD',
-                '#00CCDD', '#22BBAA', '#88DDEE',
-            ]
-        },
-        {
-            weight: 0.5,
-            colors: [
-                // 中性色系 - 适中亮度的灰色（避免过暗或过亮）
-                '#666666', '#777777', '#888888', '#999999', '#AAAAAA',
-            ]
+function getRandomColor(mode){
+if(typeof(mode)=='undefined'){
+darkMode = getVar('darkMode','1') == 0 ? '浅色模式' : (getVar('darkMode') == 2 ? '浅色白字模式' : '深色模式');}else{
+darkMode = mode == 0 ? '浅色模式' : (mode == 2 ? '浅色白字模式' : '深色模式');}
+            switch (darkMode) {
+                case '浅色模式':
+                    return generateLightColor();
+                case '浅色白字模式':
+                    return generateLightColorForWhiteText();
+                case '深色模式':
+                    return generateDarkColor();
+                default:
+                    return generateDarkColor();
+            }
         }
-    ];
-    const totalWeight = colorGroups.reduce((sum, group) => sum + group.weight, 0);
-    let random = Math.random() * totalWeight;
-    let selectedGroup = null;
 
-    for (let group of colorGroups) {
-        random -= group.weight;
-        if (random <= 0) {
-            selectedGroup = group;
-            break;
+        /*function generateLightColor() {
+            let h, s, v;
+            do {
+                h = Math.floor(Math.random() * 360);
+            } while (h >= 200 && h <= 300);
+            if (Math.random() < 0.2) {
+                s = 60 + Math.floor(Math.random() * 40); // 60-100%
+                v = 75 + Math.floor(Math.random() * 20); // 75-95%
+            } else {
+                s = 20 + Math.floor(Math.random() * 30); // 20-50%
+                v = 80 + Math.floor(Math.random() * 20); // 80-100%
+            }
+            return hsvToHex(h, s, v);
+        }*/
+
+
+        function generateLightColorForWhiteText() {
+            const colorGroups = [{
+                    weight: 1,
+                    colors: [
+                        // 红色系 - 高饱和度红色
+                        '#FF0000', '#FF3333', '#FF4444', '#FF5555', '#FF6666',
+                        '#EE5566', '#FF33EE', '#993344', '#FF5588', '#FF0066'
+                    ]
+                },
+                {
+                    weight: 1,
+                    colors: [
+                        // 橙色系 - 高饱和度橙色
+                        '#FF4500', '#FF5733', '#FF6347', '#FF7F00', '#FF8C00',
+                        '#FFA500', '#FF8E53', '#FFB347', '#FFA07A',
+                    ]
+                },
+                {
+                    weight: 0.2,
+                    colors: [
+                        // 黄色系 - 中等饱和度黄色
+                        '#FFD700', '#DEBB00', '#DEA725',
+                    ]
+                },
+                {
+                    weight: 1,
+                    colors: [
+                        // 绿色系 - 高饱和度绿色
+                        '#00EE00', '#32CD32', '#00FF7F', '#00FA9A', '#06D6A0',
+                        '#8AC926', '#43AA70', '#4CAF50', '#00C853'
+                    ]
+                },
+                {
+                    weight: 1,
+                    colors: [
+                        // 蓝色系 - 中等饱和度蓝色
+                        '#4466EE', '#3355CC', '#44BBFF', '#2299FF', '#6699EE',
+                        '#4682B4', '#2222BB', '#88CCEE', '#99CCEE',
+                    ]
+                },
+                {
+                    weight: 1,
+                    colors: [
+                        // 紫色系 - 高饱和度紫色
+                        '#880088', '#8822EE', '#9900DD', '#9933CC', '#8833EE',
+                        '#7700BB', '#5500FF', '#664499', '#AA66CC', '#BB55DD'
+                    ]
+                },
+                {
+                    weight: 0.8,
+                    colors: [
+                        // 青色系 - 中等饱和度青色
+                        '#00BBFF', '#00FFDD', '#447799', '#44DDCC', '#33EEDD',
+                        '#00CCDD', '#22BBAA', '#88DDEE',
+                    ]
+                },
+                {
+                    weight: 0.5,
+                    colors: [
+                        // 中性色系 - 适中亮度的灰色（避免过暗或过亮）
+                        '#666666', '#777777', '#888888', '#999999', '#AAAAAA',
+                    ]
+                }
+            ];
+            const totalWeight = colorGroups.reduce((sum, group) => sum + group.weight, 0);
+            let random = Math.random() * totalWeight;
+            let selectedGroup = null;
+
+            for (let group of colorGroups) {
+                random -= group.weight;
+                if (random <= 0) {
+                    selectedGroup = group;
+                    break;
+                }
+            }
+            const colors = selectedGroup.colors;
+            return colors[Math.floor(Math.random() * colors.length)];
         }
-    }
-    const colors = selectedGroup.colors;
-    return colors[Math.floor(Math.random() * colors.length)];
-}
-
-function generateDarkColor() {
-    const h = Math.floor(Math.random() * 360);
-    const s = Math.floor(Math.random() * 50) + 50; // 50-100% 饱和度（原来30+50=50-80%）
-    const v = Math.floor(Math.random() * 60) + 40; // 40-100% 明度（原来30+20=20-50%）
-    return hsvToHex(h, s, v);
-}
-
+        function generateDarkColor() {
+            const h = Math.floor(Math.random() * 360);
+            const s = Math.floor(Math.random() * 50) + 50; // 50-100% 饱和度（原来30+50=50-80%）
+            const v = Math.floor(Math.random() * 60) + 40; // 40-100% 明度（原来30+20=20-50%）
+            return hsvToHex(h, s, v);
+        }
 function generateLightColor() {
-    const colorGroups = [{
+     const colorGroups = [{
             weight: 1,
             colors: [
                 // 红色系 - 包含较高饱和度的红色
@@ -379,7 +364,7 @@ function generateLightColor() {
             weight: 0.8,
             colors: [
                 // 黄色系 - 高饱和度黄色
-                '#FFFFCC', '#FFFF66', '#FFFF00', '#FFD700',
+                '#FFFFCC',  '#FFFF66', '#FFFF00', '#FFD700',
                 '#FFEA00', '#FFD600', '#FFFF33', '#FFFACD', '#FFF8DC'
             ]
         },
@@ -416,7 +401,7 @@ function generateLightColor() {
             ]
         }
     ];
-
+    
     const totalWeight = colorGroups.reduce((sum, group) => sum + group.weight, 0);
     let random = Math.random() * totalWeight;
     let selectedGroup = null;
@@ -428,51 +413,47 @@ function generateLightColor() {
             break;
         }
     }
-
+    
     const colors = selectedGroup.colors;
     return colors[Math.floor(Math.random() * colors.length)];
 }
+        function calculateBrightness(r, g, b) {
+            return 0.299 * r + 0.587 * g + 0.114 * b;
+        }
 
-function calculateBrightness(r, g, b) {
-    return 0.299 * r + 0.587 * g + 0.114 * b;
-}
+        function rgbToHex(r, g, b) {
+            const toHex = (n) => n.toString(16).padStart(2, '0');
+            return `#${toHex(r)}${toHex(g)}${toHex(b)}`.toUpperCase();
+        }
 
-function rgbToHex(r, g, b) {
-    const toHex = (n) => n.toString(16).padStart(2, '0');
-    return `#${toHex(r)}${toHex(g)}${toHex(b)}`.toUpperCase();
-}
-
-function hsvToHex(h, s, v) {
-    h = (h % 360 + 360) % 360;
-    s = Math.max(0, Math.min(100, s)) / 100;
-    v = Math.max(0, Math.min(100, v)) / 100;
-    const c = v * s;
-    const x = c * (1 - Math.abs((h / 60) % 2 - 1));
-    const m = v - c;
-    let r, g, b;
-    if (h >= 0 && h < 60) {
-        [r, g, b] = [c, x, 0];
-    } else if (h >= 60 && h < 120) {
-        [r, g, b] = [x, c, 0];
-    } else if (h >= 120 && h < 180) {
-        [r, g, b] = [0, c, x];
-    } else if (h >= 180 && h < 240) {
-        [r, g, b] = [0, x, c];
-    } else if (h >= 240 && h < 300) {
-        [r, g, b] = [x, 0, c];
-    } else {
-        [r, g, b] = [c, 0, x];
-    }
-    r = Math.round((r + m) * 255);
-    g = Math.round((g + m) * 255);
-    b = Math.round((b + m) * 255);
-    return rgbToHex(r, g, b);
-}
-
-function imgDecsRmw(picUrl) {
-    return $.toString((picUrl) => {
-        log(picUrl);
-
+        function hsvToHex(h, s, v) {
+            h = (h % 360 + 360) % 360;
+            s = Math.max(0, Math.min(100, s)) / 100;
+            v = Math.max(0, Math.min(100, v)) / 100;
+            const c = v * s;
+            const x = c * (1 - Math.abs((h / 60) % 2 - 1));
+            const m = v - c;
+            let r, g, b;
+            if (h >= 0 && h < 60) {
+                [r, g, b] = [c, x, 0];
+            } else if (h >= 60 && h < 120) {
+                [r, g, b] = [x, c, 0];
+            } else if (h >= 120 && h < 180) {
+                [r, g, b] = [0, c, x];
+            } else if (h >= 180 && h < 240) {
+                [r, g, b] = [0, x, c];
+            } else if (h >= 240 && h < 300) {
+                [r, g, b] = [x, 0, c];
+            } else {
+                [r, g, b] = [c, 0, x];
+            }
+            r = Math.round((r + m) * 255);
+            g = Math.round((g + m) * 255);
+            b = Math.round((b + m) * 255);
+            return rgbToHex(r, g, b);
+        }
+function imgDecsRmw(picUrl){
+    return $.toString((picUrl)=>{log(picUrl);
         function customHash(decodedString) {
             let inputBytes;
             if (typeof decodedString === "string") {
@@ -483,7 +464,6 @@ function imgDecsRmw(picUrl) {
             } else {
                 inputBytes = input;
             }
-
             function bytesToWords(bytes) {
                 let words = [];
                 for (let i = 0; i < bytes.length; i += 4) {
@@ -504,7 +484,6 @@ function imgDecsRmw(picUrl) {
                 }
                 return words;
             }
-
             function wordsToBytes(words) {
                 let bytes = [];
                 for (let i = 0; i < words.length; i++) {
@@ -514,7 +493,6 @@ function imgDecsRmw(picUrl) {
                 }
                 return bytes;
             }
-
             function bytesToHex(bytes) {
                 let hex = "";
                 for (let i = 0; i < bytes.length; i++) {
@@ -522,23 +500,22 @@ function imgDecsRmw(picUrl) {
                 }
                 return hex;
             }
-            let _ff = function(t, r, e, n, o, i, f) {
+            let _ff = function (t, r, e, n, o, i, f) {
                 var u = t + (r & e | ~r & n) + (o >>> 0) + f;
                 return (u << i | u >>> 32 - i) + r;
             };
-            let _gg = function(t, r, e, n, o, i, f) {
+            let _gg = function (t, r, e, n, o, i, f) {
                 var u = t + (r & n | e & ~n) + (o >>> 0) + f;
                 return (u << i | u >>> 32 - i) + r;
             };
-            let _hh = function(t, r, e, n, o, i, f) {
+            let _hh = function (t, r, e, n, o, i, f) {
                 var u = t + (r ^ e ^ n) + (o >>> 0) + f;
                 return (u << i | u >>> 32 - i) + r;
             };
-            let _ii = function(t, r, e, n, o, i, f) {
+            let _ii = function (t, r, e, n, o, i, f) {
                 var u = t + (e ^ (r | ~n)) + (o >>> 0) + f;
                 return (u << i | u >>> 32 - i) + r;
             };
-
             function u(t, r) {
                 let e = bytesToWords(t);
                 let s = 8 * t.length;
@@ -557,10 +534,7 @@ function imgDecsRmw(picUrl) {
                 }
                 e[index2] = s;
                 for (let p = 0; p < e.length; p += 16) {
-                    let b = a,
-                        m = c,
-                        x = h,
-                        w = l;
+                    let b = a, m = c, x = h, w = l;
                     a = _ff(a, c, h, l, e[p + 0], 7, -680876936);
                     l = _ff(l, a, c, h, e[p + 1], 12, -389564586);
                     h = _ff(h, l, a, c, e[p + 2], 17, 606105819);
@@ -695,68 +669,67 @@ function imgDecsRmw(picUrl) {
             imgBitmap.recycle();
             newImgBitmap.recycle();
             return new ByteArrayInputStream(baos.toByteArray());
-        } catch (e) {
+        }
+        catch (e) {
             return input;
         }
     }, picUrl ? picUrl : '');
 }
-
-function jsExtraClick(e, n) {
-    n = !n ? 0 : n;
-    return $.toString((n) => {
-        var buttons = document.querySelectorAll(e);
-        var button = buttons.item(n);
-        var targets = [button, button.querySelector('svg'), button.querySelector('div')];
-        targets.forEach(function(target) {
-            if (target) target.click();
-        });
-    }, n);
-}
-
+function jsExtraClick(e,n) {
+            n=!n?0:n;
+            return $.toString((n) => {
+                var buttons = document.querySelectorAll(e);
+                var button = buttons.item(n);
+                var targets = [button, button.querySelector('svg'), button.querySelector('div')];
+                targets.forEach(function(target) {
+                    if (target) target.click();
+                });
+            }, n);
+        }
 function getWeekdayColor(weekday) {
     const colors = {
         // 日曜日 - 星期日 - 周日
-        "日曜日": "#FF6B6B",
+        "日曜日": "#FF6B6B", 
         "星期日": "#FF6B6B",
         "周日": "#FF6B6B",
         "Sunday": "#FF6B6B",
         "Sun": "#FF6B6B",
-
+        
         // 月曜日 - 星期一 - 周一
         "月曜日": "#A0A0A0",
         "星期一": "#A0A0A0",
         "周一": "#A0A0A0",
         "Monday": "#A0A0A0",
         "Mon": "#A0A0A0",
-
+        
         // 火曜日 - 星期二 - 周二
         "火曜日": "#FF8C42",
         "星期二": "#FF8C42",
         "周二": "#FF8C42",
         "Tuesday": "#FF8C42",
         "Tue": "#FF8C42",
-
+        
         // 水曜日 - 星期三 - 周三
         "水曜日": "#4FC3F7",
         "星期三": "#4FC3F7",
         "周三": "#4FC3F7",
         "Wednesday": "#4FC3F7",
         "Wed": "#4FC3F7",
-
+        
         // 木曜日 - 星期四 - 周四
         "木曜日": "#66BB6A",
         "星期四": "#66BB6A",
         "周四": "#66BB6A",
         "Thursday": "#66BB6A",
         "Thu": "#66BB6A",
-
+        
         // 金曜日 - 星期五 - 周五
         "金曜日": "#FFD54F",
         "星期五": "#FFD54F",
         "周五": "#FFD54F",
         "Friday": "#FFD54F",
         "Fri": "#FFD54F",
-
+        
         // 土曜日 - 星期六 - 周六
         "土曜日": "#BA68C8",
         "星期六": "#BA68C8",
@@ -766,7 +739,6 @@ function getWeekdayColor(weekday) {
     };
     return colors[weekday] || "#666666"; // 默认灰色
 }
-
 function convertToSingleLineYaml(yamlText) {
     // 获取当前日期
     function getCurrentDate() {
@@ -776,7 +748,7 @@ function convertToSingleLineYaml(yamlText) {
         var day = String(now.getDate()).padStart(2, '0');
         return year + '/' + month + '/' + day;
     }
-
+    
     var currentDate = getCurrentDate();
 
     // 辅助函数：解析键值对
@@ -790,9 +762,9 @@ function convertToSingleLineYaml(yamlText) {
         if (value === '') return [key, undefined];
         // 处理空对象
         if (value === '{}') return [key, {}];
-
+        
         // 处理多行字符串符号（>- 或 | 等）
-        if (value.startsWith('>-') || value.startsWith('|') ||
+        if (value.startsWith('>-') || value.startsWith('|') || 
             value.startsWith('>') || value.startsWith('|')) {
             return [key, value];
         }
@@ -811,41 +783,41 @@ function convertToSingleLineYaml(yamlText) {
         if (value === undefined || value === null) return 'null';
         if (typeof value === 'number') return value;
         if (typeof value === 'boolean') return value.toString();
-
+        
         // 处理空对象
         if (typeof value === 'object' && Object.keys(value).length === 0) {
             return '{}';
         }
-
+        
         // 处理数组
         if (Array.isArray(value)) {
             return `[${value.map(v => formatValue(key, v)).join(', ')}]`;
         }
-
+        
         // 对于name字段，添加日期后缀
         if (key === 'name' && typeof value === 'string') {
             value = value + ' ' + currentDate;
         }
-
+        
         // 对于字符串，如果包含特殊字符则添加引号
         if (typeof value === 'string') {
             // 如果包含多行符号，需要特殊处理
-            if (value.startsWith('>-') || value.startsWith('|') ||
+            if (value.startsWith('>-') || value.startsWith('|') || 
                 value.startsWith('>') || value.includes('\n')) {
                 return `"${value}"`;
             }
-
+            
             // 关键修复：包含 ? & = 等URL特殊字符的必须加引号
             if (value.includes('?') || value.includes('&') || value.includes('=') ||
-                value.includes(' ') || value.includes(':') || value.includes('{') ||
+                value.includes(' ') || value.includes(':') || value.includes('{') || 
                 value.includes('}') || value.includes('|') || value.includes('[') ||
-                value.includes('🇷') || value.includes('🇨') || value.includes('>') ||
+                value.includes('🇷') || value.includes('🇨') || value.includes('>') || 
                 value.includes('-') || value.includes('/')) {
                 return `"${value}"`;
             }
             return value;
         }
-
+        
         // 处理嵌套对象
         if (typeof value === 'object' && value !== null) {
             var nestedEntries = Object.entries(value).map(([nestedKey, nestedValue]) => {
@@ -862,7 +834,7 @@ function convertToSingleLineYaml(yamlText) {
         const cleaned = {};
         for (var [key, value] of Object.entries(obj)) {
             // 跳过空对象属性
-            if (typeof value === 'object' && value !== null &&
+            if (typeof value === 'object' && value !== null && 
                 !Array.isArray(value) && Object.keys(value).length === 0) {
                 continue;
             }
@@ -874,7 +846,7 @@ function convertToSingleLineYaml(yamlText) {
     // 1. 找到第一个 - 的缩进级别
     var lines = yamlText.split('\n');
     let firstDashIndent = -1;
-
+    
     for (var i = 0; i < lines.length; i++) {
         var line = lines[i];
         var trimmedLine = line.trim();
@@ -887,16 +859,16 @@ function convertToSingleLineYaml(yamlText) {
     // 2. 按项目分割（只有与第一个 - 相同缩进的 - 才是新项目）
     let items = [];
     let currentItemLines = [];
-
+    
     for (var i = 0; i < lines.length; i++) {
         var line = lines[i];
         var trimmedLine = line.trim();
-
+        
         // 跳过空行和注释
         if (!trimmedLine || trimmedLine.startsWith('#')) continue;
-
+        
         var currentIndent = line.search(/\S|$/);
-
+        
         if (trimmedLine.startsWith('-') && currentIndent === firstDashIndent) {
             // 这是新项目的开始
             if (currentItemLines.length > 0) {
@@ -908,37 +880,34 @@ function convertToSingleLineYaml(yamlText) {
             currentItemLines.push(line);
         }
     }
-
+    
     // 添加最后一个项目
     if (currentItemLines.length > 0) {
         items.push(currentItemLines);
     }
 
     let result = [];
-
+    
     // 3. 逐个处理每个项目 - 修复嵌套对象解析
     for (var itemLines of items) {
         let obj = {};
-        let stack = [{
-            obj: obj,
-            indent: -1
-        }]; // 使用栈来处理嵌套
-
+        let stack = [{ obj: obj, indent: -1 }]; // 使用栈来处理嵌套
+        
         for (var j = 0; j < itemLines.length; j++) {
             var line = itemLines[j];
             var trimmedLine = line.trim();
             var currentIndent = line.search(/\S|$/);
-
+            
             // 跳过纯注释行
             if (trimmedLine.startsWith('#')) continue;
-
+            
             // 调整栈到正确的嵌套级别
             while (stack.length > 1 && currentIndent <= stack[stack.length - 1].indent) {
                 stack.pop();
             }
-
+            
             var currentObj = stack[stack.length - 1].obj;
-
+            
             if (trimmedLine.startsWith('-') && j === 0) {
                 // 项目的第一行，解析第一个属性
                 var firstProp = trimmedLine.substring(1).trim();
@@ -950,36 +919,33 @@ function convertToSingleLineYaml(yamlText) {
                 }
             } else if (trimmedLine.includes(':')) {
                 var [key, value] = parseKeyValue(trimmedLine);
-
+                
                 // 检查下一行是否有更深层次的嵌套
                 var hasNestedContent = false;
                 if (j + 1 < itemLines.length) {
                     var nextLine = itemLines[j + 1];
                     var nextIndent = nextLine.search(/\S|$/);
                     var nextTrimmed = nextLine.trim();
-
+                    
                     // 下一行有更深的缩进且不是注释，可能包含嵌套内容
-                    if (nextIndent > currentIndent && nextTrimmed &&
+                    if (nextIndent > currentIndent && nextTrimmed && 
                         !nextTrimmed.startsWith('#') && nextTrimmed.includes(':')) {
                         hasNestedContent = true;
                     }
                 }
-
+                
                 if (hasNestedContent) {
                     // 创建新的嵌套对象
                     var nestedObj = {};
                     currentObj[key] = nestedObj;
-                    stack.push({
-                        obj: nestedObj,
-                        indent: currentIndent
-                    });
+                    stack.push({ obj: nestedObj, indent: currentIndent });
                 } else {
                     // 普通键值对
                     currentObj[key] = value;
                 }
             }
         }
-
+        
         // 清理空对象属性
         obj = cleanupObject(obj);
         result.push(obj);
@@ -999,82 +965,80 @@ function convertToSingleLineYaml(yamlText) {
 }
 
 function toerji(item, jkdata) {
-    if (!jkdata.url) {
-        info = jkdata || storage0.getMyVar("\u4e00\u7ea7\u6e90\u63a5\u53e3\u4fe1\u606f");
-        if (item.url && !/js:|select:|=>|@|toast:|hiker:\/\/page|video:/.test(item.url) && item.col_type != "x5_webview_single" && item.url != "hiker://empty") {
-            let extra = item.extra || {};
-            extra.name = extra.name || extra.pageTitle || (item.title ? item.title.replace(/‘|’|“|”|<[^>]+>/g, "") : "");
-            extra.img = extra.img || item.pic_url || item.img;
-            extra.stype = info.type;
-            extra.pageTitle = extra.pageTitle || extra.name;
-            extra.surl = item.url.replace(/hiker:\/\/empty|#immersiveTheme#|#autoCache#|#noRecordHistory#|#noHistory#|#noLoading#|#/g, "");
-            extra.sname = info.name;
-            item.url = $("hiker://empty?type=" + info.type + "#immersiveTheme##autoCache#").rule(() => {
-                require(config.依赖);
-                erji();
-            });
-            item.extra = extra;
+if(!jkdata.url){
+    info = jkdata || storage0.getMyVar("\u4e00\u7ea7\u6e90\u63a5\u53e3\u4fe1\u606f");
+    if (item.url && !/js:|select:|=>|@|toast:|hiker:\/\/page|video:/.test(item.url) && item.col_type != "x5_webview_single" && item.url != "hiker://empty") {
+        let extra = item.extra || {};
+        extra.name = extra.name || extra.pageTitle || (item.title ? item.title.replace(/‘|’|“|”|<[^>]+>/g, "") : "");
+        extra.img = extra.img || item.pic_url || item.img;
+        extra.stype = info.type;
+        extra.pageTitle = extra.pageTitle || extra.name;
+        extra.surl = item.url.replace(/hiker:\/\/empty|#immersiveTheme#|#autoCache#|#noRecordHistory#|#noHistory#|#noLoading#|#/g, "");
+        extra.sname = info.name;
+        item.url = $("hiker://empty?type=" + info.type + "#immersiveTheme##autoCache#").rule(() => {
+            require(config.依赖);
+            erji();
         }
-        return item;
-    } else {
-        try {
-            if (item.url && item.url != 'hiker://empty') {
-                jkdata = jkdata || storage0.getMyVar('一级源接口信息');
-                if (!jkdata.url) {
-                    jkdata = storage0.getMyVar('一级源接口信息');
-                }
-                let extra = item.extra || {};
-                let extensions = ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp', '.svg', '.tiff', '.ico', '.m3u8', '.mp4'];
-                let excludeurl = ['.m3u8?', '.mp4?']
-                if (!extra.noDetail && !/select:|@|toast:|hiker:|video:|pics:/.test(item.url) && item.col_type != "x5_webview_single" && !extensions.some(ext => item.url.toString().toLowerCase().endsWith(ext)) && !excludeurl.some(ext => item.url.toString().includes(ext))) {
-                    extra.name = extra.name || extra.pageTitle || (item.title ? item.title.replace(/‘|’|“|”|<[^>]+>/g, "") : "");
-                    extra.img = extra.img || item.pic_url || item.img;
-                    extra.pageTitle = extra.pageTitle || extra.name;
-                    extra.url = item.url.toString().replace(/#immersiveTheme#|#autoCache#|#noRecordHistory#|#noHistory#|#noLoading#|#/g, "");
-                    extra.data = jkdata;
-                    item.url = $("hiker://empty?type=" + jkdata.type + "&page=fypage#autoCache#" + (jkdata.erjisign || "#immersiveTheme#")).rule(() => {
-                        require(config.聚阅);
-                        erji();
-                    })
-                    item.extra = extra;
-                }
-
-                if (/video:|pics:|\.m3u8|\.mp4|@rule=|@lazyRule=/.test(item.url) && (!/text_icon|rich_text|avatar|_button|icon_|text_/.test(item.col_type) || item.col_type == 'icon_1_left_pic')) {
-                    let caseExtra = Object.assign({}, extra);
-                    delete caseExtra.longClick;
-                    caseExtra.data = caseExtra.data || {
-                        name: jkdata.name,
-                        type: jkdata.type
-                    }
-                    let caseData = {
-                        type: item.url.includes('@rule=') ? '二级列表' : '一级列表',
-                        title: extra.pageTitle || item.title,
-                        picUrl: extra.img || item.img || item.pic_url,
-                        params: {
-                            url: item.url,
-                            find_rule: '',
-                            params: caseExtra
-                        }
-                    }
-
-                    let longClick = extra.longClick || [];
-                    longClick = longClick.filter(v => v.title != "加入收藏书架🗄")
-                    longClick.push({
-                        title: "加入收藏书架🗄",
-                        js: $.toString((caseData) => {
-                            return addBookCase(caseData);
-                        }, caseData)
-                    })
-                    extra.longClick = longClick;
-                    item.extra = extra;
-                }
-            }
-        } catch (e) {
-            log("toerji失败>" + e.message + " 错误行#" + e.lineNumber)
-        }
-        return item;
+        );
+        item.extra = extra;
     }
-}
+    return item;} else{           try {
+                if (item.url && item.url != 'hiker://empty') {
+                    jkdata = jkdata || storage0.getMyVar('一级源接口信息');
+                    if (!jkdata.url) {
+                        jkdata = storage0.getMyVar('一级源接口信息');
+                    }
+                    let extra = item.extra || {};
+                    let extensions = ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp', '.svg', '.tiff', '.ico', '.m3u8', '.mp4'];
+                    let excludeurl = ['.m3u8?', '.mp4?']
+                    if (!extra.noDetail && !/select:|@|toast:|hiker:|video:|pics:/.test(item.url) && item.col_type != "x5_webview_single" && !extensions.some(ext => item.url.toString().toLowerCase().endsWith(ext)) && !excludeurl.some(ext => item.url.toString().includes(ext))) {
+                        extra.name = extra.name || extra.pageTitle || (item.title ? item.title.replace(/‘|’|“|”|<[^>]+>/g, "") : "");
+                        extra.img = extra.img || item.pic_url || item.img;
+                        extra.pageTitle = extra.pageTitle || extra.name;
+                        extra.url = item.url.toString().replace(/#immersiveTheme#|#autoCache#|#noRecordHistory#|#noHistory#|#noLoading#|#/g, "");
+                        extra.data = jkdata;
+                        item.url = $("hiker://empty?type=" + jkdata.type + "&page=fypage#autoCache#" + (jkdata.erjisign || "#immersiveTheme#")).rule(() => {
+                            require(config.聚阅);
+                            erji();
+                        })
+                        item.extra = extra;
+                    }
+
+                    if (/video:|pics:|\.m3u8|\.mp4|@rule=|@lazyRule=/.test(item.url) && (!/text_icon|rich_text|avatar|_button|icon_|text_/.test(item.col_type) || item.col_type == 'icon_1_left_pic')) {
+                        let caseExtra = Object.assign({}, extra);
+                        delete caseExtra.longClick;
+                        caseExtra.data = caseExtra.data || {
+                            name: jkdata.name,
+                            type: jkdata.type
+                        }
+                        let caseData = {
+                            type: item.url.includes('@rule=') ? '二级列表' : '一级列表',
+                            title: extra.pageTitle || item.title,
+                            picUrl: extra.img || item.img || item.pic_url,
+                            params: {
+                                url: item.url,
+                                find_rule: '',
+                                params: caseExtra
+                            }
+                        }
+
+                        let longClick = extra.longClick || [];
+                        longClick = longClick.filter(v => v.title != "加入收藏书架🗄")
+                        longClick.push({
+                            title: "加入收藏书架🗄",
+                            js: $.toString((caseData) => {
+                                return addBookCase(caseData);
+                            }, caseData)
+                        })
+                        extra.longClick = longClick;
+                        item.extra = extra;
+                    }
+                }
+            } catch (e) {
+                log("toerji失败>" + e.message + " 错误行#" + e.lineNumber)
+            }
+            return item;}
+        }
 
 function searchByPinyin(keyword, list) {
     //"https://cdn.jsdelivr.net/npm/pinyin-match@1.2.8/dist/main.min.js"
@@ -1087,83 +1051,61 @@ function searchByPinyin(keyword, list) {
         return [];
     }
     return list.filter(item => {
-        let title = String(item.name || item.title || item);
+        let title = String(item.name ||item.title||item);
         return PinyinMatch.match(title, keyword) !== false;
     });
 }
-
 function getFastestDomain(input) {
-    function pad(url) {
-        return url.endsWith('/') ? url : url + '/';
-    }
-    var urls = [];
-    if (typeof input === "string" && !/\.txt|\.json/.test(input)) {
-        return pad(input);
-    } else if (typeof input === "string") {
-        var html = request(input, {
-            timeout: 1000
-        });
-        if (html == "VxbsqiZ42C0OKBc6CG3cFMsmC4tAi2OpYyKXI81tYy5rTImObDRz3+ZyAZITstS+") {
-            html = 'http://110.42.37.69:1866';
-        } else if (html == "5nipIo1wUKXtmMvZeR3aqOJ6qcgeA0Mp5oxgfacApBI=") {
-            html = 'http://www.zjcvod.com';
-        } else if (html == "lDFYQlB9bihryBS7ggv8s4MYr/oEsaOkiExCPkMa3aEL/c0gjkO/3fqbyAK5tFqn") {
-            html = 'http://shayu.sxtzg.com';
+        function pad(url) {
+            return url.endsWith('/') ? url : url + '/';
         }
-        urls = html.match(/https?:\/\/[^\s'"]+/g) || [];
-    } else if (Array.isArray(input)) {
-        urls = input;
+        var urls = [];
+        if (typeof input === "string" && !/\.txt|\.json/.test(input)) {
+            return pad(input);
+        } else if (typeof input === "string") {
+            var html = request(input, {
+                timeout: 1000
+            });
+            if (html == "VxbsqiZ42C0OKBc6CG3cFMsmC4tAi2OpYyKXI81tYy5rTImObDRz3+ZyAZITstS+") {
+                html = 'http://110.42.37.69:1866';
+            } else if (html == "5nipIo1wUKXtmMvZeR3aqOJ6qcgeA0Mp5oxgfacApBI=") {
+                html = 'http://www.zjcvod.com';
+            } else if (html == "lDFYQlB9bihryBS7ggv8s4MYr/oEsaOkiExCPkMa3aEL/c0gjkO/3fqbyAK5tFqn") {
+                html = 'http://shayu.sxtzg.com';
+            }
+            urls = html.match(/https?:\/\/[^\s'"]+/g) || [];
+        } else if (Array.isArray(input)) {
+            urls = input;
+        }
+        if (urls.length == 1) {
+            return pad(urls[0]);
+        } else if (urls.length == 0) {
+            return '';
+        } else {
+            let urlsFind = urls.map(h => h.replace(/https?:\/\//, '').replace(/:\d+/, '').replace(/\/$/, ''));
+            var reachableRaw = findReachableIP(urlsFind, 2000);
+            var url = urls.find(item => item.includes(reachableRaw));
+            return pad(url);
+        }
     }
-    if (urls.length == 1) {
-        return pad(urls[0]);
-    } else if (urls.length == 0) {
-        return '';
-    } else {
-        let urlsFind = urls.map(h => h.replace(/https?:\/\//, '').replace(/:\d+/, '').replace(/\/$/, ''));
-        var reachableRaw = findReachableIP(urlsFind, 2000);
-        var url = urls.find(item => item.includes(reachableRaw));
-        return pad(url);
-    }
-}
-
-function ssyz(img, type) {
+function ssyz(img, type){
     const MAP = {
         num: {
-            'a': '4',
-            'b': '6',
-            'd': '0',
-            'e': '9',
-            'g': '9',
-            'i': '1',
-            'l': '1',
-            'm': '3',
-            's': '5',
-            't': '7',
-            'o': '0',
-            'q': '9',
-            'u': '4',
-            'z': '2'
+            'a': '4', 'b': '6', 'd': '0', 'e': '9', 'g': '9',
+            'i': '1', 'l': '1', 'm': '3', 's': '5', 't': '7',
+            'o': '0', 'q': '9', 'u': '4', 'z': '2'
         },
         alpha: {
-            '4': 'a',
-            '6': 'b',
-            '9': 'q',
-            '1': 'l',
-            '3': 'm',
-            '5': 's',
-            '7': 't',
-            '0': 'o',
-            '2': 'z'
+            '4': 'a', '6': 'b', '9': 'q', '1': 'l', '3': 'm',
+            '5': 's', '7': 't', '0': 'o', '2': 'z'
         }
     };
 
     const currentMap = MAP[type] || {};
-
+    
     const ocrResult = request('https://api.nn.ci/ocr/b64/text', {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
+        headers: {'Content-Type': 'application/json'},
         body: convertBase64Image(img).split(',')[1]
     }).split('')
     const result = [];
@@ -1173,73 +1115,60 @@ function ssyz(img, type) {
     }
     return result.join('')
 }
-
-function linkPages(d, pages, host) {
-    [Array.from({
-        length: pages
-    }, (_, i) => i + 1).join('&')].forEach((item, index, data) => {
-        classTop(index, item, host, d, 0, 0, 'multiPages', 'scroll_button');
-    });
-}
-
+function linkPages(d,pages,host) {
+                    [Array.from({
+                        length: pages
+                    }, (_, i) => i + 1).join('&')].forEach((item, index, data) => {
+                        classTop(index, item, host, d, 0, 0, 'multiPages', 'scroll_button');
+                    });
+                }
 function getDarkColor() {
-    let hue;
-    do {
-        hue = Math.floor(Math.random() * 360);
-    } while (hue > 200 && hue < 260); // 跳过蓝色区间
+            let hue;
+            do {
+                hue = Math.floor(Math.random() * 360);
+            } while (hue > 200 && hue < 260); // 跳过蓝色区间
 
-    const saturation = 80 + Math.floor(Math.random() * 20); // 饱和度80-100%
-    const lightness = 25 + Math.floor(Math.random() * 35); // 明度25-60%
+            const saturation = 80 + Math.floor(Math.random() * 20); // 饱和度80-100%
+            const lightness = 25 + Math.floor(Math.random() * 35); // 明度25-60%
 
-    // HSL转RGB
-    const c = (1 - Math.abs(2 * lightness / 100 - 1)) * saturation / 100;
-    const x = c * (1 - Math.abs(((hue / 60) % 2) - 1));
-    const m = lightness / 100 - c / 2;
+            // HSL转RGB
+            const c = (1 - Math.abs(2 * lightness / 100 - 1)) * saturation / 100;
+            const x = c * (1 - Math.abs(((hue / 60) % 2) - 1));
+            const m = lightness / 100 - c / 2;
 
-    let r, g, b;
-    if (hue < 60)[r, g, b] = [c, x, 0]; // 红-黄区间
-    else if (hue < 120)[r, g, b] = [x, c, 0]; // 黄-绿区间
-    else if (hue < 180)[r, g, b] = [0, c, x]; // 绿-青区间
-    else if (hue < 200)[r, g, b] = [0, x, c]; // 青区间（接近蓝）
-    else if (hue < 260)[r, g, b] = [x, 0, c]; // 这段不会执行
-    else [r, g, b] = [c, 0, x]; // 紫-红区间
+            let r, g, b;
+            if (hue < 60)[r, g, b] = [c, x, 0]; // 红-黄区间
+            else if (hue < 120)[r, g, b] = [x, c, 0]; // 黄-绿区间
+            else if (hue < 180)[r, g, b] = [0, c, x]; // 绿-青区间
+            else if (hue < 200)[r, g, b] = [0, x, c]; // 青区间（接近蓝）
+            else if (hue < 260)[r, g, b] = [x, 0, c]; // 这段不会执行
+            else [r, g, b] = [c, 0, x]; // 紫-红区间
 
-    // RGB转HEX
-    const toHex = (n) => Math.round((n + m) * 255).toString(16).padStart(2, '0');
-    return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
-}
-
+            // RGB转HEX
+            const toHex = (n) => Math.round((n + m) * 255).toString(16).padStart(2, '0');
+            return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
+        }
 function safePath(str) {
-    return String(str).replace(/https?:\/\//g, '').replace(/[<>:"|?*\/\\]/g, '_');
+  return String(str).replace(/https?:\/\//g, '').replace(/[<>:"|?*\/\\]/g, '_');
 }
-
 function getdTemp(d, dTemp, _chchePath) {
     d = JSON.parse(fetch(_chchePath) || "[]");
     if (d.length != 0) {
         if (MY_RULE.title == "聚阅" && d[0].title == "🔍" && !/x5toerji|sarr|google|baidu/.test(JSON.stringify(d[0]))) {
             d.splice(0, 1);
         }
-        if (MY_RULE.title == "聚阅√" && d[0].title != "🔍" && !/multiPages/.test(JSON.stringify(d))) {
-            d.unshift({
-                "title": "🔍",
-                "url": "(\n(r) => {\n    putVar(\"keyword\", input);\n    return \"hiker://search?rule=\" + r + \"&s=\" + input;\n}\n)(\"聚阅√\")",
-                "desc": "搜索你想要的...",
-                "col_type": "input",
-                "extra": {
-                    "defaultValue": ""
-                }
-            });
+      if (MY_RULE.title == "聚阅√" && d[0].title != "🔍"&&!/multiPages/.test(JSON.stringify(d))) {
+            d.unshift({"title":"🔍","url":"(\n(r) => {\n    putVar(\"keyword\", input);\n    return \"hiker://search?rule=\" + r + \"&s=\" + input;\n}\n)(\"聚阅√\")","desc":"搜索你想要的...","col_type":"input","extra":{"defaultValue":""}});
         }
         dTemp = d.concat(dTemp);
-        if (MY_RULE.title == "聚阅√") {
-            dTemp = JSON.parse(JSON.stringify(dTemp).replace(/config.聚阅/g, 'config.依赖'));
-        } else if (MY_RULE.title == "聚阅") {
-            dTemp = JSON.parse(JSON.stringify(dTemp).replace(/config.依赖/g, 'config.聚阅'));
-        }
+if (MY_RULE.title == "聚阅√"){
+dTemp=JSON.parse(JSON.stringify(dTemp).replace(/config.聚阅/g,'config.依赖'));
+}else if (MY_RULE.title == "聚阅"){
+dTemp=JSON.parse(JSON.stringify(dTemp).replace(/config.依赖/g,'config.聚阅'));
+}
     }
     return dTemp.slice();
 }
-
 function getHtml(url, headers, mode, proxy) {
     let html = getMyVar(url);
     if (!html || html.includes('error code: 1015')) {
@@ -1249,16 +1178,16 @@ function getHtml(url, headers, mode, proxy) {
             urlTrue = url.startsWith('https://wdkj.eu.org/') ? url.replace('?', '%3f') : 'https://wdkj.eu.org/' + url.replace('?', '%3f');
         } else if (proxy && chinesePattern.test(decodedUrl)) {
             toast('中文网址需挂梯子~');
-            urlTrue = url;
+			urlTrue=url;
         } else if (url.startsWith('https://wdkj.eu.org/') && chinesePattern.test(decodedUrl)) {
-            urlTrue = decodeURIComponent(url.replace('https://wdkj.eu.org/', ''));
-        } else {
+            urlTrue=decodeURIComponent(url.replace('https://wdkj.eu.org/',''));
+        }else{
             urlTrue = url;
         }
         if (mode && mode == 1) html = request(urlTrue, headers || {});
         else if (mode && mode == 2) html = fetchCodeByWebView(urlTrue);
         else html = fetchPC(urlTrue, headers || {});
-        if (html && !/error code: 1015|__cf_chl_tk|cf-error-details/.test(html)) putMyVar(url, html);
+        if (html &&!/error code: 1015|__cf_chl_tk|cf-error-details/.test(html)) putMyVar(url, html);
     }
     return html;
 }
@@ -1304,9 +1233,9 @@ function hanziToPinyin(hanzi, options) {
 }
 
 function searchBaidu(d, str, parse) {
-    if (typeof(str) == 'object') {
+    if (typeof(str)== 'object') {
         str = str.toString();
-        str = str.substring(1, str.length - 1);
+        str=str.substring(1, str.length - 1);
     } else if (typeof(str) == 'string' && str.startsWith('/')) {
         str = str.substring(1, str.length - 1);
     }
@@ -1318,7 +1247,7 @@ function searchBaidu(d, str, parse) {
             return $('hiker://empty').rule((str, parse) => {
                 var d = [];
                 d.push({
-                    url: 'https://www.baidu.com/s?wd=' + getVar('keyword', '').trim() + '%20site%3A' + parse.host.split('/').at(-1) + '&pn=0',
+                    url: 'https://www.baidu.com/s?wd=' + getVar('keyword', '').trim()+ '%20site%3A' + parse.host.split('/').at(-1) + '&pn=0',
                     col_type: 'x5_webview_single',
                     desc: 'list&&screen',
                     extra: {
@@ -1357,17 +1286,16 @@ function searchBaidu(d, str, parse) {
 }
 
 function searchGoogle(d, str, parse) {
-    if (typeof(str) == 'object') {
+    if (typeof(str)== 'object') {
         str = str.toString();
-        str = str.substring(1, str.length - 1);
+        str=str.substring(1, str.length - 1);
     } else if (typeof(str) == 'string' && str.startsWith('/')) {
         str = str.substring(1, str.length - 1);
     }
     d.push({
         title: '🔍',
         url: $.toString((str, parse) => {
-            putVar('keyword', input);
-            log('https://www.google.com.hk/search?q=' + getVar('keyword', '').trim() + '+site:' + parse.host.replace(/https?:\/\//, '') + '&start=0');
+            putVar('keyword', input);log('https://www.google.com.hk/search?q=' + getVar('keyword', '').trim() + '+site:' + parse.host.replace(/https?:\/\//, '') + '&start=0');
             return $('hiker://empty').rule((str, parse) => {
                 var d = [];
                 d.push({
@@ -1379,10 +1307,9 @@ function searchGoogle(d, str, parse) {
                         showProgress: false,
                         canBack: true,
                         jsLoadingInject: true,
-                        urlInterceptor: $.toString((str, parse) => {
-                            log('___:::' + JSON.stringify(new Date()).split(':').at(-1));
+                        urlInterceptor: $.toString((str, parse) => { log('___:::' + JSON.stringify(new Date()).split(':').at(-1));
                             let regex = new RegExp(str);
-                            if (input.match(regex)) {
+                            if (input.match(regex)) { 
                                 return $.toString((url, parse) => {
                                     var js = 'js:host="' + parse.host + '";url=MY_URL;_c="";var parse={host: "' + parse.host + '",解析:function(){' + parse.解析.toString().replace(/^function.*?\{|\}$/g, '') + '}};' + parse.解析.toString().replace('return setResult(dTemp.concat(d))', 'setResult(dTemp.concat(d))').match(/addListener[\s\S]*setResult\((d|dTemp\.concat\(d\))\);/)[0];
                                     fba.log('===:::' + JSON.stringify(new Date()).split(':').at(-1));
@@ -1445,7 +1372,7 @@ function parseUrlVideo(url, 依赖) {
         return "hiker://page/diaoyong?rule=123云盘&page=fypage&realurl=" + encodeURIComponent(input);
     } else if (/yun\.139\.com/.test(input)) {
         return "hiker://page/diaoyong?rule=移动云盘&page=fypage&realurl=" + encodeURIComponent(input);
-    } else {
+    }  else {
         var html = fetchPC(url);
         if (/r Vurl/.test(html)) {
             var url_t = html.match(/r Vurl.*?['"](.*?)['"]/)[1];
@@ -1467,96 +1394,95 @@ function parseUrlVideo(url, 依赖) {
             url = 'video://' + url;
         }
         return url;
-    }
+    }   
 }
 
-function updateJu(title, record) {
-    if (MY_RULE.title == '聚阅') {
-        var path = 'hiker://files/rules/juyue/updateTime_' + title + '_新.txt';
-        let lastTime = fetch(path);
-        log('lastTime:' + lastTime);
-        let currentTime = Date.now();
-        writeFile(path, currentTime + '');
-        if (!lastTime || currentTime - lastTime >= 86400000) {
-            let pathGitee = 'https://gitee.com/mistywater/hiker_info/raw/master/sourcefile/' + title + '_新.json';
-            let html = fetch(pathGitee);
-            if (html && !/Repository or file not found/.test(html)) {
-                var codeNew = base64ToText(html);
-                eval(codeNew);
-                var verNew = parse.ver || parse.Ver || parse.VER || '';
-                record = record ? record : parse['更新说明'];
-                log('verNew:' + verNew);
-                let pathJiekou = 'hiker://files/rules/Src/Juyue/jiekou.json';
-                eval('let jsonJiekou =' + (fetchPC(pathJiekou)));
-                for (let k in jsonJiekou) {
-                    if (jsonJiekou[k].name.includes('🐹') && jsonJiekou[k].name.includes(title)) {
-                        var verLocal = jsonJiekou[k].version || '';
-                        log('verLocal:' + verLocal);
-                        var url = jsonJiekou[k].url;
-                        if (verNew > verLocal) {
-                            jsonJiekou[k].version = verNew;
-                            writeFile(pathJiekou, JSON.stringify(jsonJiekou));
-                            writeFile(url, codeNew);
-                            const hikerPop = $.require("https://gitee.com/mistywater/hiker_info/raw/master/Popup.js");
-                            record ? hikerPop.updateRecordsBottom(record) : '';
+function updateJu(title,record) {
+            if (MY_RULE.title == '聚阅') {
+                var path = 'hiker://files/rules/juyue/updateTime_' + title + '_新.txt';
+                let lastTime = fetch(path);
+                log('lastTime:' + lastTime);
+                let currentTime = Date.now();
+                writeFile(path, currentTime + '');
+                if (!lastTime || currentTime - lastTime >= 86400000) {
+                    let pathGitee = 'https://gitee.com/mistywater/hiker_info/raw/master/sourcefile/' + title + '_新.json';
+                    let html = fetch(pathGitee);
+                    if (html && !/Repository or file not found/.test(html)) {
+                        var codeNew = base64ToText(html);
+                        eval(codeNew);
+                        var verNew = parse.ver || parse.Ver || parse.VER || '';
+						record=record?record:parse['更新说明'];
+                        log('verNew:' + verNew);
+                        let pathJiekou = 'hiker://files/rules/Src/Juyue/jiekou.json';
+                        eval('let jsonJiekou =' + (fetchPC(pathJiekou)));
+                        for (let k in jsonJiekou) {
+                            if (jsonJiekou[k].name.includes('🐹')&&jsonJiekou[k].name.includes(title)) {
+                                var verLocal = jsonJiekou[k].version || '';
+                                log('verLocal:' + verLocal);
+                                var url = jsonJiekou[k].url;
+                                if (verNew > verLocal) {
+jsonJiekou[k].version=verNew;writeFile(pathJiekou, JSON.stringify(jsonJiekou));
+                                    writeFile(url, codeNew);
+                                    const hikerPop = $.require("https://gitee.com/mistywater/hiker_info/raw/master/Popup.js");
+                                   record?hikerPop.updateRecordsBottom(record):'';
+                                }
+                                break;
+                            };
                         }
-                        break;
-                    };
+                    }
                 }
             }
-        }
-    }
-    if (MY_RULE.title == '聚阅√') {
-        var path = 'hiker://files/rules/juyue/updateTime_' + title + '.txt';
-        let lastTime = fetch(path);
-        let currentTime = Date.now();
-        writeFile(path, currentTime + '');
-        if (!lastTime || currentTime - lastTime >= 86400000) {
-            let pathGitee = 'https://gitee.com/mistywater/hiker_info/raw/master/sourcefile/' + title + '.json';
-            let html = fetch(pathGitee);
-            if (html && !/Repository or file not found/.test(html)) {
-                let jsonGitee = JSON.parse(base64ToText(html));
-                let jsonVer = JSON.parse(jsonGitee.parse.replace(/,.*\s+('|")页码[\s\S]*/, '}').replace(/'/g, '"'));
-                let version = jsonVer.ver || jsonVer.Ver || '';
-                log('versionNew:' + version);
-                let sourcefile = 'hiker://files/rules/Src/Ju/jiekou.json';
-                let datalist = JSON.parse(fetch(sourcefile));
-                let index = datalist.findIndex(item => item.name == jsonGitee.name && item.type == jsonGitee.type);
-                if (index != -1) {
-                    let jsonVersionLast = JSON.parse(datalist[index].parse.replace(/,.*\s+('|")页码[\s\S]*/, '}').replace(/'/g, '"'));
-                    var versionLast = jsonVersionLast.ver || jsonVersionLast.Ver || '';
-                    log('versionLast:' + versionLast);
+            if (MY_RULE.title == '聚阅√') {
+                var path = 'hiker://files/rules/juyue/updateTime_' + title + '.txt';
+                let lastTime = fetch(path);
+                let currentTime = Date.now();
+                writeFile(path, currentTime + '');
+                if (!lastTime || currentTime - lastTime >= 86400000) {
+                    let pathGitee = 'https://gitee.com/mistywater/hiker_info/raw/master/sourcefile/' + title + '.json';
+                    let html = fetch(pathGitee);
+                    if (html && !/Repository or file not found/.test(html)) {
+                        let jsonGitee = JSON.parse(base64ToText(html));
+                        let jsonVer = JSON.parse(jsonGitee.parse.replace(/,.*\s+('|")页码[\s\S]*/, '}').replace(/'/g, '"'));
+                        let version = jsonVer.ver || jsonVer.Ver || '';
+                        log('versionNew:' + version);
+                        let sourcefile = 'hiker://files/rules/Src/Ju/jiekou.json';
+                        let datalist = JSON.parse(fetch(sourcefile));
+                        let index = datalist.findIndex(item => item.name == jsonGitee.name && item.type == jsonGitee.type);
+                        if (index != -1) {
+                            let jsonVersionLast = JSON.parse(datalist[index].parse.replace(/,.*\s+('|")页码[\s\S]*/, '}').replace(/'/g, '"'));
+                            var versionLast = jsonVersionLast.ver || jsonVersionLast.Ver || '';
+                            log('versionLast:' + versionLast);
+                        }
+                        if (index == -1 || !versionLast || versionLast < version) {
+                            confirm({
+                                title: `聚阅接口:<${title}_${jsonGitee.type}>有新版本`,
+                                content: jsonVer.更新说明 ? jsonVer.更新说明.replace(/,/g, '\n') : '导入新版本吗?',
+                                confirm: $.toString((title, jsonGitee, index) => {
+                                    let sourcefile = 'hiker://files/rules/Src/Ju/jiekou.json';
+                                    let datalist = JSON.parse(fetch(sourcefile));
+                                    if (index != -1) {
+                                        datalist.splice(index, 1);
+                                    }
+                                    datalist.push(jsonGitee);
+                                    writeFile(sourcefile, JSON.stringify(datalist));
+                                    toast(`聚阅接口<${title}_${jsonGitee.type}>导入成功~`);
+                                    refreshPage();
+                                    return;
+                                }, title, jsonGitee, index),
+                                cancel: $.toString(() => {
+                                    return "toast://更新接口，则功能不全或有异常"
+                                })
+                            });
+                        } else {
+                            toast('无新版本~');
+                        }
+                    } else {
+                        toast('无新版本~');
+                    }
                 }
-                if (index == -1 || !versionLast || versionLast < version) {
-                    confirm({
-                        title: `聚阅接口:<${title}_${jsonGitee.type}>有新版本`,
-                        content: jsonVer.更新说明 ? jsonVer.更新说明.replace(/,/g, '\n') : '导入新版本吗?',
-                        confirm: $.toString((title, jsonGitee, index) => {
-                            let sourcefile = 'hiker://files/rules/Src/Ju/jiekou.json';
-                            let datalist = JSON.parse(fetch(sourcefile));
-                            if (index != -1) {
-                                datalist.splice(index, 1);
-                            }
-                            datalist.push(jsonGitee);
-                            writeFile(sourcefile, JSON.stringify(datalist));
-                            toast(`聚阅接口<${title}_${jsonGitee.type}>导入成功~`);
-                            refreshPage();
-                            return;
-                        }, title, jsonGitee, index),
-                        cancel: $.toString(() => {
-                            return "toast://更新接口，则功能不全或有异常"
-                        })
-                    });
-                } else {
-                    toast('无新版本~');
-                }
-            } else {
-                toast('无新版本~');
             }
+            return;
         }
-    }
-    return;
-}
 
 function TextToBase64(str) {
     if (typeof str === 'object' && str !== null) {
@@ -1566,7 +1492,6 @@ function TextToBase64(str) {
         return String.fromCharCode(parseInt(hex, 16));
     }));
 }
-
 function base64ToText(str) {
     if (typeof str === 'object' && str !== null) {
         str = JSON.stringify(str);
@@ -1576,19 +1501,19 @@ function base64ToText(str) {
     }).join(''));
 }
 
-function yanzhengd(d, str, url, host, a, ua) {
+function yanzhengd(d, str, url, host, a,ua) {
     d.push({
         title: '人机验证',
-        url: $('hiker://empty').rule((str, url, t, a, ua) => {
+        url: $('hiker://empty').rule((str, url, t, a,ua) => {
             var d = [];
             d.push({
                 col_type: 'x5_webview_single',
                 url: url,
                 desc: 'list&&screen',
                 extra: {
-                    ua: !ua ? MOBILE_UA : PC_UA,
+                    ua: !ua?MOBILE_UA:PC_UA,
                     showProgress: false,
-                    js: $.toString((str, url, t, a, ua) => {
+                    js: $.toString((str, url, t, a,ua) => {
                         function check() {
                             let nodes = document.querySelectorAll(str);
                             var co = fba.getCookie(url);
@@ -1609,11 +1534,11 @@ function yanzhengd(d, str, url, host, a, ua) {
                             }
                         }
                         check();
-                    }, str, url, t, a, ua)
+                    }, str, url, t, a,ua)
                 }
             });
             return setResult(d);
-        }, str, url, host, a, ua),
+        }, str, url, host, a,ua),
         col_type: 'text_1'
     });
     return d;
@@ -1671,19 +1596,17 @@ function link(d, urlsTemp, titleLast, titleNext, myurl, host) {
     });
     urlsTemp.forEach((it, index) => {
         d.push({
-            title: index == 0 ? (it.startsWith('http') ? '⬅️' + titleLast : '⬅️没有了') : '➡️' + titleNext,
+            title: index == 0 ? (it.startsWith('http') ? '⬅️' + titleLast : '⬅️没有了') :  '➡️'+titleNext,
             url: $('#noLoading#').lazyRule((url, host, index, url1) => {
-                if (url) {
-                    putMyVar(host + 'next', url);
-                    putMyVar(host + 'isNextUrl', '1');
-                    refreshPage();
-                }
+                if(url){putMyVar(host + 'next', url);
+                putMyVar(host + 'isNextUrl', '1');
+                refreshPage();}
                 return 'hiker://empty';
             }, it, host, index, myurl),
             col_type: 'text_2',
             extra: {
                 lineVisible: 'false',
-                textAlign: 'left'
+               textAlign: 'left'
             }
         });
     });
@@ -1723,7 +1646,7 @@ function detectCloudStorage(link) {
         return "[UC网盘]";
     } else if (link.includes("xunlei")) {
         return "[迅雷网盘]";
-    } else if (link.includes("magnet")) {
+    }  else if (link.includes("magnet")) {
         return "[磁力]";
     } else {
         return "[未知网盘]";
@@ -1735,9 +1658,9 @@ function imgCloudStorage(link) {
     link = link.toLowerCase();
     if (/magnet|磁力|磁链/.test(link)) {
         return "https://pp.myapp.com/ma_icon/0/icon_53952947_1677658847/256";
-    } else if (/pikpak/.test(link)) {
+    } else if(/pikpak/.test(link)) {
         return "https://blog.mypikpak.com/wp-content/uploads/2023/08/512.png";
-    } else if (/pan.baidu.com|baidupcs.com|百度(网|云)盘|^baidu$|xiongdipan/.test(link)) {
+    }else if(/pan.baidu.com|baidupcs.com|百度(网|云)盘|^baidu$|xiongdipan/.test(link)) {
         return "https://img2.baidu.com/it/u=2020777305,1031850894&fm=253&fmt=auto&app=138&f=PNG?w=667&h=500";
     } else if (/aliyundrive.com|alipan.com|阿里(网|云)盘|^ali$|alipansou/.test(link)) {
         return "https://pp.myapp.com/ma_icon/0/icon_54120208_1764918750/256";
@@ -1751,11 +1674,11 @@ function imgCloudStorage(link) {
         return "https://bkimg.cdn.bcebos.com/pic/f2deb48f8c5494eeb95e781a24f5e0fe99257eb0";
     } else if (/tianyi|189|天翼(网|云)盘|^tianyi$|tianyiso/.test(link)) {
         return "https://b.zol-img.com.cn/soft/7/617/ceQDZnfsQPXs.png";
-    } else if (/移动|139|mobile/.test(link)) {
+    }   else if (/移动|139|mobile/.test(link)) {
         return "https://bkimg.cdn.bcebos.com/pic/58ee3d6d55fbb2fb4316d9f6261e37a4462308f77680";
-    } else if (/123|123(网|云)盘|^115$/.test(link)) {
+    }  else if (/123|123(网|云)盘|^115$/.test(link)) {
         return "https://pp.myapp.com/ma_icon/0/icon_54190090_1767233011/256";
-    } else {
+    }else {
         return "https://pp.myapp.com/ma_icon/0/icon_251416_1627666026/256";
     }
 }
@@ -1764,9 +1687,9 @@ function sourceJump(d, arr, blank, changeSource) {
     let info = storage0.getMyVar('一级源接口信息') || jkdata;
     if (arr.length > 1) {
         arr.forEach((item, index) => {
-            let title = item.split('@')[0].replace(/H-|✈️|🔞|🐹/g, '');
+            let title=item.split('@')[0].replace(/H-|✈️|🔞|🐹/g, '');
             d.push({
-                title: info.name == item.split('@')[0] ? title.color('fff') : title,
+                title: info.name == item.split('@')[0]?title.color('fff'):title,
                 url: $('#noLoading#').lazyRule((item) => {
                     if (MY_RULE.title != '聚阅') {
                         let configPath = 'hiker://files/rules/Src/Ju/config.json';
@@ -1856,7 +1779,6 @@ function sourceJump(d, arr, blank, changeSource) {
         return 'hiker://empty';
     }
 }
-
 function cfl(str) {
     return str.replace(/\w\S*/g, function(word) {
         return word.charAt(0) + word.slice(1).toLowerCase();
@@ -2195,7 +2117,7 @@ function getRandomNumber(m, n) {
 }
 
 function timestampToDate(timestamp) {
-    timestamp = +((timestamp + '').padEnd(13, '0'));
+    timestamp=+((timestamp+'').padEnd(13,'0'));
     const date = new Date(timestamp);
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -2457,8 +2379,8 @@ function lunbo(c) {
         var k = c.indexbanner.length;
         var n = '0';
         var lazy = '';
-        if (c.公共 || c.parse) {
-            lazy = $('').lazyRule((c.公共 || c.parse).解析, (c.公共 || c.parse), '', (c.公共 || c.parse).host);
+        if (c.公共||c.parse) {
+            lazy = $('').lazyRule((c.公共||c.parse).解析, (c.公共||c.parse), '', (c.公共||c.parse).host);
         }
         if (c.json == 1) {
             d.push({
@@ -2502,9 +2424,9 @@ function lunbo(c) {
             rc(fc('https://gitee.com/mistywater/hiker_info/raw/master/githubproxy.json') + 'https://raw.githubusercontent.com/mistywater/hiker/main/f', 24);
             var n = getVar(c.host + 'n', '0');
             var lazy = '';
-            if (c.公共 || c.parse) {
-                lazy = $('').lazyRule((c.公共 || c.parse).解析, (c.公共 || c.parse), '', (c.公共 || c.parse).host);
-            }
+            if (c.公共||c.parse) {
+            lazy = $('').lazyRule((c.公共||c.parse).解析, (c.公共||c.parse), '', (c.公共||c.parse).host);
+        }
             if (c.json == 1) {
                 let dd = {
                     title: color(c.indexbanner[n][c.title], 'FF3399'),
@@ -2672,8 +2594,7 @@ function jinman(picUrl) {
     }, picUrl);
 }
 
-function extraPic(host, page, pages, ctype, hiker, _chchePath, imgdec) {
-    if (!_chchePath) _chchePath = '';
+function extraPic(host, page, pages, ctype, hiker, _chchePath,imgdec) {if(!_chchePath) _chchePath='';
     if (!ctype) var ctype = '';
     if (!hiker || hiker == '') var hiker = '1';
     var 类型 = ["movie_1", "movie_2", "movie_3", "movie_3_marquee", "pic_1", "pic_2", "pic_3", "pic_1_full", "pic_1_center", "pic_1_card", "pic_2_card", "pic_3_square", "card_pic_1", "card_pic_2", "card_pic_3", "avatar", "card_pic_3_center", "icon_1_left_pic"];
@@ -2735,35 +2656,33 @@ function extraPic(host, page, pages, ctype, hiker, _chchePath, imgdec) {
         }
         var extra1 = {
             title: '跳转',
-            js: $.toString((host, arr, num, pages) => {
-                return $(arr, 3, '选择页码').select((host, num, pages) => {
+            js: $.toString((host, arr, num,pages) => {
+                return $(arr, 3, '选择页码').select((host, num,pages) => {
                     if (input == '输入页码') {
                         return $('').input((host) => {
                             putMyVar(host + 'page', input);
-                            putMyVar('isMoveto', '1');
+putMyVar('isMoveto', '1');
                             refreshPage(false);
                         }, host);
                     } else if (num == 1) {
                         putMyVar(host + 'page', input);
-                        putMyVar('isMoveto', '1');
+putMyVar('isMoveto', '1');
                         refreshPage(false);
                         return 'hiker://empty';
                     } else {
                         let arr1 = [];
                         for (let k = 0; k < num; k++) {
-                            if (input * 1 + k * 1 <= pages) {
-                                arr1.push(input * 1 + k * 1);
-                            }
+                            if(input * 1 + k * 1<=pages){arr1.push(input * 1 + k * 1);}
                         }
                         return $(arr1, 3, '选择页码').select((host) => {
                             putMyVar(host + 'page', input);
-                            putMyVar('isMoveto', '1');
+putMyVar('isMoveto', '1');
                             refreshPage(false);
                             return 'hiker://empty';
                         }, host);
                     }
-                }, host, num, pages);
-            }, host, arr, num, pages),
+                }, host, num,pages);
+            }, host, arr, num,pages),
         };
     } else {
         var extra1 = {
@@ -2771,7 +2690,7 @@ function extraPic(host, page, pages, ctype, hiker, _chchePath, imgdec) {
             js: $.toString((host) => {
                 return $('').input((host) => {
                     putMyVar(host + 'page', input);
-                    putMyVar('isMoveto', '1');
+putMyVar('isMoveto', '1');
                     refreshPage(false);
                 }, host);
             }, host),
@@ -2781,17 +2700,16 @@ function extraPic(host, page, pages, ctype, hiker, _chchePath, imgdec) {
     if (_chchePath) {
         longClick.push({
             title: '清除缓存',
-            js: $.toString((host, _chchePath) => {
-                writeFile(_chchePath, '');
-                clearMyVar(host + 'page');
+            js: $.toString((host,_chchePath) => {
+                writeFile(_chchePath, '');clearMyVar(host+'page');
                 refreshPage(false);
-            }, host, _chchePath),
+            },host,_chchePath),
         });
     }
     longClick.unshift({
         title: getItem(host + 'picsMode', '0') == 0 ? '漫画模式' : '图文模式',
-        js: $.toString((host, _chchePath) => {
-            writeFile(_chchePath, '');
+        js: $.toString((host,_chchePath) => {
+	    writeFile(_chchePath, '');
             if (getItem(host + 'picsMode', '0') == 0) {
                 setItem(host + 'picsMode', '1');
                 refreshPage(false);
@@ -2799,23 +2717,23 @@ function extraPic(host, page, pages, ctype, hiker, _chchePath, imgdec) {
                 setItem(host + 'picsMode', '0');
                 refreshPage(false);
             }
-        }, host, _chchePath)
+        }, host,_chchePath)
     });
     var extra = $.toString((host, hiker, ctype, longClick, imgdec) => ({
-        chapterList: hiker ? 'hiker://files/_cache/chapterList.txt' : chapterList,
-        info: {
-            bookName: MY_URL.split('/')[2],
-            ruleName: 'photo',
-            bookTopPic: 'https://api.xinac.net/icon/?url=' + host,
-            decode: imgdec ? $.type(imgdec) == "function" ? $.toString((imgdec) => {
-                let imgDecrypt = imgdec;
-                return imgDecrypt();
-            }, imgdec) : imgdec : "",
-            parseCode: downloadlazy,
-            defaultView: '1'
-        },
-        longClick: longClick,
-    }), host, hiker, ctype, longClick, imgdec);
+    chapterList: hiker ? 'hiker://files/_cache/chapterList.txt' : chapterList,
+    info: {
+        bookName: MY_URL.split('/')[2],
+        ruleName: 'photo',
+        bookTopPic: 'https://api.xinac.net/icon/?url=' + host,
+        decode: imgdec? $.type(imgdec) == "function" ? $.toString((imgdec) => {
+                                    let imgDecrypt = imgdec;
+                                    return imgDecrypt();
+                                }, imgdec) : imgdec : "",
+        parseCode: downloadlazy,
+        defaultView: '1'
+    },
+    longClick: longClick,
+}), host, hiker, ctype, longClick, imgdec);
     return extra;
 }
 
@@ -2950,8 +2868,7 @@ function hexStringToBytes(cipherText) {
     }
 }
 
-function pageMoveto(host, page, ctype, pages, _chchePath) {
-    if (!_chchePath) _chchePath = '';
+function pageMoveto(host, page, ctype, pages, _chchePath) {if(!_chchePath) _chchePath='';
     if (!ctype) {
         var ctype = '';
     }
@@ -3013,35 +2930,33 @@ function pageMoveto(host, page, ctype, pages, _chchePath) {
         }
         var extra1 = {
             title: '跳转',
-            js: $.toString((host, arr, num, pages) => {
-                return $(arr, 3, '选择页码').select((host, num, pages) => {
+            js: $.toString((host, arr, num,pages) => {
+                return $(arr, 3, '选择页码').select((host, num,pages) => {
                     if (input == '输入页码') {
                         return $('').input((host) => {
                             putMyVar(host + 'page', input);
-                            putMyVar('isMoveto', '1');
+putMyVar('isMoveto', '1');
                             refreshPage(false);
                         }, host);
                     } else if (num == 1) {
                         putMyVar(host + 'page', input);
-                        putMyVar('isMoveto', '1');
+putMyVar('isMoveto', '1');
                         refreshPage(false);
                         return 'hiker://empty';
                     } else {
                         let arr1 = [];
                         for (let k = 0; k < num; k++) {
-                            if (input * 1 + k * 1 <= pages) {
-                                arr1.push(input * 1 + k * 1);
-                            }
+                            if(input * 1 + k * 1<=pages){arr1.push(input * 1 + k * 1);}
                         }
                         return $(arr1, 3, '选择页码').select((host) => {
                             putMyVar(host + 'page', input);
-                            putMyVar('isMoveto', '1');
+putMyVar('isMoveto', '1');
                             refreshPage(false);
                             return 'hiker://empty';
                         }, host);
                     }
-                }, host, num, pages);
-            }, host, arr, num, pages),
+                }, host, num,pages);
+            }, host, arr, num,pages),
         };
     } else {
         var extra1 = {
@@ -3059,17 +2974,16 @@ function pageMoveto(host, page, ctype, pages, _chchePath) {
     if (_chchePath) {
         longClick.push({
             title: '清除缓存',
-            js: $.toString((host, _chchePath) => {
-                writeFile(_chchePath, '');
-                clearMyVar(host + 'page');
+            js: $.toString((host,_chchePath) => {
+                writeFile(_chchePath, '');clearMyVar(host+'page');
                 refreshPage(false);
-            }, host, _chchePath),
+            }, host,_chchePath),
         });
     }
     longClick.unshift({
         title: getItem(host + 'picsMode', '0') == 0 ? '漫画模式' : '图文模式',
-        js: $.toString((host, _chchePath) => {
-            writeFile(_chchePath, '');
+        js: $.toString((host,_chchePath) => {
+	    writeFile(_chchePath, '');
             if (getItem(host + 'picsMode', '0') == 0) {
                 setItem(host + 'picsMode', '1');
                 refreshPage(false);
@@ -3077,15 +2991,15 @@ function pageMoveto(host, page, ctype, pages, _chchePath) {
                 setItem(host + 'picsMode', '0');
                 refreshPage(false);
             }
-        }, host, _chchePath)
+        }, host,_chchePath)
     });
     return {
         longClick: longClick
     };
 }
 
-function searchMain(page, d, desc, MY_PAGE) {
-    if (page == 1 || getMyVar('isMoveto', '0') == 1 || MY_PAGE == 1 || MY_PAGE == getMyVar('MY_PAGE')) {
+function searchMain(page, d, desc,MY_PAGE) {
+   if (page == 1 || getMyVar('isMoveto', '0') == 1 ||MY_PAGE ==1|| MY_PAGE == getMyVar('MY_PAGE')) {
         d.push({
             title: '🔍',
             url: $.toString((r) => {
@@ -3102,26 +3016,25 @@ function searchMain(page, d, desc, MY_PAGE) {
     return d;
 }
 
-function classTop(index, data, host, d, mode, v, c, f, len, start, end, bgcolor, bgcolorSelected, textcolor) {
+function classTop(index, data, host, d, mode, v, c, f, len, start, end,bgcolor,bgcolorSelected,textcolor) {
     if (!mode) mode = 0;
     if (!v) v = 0;
     if (!c) c = 'c';
     if (!f) f = 'scroll_button';
     if (!len) len = 20;
-    if (bgcolor) bgcolor = ('#' + bgcolor).replace('##', '');
-    if (bgcolorSelected) bgcolorSelected = ('#' + bgcolorSelected).replace('##', '');
-    if (!textcolor) textcolor = '#000000';
+    if (bgcolor) bgcolor=('#'+bgcolor).replace('##','');
+    if (bgcolorSelected) bgcolorSelected=('#'+bgcolorSelected).replace('##','');
+    if(!textcolor) textcolor='#000000';
     let isDarkMode = getItem('darkMode', '深色模式') === '浅色白字模式';
     let isInRange = index >= start && index <= end;
     let c_title = /\{/.test(JSON.stringify(data)) ? data.title.split('&') : data.split('&');
     let c_id = /\{/.test(JSON.stringify(data)) ? (!data.id ? c_title : data.id === '@@@' ? data.title.replace(/^.*?&/, '&').split('&') : data.id.split('&')) : null;
     let c_img = storage0.getMyVar(host + 'picsClass', []).length != 0 ? storage0.getMyVar(host + 'picsClass') : (data.img ? data.img.split('&') : []);
-    c_title.forEach((title, index_c) => {
-        title = title.replace(/＆＆/g, '&');
+    c_title.forEach((title, index_c) => {title=title.replace(/＆＆/g,'&');
         let isSelected = index_c == getMyVar(host + c + 'index' + index, mode || index == v ? '0' : '-1');
         let titleStyled = isSelected ?
             strong(title, isInRange ? 'FFFF00' : 'FF6699') :
-            isInRange ?
+             isInRange ?
             color(title, 'FFFFFF') :
             color(title, textcolor);
         d.push({
@@ -3144,9 +3057,9 @@ function classTop(index, data, host, d, mode, v, c, f, len, start, end, bgcolor,
                 return 'hiker://empty';
             }, index, c_id ? c_id[index_c] : title, index_c, host, mode, title, v, c, len),
             extra: {
-                backgroundColor: isInRange ?
-                    (isSelected ? bgcolorSelected : bgcolor) || getRandomColor(getItem('darkMode')) :
-                    '',
+                backgroundColor: isInRange 
+  ? (isSelected ? bgcolorSelected : bgcolor) || getRandomColor(getItem('darkMode'))
+  : '',
                 LongClick: isInRange ? bcLongClick() : [],
             },
         });
@@ -4029,15 +3942,15 @@ function fy(s) {
 }
 
 function sp(cc) {
-    cc = cc.replace(/&#x([0-9a-fA-F]+);/g, function(match, hex) {
+cc = cc.replace(/&#x([0-9a-fA-F]+);/g, function(match, hex) {
         return String.fromCharCode(parseInt(hex, 16));
     });
-    cc = cc.replace(/\\u([0-9a-fA-F]{4})/g, function(match, hex) {
+cc = cc.replace(/\\u([0-9a-fA-F]{4})/g, function(match, hex) {
         return String.fromCharCode(parseInt(hex, 16));
     });
-    cc = cc.replace(/著名|显著|昭著|卓著|著作|著述|著书|著者|原著|译著|论著|巨著|遗著|名著|拙著|新著|专著|合著|编著|撰著|著称|著录|著闻|土著/g, m => m.replace(/著/g, '&#33879;'));
-    cc = cc.replace(/乾坤|乾隆/g, m => m.replace(/乾/g, '&#20094;'));
-    cc = cc.replace(/伶俐/g, m => m.replace(/俐/g, '&#20432;'));
+cc = cc.replace(/著名|显著|昭著|卓著|著作|著述|著书|著者|原著|译著|论著|巨著|遗著|名著|拙著|新著|专著|合著|编著|撰著|著称|著录|著闻|土著/g, m => m.replace(/著/g, '&#33879;'));
+cc = cc.replace(/乾坤|乾隆/g, m => m.replace(/乾/g, '&#20094;'));
+cc = cc.replace(/伶俐/g, m => m.replace(/俐/g, '&#20432;'));
     var str = '',
         ss = JTPYStr(),
         tt = FTPYStr();
@@ -4045,16 +3958,16 @@ function sp(cc) {
         if (cc.charCodeAt(i) > 10000 && tt.indexOf(cc.charAt(i)) != -1) str += ss.charAt(tt.indexOf(cc.charAt(i)));
         else str += cc.charAt(i);
     }
-    str = str.replace(/浮沈|昏沈|深沈|沈淀|沈浮|沈厚|沈昏|沈积|沈寂|沈降|沈静|沈疴|沈李|沈落|沈脉|沈没|沈闷|沈密|沈眠|沈默|沈溺|沈潜|沈沈|沈睡|沈思|沈痛|沈头|沈下|沈陷|沈香|沈箱|沈心|沈毅|沈吟|沈鱼|沈郁|沈冤|沈灶|沈渣|沈着|沈重|沈舟|沈醉|石沈|太沈|下沈|星沈|阴沈|鱼沈|真沈|珠沈/g, m => m.replace(/沈/g, '沉'));
-    str = str.replace(/混合&#33879;/g, '混合着');
+str = str.replace(/浮沈|昏沈|深沈|沈淀|沈浮|沈厚|沈昏|沈积|沈寂|沈降|沈静|沈疴|沈李|沈落|沈脉|沈没|沈闷|沈密|沈眠|沈默|沈溺|沈潜|沈沈|沈睡|沈思|沈痛|沈头|沈下|沈陷|沈香|沈箱|沈心|沈毅|沈吟|沈鱼|沈郁|沈冤|沈灶|沈渣|沈着|沈重|沈舟|沈醉|石沈|太沈|下沈|星沈|阴沈|鱼沈|真沈|珠沈/g, m => m.replace(/沈/g, '沉'));
+str = str.replace(/混合&#33879;/g,'混合着');
     return str;
 }
 
 function tr(cc) {
-    cc = cc.replace(/&#x([0-9a-fA-F]+);/g, function(match, hex) {
+cc = cc.replace(/&#x([0-9a-fA-F]+);/g, function(match, hex) {
         return String.fromCharCode(parseInt(hex, 16));
     });
-    cc = cc.replace(/\\u([0-9a-fA-F]{4})/g, function(match, hex) {
+cc = cc.replace(/\\u([0-9a-fA-F]{4})/g, function(match, hex) {
         return String.fromCharCode(parseInt(hex, 16));
     });
     var str = '',
@@ -4082,7 +3995,7 @@ function data_xchina() {
         url: domain + '/videos/1.html'
     }],
     [{
-        name: '中文AV(11912)',
+        name: '中文AV(14039)',
         url: domain + '/videos/series-63824a975d8ae/1.html'
     }, {
         name: '麻豆传媒(3519)',
@@ -4182,7 +4095,7 @@ function data_xchina() {
         url: domain + '/videos/series-64be8551bd0f1/1.html'
     }],
     [ {
-        name: '模特私拍(2034)',
+        name: '模特私拍(2741)',
         url: domain + '/videos/series-6030196781d85/1.html'
     }, {
         name: 'PANS视频(1752)',
@@ -4216,7 +4129,7 @@ function data_xchina() {
         url: domain + '/videos/series-63ab1dd83a1c6/1.html'
     }],
     [{
-        name: '业余拍摄(647)',
+        name: '业余拍摄(717)',
         url: domain + '/videos/series-617d3e7acdcc8/1.html'
     }, {
         name: '探花现场(604)',
@@ -4226,7 +4139,7 @@ function data_xchina() {
         url: domain + '/videos/series-63965bd5335fc/1.html'
     }],
     [{
-        name: '日本AV(5204)',
+        name: '日本AV(8558)',
         url: domain + '/videos/series-6206216719462/1.html'
     }, {
         name: '有码AV(5718)',
@@ -4239,7 +4152,7 @@ function data_xchina() {
         url: domain + '/videos/series-6608638e5fcf7/1.html'
     }],
     [{
-        name: '其他影片(264)',
+        name: '其他影片(292)',
         url: domain + '/videos/series-60192e83c9e05/1.html'
     }, {
         name: '其他亚洲影片(130)',
@@ -4255,7 +4168,7 @@ function data_xchina() {
         url: domain + '/videos/series-66643478ceedd/1.html'
     }],
     [{
-        name: '情色电影(300)',
+        name: '情色电影(344)',
         url: domain + '/videos/series-61c4d9b653b6d/1.html'
     }, {
         name: '华语电影(241)',
@@ -4268,7 +4181,7 @@ function data_xchina() {
         url: domain + '/videos/series-63964959ddb1b/1.html'
     }]
 ];
-var sort_data = [{
+var sort_videos = [{
     name: '更新时间',
     url: ''
 }, {
@@ -4294,7 +4207,7 @@ var cphoto = [
     }],
     [{
         name: '专辑',
-        url: ''
+        url: domain + '/photos/album-1/1.html'
     }, {
         name: '秀人网特色主题',
         url: domain + '/photos/album-1/1.html'
@@ -4336,7 +4249,7 @@ var cphoto = [
         name: '秀人网旗下',
         url: domain + '/photos/series-6660093348354/1.html'
     }, {
-        name: '秀人网旗下(16197)',
+        name: '秀人网旗下(16193)',
         url: domain + '/photos/series-6660093348354/1.html'
     }, {
         name: '秀人网(10883)',
@@ -4385,8 +4298,8 @@ var cphoto = [
         url: domain + '/photos/series-63d435352808c/1.html'
     }],
     [{
-        name: '中国工作室(4094)',
-        url: ''
+        name: '中国工作室(4707)',
+        url: domain + '/photos/series-6310ce9b90056/1.html'
     }, {
         name: 'PANS(1675)',
         url: domain + '/photos/series-6310ce9b90056/1.html'
@@ -4470,8 +4383,8 @@ var cphoto = [
         url: domain + '/photos/series-67028a27d02a6/1.html'
     }],
     [{
-        name: '日本工作室(746)',
-        url: domain + '/photos/series-6395a1e929f23/1.html'
+        name: '日本工作室(624)',
+        url: domain + '/photos/series-6450b47c9db0b/1.html'
     }, {
         name: 'Graphis(241)',
         url: domain + '/photos/series-6450b47c9db0b/1.html'
@@ -4507,7 +4420,7 @@ var cphoto = [
         url: domain + '/photos/series-672a2029d6a32/1.html'
     }],
     [{
-        name: '韩国工作室(512)',
+        name: '韩国工作室(518)',
         url: domain + '/photos/series-665f6627c7295/1.html'
     }, {
         name: 'ArtGravia(199)',
@@ -4526,7 +4439,7 @@ var cphoto = [
         url: domain + '/photos/series-62888afad416b/1.html'
     }],
     [{
-        name: '台湾工作室(512)',
+        name: '台湾工作室(475)',
         url: domain + '/photos/series-665f7c561767e/1.html'
     }, {
         name: 'JVID(394)',
@@ -4542,7 +4455,7 @@ var cphoto = [
         url: domain + '/photos/series-68610041d0aa8/1.html'
     }],
     [{
-        name: '各国其他套图(512)',
+        name: '各国其他套图(6847)',
         url: domain + '/photos/series-618e4909ea9b6/1.html'
     }, {
         name: '国模套图(5478)',
@@ -4566,19 +4479,32 @@ var cphoto = [
         name: '台模套图(263)',
         url: domain + '/photos/series-64be21ef4cc51/1.html'
     },{
-        name: '其他套图(222)',
+        name: '其他套图(562)',
         url: domain + '/photos/series-665f66f97ec4d/1.html'
-    },,{
-        name: '街拍(148)',
-        url: domain + '/photos/series-6836cd1a2d51d/1.html'
     },{
-        name: '书籍扫描(59)',
+        name: '书籍扫描(398)',
         url: domain + '/photos/series-6860e3d718c78/1.html'
+    },{
+        name: '街拍(149)',
+        url: domain + '/photos/series-6836cd1a2d51d/1.html'
     }, {
         name: 'AI图区(15)',
         url: domain + '/photos/series-6443d480eb757/1.html'
     } ]
 ];
+var sort_photos = [{
+    name: '更新时间',
+    url: ''
+}, {
+    name: '最热门',
+    url: '/sort-hot'
+}, {
+    name: '评论最多',
+    url: '/sort-comment'
+}, {
+    name: '最近评论',
+    url: '/sort-recent'
+}];
 var cfiction = [{
     name: '全部小说(18236)',
     url: domain + '/fictions/1.html'
@@ -4652,7 +4578,7 @@ var cfiction = [{
     name: '色友发表(69)',
     url: domain + '/fictions/tag-1000/1.html'
 }];
-var sort_fiction = [{
+var sort_fictions = [{
     name: '篇幅不限',
     url: ''
 }, {
@@ -4664,6 +4590,16 @@ var sort_fiction = [{
 }, {
     name: '超长篇',
     url: '/length-3'
+}];
+var sort1_fictions = [{
+    name: '更新时间',
+    url: ''
+}, {
+    name: '浏览最多',
+    url: '/sort-read'
+}, {
+    name: '评论最多',
+    url: '/sort-comment'
 }];
 var cmodel = [{
     name: '全部模特(1660)',
@@ -4696,7 +4632,7 @@ var cmodel = [{
     name: '摄影师(49)',
     url: domain + '/models/type-99/1.html'
 }];
-var sort_model = [{
+var sort_models = [{
     name: '浏览最多',
     url: ''
 }, {
