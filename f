@@ -227,124 +227,144 @@ function bcRandom(darkMode) {
         return str;
     }
 }
-function getRandomColor(mode){
-if(typeof(mode)=='undefined'){
-darkMode = getVar('darkMode','1') == 0 ? '浅色模式' : (getVar('darkMode') == 2 ? '浅色白字模式' : '深色模式');}else{
-darkMode = mode == 0 ? '浅色模式' : (mode == 2 ? '浅色白字模式' : '深色模式');}
-            switch (darkMode) {
-                case '浅色模式':
-                    return generateLightColor();
-                case '浅色白字模式':
-                    return generateLightColorForWhiteText();
-                case '深色模式':
-                    return generateDarkColor();
-                default:
-                    return generateDarkColor();
-            }
+
+function getRandomColor(mode) {
+    if (typeof(mode) == 'undefined') {
+        darkMode = getVar('darkMode', '1') == 0 ? '浅色模式' : (getVar('darkMode') == 2 ? '浅色白字模式' : '深色模式');
+    } else {
+        darkMode = mode == 0 ? '浅色模式' : (mode == 2 ? '浅色白字模式' : ((mode == 3 ? '黑字淡彩色' : '深色模式')));
+    }
+    switch (darkMode) {
+        case '浅色模式':
+            return generateLightColor();
+        case '浅色白字模式':
+            return generateLightColorForWhiteText();
+        case '黑字淡彩色':
+            return getRandomTagColor();
+        case '深色模式':
+            return generateDarkColor();
+        default:
+            return generateDarkColor();
+    }
+}
+var grc = getRandomColor;
+function getRandomTagColor() {
+  const colors = [
+    '#fff5e6', '#f0f9ff', '#e6fffa', '#f3f0ff', '#fdf2f8',
+    '#fefce8', '#ecfdf5', '#eff6ff', '#e0f7fa', '#e8f5e9',
+    '#fff3e0', '#fce4ec', '#ede7f6', '#f9fbe7', '#e3f2fd',
+    '#fbe9e7', '#f3e5f5', '#e1f5fe', '#f1f8e9', '#fffde7',
+    '#eceff1', '#f0f4c3', '#e8eaf6', '#ede7f6', '#fff9c4',
+    '#e1f5fe', '#fce4ec', '#f9fbe7', '#e0f2f1', '#fbe9e7',
+    '#ede7f6', '#e3f2fd'
+  ];
+  const randomIndex = Math.floor(Math.random() * colors.length);
+  return colors[randomIndex];
+}
+/*function generateLightColor() {
+    let h, s, v;
+    do {
+        h = Math.floor(Math.random() * 360);
+    } while (h >= 200 && h <= 300);
+    if (Math.random() < 0.2) {
+        s = 60 + Math.floor(Math.random() * 40); // 60-100%
+        v = 75 + Math.floor(Math.random() * 20); // 75-95%
+    } else {
+        s = 20 + Math.floor(Math.random() * 30); // 20-50%
+        v = 80 + Math.floor(Math.random() * 20); // 80-100%
+    }
+    return hsvToHex(h, s, v);
+}*/
+
+
+function generateLightColorForWhiteText() {
+    const colorGroups = [{
+            weight: 1,
+            colors: [
+                // 红色系 - 高饱和度红色
+                '#FF0000', '#FF3333', '#FF4444', '#FF5555', '#FF6666',
+                '#EE5566', '#FF33EE', '#993344', '#FF5588', '#FF0066'
+            ]
+        },
+        {
+            weight: 1,
+            colors: [
+                // 橙色系 - 高饱和度橙色
+                '#FF4500', '#FF5733', '#FF6347', '#FF7F00', '#FF8C00',
+                '#FFA500', '#FF8E53', '#FFB347', '#FFA07A',
+            ]
+        },
+        {
+            weight: 0.2,
+            colors: [
+                // 黄色系 - 中等饱和度黄色
+                '#FFD700', '#DEBB00', '#DEA725',
+            ]
+        },
+        {
+            weight: 1,
+            colors: [
+                // 绿色系 - 高饱和度绿色
+                '#00EE00', '#32CD32', '#00FF7F', '#00FA9A', '#06D6A0',
+                '#8AC926', '#43AA70', '#4CAF50', '#00C853'
+            ]
+        },
+        {
+            weight: 1,
+            colors: [
+                // 蓝色系 - 中等饱和度蓝色
+                '#4466EE', '#3355CC', '#44BBFF', '#2299FF', '#6699EE',
+                '#4682B4', '#2222BB', '#88CCEE', '#99CCEE',
+            ]
+        },
+        {
+            weight: 1,
+            colors: [
+                // 紫色系 - 高饱和度紫色
+                '#880088', '#8822EE', '#9900DD', '#9933CC', '#8833EE',
+                '#7700BB', '#5500FF', '#664499', '#AA66CC', '#BB55DD'
+            ]
+        },
+        {
+            weight: 0.8,
+            colors: [
+                // 青色系 - 中等饱和度青色
+                '#00BBFF', '#00FFDD', '#447799', '#44DDCC', '#33EEDD',
+                '#00CCDD', '#22BBAA', '#88DDEE',
+            ]
+        },
+        {
+            weight: 0.5,
+            colors: [
+                // 中性色系 - 适中亮度的灰色（避免过暗或过亮）
+                '#666666', '#777777', '#888888', '#999999', '#AAAAAA',
+            ]
         }
+    ];
+    const totalWeight = colorGroups.reduce((sum, group) => sum + group.weight, 0);
+    let random = Math.random() * totalWeight;
+    let selectedGroup = null;
 
-        /*function generateLightColor() {
-            let h, s, v;
-            do {
-                h = Math.floor(Math.random() * 360);
-            } while (h >= 200 && h <= 300);
-            if (Math.random() < 0.2) {
-                s = 60 + Math.floor(Math.random() * 40); // 60-100%
-                v = 75 + Math.floor(Math.random() * 20); // 75-95%
-            } else {
-                s = 20 + Math.floor(Math.random() * 30); // 20-50%
-                v = 80 + Math.floor(Math.random() * 20); // 80-100%
-            }
-            return hsvToHex(h, s, v);
-        }*/
-
-
-        function generateLightColorForWhiteText() {
-            const colorGroups = [{
-                    weight: 1,
-                    colors: [
-                        // 红色系 - 高饱和度红色
-                        '#FF0000', '#FF3333', '#FF4444', '#FF5555', '#FF6666',
-                        '#EE5566', '#FF33EE', '#993344', '#FF5588', '#FF0066'
-                    ]
-                },
-                {
-                    weight: 1,
-                    colors: [
-                        // 橙色系 - 高饱和度橙色
-                        '#FF4500', '#FF5733', '#FF6347', '#FF7F00', '#FF8C00',
-                        '#FFA500', '#FF8E53', '#FFB347', '#FFA07A',
-                    ]
-                },
-                {
-                    weight: 0.2,
-                    colors: [
-                        // 黄色系 - 中等饱和度黄色
-                        '#FFD700', '#DEBB00', '#DEA725',
-                    ]
-                },
-                {
-                    weight: 1,
-                    colors: [
-                        // 绿色系 - 高饱和度绿色
-                        '#00EE00', '#32CD32', '#00FF7F', '#00FA9A', '#06D6A0',
-                        '#8AC926', '#43AA70', '#4CAF50', '#00C853'
-                    ]
-                },
-                {
-                    weight: 1,
-                    colors: [
-                        // 蓝色系 - 中等饱和度蓝色
-                        '#4466EE', '#3355CC', '#44BBFF', '#2299FF', '#6699EE',
-                        '#4682B4', '#2222BB', '#88CCEE', '#99CCEE',
-                    ]
-                },
-                {
-                    weight: 1,
-                    colors: [
-                        // 紫色系 - 高饱和度紫色
-                        '#880088', '#8822EE', '#9900DD', '#9933CC', '#8833EE',
-                        '#7700BB', '#5500FF', '#664499', '#AA66CC', '#BB55DD'
-                    ]
-                },
-                {
-                    weight: 0.8,
-                    colors: [
-                        // 青色系 - 中等饱和度青色
-                        '#00BBFF', '#00FFDD', '#447799', '#44DDCC', '#33EEDD',
-                        '#00CCDD', '#22BBAA', '#88DDEE',
-                    ]
-                },
-                {
-                    weight: 0.5,
-                    colors: [
-                        // 中性色系 - 适中亮度的灰色（避免过暗或过亮）
-                        '#666666', '#777777', '#888888', '#999999', '#AAAAAA',
-                    ]
-                }
-            ];
-            const totalWeight = colorGroups.reduce((sum, group) => sum + group.weight, 0);
-            let random = Math.random() * totalWeight;
-            let selectedGroup = null;
-
-            for (let group of colorGroups) {
-                random -= group.weight;
-                if (random <= 0) {
-                    selectedGroup = group;
-                    break;
-                }
-            }
-            const colors = selectedGroup.colors;
-            return colors[Math.floor(Math.random() * colors.length)];
+    for (let group of colorGroups) {
+        random -= group.weight;
+        if (random <= 0) {
+            selectedGroup = group;
+            break;
         }
-        function generateDarkColor() {
-            const h = Math.floor(Math.random() * 360);
-            const s = Math.floor(Math.random() * 50) + 50; // 50-100% 饱和度（原来30+50=50-80%）
-            const v = Math.floor(Math.random() * 60) + 40; // 40-100% 明度（原来30+20=20-50%）
-            return hsvToHex(h, s, v);
-        }
+    }
+    const colors = selectedGroup.colors;
+    return colors[Math.floor(Math.random() * colors.length)];
+}
+
+function generateDarkColor() {
+    const h = Math.floor(Math.random() * 360);
+    const s = Math.floor(Math.random() * 50) + 50; // 50-100% 饱和度（原来30+50=50-80%）
+    const v = Math.floor(Math.random() * 60) + 40; // 40-100% 明度（原来30+20=20-50%）
+    return hsvToHex(h, s, v);
+}
+
 function generateLightColor() {
-     const colorGroups = [{
+    const colorGroups = [{
             weight: 1,
             colors: [
                 // 红色系 - 包含较高饱和度的红色
@@ -364,7 +384,7 @@ function generateLightColor() {
             weight: 0.8,
             colors: [
                 // 黄色系 - 高饱和度黄色
-                '#FFFFCC',  '#FFFF66', '#FFFF00', '#FFD700',
+                '#FFFFCC', '#FFFF66', '#FFFF00', '#FFD700',
                 '#FFEA00', '#FFD600', '#FFFF33', '#FFFACD', '#FFF8DC'
             ]
         },
@@ -401,7 +421,7 @@ function generateLightColor() {
             ]
         }
     ];
-    
+
     const totalWeight = colorGroups.reduce((sum, group) => sum + group.weight, 0);
     let random = Math.random() * totalWeight;
     let selectedGroup = null;
@@ -413,45 +433,46 @@ function generateLightColor() {
             break;
         }
     }
-    
+
     const colors = selectedGroup.colors;
     return colors[Math.floor(Math.random() * colors.length)];
 }
-        function calculateBrightness(r, g, b) {
-            return 0.299 * r + 0.587 * g + 0.114 * b;
-        }
 
-        function rgbToHex(r, g, b) {
-            const toHex = (n) => n.toString(16).padStart(2, '0');
-            return `#${toHex(r)}${toHex(g)}${toHex(b)}`.toUpperCase();
-        }
+function calculateBrightness(r, g, b) {
+    return 0.299 * r + 0.587 * g + 0.114 * b;
+}
 
-        function hsvToHex(h, s, v) {
-            h = (h % 360 + 360) % 360;
-            s = Math.max(0, Math.min(100, s)) / 100;
-            v = Math.max(0, Math.min(100, v)) / 100;
-            const c = v * s;
-            const x = c * (1 - Math.abs((h / 60) % 2 - 1));
-            const m = v - c;
-            let r, g, b;
-            if (h >= 0 && h < 60) {
-                [r, g, b] = [c, x, 0];
-            } else if (h >= 60 && h < 120) {
-                [r, g, b] = [x, c, 0];
-            } else if (h >= 120 && h < 180) {
-                [r, g, b] = [0, c, x];
-            } else if (h >= 180 && h < 240) {
-                [r, g, b] = [0, x, c];
-            } else if (h >= 240 && h < 300) {
-                [r, g, b] = [x, 0, c];
-            } else {
-                [r, g, b] = [c, 0, x];
-            }
-            r = Math.round((r + m) * 255);
-            g = Math.round((g + m) * 255);
-            b = Math.round((b + m) * 255);
-            return rgbToHex(r, g, b);
-        }
+function rgbToHex(r, g, b) {
+    const toHex = (n) => n.toString(16).padStart(2, '0');
+    return `#${toHex(r)}${toHex(g)}${toHex(b)}`.toUpperCase();
+}
+
+function hsvToHex(h, s, v) {
+    h = (h % 360 + 360) % 360;
+    s = Math.max(0, Math.min(100, s)) / 100;
+    v = Math.max(0, Math.min(100, v)) / 100;
+    const c = v * s;
+    const x = c * (1 - Math.abs((h / 60) % 2 - 1));
+    const m = v - c;
+    let r, g, b;
+    if (h >= 0 && h < 60) {
+        [r, g, b] = [c, x, 0];
+    } else if (h >= 60 && h < 120) {
+        [r, g, b] = [x, c, 0];
+    } else if (h >= 120 && h < 180) {
+        [r, g, b] = [0, c, x];
+    } else if (h >= 180 && h < 240) {
+        [r, g, b] = [0, x, c];
+    } else if (h >= 240 && h < 300) {
+        [r, g, b] = [x, 0, c];
+    } else {
+        [r, g, b] = [c, 0, x];
+    }
+    r = Math.round((r + m) * 255);
+    g = Math.round((g + m) * 255);
+    b = Math.round((b + m) * 255);
+    return rgbToHex(r, g, b);
+}
 function imgDecsRmw(picUrl){
     return $.toString((picUrl)=>{log(picUrl);
         function customHash(decodedString) {
