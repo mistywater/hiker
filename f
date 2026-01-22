@@ -1,4 +1,7 @@
 js:// -*- mode: js -*-
+function lineBlank(depth) {
+                return '‘‘’’' + '<small>'.repeat(depth || 4) + '<br><br>' + '</small>'.repeat(depth || 4);
+            }
 function generatePageLinks(d, pages, str) {
                     [Array.from({
                         length: pages
