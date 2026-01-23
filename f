@@ -1384,18 +1384,18 @@ function parseUrlVideo(url, 依赖) {
         require(依赖.match(/http(s)?:\/\/.*\//)[0] + 'SrcParseS.js');
         return SrcParseS.聚阅(url);
     } else if (/(thunder|xunlei|ed2k:|bt:|ftp:|\.torrent|magnet)/.test(url)) {
-        if (input.includes('thunder')) {
-            input = base64Decode(input.split('//')[1]);
+        if (url.includes('thunder')) {
+            url = base64Decode(url.split('//')[1]);
         }
         return "hiker://page/diaoyong?rule=迅雷&page=fypage#" + url;
-    } else if (/cloud\.189\.cn|content\.21cn\.com/.test(input)) {
-        return "hiker://page/diaoyong?rule=天翼网盘&realurl=" + encodeURIComponent(input)
-    } else if (/lanzou/.test(input)) {
-        return "hiker://page/diaoyong?rule=蓝奏云盘&page=fypage&realurl=" + encodeURIComponent(input);
-    } else if (/123.*?(com|cn)/.test(input)) {
-        return "hiker://page/diaoyong?rule=123云盘&page=fypage&realurl=" + encodeURIComponent(input);
-    } else if (/yun\.139\.com/.test(input)) {
-        return "hiker://page/diaoyong?rule=移动云盘&page=fypage&realurl=" + encodeURIComponent(input);
+    } else if (/cloud\.189\.cn|content\.21cn\.com/.test(url)) {
+        return "hiker://page/diaoyong?rule=天翼网盘&realurl=" + encodeURIComponent(url)
+    } else if (/lanzou/.test(url)) {
+        return "hiker://page/diaoyong?rule=蓝奏云盘&page=fypage&realurl=" + encodeURIComponent(url);
+    } else if (/123.*?(com|cn)/.test(url)) {
+        return "hiker://page/diaoyong?rule=123云盘&page=fypage&realurl=" + encodeURIComponent(url);
+    } else if (/yun\.139\.com/.test(url)) {
+        return "hiker://page/diaoyong?rule=移动云盘&page=fypage&realurl=" + encodeURIComponent(url);
     }  else {
         var html = fetchPC(url);
         if (/r Vurl/.test(html)) {
