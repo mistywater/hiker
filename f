@@ -103,9 +103,9 @@ function banner(start, arr, data, cfg) {
         return;
     }
     let id = cfg.id||"juyue";
-    let rnum = Math.floor(Math.random() * data.length);
+    let rnum = 0;
     let item = data[rnum];
-    putMyVar("rnum", rnum);
+    putMyVar("rnum"+id, rnum+'');
     cfg = cfg || {};
     let time = cfg.time || 4000;
     let col_type = cfg.col_type || "card_pic_1";
@@ -130,11 +130,11 @@ function banner(start, arr, data, cfg) {
     };
     registerTask(id, time, $.toString((obj, toerji,id) => {
         let data = obj.data;
-        let rum = getMyVar("rnum");
-        let i = Number(getMyVar("banneri", "0"));
+        let rum = getMyVar("rnum"+id);
+        let i = Number(getMyVar("banneri"+id, "0"));
         if (rum != "") {
             i = Number(rum) + 1;
-            clearMyVar("rnum");
+            clearMyVar("rnum"+id);
         } else {
             i = i + 1;
         }
@@ -147,7 +147,7 @@ function banner(start, arr, data, cfg) {
         } catch (e) {
             unRegisterTask(id);
         }
-        putMyVar("banneri", i);
+        putMyVar("banneri"+id, i);
     }, obj, toerji,id));
 }
 function proxyPic(url, mode) {
