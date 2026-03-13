@@ -153,7 +153,7 @@ function banner(start, arr, data, cfg) {
 function proxyPic(url, mode) {
         if (url.startsWith('https://images.weserv.nl/?url=') || url.startsWith('https://i1.wp.com/')) return url;
         if(/blogspot/.test(url))  return 'https://images.weserv.nl/?url=' + url;
-        if(/mrcong|misskon/.test(url))  return 'https://i1.wp.com/' + url.replace(/https?:\/\//, '');
+        if(/mrcong|misskon/.test(url)&&!url.endsWith('/'))  return 'https://i1.wp.com/' + url.replace(/https?:\/\//, '');
         if(/meitu\.jrants\.com/.test(url))  return 'https://wdkj.eu.org/' + url;
         if (!mode) return 'https://i1.wp.com/' + url.replace(/https?:\/\//, '');
         if (mode == 1) return 'https://images.weserv.nl/?url=' + url;
