@@ -1196,8 +1196,8 @@ dTemp=JSON.parse(JSON.stringify(dTemp).replace(/config.依赖/g,'config.聚阅')
 function getHtml(url, headers, mode, proxy) {
     let html = getMyVar(url);
     if (!html || html.includes('error code: 1015')) {
-        const decodedUrl = decodeURIComponent(url);
-        const chinesePattern = /[\u3040-\u309F\u30A0-\u30FF\u4E00-\u9FFF\u3400-\u4DBF\uF900-\uFAFF\uAC00-\uD7AF]/;
+        if (proxy){var decodedUrl = decodeURIComponent(url);
+        var chinesePattern = /[\u3040-\u309F\u30A0-\u30FF\u4E00-\u9FFF\u3400-\u4DBF\uF900-\uFAFF\uAC00-\uD7AF]/;}
         if (proxy && !chinesePattern.test(decodedUrl)) {
             urlTrue = url.startsWith('https://wdkj.eu.org/') ? url.replace('?', '%3f') : 'https://wdkj.eu.org/' + url.replace('?', '%3f');
         } else if (proxy && chinesePattern.test(decodedUrl)) {
@@ -1207,7 +1207,7 @@ function getHtml(url, headers, mode, proxy) {
             urlTrue=decodeURIComponent(url.replace('https://wdkj.eu.org/',''));
         }else{
             urlTrue = url;
-        }
+        }log(urlTrue);
         if (mode && mode == 1) html = request(urlTrue, headers || {});
         else if (mode && mode == 2) html = fetchCodeByWebView(urlTrue);
         else html = fetchPC(urlTrue, headers || {});
