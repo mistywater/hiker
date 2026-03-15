@@ -1194,26 +1194,31 @@ dTemp=JSON.parse(JSON.stringify(dTemp).replace(/config.依赖/g,'config.聚阅')
     return dTemp.slice();
 }
 function getHtml(url, headers, mode, proxy) {
-    let html = getMyVar(url);
-    if (!html || html.includes('error code: 1015')) {
-        if (proxy){var decodedUrl = decodeURIComponent(url);
-        var chinesePattern = /[\u3040-\u309F\u30A0-\u30FF\u4E00-\u9FFF\u3400-\u4DBF\uF900-\uFAFF\uAC00-\uD7AF]/;}
-        if (proxy && !chinesePattern.test(decodedUrl)) {
-            urlTrue = url.startsWith('https://wdkj.eu.org/') ? url.replace('?', '%3f') : 'https://wdkj.eu.org/' + url.replace('?', '%3f');
-        } else if (proxy && chinesePattern.test(decodedUrl)) {
-            toast('中文网址需挂梯子~');
-			urlTrue=url;
-        } else if (url.startsWith('https://wdkj.eu.org/') && chinesePattern.test(decodedUrl)) {
-            urlTrue=decodeURIComponent(url.replace('https://wdkj.eu.org/',''));
-        }else{
-            urlTrue = url;
-        }log(urlTrue);
-        if (mode && mode == 1) html = request(urlTrue, headers || {});
-        else if (mode && mode == 2) html = fetchCodeByWebView(urlTrue);
-        else html = fetchPC(urlTrue, headers || {});
-        if (html &&!/error code: 1015|__cf_chl_tk|cf-error-details/.test(html)) putMyVar(url, html);
-    }
-    return html;
+	let html = getMyVar(url);
+	if (!html || html.includes('error code: 1015')) {
+		try {
+			var decodedUrl = decodeURIComponent(url);
+			var chinesePattern = /[\u3040-\u309F\u30A0-\u30FF\u4E00-\u9FFF\u3400-\u4DBF\uF900-\uFAFF\uAC00-\uD7AF]/;
+			var hasChinese = chinesePattern.test(decodedUrl);
+		} catch(e) {
+			var hasChinese = true;
+		}
+		if (proxy && !hasChinese) {
+			urlTrue = url.startsWith('https://wdkj.eu.org/') ? url.replace('?', '%3f') : 'https://wdkj.eu.org/' + url.replace('?', '%3f');
+		} else if (proxy && hasChinese) {
+			toast('中文网址需挂梯子~');
+			urlTrue = url;
+		} else if (url.startsWith('https://wdkj.eu.org/') && hasChinese) {
+			urlTrue = decodeURIComponent(url.replace('https://wdkj.eu.org/', ''));
+		} else {
+			urlTrue = url;
+		}
+		if (mode && mode == 1) html = request(urlTrue, headers || {});
+		else if (mode && mode == 2) html = fetchCodeByWebView(urlTrue);
+		else html = fetchPC(urlTrue, headers || {});
+		if (html && !/error code: 1015|__cf_chl_tk|cf-error-details/.test(html)) putMyVar(url, html);
+	}
+	return html;
 }
 
 function hanziToPinyin(hanzi, options) {
