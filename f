@@ -1194,8 +1194,8 @@ dTemp=JSON.parse(JSON.stringify(dTemp).replace(/config.依赖/g,'config.聚阅')
     return dTemp.slice();
 }
 function getHtml(url, headers, mode, proxy) {
-	let html = getMyVar(url);
-	if (!html || html.includes('error code: 1015')) {
+	let htmlT = getMyVar(url,'');
+	if (!htmlT || /error code: 1015|无法访问目标地址/.test(htmlT)) {
 		try {
 			var decodedUrl = decodeURIComponent(url);
 			var chinesePattern = /[\u3040-\u309F\u30A0-\u30FF\u4E00-\u9FFF\u3400-\u4DBF\uF900-\uFAFF\uAC00-\uD7AF]/;
@@ -1213,12 +1213,12 @@ function getHtml(url, headers, mode, proxy) {
 		} else {
 			urlTrue = url;
 		}
-		if (mode && mode == 1) html = request(urlTrue, headers || {});
-		else if (mode && mode == 2) html = fetchCodeByWebView(urlTrue);
-		else html = fetchPC(urlTrue, headers || {});
-		if (html && !/error code: 1015|__cf_chl_tk|cf-error-details/.test(html)) putMyVar(url, html);
+		if (mode && mode == 1) htmlT = request(urlTrue, headers || {});
+		else if (mode && mode == 2) htmlT = fetchCodeByWebView(urlTrue);
+		else htmlT = fetchPC(urlTrue, headers || {});
+		if (htmlT && !/error code: 1015|__cf_chl_tk|cf-error-details|无法访问目标地址/.test(htmlT)) putMyVar(url, htmlT);
 	}
-	return html;
+	return htmlT;
 }
 
 function hanziToPinyin(hanzi, options) {
