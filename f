@@ -1,4 +1,26 @@
 js:// -*- mode: js -*-
+function formatPostTime(timestamp) {
+                if (!timestamp) return '';
+
+                var now = Date.now();
+                var diff = now - (timestamp * 1000);
+
+                if (diff < 60 * 1000) {
+                    return '刚刚';
+                } else if (diff < 60 * 60 * 1000) {
+                    return Math.floor(diff / (60 * 1000)) + '分钟前';
+                } else if (diff < 24 * 60 * 60 * 1000) {
+                    return Math.floor(diff / (60 * 60 * 1000)) + '小时前';
+                } else if (diff < 30 * 24 * 60 * 60 * 1000) {
+                    return Math.floor(diff / (24 * 60 * 60 * 1000)) + '天前';
+                } else {
+                    var date = new Date(timestamp * 1000);
+                    var year = date.getFullYear();
+                    var month = (date.getMonth() + 1).toString().padStart(2, '0');
+                    var day = date.getDate().toString().padStart(2, '0');
+                    return year + '-' + month + '-' + day;
+                }
+            }
 function lineBlank(depth) {
                 return '‘‘’’' + '<small>'.repeat(depth || 4) + '<br><br>' + '</small>'.repeat(depth || 4);
             }
