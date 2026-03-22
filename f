@@ -3074,25 +3074,26 @@ function searchMain(page, d, desc,MY_PAGE) {
     return d;
 }
 
-function classTop(index, data, host, d, mode, v, c, f, len, start, end,bgcolor,bgcolorSelected,textcolor) {
-    if (!mode) mode = 0;
-    if (!v) v = 0;
-    if (!c) c = 'c';
-    if (!f) f = 'scroll_button';
-    if (!len) len = 20;
-    if (bgcolor) bgcolor=('#'+bgcolor).replace('##','');
-    if (bgcolorSelected) bgcolorSelected=('#'+bgcolorSelected).replace('##','');
-    if(!textcolor) textcolor='#000000';
-    let isDarkMode = getItem('darkMode', '深色模式') === '浅色白字模式';
-    let isInRange = index >= start && index <= end;
-    let c_title = /\{/.test(JSON.stringify(data)) ? data.title.split('&') : data.split('&');
-    let c_id = /\{/.test(JSON.stringify(data)) ? (!data.id ? c_title : data.id === '@@@' ? data.title.replace(/^.*?&/, '&').split('&') : data.id.split('&')) : null;
-    let c_img = storage0.getMyVar(host + 'picsClass', []).length != 0 ? storage0.getMyVar(host + 'picsClass') : (data.img ? data.img.split('&') : []);
-    c_title.forEach((title, index_c) => {title=title.replace(/＆＆/g,'&');
+function classTop(index, data, host, d, mode, v, c, f, len, start, end, bgcolor, bgcolorSelected, textcolor) {
+    mode = mode || 0,
+        v = v || 0,
+        c = c || 'c',
+        f = f || 'scroll_button',
+        len = len || 20,
+        bgcolor = bgcolor ? ('#' + bgcolor).replace('##', '') : '',
+        bgcolorSelected = bgcolorSelected ? ('#' + bgcolorSelected).replace('##', '') : '',
+        textcolor = textcolor || '#000000',
+        isDarkMode = getItem('darkMode', '深色模式') === '浅色白字模式',
+        isInRange = index >= start && index <= end,
+        c_title = /\{/.test(JSON.stringify(data)) ? data.title.split('&') : data.split('&'),
+        c_id = /\{/.test(JSON.stringify(data)) ? (!data.id ? c_title : data.id === '@@@' ? data.title.replace(/^.*?&/, '&').split('&') : data.id.split('&')) : null,
+        c_img = storage0.getMyVar(host + 'picsClass', []).length != 0 ? storage0.getMyVar(host + 'picsClass') : (data.img ? data.img.split('&') : []);
+    c_title.forEach((title, index_c) => {
+        title = title.replace(/＆＆/g, '&');
         let isSelected = index_c == getMyVar(host + c + 'index' + index, mode || index == v ? '0' : '-1');
         let titleStyled = isSelected ?
             strong(title, isInRange ? 'FFFF00' : 'FF6699') :
-             isInRange ?
+            isInRange ?
             color(title, 'FFFFFF') :
             color(title, textcolor);
         d.push({
@@ -3115,9 +3116,8 @@ function classTop(index, data, host, d, mode, v, c, f, len, start, end,bgcolor,b
                 return 'hiker://empty';
             }, index, c_id ? c_id[index_c] : title, index_c, host, mode, title, v, c, len),
             extra: {
-                backgroundColor: isInRange 
-  ? (isSelected ? bgcolorSelected : bgcolor) || getRandomColor(getItem('darkMode'))
-  : '',
+                backgroundColor: isInRange ?
+                    (isSelected ? bgcolorSelected : bgcolor) || getRandomColor(getItem('darkMode')) : '',
                 LongClick: isInRange ? bcLongClick() : [],
             },
         });
