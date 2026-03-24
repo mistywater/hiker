@@ -3752,37 +3752,29 @@ function en(key, iv, data, mode, encoding) {
 }
 
 function de(key, iv, data, mode, encoding) {
-    eval(getCryptoJS());
-    if (!mode) mode = 'AES/ECB/PKCS7Padding';
-    var s0 = mode.split('/')[0];
-    var s1 = mode.split('/')[1];
-    var s2 = mode.split('/')[2];
-    s2 = s2.replace(/PKCS7Padding/, 'PKCS7').replace(/KCS/, 'kcs');
-    key = CryptoJS.enc.Utf8.parse(key);
-    if (iv) iv = CryptoJS.enc.Utf8.parse(iv);
-    if (s1 == 'CBC' && !iv) iv = key;
+                eval(getCryptoJS());
+                mode = mode || 'AES/ECB/PKCS7Padding';
+                var s0 = mode.split('/')[0],
+                    s1 = mode.split('/')[1],
+                    s2 = mode.split('/')[2];
+                s2 = s2.replace(/PKCS7Padding/, 'PKCS7').replace(/KCS/, 'kcs');
+                key = CryptoJS.enc.Utf8.parse(key);
+                iv && (iv = CryptoJS.enc.Utf8.parse(iv));
+                (s1 == 'CBC' && !iv) && (iv = key);
+                let encryptedData = /^[0-9a-f]+$/i.test(data) ? {
+                    ciphertext: CryptoJS.enc.Hex.parse(data)
+                } : data;
+                let decryptOptions = {
+                    mode: CryptoJS.mode[s1],
+                    padding: CryptoJS.pad[s2]
+                };
+                iv && (decryptOptions.iv = iv);
+                var decrypted = CryptoJS[s0].decrypt(encryptedData, key, decryptOptions);
+                return encoding ?
+                    decrypted.toString(CryptoJS.enc[encoding]) :
+                    decrypted.toString(CryptoJS.enc.Utf8);
 
-    function De() {
-        if (iv) {
-            var decrypted = CryptoJS[s0].decrypt(data, key, {
-                iv: iv,
-                mode: CryptoJS.mode[s1],
-                padding: CryptoJS.pad[s2]
-            });
-        } else {
-            var decrypted = CryptoJS[s0].decrypt(data, key, {
-                mode: CryptoJS.mode[s1],
-                padding: CryptoJS.pad[s2]
-            });
-        }
-        if (!encoding) {
-            return decrypted.toString(CryptoJS.enc.Utf8);
-        } else {
-            return decrypted.toString(CryptoJS.enc[encoding]);
-        }
-    };
-    return De(data, encoding);
-}
+            }
 
 function im() {
     return '#immersiveTheme##autoCache#';
