@@ -1172,7 +1172,7 @@ function linkPages(d,pages,host) {
                     [Array.from({
                         length: pages
                     }, (_, i) => i + 1).join('&')].forEach((item, index, data) => {
-                        classTop(index, item, host, d, 0, 0, 'multiPages', 'scroll_button');
+                        classTop(index, item, host, d, 0, 0, 'multiPages', 'scroll_button', '', 0, 0);
                     });
                 }
 function getDarkColor() {
