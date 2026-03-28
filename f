@@ -1223,31 +1223,63 @@ dTemp=JSON.parse(JSON.stringify(dTemp).replace(/config.依赖/g,'config.聚阅')
     return dTemp.slice();
 }
 function getHtml(url, headers, mode, proxy) {
-	let htmlT = getMyVar(url,'');
-	if (!htmlT || /error code: 1015|无法访问目标地址/.test(htmlT)) {
-		try {
-			var decodedUrl = decodeURIComponent(url);
-			var chinesePattern = /[\u3040-\u309F\u30A0-\u30FF\u4E00-\u9FFF\u3400-\u4DBF\uF900-\uFAFF\uAC00-\uD7AF]/;
-			var hasChinese = chinesePattern.test(decodedUrl);
-		} catch(e) {
-			var hasChinese = true;
-		}
-		if (proxy && !hasChinese) {
-			urlTrue = url.startsWith('https://wdkj.eu.org/') ? url.replace('?', '%3f') : 'https://wdkj.eu.org/' + url.replace('?', '%3f');
-		} else if (proxy && hasChinese) {
-			toast('中文网址需挂梯子~');
-			urlTrue = url;
-		} else if (url.startsWith('https://wdkj.eu.org/') && hasChinese) {
-			urlTrue = decodeURIComponent(url.replace('https://wdkj.eu.org/', ''));
-		} else {
-			urlTrue = url;
-		}
-		if (mode && mode == 1) htmlT = request(urlTrue, headers || {});
-		else if (mode && mode == 2) htmlT = fetchCodeByWebView(urlTrue);
-		else htmlT = fetchPC(urlTrue, headers || {});
-		if (htmlT && !/error code: 1015|__cf_chl_tk|cf-error-details|无法访问目标地址/.test(htmlT)) putMyVar(url, htmlT);
-	}
-	return htmlT;
+    let htmlT = getMyVar(url,'');
+    if (!htmlT || /error code: 1015|无法访问目标地址|__cf_chl_tk|Protected by cdndefend|Just a moment/.test(htmlT)) {
+        try {
+            var decodedUrl = decodeURIComponent(url);
+            var chinesePattern = /[\u3040-\u309F\u30A0-\u30FF\u4E00-\u9FFF\u3400-\u4DBF\uF900-\uFAFF\uAC00-\uD7AF]/;
+            var hasChinese = chinesePattern.test(decodedUrl);
+        } catch(e) {
+            var hasChinese = true;
+        }
+        if (proxy && !hasChinese) {
+            urlTrue = url.startsWith('https://wdkj.eu.org/') ? url.replace('?', '%3f') : 'https://wdkj.eu.org/' + url.replace('?', '%3f');
+        } else if (proxy && hasChinese) {
+            toast('中文网址需挂梯子~');
+            urlTrue = url;
+        } else if (url.startsWith('https://wdkj.eu.org/') && hasChinese) {
+            urlTrue = decodeURIComponent(url.replace('https://wdkj.eu.org/', ''));
+        } else {
+            urlTrue = url;
+        }
+        let needFirecrawl = false;log(444);
+        if (mode && mode == 1) {
+            htmlT = request(urlTrue, headers || {});
+        } else if (mode && mode == 2) {
+            htmlT = fetchCodeByWebView(urlTrue);
+        } else if (proxy && hasChinese) {
+            needFirecrawl = true;
+        } else {
+            htmlT = fetchPC(urlTrue, headers || {});
+        }
+        if ((needFirecrawl || (htmlT && /error code: 1015|__cf_chl_tk|cf-error-details|无法访问目标地址|Protected by cdndefend|Just a moment/.test(htmlT))) && !htmlT?.includes('Firecrawl')) {urlTrue=decodeURIComponent(urlTrue.replace('https://wdkj.eu.org/',''));log('urlTrue:'+urlTrue);
+            try {
+                const firecrawlResult = fetch('https://api.firecrawl.dev/v2/scrape', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer fc-cb439722377a4eccbbc81520b4e78858'
+                    },
+                    body: JSON.stringify({
+                        url: urlTrue,
+                        formats: ['html']
+                    })
+                });
+                const parsed = JSON.parse(firecrawlResult);
+                htmlT = parsed.data?.html || '';
+                if (htmlT) {
+                    console.log('Firecrawl 抓取成功');
+                }
+            } catch(e) {
+                console.log('Firecrawl 抓取失败:', e);
+                htmlT = '';
+            }
+        }
+        if (htmlT && !/error code: 1015|__cf_chl_tk|cf-error-details|无法访问目标地址|Protected by cdndefend|Just a moment/.test(htmlT)) {
+            putMyVar(url, htmlT);
+        }
+    }
+    return htmlT;
 }
 
 function hanziToPinyin(hanzi, options) {
