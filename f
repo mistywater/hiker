@@ -1321,8 +1321,8 @@ function getHtml(url, headers, mode, proxy) {
                         formats: ['rawHtml']
                     })
                 });
-                const parsed = JSON.parse(firecrawlResult);log(parsed.data);
-                htmlT = (parsed.data && parsed.data.html) || '';
+                const parsed = JSON.parse(firecrawlResult);
+                htmlT = (parsed.data && parsed.data.rawHtml) || '';
                 if (htmlT) {
                     console.log('Firecrawl 抓取成功');
                 }
