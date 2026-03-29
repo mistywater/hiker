@@ -1,4 +1,58 @@
 js:// -*- mode: js -*-
+function getHtmls(urls) {
+            let result = new Array(urls.length).fill('');
+            let needFetch = [];
+            let urlIndexMap = {};
+            urls.forEach((url, index) => {
+                let path = 'hiker://files/_cache/juyue/' + safePath(url) + '.txt';
+                let html = fetch(path);
+                if (html) {
+                    result[index] = html;
+                } else {
+                    needFetch.push(url);
+                    urlIndexMap[url] = index;
+                }
+            });
+            if (needFetch.length === 0) return result;
+            let res = fetch('https://api.firecrawl.dev/v2/batch/scrape', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer fc-85d64a45c6f4493f80fb37a346ee845a'
+                },
+                body: JSON.stringify({
+                    urls: needFetch,
+                    formats: ['rawHtml']
+                })
+            });
+            let job = JSON.parse(res);
+            if (!job.url) toast("任务创建失败");
+            let data = null;
+            for (let i = 0; i < 30; i++) {
+                java.lang.Thread.sleep(1000);
+                let queryRes = fetch(job.url, {
+                    headers: {
+                        'Authorization': 'Bearer fc-85d64a45c6f4493f80fb37a346ee845a'
+                    }
+                });
+                let queryData = JSON.parse(queryRes);
+                if (queryData.completed === queryData.total) {
+                    data = queryData.data;
+                    break;
+                }
+            }
+            for (let item of data) {
+                let url = item.metadata.url;
+                let html = item.rawHtml || '';
+                let index = urlIndexMap[url];
+                if (html && index !== undefined) {
+                    let path = 'hiker://files/_cache/juyue/' + safePath(url) + '.txt';
+                    writeFile(path, html);
+                    result[index] = html;
+                }
+            }
+            return result;
+        }
 function formatPostTime(timestamp) {
                 if (!timestamp) return '';
 
