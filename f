@@ -1252,7 +1252,7 @@ function getHtml(url, headers, mode, proxy) {
         } else {
             htmlT = fetchPC(urlTrue, headers || {});
         }
-        if ((needFirecrawl || (htmlT && /error code: 1015|__cf_chl_tk|cf-error-details|无法访问目标地址|Protected by cdndefend|Just a moment/.test(htmlT))) && !htmlT?.includes('Firecrawl')) {urlTrue=decodeURIComponent(urlTrue.replace('https://wdkj.eu.org/',''));log('urlTrue:'+urlTrue);
+        if ((needFirecrawl || (htmlT && /error code: 1015|__cf_chl_tk|cf-error-details|无法访问目标地址|Protected by cdndefend|Just a moment/.test(htmlT))) && !(htmlT && htmlT.includes('Firecrawl'))) {urlTrue=decodeURIComponent(urlTrue.replace('https://wdkj.eu.org/',''));log('urlTrue:'+urlTrue);
             try {
                 const firecrawlResult = fetch('https://api.firecrawl.dev/v2/scrape', {
                     method: 'POST',
