@@ -1266,7 +1266,7 @@ function getHtml(url, headers, mode, proxy) {
                     })
                 });
                 const parsed = JSON.parse(firecrawlResult);
-                htmlT = parsed.data?.html || '';
+                htmlT = (parsed.data && parsed.data.html) || '';
                 if (htmlT) {
                     console.log('Firecrawl 抓取成功');
                 }
