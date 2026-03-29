@@ -27,8 +27,8 @@ function getHtmls(urls) {
             });
             let job = JSON.parse(res);
             if (!job.url) toast("任务创建失败");
-            let data = null;
-            for (let i = 0; i < 30; i++) {
+            let data = null;toast('获取数据中...');
+            for (let i = 0; i < 30; i++) {toast(i+'');
                 java.lang.Thread.sleep(1000);
                 let queryRes = fetch(job.url, {
                     headers: {
