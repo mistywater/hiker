@@ -1242,7 +1242,7 @@ function getHtml(url, headers, mode, proxy) {
         } else {
             urlTrue = url;
         }
-        let needFirecrawl = false;log(444);
+        let needFirecrawl = false;
         if (mode && mode == 1) {
             htmlT = request(urlTrue, headers || {});
         } else if (mode && mode == 2) {
