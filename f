@@ -27,8 +27,8 @@ function getHtmls(urls) {
             });
             let job = JSON.parse(res);
             if (!job.url) toast("任务创建失败");
-            let data = null;toast('获取数据中...');
-            for (let i = 0; i < 30; i++) {toast(i+'');
+            let data = null;
+            for (let i = 0; i < 30; i++) {log(i);
                 java.lang.Thread.sleep(1000);
                 let queryRes = fetch(job.url, {
                     headers: {
@@ -1301,14 +1301,14 @@ function getHtml(url, headers, mode, proxy) {
             htmlT = request(urlTrue, headers || {});
         } else if (mode && mode == 2) {
             htmlT = fetchCodeByWebView(urlTrue);
-        }else if (mode && mode == 3) {
+        }else if (proxy && proxy == 2) {
             needFirecrawl = true;
         } else if (proxy && hasChinese) {
             needFirecrawl = true;
         } else {
             htmlT = fetchPC(urlTrue, headers || {});
         }
-        if(!htmlT.includes('Firecrawl')&&(needFirecrawl||!htmlT||(/error code: 1015|__cf_chl_tk|cf-error-details|无法访问目标地址|Protected by cdndefend|Just a moment/.test(htmlT)))) {urlTrue=decodeURIComponent(urlTrue.replace('https://wdkj.eu.org/',''));log('urlTrue:'+urlTrue);
+        if(!htmlT.includes('Firecrawl')&&proxy&&(needFirecrawl||!htmlT||(/error code: 1015|__cf_chl_tk|cf-error-details|无法访问目标地址|Protected by cdndefend|Just a moment/.test(htmlT)))) {urlTrue=decodeURIComponent(urlTrue.replace('https://wdkj.eu.org/',''));log('urlTrue:'+urlTrue);
             try {
                 const firecrawlResult = fetch('https://api.firecrawl.dev/v2/scrape', {
                     method: 'POST',
