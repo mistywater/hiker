@@ -1301,12 +1301,14 @@ function getHtml(url, headers, mode, proxy) {
             htmlT = request(urlTrue, headers || {});
         } else if (mode && mode == 2) {
             htmlT = fetchCodeByWebView(urlTrue);
+        }else if (mode && mode == 3) {
+            needFirecrawl = true;
         } else if (proxy && hasChinese) {
             needFirecrawl = true;
         } else {
             htmlT = fetchPC(urlTrue, headers || {});
         }
-        if ((needFirecrawl || (htmlT && /error code: 1015|__cf_chl_tk|cf-error-details|无法访问目标地址|Protected by cdndefend|Just a moment/.test(htmlT))) && !(htmlT && htmlT.includes('Firecrawl'))) {urlTrue=decodeURIComponent(urlTrue.replace('https://wdkj.eu.org/',''));log('urlTrue:'+urlTrue);
+        if(!htmlT.includes('Firecrawl')&&(needFirecrawl||!htmlT||(/error code: 1015|__cf_chl_tk|cf-error-details|无法访问目标地址|Protected by cdndefend|Just a moment/.test(htmlT)))) {urlTrue=decodeURIComponent(urlTrue.replace('https://wdkj.eu.org/',''));log('urlTrue:'+urlTrue);
             try {
                 const firecrawlResult = fetch('https://api.firecrawl.dev/v2/scrape', {
                     method: 'POST',
@@ -1316,10 +1318,10 @@ function getHtml(url, headers, mode, proxy) {
                     },
                     body: JSON.stringify({
                         url: urlTrue,
-                        formats: ['html']
+                        formats: ['rawHtml']
                     })
                 });
-                const parsed = JSON.parse(firecrawlResult);
+                const parsed = JSON.parse(firecrawlResult);log(parsed.data);
                 htmlT = (parsed.data && parsed.data.html) || '';
                 if (htmlT) {
                     console.log('Firecrawl 抓取成功');
