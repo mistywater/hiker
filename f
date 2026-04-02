@@ -1301,6 +1301,8 @@ function getHtml(url, headers, mode, proxy) {
             htmlT = request(urlTrue, headers || {});
         } else if (mode && mode == 2) {
             htmlT = fetchCodeByWebView(urlTrue);
+        }else if (mode && mode == 3) {
+            htmlT = post(urlTrue,headers || {});
         }else if (proxy && proxy == 2) {
             needFirecrawl = true;
         } else if (proxy && hasChinese) {
