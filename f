@@ -1507,7 +1507,7 @@ function parseUrlVideo(url, 依赖) {
         /*if (!依赖) 依赖 = 'https://codeberg.org/src48597962/hk/raw/branch/Ju/SrcJu.js';
         require(依赖.match(/http(s)?:\/\/.*\//)[0] + 'SrcParseS.js');
         return SrcParseS.聚阅(url);*/
-    }else if (quark|uc\./.test(url)) {
+    }else if (/quark|uc\./.test(url)) {
         return "hiker://page/quarkList?rule=Quark.简&realurl=" + url;
     } else if (/(thunder|xunlei|ed2k:|bt:|ftp:|\.torrent|magnet)/.test(url)) {
         if (url.includes('thunder')) {
