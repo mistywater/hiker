@@ -1502,11 +1502,13 @@ function parseUrlVideo(url, 依赖) {
     if (/baidu/.test(url)) {
         putVar('urlBaidu', url);
         return "hiker://page/list?rule=百度网盘&realurl=" + url;
-    } else if (/aliyundrive|alipan|quark|uc\./.test(url)) {
-        //url = "hiker://page/aliyun?page=fypage&rule=云盘君.简&realurl=" + url;
-        if (!依赖) 依赖 = 'https://codeberg.org/src48597962/hk/raw/branch/Ju/SrcJu.js';
+    } else if (/aliyundrive|alipan/.test(url)) {
+        return  "hiker://page/aliyun?page=fypage&rule=云盘君.简&realurl=" + url;
+        /*if (!依赖) 依赖 = 'https://codeberg.org/src48597962/hk/raw/branch/Ju/SrcJu.js';
         require(依赖.match(/http(s)?:\/\/.*\//)[0] + 'SrcParseS.js');
-        return SrcParseS.聚阅(url);
+        return SrcParseS.聚阅(url);*/
+    }else if (quark|uc\./.test(url)) {
+        return "hiker://page/quarkList?rule=Quark.简&realurl=" + url;
     } else if (/(thunder|xunlei|ed2k:|bt:|ftp:|\.torrent|magnet)/.test(url)) {
         if (url.includes('thunder')) {
             url = base64Decode(url.split('//')[1]);
