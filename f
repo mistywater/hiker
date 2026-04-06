@@ -236,22 +236,59 @@ function proxyPic(url, mode) {
 		if (mode == 2) return 'https://wdkj.eu.org/' + url;
         return url;
     }
-function fetchWithRetry(urls, maxRetry) {
-    maxRetry = maxRetry || 5;
-    let htmls = bf(urls);
-    let retryCount = 0;
-    function isFailed(html) {
-        return !html || html.includes('error code: 1015');
-    }
-    while (retryCount < maxRetry && htmls.some(html => isFailed(html))) {
-        let needRetry = urls.map((urlObj, i) => isFailed(htmls[i]) ? urlObj : {url: 'hiker://empty'});
-        let retryResults = bf(needRetry);
-        htmls = htmls.map((html, i) => isFailed(html) ? retryResults[i] : html);
-        retryCount++;
-        if (htmls.every(html => !isFailed(html))) break;
-    }
-    return htmls.map(html => isFailed(html) ? '' : html);
-}
+function bfs(urls, maxRetry) {
+            let retryLimit = maxRetry !== undefined ? maxRetry : 5;
+            let cachePaths = urls.map(url => 'hiker://files/_cache/juyue/' + safePath(url.url) + '.txt');
+            let resultHtmls = new Array(urls.length).fill(null);
+
+            function isRequestFailed(html) {
+                return !html || /HTTP Error 503|服务不可用/.test(html);
+            }
+            let needFetchList = [];
+            urls.forEach((urlObj, idx) => {
+                try {
+                    let cache = readFile(cachePaths[idx]);
+                    if (!isRequestFailed(cache)) {
+                        resultHtmls[idx] = cache;
+                    } else {
+                        needFetchList.push({
+                            urlObj: urlObj,
+                            index: idx
+                        });
+                    }
+                } catch (e) {
+                    needFetchList.push({
+                        urlObj: urlObj,
+                        index: idx
+                    });
+                }
+            });
+            if (needFetchList.length === 0) {
+                return resultHtmls.map(html => html || '');
+            }
+            let currentTasks = needFetchList;
+            let retryCount = 0;
+            while (retryCount < retryLimit && currentTasks.length > 0) {
+                let fetchUrlObjs = currentTasks.map(item => item.urlObj);
+                let fetchResults = bf(fetchUrlObjs);
+                if (fetchResults && fetchResults.length === currentTasks.length) {
+                    currentTasks.forEach((task, idx) => {
+                        let html = fetchResults[idx];
+                        resultHtmls[task.index] = html;
+                        if (!isRequestFailed(html)) {
+                            writeFile(cachePaths[task.index], html);
+                        }
+                    });
+                }
+                currentTasks = currentTasks.filter(task => isRequestFailed(resultHtmls[task.index]));
+                retryCount++;
+
+                if (currentTasks.length > 0 && retryCount < retryLimit) {
+                    sleep(1000 * retryCount);
+                }
+            }
+            return resultHtmls.map(html => isRequestFailed(html) ? '' : html);
+        }
 function bcRandom(darkMode) {
     if (typeof(darkMode) == 'undefined' || !darkMode) {
         darkMode = '深色模式';
