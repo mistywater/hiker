@@ -284,7 +284,7 @@ function bfs(urls, maxRetry) {
                 retryCount++;
 
                 if (currentTasks.length > 0 && retryCount < retryLimit) {
-                    sleep(1000 * retryCount);
+                    java.lang.Thread.sleep(1000 * retryCount);
                 }
             }
             return resultHtmls.map(html => isRequestFailed(html) ? '' : html);
