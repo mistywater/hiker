@@ -242,7 +242,7 @@ function bfs(urls, maxRetry) {
             let resultHtmls = new Array(urls.length).fill(null);
 
             function isRequestFailed(html) {
-                return !html || /HTTP Error 503|服务不可用/.test(html);
+                return !html || /HTTP Error 503|服务不可用|error code: 1015/.test(html);
             }
             let needFetchList = [];
             urls.forEach((urlObj, idx) => {
