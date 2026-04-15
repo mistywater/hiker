@@ -1,4 +1,7 @@
 js:// -*- mode: js -*-
+function highlight(str, keyword) {
+            return str.replace(new RegExp(keyword, 'gi'), m => colorR(m, 'FF0000'));
+        }
 function getHtmls(urls) {
             let result = new Array(urls.length).fill('');
             let needFetch = [];
