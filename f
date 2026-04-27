@@ -4817,6 +4817,52 @@ var cfiction = [{
     name: '色友发表(69)',
     url: domain + '/fictions/tag-1000/1.html'
 }];
+var ccollection = [{
+    name: '人妻 (6711)',
+    url: domain + '/collection/wife'
+},  {
+    name: '丝袜 (16971)',
+    url: domain + '/collection/stockings'
+},{
+    name: '巨乳 (1756)',
+    url: domain + '/collection/big-tits'
+}, {
+    name: '制服 (1164)',
+    url: domain + '/collection/uniform'
+},{
+    name: '学生 (1432)',
+    url: domain + '/collection/student'
+}, {
+    name: 'Cosplay (1250)',
+    url: domain + '/collection/cosplay'
+}, {
+    name: '素人 (1084)',
+    url: domain + '/collection/amateur'
+}, {
+    name: '护士 (410)',
+    url: domain + '/collection/nurse'
+},{
+    name: '秘书 (305)',
+    url: domain + '/collection/secretary'
+},  {
+    name: '教师 (1444)',
+    url: domain + '/collection/teacher'
+},  {
+    name: '办公室 (10705)',
+    url: domain + '/collection/office'
+},{
+    name: '贫乳 (24)',
+    url: domain + '/collection/flat-chest'
+}, {
+    name: '露出 (669)',
+    url: domain + '/collection/exposure'
+}, {
+    name: '女同 (593)',
+    url: domain + '/collection/lesbian'
+}, {
+    name: '调教 (3146)',
+    url: domain + '/collection/bdsm'
+}];
 var sort_fictions = [{
     name: '篇幅不限',
     url: ''
