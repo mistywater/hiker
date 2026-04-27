@@ -1316,14 +1316,72 @@ dTemp=JSON.parse(JSON.stringify(dTemp).replace(/config.依赖/g,'config.聚阅')
     }
     return dTemp.slice();
 }
-function getHtml(url, headers, mode, proxy) {
-    let htmlT = getMyVar(url,'');
-    if (!htmlT || /error code: 1015|无法访问目标地址|__cf_chl_tk|Protected by cdndefend|Just a moment/.test(htmlT)) {
+function getHtml(url, headers, mode, proxy, textError) {
+    let htmlT = getMyVar(url, '');
+
+    let textsError = [
+        // === 100% 安全的（正常网页绝不会出现）===
+        '__cf_chl_tk',
+        'cf-browser-verification',
+        'cf-chl-out',
+        'cf_captcha_kind',
+        'Protected by cdndefend',
+        'Attention Required!',
+        'Checking your browser',
+        'DDOS-Guard',
+
+        // === HTTP错误状态（通常意味着请求失败）===
+        '502 Bad Gateway',
+        '503 Service Unavailable',
+        '504 Gateway Timeout',
+        '500 Internal Server Error',
+        '403 Forbidden',
+        '404 Not Found',
+
+        // === 明确的拒绝/阻止信息 ===
+        'Access Denied',
+        'Access denied',
+        'Blocked by',
+        'You have been blocked',
+        'Your IP has been blocked',
+        'IP has been blocked',
+        'Access from your IP has been blocked',
+        'Request blocked',
+        'Request rejected',
+
+        // === 验证页面（正常网页不会有这些标题）===
+        'Web Application Firewall',
+        'This website is using a security service',
+        'Please verify you are human',
+        'Verification required',
+        'Click to verify',
+        'Please complete the captcha', 
+
+        // === 限流相关 ===
+        'Too Many Requests',
+        'Rate-limited',
+
+        // === 默认页/未配置（正常网页不会用）===
+        'Welcome to nginx',
+        'Apache2 Default Page',
+        'It works!',
+        'Default Page',
+
+        // === 其他 ===
+        'error code:',
+        '无法访问目标地址',
+        'Please enable JavaScript',
+        'JavaScript is required',
+    ];
+    if (textError) textsError.push(textError);
+
+    const errorPattern = new RegExp(textsError.join('|'));
+    if (!htmlT || errorPattern.test(htmlT)) {
         try {
             var decodedUrl = decodeURIComponent(url);
             var chinesePattern = /[\u3040-\u309F\u30A0-\u30FF\u4E00-\u9FFF\u3400-\u4DBF\uF900-\uFAFF\uAC00-\uD7AF]/;
             var hasChinese = chinesePattern.test(decodedUrl);
-        } catch(e) {
+        } catch (e) {
             var hasChinese = true;
         }
         if (proxy && !hasChinese) {
@@ -1341,16 +1399,18 @@ function getHtml(url, headers, mode, proxy) {
             htmlT = request(urlTrue, headers || {});
         } else if (mode && mode == 2) {
             htmlT = fetchCodeByWebView(urlTrue);
-        }else if (mode && mode == 3) {
-            htmlT = post(urlTrue,headers || {});
-        }else if (proxy && proxy == 2) {
+        } else if (mode && mode == 3) {
+            htmlT = post(urlTrue, headers || {});
+        } else if (proxy && proxy == 2) {
             needFirecrawl = true;
         } else if (proxy && hasChinese) {
             needFirecrawl = true;
         } else {
             htmlT = fetchPC(urlTrue, headers || {});
         }
-        if(!htmlT.includes('Firecrawl')&&proxy&&(needFirecrawl||!htmlT||(/error code: 1015|__cf_chl_tk|cf-error-details|无法访问目标地址|Protected by cdndefend|Just a moment/.test(htmlT)))) {urlTrue=decodeURIComponent(urlTrue.replace('https://wdkj.eu.org/',''));log('urlTrue:'+urlTrue);
+        if (!htmlT.includes('Firecrawl') && proxy && (needFirecrawl || !htmlT || (errorPattern.test(htmlT)))) {
+            urlTrue = decodeURIComponent(urlTrue.replace('https://wdkj.eu.org/', ''));
+            log('urlTrue:' + urlTrue);
             try {
                 const firecrawlResult = fetch('https://api.firecrawl.dev/v2/scrape', {
                     method: 'POST',
@@ -1368,12 +1428,12 @@ function getHtml(url, headers, mode, proxy) {
                 if (htmlT) {
                     console.log('Firecrawl 抓取成功');
                 }
-            } catch(e) {
+            } catch (e) {
                 console.log('Firecrawl 抓取失败:', e);
                 htmlT = '';
             }
         }
-        if (htmlT && !/error code: 1015|__cf_chl_tk|cf-error-details|无法访问目标地址|Protected by cdndefend|Just a moment/.test(htmlT)) {
+        if (htmlT && !errorPattern.test(htmlT)) {
             putMyVar(url, htmlT);
         }
     }
