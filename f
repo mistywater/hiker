@@ -4718,9 +4718,6 @@ var cphoto = [
         name: '其他地区套图(28)',
         url: domain + '/photos/series-64be239ce73d4/1.html'
     }],[{
-        name: '台模套图(263)',
-        url: domain + '/photos/series-64be21ef4cc51/1.html'
-    },{
         name: '其他套图(562)',
         url: domain + '/photos/series-665f66f97ec4d/1.html'
     },{
