@@ -2847,7 +2847,7 @@ function jinman(picUrl) {
 function extraPic(host, page, pages, ctype, hiker, _chchePath,imgdec) {if(!_chchePath) _chchePath='';
     if (!ctype) var ctype = '';
     if (!hiker || hiker == '') var hiker = '1';
-    var 类型 = ["movie_1", "movie_2", "movie_3", "movie_3_marquee", "pic_1", "pic_2", "pic_3", "pic_1_full", "pic_1_center", "pic_1_card", "pic_2_card", "pic_3_square", "card_pic_1", "card_pic_2", "card_pic_3", "avatar", "card_pic_3_center", "icon_1_left_pic"];
+    var 类型 = ["movie_1", "movie_2", "movie_3", "movie_3_marquee", "pic_1", "pic_2", "pic_3", "pic_1_full", "pic_1_center", "pic_1_card", "pic_2_card", "pic_3_square", "card_pic_1", "card_pic_2", "card_pic_3", "avatar", "card_pic_3_center", "icon_1_left_pic","icon_5","icon_4","icon_round_4","icon_3_round_fill","icon_2_round"];
     var longClick = [{
         title: '样式',
         js: $.toString((host, ctype, 类型, _chchePath) => {
@@ -3125,7 +3125,7 @@ function pageMoveto(host, page, ctype, pages, _chchePath) {if(!_chchePath) _chch
     var longClick = [{
         title: '样式',
         js: $.toString((host, ctype, _chchePath) => {
-            var 类型 = ["movie_1", "movie_2", "movie_3", "movie_3_marquee", "pic_1", "pic_2", "pic_3", "pic_1_full", "pic_1_center", "pic_1_card", "pic_2_card", "pic_3_square", "card_pic_1", "card_pic_2", "card_pic_3", "avatar", "card_pic_3_center", "icon_1_left_pic"];
+            var 类型 = ["movie_1", "movie_2", "movie_3", "movie_3_marquee", "pic_1", "pic_2", "pic_3", "pic_1_full", "pic_1_center", "pic_1_card", "pic_2_card", "pic_3_square", "card_pic_1", "card_pic_2", "card_pic_3", "avatar", "card_pic_3_center", "icon_1_left_pic","icon_5","icon_4","icon_round_4","icon_3_round_fill","icon_2_round"];
             if (getItem(host + 'type')) {
                 var index = 类型.indexOf(getItem(host + ctype + 'type'));
                 类型[index] = '👉' + getItem(host + ctype + 'type');
