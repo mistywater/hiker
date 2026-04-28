@@ -1766,7 +1766,7 @@ function yanzhengd(d, str, url, host, a,ua) {
                     js: $.toString((str, url, t, a,ua) => {
                         function check() {
                             let nodes = document.querySelectorAll(str);
-                            var co = fba.getCookie(url);
+                            var co = fba.getCookie('');
                             fba.log(co);
                             let condition;
                             if (a) {
