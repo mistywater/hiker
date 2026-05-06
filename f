@@ -1,4 +1,603 @@
 js:// -*- mode: js -*-
+function lunboX5Y(d, lunbos, 轮播方式) {
+    if (!lunbos || lunbos.length === 0) return;
+    
+    let data = JSON.stringify(lunbos);
+    
+    if (轮播方式 === '立体轮播') {
+        let html = `<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>轮播</title><style>*{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent;tap-highlight-color:transparent}:root{--bg-color:#dddddd;--text-color:#222222}@media(prefers-color-scheme:dark){:root{--bg-color:#1a1a1a;--text-color:#ffffff}}body{margin:0;padding:6px 15px;background-color:var(--bg-color);color:var(--text-color);font-family:"Jura",sans-serif;display:flex;justify-content:center;min-height:220px}.carousel-container{width:100%;max-width:600px;position:relative;height:220px;overflow:hidden}.carousel{width:100%;height:100%;position:relative}.carousel-item{position:absolute;top:0;height:200px;width:140px;cursor:pointer;overflow:hidden;border-radius:8px;box-shadow:0 10px 30px rgba(0,0,0,0.1);box-sizing:border-box;border:1px solid rgba(255,255,255,0.3);transition:all 0.5s ease;transform-origin:center}.carousel-item.center{left:50%;transform:translateX(-50%) scale(1);z-index:3}.carousel-item.left{left:20%;transform:translateX(-50%) scale(0.8);z-index:2;opacity:0.7}.carousel-item.right{left:80%;transform:translateX(-50%) scale(0.8);z-index:2;opacity:0.7}.carousel-item.hidden-left{left:0%;transform:translateX(-50%) scale(0.6);z-index:1;opacity:0.4}.carousel-item.hidden-right{left:100%;transform:translateX(-50%) scale(0.6);z-index:1;opacity:0.4}.carousel-item.hidden{opacity:0;z-index:0;pointer-events:none}.box{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none}.overlay{position:absolute;bottom:0;left:0;right:0;height:70px;background:linear-gradient(to top,rgba(0,0,0,0.9),transparent);z-index:2}.img-title{position:absolute;bottom:3px;left:0;right:0;color:#fff;font-weight:600;font-size:0.8rem;line-height:1.2;text-align:center;z-index:3;pointer-events:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0 10px}.nav-button{position:absolute;top:50%;transform:translateY(-50%);width:40px;height:40px;background-color:rgba(15,23,43,0.7);color:white;border:none;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:10;opacity:0.7;transition:all 150ms ease-in-out}.nav-button:hover{opacity:1}.nav-prev{left:10px}.nav-next{right:10px}</style></head><body><div class="carousel-container"><button class="nav-button nav-prev">&#10094;</button><div class="carousel"></div><button class="nav-button nav-next">&#10095;</button></div><script>window.carouselData=[];window.currentIndex=0;window.maxItems=5;function updateCarousel(data){const carousel=document.querySelector('.carousel');if(!carousel)return;window.carouselData=Array.isArray(data)?data.slice(0,window.maxItems):[];window.currentIndex=0;if(window.carouselData.length===0){window.carouselData=[{title:"默认轮播图1",img:"https://picsum.photos/800/400?random=1",url:"https://www.example.com"},{title:"默认轮播图2",img:"https://picsum.photos/800/400?random=2",url:"https://www.example.com"},{title:"默认轮播图3",img:"https://picsum.photos/800/400?random=3",url:"https://www.example.com"},{title:"默认轮播图4",img:"https://picsum.photos/800/400?random=4",url:"https://www.example.com"},{title:"默认轮播图5",img:"https://picsum.photos/800/400?random=5",url:"https://www.example.com"}];}carousel.innerHTML='';window.carouselData.forEach((item,index)=>{const container=document.createElement('div');container.className='carousel-item';container.setAttribute('data-index',index);container.innerHTML='<img src="'+item.img+'" class="box" alt="'+item.title+'">'+'<div class="overlay"></div>'+'<p class="img-title">'+item.title+'</p>';container.addEventListener('click',function(){if(item.url){window.item=item;window.open(item.url,'_blank');}});carousel.appendChild(container);});updatePositions();}function updatePositions(){const items=document.querySelectorAll('.carousel-item');const totalItems=items.length;if(totalItems<=3){items.forEach((item,index)=>{item.className='carousel-item';if(index===currentIndex)item.classList.add('center');else item.classList.add('hidden');});return;}items.forEach((item,index)=>{item.className='carousel-item';let relativePos=(index-currentIndex+totalItems)%totalItems;if(relativePos===0)item.classList.add('center');else if(relativePos===1)item.classList.add('right');else if(relativePos===totalItems-1)item.classList.add('left');else if(relativePos===2)item.classList.add('hidden-right');else if(relativePos===totalItems-2)item.classList.add('hidden-left');else item.classList.add('hidden');});}function nextSlide(){const totalItems=window.carouselData.length;if(totalItems<=1)return;currentIndex=(currentIndex+1)%totalItems;updatePositions();}function prevSlide(){const totalItems=window.carouselData.length;if(totalItems<=1)return;currentIndex=(currentIndex-1+totalItems)%totalItems;updatePositions();}updateCarousel(window.carouselData);document.querySelector('.nav-prev').addEventListener('click',prevSlide);document.querySelector('.nav-next').addEventListener('click',nextSlide);setInterval(nextSlide,3000);window.initCarousel=updateCarousel;document.addEventListener('contextmenu',function(e){e.preventDefault();});</script></body></html>`;
+        d.push({
+            url: "about:blank#autoCache#",
+            desc: "216&&list",
+            col_type: "x5_webview_single",
+            extra: {
+                js: $.toString((h, lunbos) => {
+                    document.documentElement.innerHTML = h;
+                    let carouselData = [];
+                    try {
+                        if (lunbos && lunbos.trim() !== '') {
+                            carouselData = JSON.parse(lunbos);
+                            if (carouselData.length > 5) carouselData = carouselData.slice(0, 5);
+                        }
+                    } catch (e) {}
+                    if (!carouselData.length) {
+                        carouselData = [
+                            { title: "默认图1", img: "https://picsum.photos/id/1015/800/400", url: "https://www.4kzaixian.top" },
+                            { title: "默认图2", img: "https://picsum.photos/id/104/800/400", url: "https://www.4kzaixian.top" },
+                            { title: "默认图3", img: "https://picsum.photos/id/107/800/400", url: "https://www.4kzaixian.top" },
+                            { title: "默认图4", img: "https://picsum.photos/id/116/800/400", url: "https://www.4kzaixian.top" },
+                            { title: "默认图5", img: "https://picsum.photos/id/20/800/400", url: "https://www.4kzaixian.top" }
+                        ];
+                    }
+                    const defaultImages = ["https://picsum.photos/id/1015/800/400","https://picsum.photos/id/104/800/400","https://picsum.photos/id/107/800/400","https://picsum.photos/id/116/800/400","https://picsum.photos/id/20/800/400"];
+                    function updateCarousel(data) {
+                        const carousel = document.querySelector('.carousel');
+                        if (!carousel) return;
+                        window.carouselData = data;
+                        carousel.innerHTML = '';
+                        data.forEach((item, index) => {
+                            const container = document.createElement('div');
+                            container.className = 'carousel-item';
+                            container.setAttribute('data-index', index);
+                            const img = document.createElement('img');
+                            img.className = 'box';
+                            img.alt = item.title || `图${index+1}`;
+                            const originalSrc = item.img;
+                            const defaultSrc = defaultImages[index % defaultImages.length];
+                            img.onerror = function() {
+                                if (this.src !== defaultSrc) {
+                                    this.src = defaultSrc;
+                                }
+                            };
+                            img.src = originalSrc || defaultSrc;
+                            const overlay = document.createElement('div');
+                            overlay.className = 'overlay';
+                            const titleP = document.createElement('p');
+                            titleP.className = 'img-title';
+                            titleP.textContent = item.title || `轮播图${index+1}`;
+                            container.appendChild(img);
+                            container.appendChild(overlay);
+                            container.appendChild(titleP);
+                            container.addEventListener('click', function() {
+                                if (item.url) {
+                                    window.item = item;
+                                    window.open(item.url, '_blank');
+                                }
+                            });
+                            carousel.appendChild(container);
+                        });
+                        updatePositions();
+                    }
+                    let currentIndex = 0;
+                    function updatePositions() {
+                        const items = document.querySelectorAll('.carousel-item');
+                        const totalItems = items.length;
+                        items.forEach((item, index) => {
+                            item.className = 'carousel-item';
+                            if (index === currentIndex) item.classList.add('center');
+                            else if (index === (currentIndex - 1 + totalItems) % totalItems) item.classList.add('left');
+                            else if (index === (currentIndex + 1) % totalItems) item.classList.add('right');
+                            else if (index === (currentIndex - 2 + totalItems) % totalItems) item.classList.add('hidden-left');
+                            else if (index === (currentIndex + 2) % totalItems) item.classList.add('hidden-right');
+                            else item.style.display = 'none';
+                        });
+                    }
+                    function nextSlide() { if (!window.carouselData || window.carouselData.length === 0) return; currentIndex = (currentIndex + 1) % window.carouselData.length; updatePositions(); }
+                    function prevSlide() { if (!window.carouselData || window.carouselData.length === 0) return; currentIndex = (currentIndex - 1 + window.carouselData.length) % window.carouselData.length; updatePositions(); }
+                    updateCarousel(carouselData);
+                    const prevBtn = document.querySelector('.nav-prev');
+                    const nextBtn = document.querySelector('.nav-next');
+                    if (prevBtn) prevBtn.addEventListener('click', prevSlide);
+                    if (nextBtn) nextBtn.addEventListener('click', nextSlide);
+                    if (window.carouselData && window.carouselData.length > 1) setInterval(nextSlide, 3000);
+                }, html, data),
+                jsLoadingInject: true,
+                urlInterceptor: $.toString((x5toerji, MY_RULE, jkdata) => { return x5toerji(MY_RULE, jkdata); }, x5toerji, MY_RULE, this.jkdata)
+            }
+        });
+    } else if (轮播方式 === '抽屉轮播') {
+        let html = `<!DOCTYPE html><html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"><title>自动轮播</title><style>*{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent;margin:0;padding:0;box-sizing:border-box}img{pointer-events:none;-webkit-user-drag:none}:root{--bg-color:#f0f0f0;--border-color:#fff;--title-bg:rgba(0,0,0,0.4);--title-color:#fff}@media (prefers-color-scheme:dark){:root{--bg-color:#121212;--border-color:#fff;--title-bg:rgba(255,255,255,0.2);--title-color:#fff}}html,body{min-height:320px;margin:0;padding:0;font-family:Arial,sans-serif;background:transparent!important;overflow:visible}body{margin:0;padding:0 15px 15px;display:block;min-height:100vh;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;background:var(--bg-color);transition:background .3s ease}.img-container{position:relative;width:100%;max-width:100%;height:0;padding-bottom:44%;overflow:hidden;border-radius:13px;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,0.6),0 2px 6px rgba(0,0,0,0.3);margin:5px 0}.img-container::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;border:1px solid var(--border-color);border-radius:13px;pointer-events:none;z-index:2}.img-container::after{content:'';position:absolute;top:1px;left:1px;right:1px;bottom:1px;border:2px solid #999;border-radius:12px;pointer-events:none;z-index:1}.slides-wrapper{position:absolute;top:3px;left:3px;right:3px;bottom:3px;width:calc(100% - 6px);height:calc(100% - 6px);display:flex;transition:transform 2s ease-in-out}.slide{width:100%;height:100%;flex-shrink:0;position:relative;border-radius:0;overflow:hidden}.slide img{width:100%;height:100%;object-fit:cover}.img-title{position:absolute;top:8px;left:20px;color:#fff;font-weight:bold;font-size:16px;text-shadow:2px 2px 6px rgba(0,0,0,0.8),0 0 10px rgba(0,0,0,0.5);opacity:1;transition:opacity .3s ease;pointer-events:none;z-index:3}</style></head><body><div class="img-container" id="slider"><div class="slides-wrapper" id="slidesWrapper"><div class="slide" data-link="https://www.4kzaixian.top"><img src="https://picsum.photos/800/400?random=1" alt="图1"><p class="img-title">图1</p></div><div class="slide" data-link="https://www.4kzaixian.top"><img src="https://picsum.photos/800/400?random=2" alt="图2"><p class="img-title">图2</p></div><div class="slide" data-link="https://www.4kzaixian.top"><img src="https://picsum.photos/800/400?random=3" alt="图3"><p class="img-title">图3</p></div><div class="slide" data-link="https://www.4kzaixian.top"><img src="https://picsum.photos/800/400?random=1" alt="图1衔接"><p class="img-title">图1</p></div></div></div><script>var slidesWrapper=document.getElementById('slidesWrapper'),slider=document.getElementById('slider'),totalSlides=3,currentIndex=totalSlides,transitionTime=2e3,intervalTime=3e3;function initPosition(){slidesWrapper.style.transition='none';slidesWrapper.style.transform='translateX(-'+(currentIndex*100)+'%)'}function nextSlide(){var nextIndex=currentIndex-1;slidesWrapper.style.transition='transform '+transitionTime+'ms ease-in-out';slidesWrapper.style.transform='translateX(-'+(nextIndex*100)+'%)';if(nextIndex===0){setTimeout(function(){slidesWrapper.style.transition='none';currentIndex=totalSlides;slidesWrapper.style.transform='translateX(-'+(totalSlides*100)+'%)';setTimeout(function(){slidesWrapper.style.transition='transform '+transitionTime+'ms ease-in-out'},50)},transitionTime)}else{currentIndex=nextIndex}}window.addEventListener('load',initPosition);slider.addEventListener('click',function(){var realIndex=(currentIndex%totalSlides)||totalSlides;var linkElement=document.querySelectorAll('.slide')[realIndex-1];var link=linkElement.dataset.link;window.open(link,'_blank')});setInterval(nextSlide,intervalTime+transitionTime);window.initCarousel=function(data){if(!data||data.length===0)return;var slides=document.querySelectorAll('.slide'),displayCount=Math.min(3,data.length);for(var i=0;i<displayCount;i++){if(slides[i]){var img=slides[i].querySelector('img'),title=slides[i].querySelector('.img-title');slides[i].dataset.link=data[i].url||'#';var imgUrl=data[i].img||'';if(imgUrl&&img)img.src=imgUrl;if(title)title.textContent=data[i].title||('轮播图'+(i+1))}}if(displayCount>0&&slides[3]){var img=slides[3].querySelector('img'),title=slides[3].querySelector('.img-title');slides[3].dataset.link=data[0].url||'#';var imgUrl=data[0].img||'';if(imgUrl&&img)img.src=imgUrl;if(title)title.textContent=data[0].title||'轮播图1'}};if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',function(){window.addEventListener('load',initPosition)})}</script></body></html>`;
+        d.push({
+            url: "about:blank#autoCache#",
+            desc: "202&&list",
+            col_type: "x5_webview_single",
+            extra: {
+                js: $.toString((h, lunbos) => {
+                    document.documentElement.innerHTML = h;
+                    let carouselData = [];
+                    try {
+                        if (lunbos && lunbos.trim() !== '') {
+                            const parsed = JSON.parse(lunbos);
+                            if (Array.isArray(parsed) && parsed.length) carouselData = parsed.slice(0, 6);
+                        }
+                    } catch (e) {}
+                    if (carouselData.length === 0) {
+                        carouselData = [
+                            { title: "默认图1", img: "https://picsum.photos/id/1015/800/400", url: "https://www.4kzaixian.top" },
+                            { title: "默认图2", img: "https://picsum.photos/id/104/800/400", url: "https://www.4kzaixian.top" },
+                            { title: "默认图3", img: "https://picsum.photos/id/107/800/400", url: "https://www.4kzaixian.top" }
+                        ];
+                    }
+                    if (carouselData.length === 3) {
+                        let tempUrl = carouselData[1].url;
+                        carouselData[1].url = carouselData[2].url;
+                        carouselData[2].url = tempUrl;
+                        let tempImg = carouselData[1].img;
+                        carouselData[1].img = carouselData[2].img;
+                        carouselData[2].img = tempImg;
+                    }
+                    const totalSlides = carouselData.length;
+                    if (totalSlides === 0) return;
+                    const stableDefaults = ["https://picsum.photos/id/1015/800/400","https://picsum.photos/id/104/800/400","https://picsum.photos/id/107/800/400","https://picsum.photos/id/116/800/400","https://picsum.photos/id/20/800/400","https://picsum.photos/id/30/800/400"];
+                    const slidesWrapper = document.getElementById('slidesWrapper');
+                    if (!slidesWrapper) return;
+                    slidesWrapper.innerHTML = '';
+                    slidesWrapper.style.display = 'flex';
+                    slidesWrapper.style.transition = 'transform 2s ease-in-out';
+                    for (let i = 0; i < totalSlides; i++) {
+                        const slideDiv = document.createElement('div');
+                        slideDiv.className = 'slide';
+                        slideDiv.setAttribute('data-link', carouselData[i].url);
+                        const img = document.createElement('img');
+                        img.alt = carouselData[i].title || `图${i+1}`;
+                        const titleP = document.createElement('p');
+                        titleP.className = 'img-title';
+                        titleP.textContent = carouselData[i].title || `轮播图${i+1}`;
+                        slideDiv.appendChild(img);
+                        slideDiv.appendChild(titleP);
+                        slidesWrapper.appendChild(slideDiv);
+                    }
+                    const cloneSlide = document.createElement('div');
+                    cloneSlide.className = 'slide';
+                    cloneSlide.setAttribute('data-link', carouselData[0].url);
+                    const cloneImg = document.createElement('img');
+                    cloneImg.alt = carouselData[0].title || '图1';
+                    const cloneTitle = document.createElement('p');
+                    cloneTitle.className = 'img-title';
+                    cloneTitle.textContent = carouselData[0].title || '轮播图1';
+                    cloneSlide.appendChild(cloneImg);
+                    cloneSlide.appendChild(cloneTitle);
+                    slidesWrapper.appendChild(cloneSlide);
+                    const slides = document.querySelectorAll('.slide');
+                    const transitionTime = 2000;
+                    const intervalTime = 3000;
+                    let currentIndex = totalSlides;
+                    slidesWrapper.style.transition = 'none';
+                    slidesWrapper.style.transform = `translateX(-${currentIndex * 100}%)`;
+                    function setupImage(imgElement, userImg, defaultImg, idx) {
+                        if (!imgElement) return;
+                        imgElement.style.backgroundColor = '#2c3e50';
+                        if (userImg && userImg.trim() !== '') {
+                            const tester = new Image();
+                            tester.onload = () => { imgElement.src = userImg; imgElement.style.backgroundColor = 'transparent'; };
+                            tester.onerror = () => { imgElement.src = defaultImg; imgElement.style.backgroundColor = 'transparent'; };
+                            tester.src = userImg;
+                        } else { imgElement.src = defaultImg; imgElement.style.backgroundColor = 'transparent'; }
+                    }
+                    for (let i = 0; i < totalSlides; i++) {
+                        const slide = slides[i];
+                        const imgEl = slide.querySelector('img');
+                        const titleEl = slide.querySelector('.img-title');
+                        const item = carouselData[i];
+                        setupImage(imgEl, item.img, stableDefaults[i % stableDefaults.length], i);
+                        if (titleEl) titleEl.textContent = item.title || `轮播图${i+1}`;
+                        slide.addEventListener('click', (function(it) { return function() { if (it.url) { window.item = it; window.open(it.url, '_blank'); } }; })(item));
+                    }
+                    if (slides[totalSlides]) {
+                        const extraSlide = slides[totalSlides];
+                        const extraImg = extraSlide.querySelector('img');
+                        const extraTitle = extraSlide.querySelector('.img-title');
+                        const firstItem = carouselData[0];
+                        setupImage(extraImg, firstItem.img, stableDefaults[0], 0);
+                        if (extraTitle) extraTitle.textContent = firstItem.title || '轮播图1';
+                        extraSlide.addEventListener('click', (function(it) { return function() { if (it.url) { window.item = it; window.open(it.url, '_blank'); } }; })(firstItem));
+                    }
+                    function nextSlide() {
+                        const nextIndex = currentIndex - 1;
+                        slidesWrapper.style.transition = `transform ${transitionTime}ms ease-in-out`;
+                        slidesWrapper.style.transform = `translateX(-${nextIndex * 100}%)`;
+                        if (nextIndex === 0) {
+                            setTimeout(() => {
+                                slidesWrapper.style.transition = 'none';
+                                currentIndex = totalSlides;
+                                slidesWrapper.style.transform = `translateX(-${totalSlides * 100}%)`;
+                                setTimeout(() => { slidesWrapper.style.transition = `transform ${transitionTime}ms ease-in-out`; }, 50);
+                            }, transitionTime);
+                        } else { currentIndex = nextIndex; }
+                    }
+                    setInterval(nextSlide, intervalTime + transitionTime);
+                }, html, data),
+                jsLoadingInject: true,
+                urlInterceptor: $.toString((x5toerji, MY_RULE, jkdata) => { return x5toerji(MY_RULE, jkdata); }, x5toerji, MY_RULE, this.jkdata)
+            }
+        });
+    } else if (轮播方式 === '竖推轮播') {
+        let html = `<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>推</title><style>*{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent;tap-highlight-color:transparent}body{margin:0;padding:2px 15px;background:#1a1a1a;background-color:Canvas;color:CanvasText}.loader{display:flex;justify-content:center;align-items:center;gap:5px;height:200px}.box-container{position:relative;height:200px;width:136px;animation:32s linear infinite;transition:width 0.5s ease;cursor:pointer;overflow:hidden;border-radius:8px;box-shadow:0 2px 10px rgba(0,0,0,0.4);border:1px solid white;box-sizing:border-box}.box-1{width:1px;animation-name:box1Anim}.box-2{width:140px;animation-name:box2Anim}.box-3{width:140px;animation-name:box3Anim}.box-4{width:140px;animation-name:box4Anim}.box{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none}.img-title{position:absolute;bottom:-3px;left:50%;transform:translateX(-50%);color:white;font-weight:bold;font-size:12px;text-shadow:2px 2px 6px rgba(0,0,0,0.8),0 0 10px rgba(0,0,0,0.5);opacity:1;transition:opacity 0.3s ease;z-index:10;pointer-events:none;white-space:nowrap;text-align:center;max-width:90%;overflow:hidden;animation:scrollText 10s linear infinite}@keyframes scrollText{0%{transform:translateX(-50%)}25%{transform:translateX(-50%)}75%{transform:translateX(calc(-50% - var(--scroll-distance, 0px)))}100%{transform:translateX(-50%)}}@keyframes box1Anim{0%,10.94%{width:1px;box-sizing:border-box}12.5%,85.94%{width:140px;box-sizing:border-box}87.5%,100%{width:1px;box-sizing:border-box}}@keyframes box2Anim{0%,10.94%{width:140px;box-sizing:border-box}12.5%,23.44%{width:1px;box-sizing:border-box}25%,73.44%{width:140px;box-sizing:border-box}75%,85.94%{width:1px;box-sizing:border-box}87.5%,100%{width:140px;box-sizing:border-box}}@keyframes box3Anim{0%,23.44%{width:140px;box-sizing:border-box}25%,35.94%{width:1px;box-sizing:border-box}37.5%,59.38%{width:140px;box-sizing:border-box}60.94%,73.44%{width:1px;box-sizing:border-box}75%,100%{width:140px;box-sizing:border-box}}@keyframes box4Anim{0%,35.94%{width:140px;box-sizing:border-box}37.5%,59.38%{width:1px;box-sizing:border-box}60.94%,100%{width:140px;box-sizing:border-box}}@media (min-width:768px){.img-title{opacity:0;transition:opacity 0.3s}.box-container:hover .img-title{opacity:1}}@media (max-width:767px){.img-title{opacity:1}.box-container.contracted .img-title{opacity:0!important}}</style></head><body><div class="loader"><div class="box-container box-1" onclick="window.open('https://example.com/img1', '_blank')"><img src="https://vip.dytt-img.com/upload/vod/20251030-1/99b6cacec8b05d31c8217c8f8c797f00.jpg" class="box" alt="图1"><p class="img-title">图1</p></div><div class="box-container box-2" onclick="window.open('https://example.com/img2', '_blank')"><img src="https://0img.hitv.com/preview/sp_images/2025/10/20/202510201033084697691.jpg" class="box" alt="图2"><p class="img-title">图2</p></div><div class="box-container box-3" onclick="window.open('https://example.com/img3', '_blank')"><img src="https://vip.dytt-img.com/upload/vod/20251101-1/7541d1d4ad46a2604d1d01d3a651db06.jpg" class="box" alt="图3"><p class="img-title">图3</p></div><div class="box-container box-4" onclick="window.open('https://example.com/img4', '_blank')"><img src="https://vip.dytt-img.com/upload/vod/20251020-1/03d156b80799fc23e2a5cfc4ccb485c8.jpg" class="box" alt="图4"><p class="img-title">图4</p></div></div><script>const containers=document.querySelectorAll('.box-container');const checkWidth=()=>{containers.forEach(container=>{if(container.offsetWidth<50){container.classList.add('contracted')}else{container.classList.remove('contracted')}});requestAnimationFrame(checkWidth)};checkWidth();document.addEventListener('contextmenu',function(e){e.preventDefault()});function setupTextScrolling(){const titles=document.querySelectorAll('.img-title');titles.forEach(title=>{const container=title.closest('.box-container');const containerWidth=container.offsetWidth;const titleWidth=title.scrollWidth;if(titleWidth>containerWidth*0.8){const scrollDistance=titleWidth-containerWidth*0.8;title.style.setProperty('--scroll-distance',scrollDistance+'px')}else{title.style.animation='none'}})}setTimeout(setupTextScrolling,100);window.addEventListener('resize',setupTextScrolling);</script></body></html>`;
+        d.push({
+            url: "about:blank#autoCache#",
+            desc: "212&&list",
+            col_type: "x5_webview_single",
+            extra: {
+                js: $.toString((h, lunbos) => {
+                    document.documentElement.innerHTML = h;
+                    let data = [];
+                    try { data = JSON.parse(lunbos); } catch (e) { data = [
+                        { title: "默认轮播图1", img: "https://picsum.photos/800/400?random=1", url: "https://www.4kzaixian.top" },
+                        { title: "默认轮播图2", img: "https://picsum.photos/800/400?random=2", url: "https://www.4kzaixian.top" },
+                        { title: "默认轮播图3", img: "https://picsum.photos/800/400?random=3", url: "https://www.4kzaixian.top" },
+                        { title: "默认轮播图4", img: "https://picsum.photos/800/400?random=4", url: "https://www.4kzaixian.top" }
+                    ]; }
+                    const defaultImages = ["https://picsum.photos/id/1015/800/400","https://picsum.photos/id/104/800/400","https://picsum.photos/id/107/800/400","https://picsum.photos/id/116/800/400"];
+                    function updateCarousel(data) {
+                        const containers = document.querySelectorAll('.box-container');
+                        containers.forEach((container, index) => {
+                            if (data[index]) {
+                                const item = data[index];
+                                const img = container.querySelector('img');
+                                const title = container.querySelector('.img-title');
+                                if (title) title.textContent = item.title;
+                                if (img) {
+                                    img.style.backgroundColor = '#2c3e50';
+                                    const userImgUrl = item.img;
+                                    const defaultImgUrl = defaultImages[index % defaultImages.length];
+                                    if (userImgUrl && userImgUrl.trim() !== '') {
+                                        const testImg = new Image();
+                                        testImg.onload = () => { img.src = userImgUrl; img.style.backgroundColor = 'transparent'; };
+                                        testImg.onerror = () => { img.src = defaultImgUrl; img.style.backgroundColor = 'transparent'; };
+                                        testImg.src = userImgUrl;
+                                    } else { img.src = defaultImgUrl; img.style.backgroundColor = 'transparent'; }
+                                }
+                                container.onclick = null;
+                                container.addEventListener('click', () => { if (item.url) { window.item = item; window.open(item.url, '_blank'); } });
+                            }
+                        });
+                    }
+                    updateCarousel(data);
+                    window.initCarousel = updateCarousel;
+                }, html, data),
+                jsLoadingInject: true,
+                urlInterceptor: $.toString((x5toerji, MY_RULE, jkdata) => { return x5toerji(MY_RULE, jkdata); }, x5toerji, MY_RULE, this.jkdata)
+            }
+        });
+    } else if (轮播方式 === '斜推轮播') {
+        let html = `<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>三角形卡片轮播</title><style>*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}html,body{min-height:320px;margin:0;padding:0;font-family:Arial,sans-serif;background:transparent!important;overflow:visible}.card-container{width:96%!important;margin:15px auto!important;height:230px!important;max-width:100%!important;box-shadow:0 15px 35px rgba(0,0,0,0.25),0 5px 15px rgba(0,0,0,0.22);position:relative;overflow:hidden;border-radius:16px;background:rgba(255,255,255,0.1);backdrop-filter:blur(15px);-webkit-backdrop-filter:blur(15px);border:1px solid rgba(255,255,255,0.25)}@media(prefers-color-scheme:dark){.card-container{background:rgba(0,0,0,0.25);box-shadow:0 15px 35px rgba(0,0,0,0.4),0 5px 15px rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.15)}}@media(max-width:767px) and (orientation:portrait){.card-container{width:98%!important;height:180px!important;margin:12px auto!important;border-radius:12px}}@media(max-width:767px) and (orientation:landscape){.card-container{width:98%!important;height:180px!important;margin:8px auto!important;border-radius:12px}}@media(min-width:768px) and (max-width:1024px){.card-container{width:95%!important;height:300px!important;margin:20px auto!important;border-radius:18px}}@media(min-width:1025px){.card-container{width:90%!important;height:350px!important;margin:25px auto!important;border-radius:20px}}.child{position:absolute;top:0;left:0;width:100%;height:100%;transition:all .4s cubic-bezier(0.25,0.8,0.25,1);cursor:pointer;overflow:hidden;border-radius:inherit}.child:active{opacity:1;transform:none}.card-1,.card-2,.card-3{background-size:cover;background-position:center;background-repeat:no-repeat}.card-1,.card-3{box-shadow:inset 0 0 20px rgba(0,0,0,0.1),0 5px 15px rgba(0,0,0,0.3)}.card-2{box-shadow:inset 0 0 30px rgba(0,0,0,0.15);filter:brightness(0.95)}.card-container.state-1 .card-1{clip-path:polygon(0 0,100% 0,100% 65%,65% 100%,0 100%);z-index:3}.card-container.state-1 .card-2{clip-path:polygon(0 0,100% 0,100% 100%,0 100%);z-index:0}.card-container.state-1 .card-3{clip-path:polygon(80% 100%,100% 100%,100% 80%);z-index:2}.card-container.state-2 .card-1{clip-path:polygon(0 0,20% 0,0 20%);z-index:1}.card-container.state-2 .card-2{clip-path:polygon(0 0,100% 0,100% 100%,0 100%);z-index:0}.card-container.state-2 .card-3{clip-path:polygon(80% 100%,100% 100%,100% 80%);z-index:3}.card-container.state-3 .card-1{clip-path:polygon(0 0,20% 0,0 20%);z-index:2}.card-container.state-3 .card-2{clip-path:polygon(0 0,100% 0,100% 100%,0 100%);z-index:0}.card-container.state-3 .card-3{clip-path:polygon(35% 0,100% 0,100% 100%,0 100%,0 35%);z-index:1}.card-label{position:absolute;bottom:20px;left:20px;color:#fff;font-weight:bold;font-size:16px;text-shadow:2px 2px 6px rgba(0,0,0,0.8),0 0 10px rgba(0,0,0,0.5);opacity:1;transition:opacity .3s ease;pointer-events:none}@media(orientation:landscape){.card-container{max-width:80vh}}@media(max-width:768px){.card-label{font-size:14px;bottom:15px;left:15px}}</style></head><body><div class="card-container state-1"><div class="child card-1" tabindex="0" data-state="1"><div class="card-label" id="label1">轮播图1</div></div><div class="child card-2" tabindex="0" data-state="2"><div class="card-label" id="label2">轮播图2</div></div><div class="child card-3" tabindex="0" data-state="3"><div class="card-label" id="label3">轮播图3</div></div></div><script>document.addEventListener('DOMContentLoaded',function(){const container=document.querySelector('.card-container');const cards=document.querySelectorAll('.child');cards.forEach(card=>{card.addEventListener('click',function(e){const state=this.getAttribute('data-state');updateCarousel(state)});card.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();const state=this.getAttribute('data-state');updateCarousel(state)}})});function updateCarousel(state){container.className='card-container state-'+state}});</script></body></html>`;
+        d.push({
+            url: "about:blank#autoCache#",
+            desc: "202&&list",
+            col_type: "x5_webview_single",
+            extra: {
+                js: $.toString((h, lunbos) => {
+                    document.documentElement.innerHTML = h;
+                    const data = JSON.parse(lunbos);
+                    const container = document.querySelector('.card-container');
+                    const defaultImages = ["https://picsum.photos/id/1015/800/400","https://picsum.photos/id/104/800/400","https://picsum.photos/id/107/800/400"];
+                    if (data.length < 3) {
+                        for (let i = data.length + 1; i <= 3; i++) {
+                            let hideCard = document.querySelector(`.card-${i}`);
+                            if (hideCard) hideCard.style.display = 'none';
+                        }
+                    }
+                    function updateCarousel(state) { container.className = 'card-container state-' + state; }
+                    const oldCards = document.querySelectorAll('.child');
+                    oldCards.forEach((oldCard, idx) => {
+                        if (!data[idx]) return;
+                        const newCard = oldCard.cloneNode(true);
+                        oldCard.parentNode.replaceChild(newCard, oldCard);
+                        const label = newCard.querySelector('.card-label');
+                        if (label) label.textContent = data[idx].title || `轮播图${idx+1}`;
+                        const userImg = data[idx].img;
+                        const defaultImg = defaultImages[idx];
+                        if (userImg && userImg.trim() !== '') {
+                            let imgLoaded = false;
+                            const testImg = new Image();
+                            testImg.onload = () => { if (!imgLoaded) { imgLoaded = true; newCard.style.backgroundImage = `url('${userImg}')`; newCard.style.backgroundColor = 'transparent'; } };
+                            testImg.onerror = () => { if (!imgLoaded) { imgLoaded = true; newCard.style.backgroundImage = `url('${defaultImg}')`; newCard.style.backgroundColor = 'transparent'; } };
+                            testImg.src = userImg;
+                            setTimeout(() => { if (!imgLoaded) { imgLoaded = true; newCard.style.backgroundImage = `url('${defaultImg}')`; newCard.style.backgroundColor = 'transparent'; } }, 5000);
+                        } else { newCard.style.backgroundImage = `url('${defaultImg}')`; newCard.style.backgroundColor = 'transparent'; }
+                        newCard.addEventListener('click', (e) => {
+                            const rect = newCard.getBoundingClientRect();
+                            const x = e.clientX - rect.left;
+                            const y = e.clientY - rect.top;
+                            const w = rect.width;
+                            const h = rect.height;
+                            const currentState = parseInt(container.className.replace('card-container state-', ''));
+                            const targetState = idx + 1;
+                            if (currentState === targetState) {
+                                const tri = 0.25;
+                                let inTriangle = false;
+                                if (currentState === 1) inTriangle = (x > w * (1 - tri) && y > h * (1 - tri));
+                                else if (currentState === 2) inTriangle = (x < w * tri && y < h * tri) || (x > w * (1 - tri) && y > h * (1 - tri));
+                                else if (currentState === 3) inTriangle = (x < w * tri && y < h * tri);
+                                if (inTriangle) { let nextState = (currentState % 3) + 1; updateCarousel(nextState.toString()); } 
+                                else { window.item = data[idx]; window.open(data[idx].url, '_blank'); }
+                            } else { updateCarousel(targetState.toString()); }
+                        });
+                    });
+                }, html, data),
+                jsLoadingInject: true,
+                urlInterceptor: $.toString((x5toerji, MY_RULE, jkdata) => { return x5toerji(MY_RULE, jkdata); }, x5toerji, MY_RULE, this.jkdata)
+            }
+        });
+    }
+}
+    	function lunboX5(d, lunboArr, 轮播方式) {
+	    if (!lunboArr || lunboArr.length === 0) return;
+	    const defImgs = ["https://picsum.photos/id/1015/800/400","https://picsum.photos/id/104/800/400","https://picsum.photos/id/107/800/400","https://picsum.photos/id/116/800/400","https://picsum.photos/id/20/800/400","https://picsum.photos/id/30/800/400"];
+	    const defUrl = "https://www.4kzaixian.top";
+	    if (轮播方式 === '立体轮播') {
+	        let html = `<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>轮播</title><style>*{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent;tap-highlight-color:transparent}:root{--bg-color:#dddddd;--text-color:#222222}@media(prefers-color-scheme:dark){:root{--bg-color:#1a1a1a;--text-color:#ffffff}}body{margin:0;padding:6px 15px;background-color:var(--bg-color);color:var(--text-color);font-family:"Jura",sans-serif;display:flex;justify-content:center;min-height:220px}.carousel-container{width:100%;max-width:600px;position:relative;height:220px;overflow:hidden}.carousel{width:100%;height:100%;position:relative}.carousel-item{position:absolute;top:0;height:200px;width:140px;cursor:pointer;overflow:hidden;border-radius:8px;box-shadow:0 10px 30px rgba(0,0,0,0.1);box-sizing:border-box;border:1px solid rgba(255,255,255,0.3);transition:all 0.5s ease;transform-origin:center}.carousel-item.center{left:50%;transform:translateX(-50%) scale(1);z-index:3}.carousel-item.left{left:20%;transform:translateX(-50%) scale(0.8);z-index:2;opacity:0.7}.carousel-item.right{left:80%;transform:translateX(-50%) scale(0.8);z-index:2;opacity:0.7}.carousel-item.hidden-left{left:0%;transform:translateX(-50%) scale(0.6);z-index:1;opacity:0.4}.carousel-item.hidden-right{left:100%;transform:translateX(-50%) scale(0.6);z-index:1;opacity:0.4}.carousel-item.hidden{opacity:0;z-index:0;pointer-events:none}.box{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none}.overlay{position:absolute;bottom:0;left:0;right:0;height:70px;background:linear-gradient(to top,rgba(0,0,0,0.9),transparent);z-index:2}.img-title{position:absolute;bottom:3px;left:0;right:0;color:#fff;font-weight:600;font-size:0.8rem;line-height:1.2;text-align:center;z-index:3;pointer-events:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0 10px}.nav-button{position:absolute;top:50%;transform:translateY(-50%);width:40px;height:40px;background-color:rgba(15,23,43,0.7);color:white;border:none;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:10;opacity:0.7;transition:all 150ms ease-in-out}.nav-button:hover{opacity:1}.nav-prev{left:10px}.nav-next{right:10px}</style></head><body><div class="carousel-container"><button class="nav-button nav-prev">&#10094;</button><div class="carousel"></div><button class="nav-button nav-next">&#10095;</button></div><script>window.carouselData=[];window.currentIndex=0;window.maxItems=5;function updateCarousel(data){const carousel=document.querySelector('.carousel');if(!carousel)return;window.carouselData=Array.isArray(data)?data.slice(0,window.maxItems):[];window.currentIndex=0;if(window.carouselData.length===0){window.carouselData=[{title:"默认轮播图1",img:"https://picsum.photos/800/400?random=1",url:"https://www.example.com"},{title:"默认轮播图2",img:"https://picsum.photos/800/400?random=2",url:"https://www.example.com"},{title:"默认轮播图3",img:"https://picsum.photos/800/400?random=3",url:"https://www.example.com"},{title:"默认轮播图4",img:"https://picsum.photos/800/400?random=4",url:"https://www.example.com"},{title:"默认轮播图5",img:"https://picsum.photos/800/400?random=5",url:"https://www.example.com"}];}carousel.innerHTML='';window.carouselData.forEach((item,index)=>{const container=document.createElement('div');container.className='carousel-item';container.setAttribute('data-index',index);container.innerHTML='<img src="'+item.img+'" class="box" alt="'+item.title+'">'+'<div class="overlay"></div>'+'<p class="img-title">'+item.title+'</p>';container.addEventListener('click',function(){if(item.url){window.item=item;window.open(item.url,'_blank');}});carousel.appendChild(container);});updatePositions();}function updatePositions(){const items=document.querySelectorAll('.carousel-item');const totalItems=items.length;if(totalItems<=3){items.forEach((item,index)=>{item.className='carousel-item';if(index===currentIndex)item.classList.add('center');else item.classList.add('hidden');});return;}items.forEach((item,index)=>{item.className='carousel-item';let relativePos=(index-currentIndex+totalItems)%totalItems;if(relativePos===0)item.classList.add('center');else if(relativePos===1)item.classList.add('right');else if(relativePos===totalItems-1)item.classList.add('left');else if(relativePos===2)item.classList.add('hidden-right');else if(relativePos===totalItems-2)item.classList.add('hidden-left');else item.classList.add('hidden');});}function nextSlide(){const totalItems=window.carouselData.length;if(totalItems<=1)return;currentIndex=(currentIndex+1)%totalItems;updatePositions();}function prevSlide(){const totalItems=window.carouselData.length;if(totalItems<=1)return;currentIndex=(currentIndex-1+totalItems)%totalItems;updatePositions();}updateCarousel(window.carouselData);document.querySelector('.nav-prev').addEventListener('click',prevSlide);document.querySelector('.nav-next').addEventListener('click',nextSlide);setInterval(nextSlide,3000);window.initCarousel=updateCarousel;document.addEventListener('contextmenu',function(e){e.preventDefault();});</script></body></html>`;
+	        let data = lunboArr.slice(0, 5);
+	        if (data.length === 0) data = defImgs.slice(0, 5).map((img, i) => ({ title: "默认图" + (i+1), img: img, url: defUrl }));
+	        let lunboStr = JSON.stringify(data);
+	        d.push({
+	            url: "about:blank#autoCache#",
+	            desc: "216&&list",
+	            col_type: "x5_webview_single",
+	            extra: {
+	                js: $.toString((h, lunboArr, defaultImages) => {
+	                    document.documentElement.innerHTML = h;
+	                    let carouselData = [];
+	                    try { carouselData = JSON.parse(lunboArr); } catch(e) {}
+	                    if (!carouselData || carouselData.length === 0) return;
+	                    function updateCarousel(data) {
+	                        const carousel = document.querySelector('.carousel');
+	                        if (!carousel) return;
+	                        window.carouselData = data;
+	                        carousel.innerHTML = '';
+	                        data.forEach((item, index) => {
+	                            const container = document.createElement('div');
+	                            container.className = 'carousel-item';
+	                            container.setAttribute('data-index', index);
+	                            const img = document.createElement('img');
+	                            img.className = 'box';
+	                            img.alt = item.title || ('图' + (index+1));
+	                            const defaultSrc = defaultImages[index % defaultImages.length];
+	                            img.onerror = function() { if (this.src !== defaultSrc) this.src = defaultSrc; };
+	                            img.src = item.img || defaultSrc;
+	                            const overlay = document.createElement('div');
+	                            overlay.className = 'overlay';
+	                            const titleP = document.createElement('p');
+	                            titleP.className = 'img-title';
+	                            titleP.textContent = item.title || ('轮播图' + (index+1));
+	                            container.appendChild(img);
+	                            container.appendChild(overlay);
+	                            container.appendChild(titleP);
+	                            container.addEventListener('click', function() {
+	                                if (item.url) { window.item = item; window.open(item.url, '_blank'); }
+	                            });
+	                            carousel.appendChild(container);
+	                        });
+	                        updatePositions();
+	                    }
+	                    let currentIndex = 0;
+	                    function updatePositions() {
+	                        const items = document.querySelectorAll('.carousel-item');
+	                        const totalItems = items.length;
+	                        items.forEach((item, index) => {
+	                            item.className = 'carousel-item';
+	                            if (index === currentIndex) item.classList.add('center');
+	                            else if (index === (currentIndex - 1 + totalItems) % totalItems) item.classList.add('left');
+	                            else if (index === (currentIndex + 1) % totalItems) item.classList.add('right');
+	                            else if (index === (currentIndex - 2 + totalItems) % totalItems) item.classList.add('hidden-left');
+	                            else if (index === (currentIndex + 2) % totalItems) item.classList.add('hidden-right');
+	                            else item.style.display = 'none';
+	                        });
+	                    }
+	                    function nextSlide() { if (!window.carouselData || window.carouselData.length <= 1) return; currentIndex = (currentIndex + 1) % window.carouselData.length; updatePositions(); }
+	                    function prevSlide() { if (!window.carouselData || window.carouselData.length <= 1) return; currentIndex = (currentIndex - 1 + window.carouselData.length) % window.carouselData.length; updatePositions(); }
+	                    updateCarousel(carouselData);
+	                    const prevBtn = document.querySelector('.nav-prev');
+	                    const nextBtn = document.querySelector('.nav-next');
+	                    if (prevBtn) prevBtn.addEventListener('click', prevSlide);
+	                    if (nextBtn) nextBtn.addEventListener('click', nextSlide);
+	                    if (window.carouselData && window.carouselData.length > 1) setInterval(nextSlide, 3000);
+	                }, html, lunboStr, defImgs),
+	                jsLoadingInject: true,
+	                urlInterceptor: $.toString((x5toerji, MY_RULE, jkdata) => { return x5toerji(MY_RULE, jkdata); }, x5toerji, MY_RULE, this.jkdata)
+	            }
+	        });
+	    } else if (轮播方式 === '抽屉轮播') {
+	        let html = `<!DOCTYPE html><html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"><title>自动轮播</title><style>*{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent;margin:0;padding:0;box-sizing:border-box}img{pointer-events:none;-webkit-user-drag:none}:root{--bg-color:#f0f0f0;--border-color:#fff;--title-bg:rgba(0,0,0,0.4);--title-color:#fff}@media (prefers-color-scheme:dark){:root{--bg-color:#121212;--border-color:#fff;--title-bg:rgba(255,255,255,0.2);--title-color:#fff}}html,body{min-height:320px;margin:0;padding:0;font-family:Arial,sans-serif;background:transparent!important;overflow:visible}body{margin:0;padding:0 15px 15px;display:block;min-height:100vh;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;background:var(--bg-color);transition:background .3s ease}.img-container{position:relative;width:100%;max-width:100%;height:0;padding-bottom:44%;overflow:hidden;border-radius:13px;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,0.6),0 2px 6px rgba(0,0,0,0.3);margin:5px 0}.img-container::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;border:1px solid var(--border-color);border-radius:13px;pointer-events:none;z-index:2}.img-container::after{content:'';position:absolute;top:1px;left:1px;right:1px;bottom:1px;border:2px solid #999;border-radius:12px;pointer-events:none;z-index:1}.slides-wrapper{position:absolute;top:3px;left:3px;right:3px;bottom:3px;width:calc(100% - 6px);height:calc(100% - 6px);display:flex;transition:transform 2s ease-in-out}.slide{width:100%;height:100%;flex-shrink:0;position:relative;border-radius:0;overflow:hidden}.slide img{width:100%;height:100%;object-fit:cover}.img-title{position:absolute;top:8px;left:20px;color:#fff;font-weight:bold;font-size:16px;text-shadow:2px 2px 6px rgba(0,0,0,0.8),0 0 10px rgba(0,0,0,0.5);opacity:1;transition:opacity .3s ease;pointer-events:none;z-index:3}</style></head><body><div class="img-container" id="slider"><div class="slides-wrapper" id="slidesWrapper"><div class="slide" data-link="https://www.4kzaixian.top"><img src="https://picsum.photos/800/400?random=1" alt="图1"><p class="img-title">图1</p></div><div class="slide" data-link="https://www.4kzaixian.top"><img src="https://picsum.photos/800/400?random=2" alt="图2"><p class="img-title">图2</p></div><div class="slide" data-link="https://www.4kzaixian.top"><img src="https://picsum.photos/800/400?random=3" alt="图3"><p class="img-title">图3</p></div><div class="slide" data-link="https://www.4kzaixian.top"><img src="https://picsum.photos/800/400?random=1" alt="图1衔接"><p class="img-title">图1</p></div></div></div><script>var slidesWrapper=document.getElementById('slidesWrapper'),slider=document.getElementById('slider'),totalSlides=3,currentIndex=totalSlides,transitionTime=2e3,intervalTime=3e3;function initPosition(){slidesWrapper.style.transition='none';slidesWrapper.style.transform='translateX(-'+(currentIndex*100)+'%)'}function nextSlide(){var nextIndex=currentIndex-1;slidesWrapper.style.transition='transform '+transitionTime+'ms ease-in-out';slidesWrapper.style.transform='translateX(-'+(nextIndex*100)+'%)';if(nextIndex===0){setTimeout(function(){slidesWrapper.style.transition='none';currentIndex=totalSlides;slidesWrapper.style.transform='translateX(-'+(totalSlides*100)+'%)';setTimeout(function(){slidesWrapper.style.transition='transform '+transitionTime+'ms ease-in-out'},50)},transitionTime)}else{currentIndex=nextIndex}}window.addEventListener('load',initPosition);slider.addEventListener('click',function(){var realIndex=(currentIndex%totalSlides)||totalSlides;var linkElement=document.querySelectorAll('.slide')[realIndex-1];var link=linkElement.dataset.link;window.open(link,'_blank')});setInterval(nextSlide,intervalTime+transitionTime);window.initCarousel=function(data){if(!data||data.length===0)return;var slides=document.querySelectorAll('.slide'),displayCount=Math.min(3,data.length);for(var i=0;i<displayCount;i++){if(slides[i]){var img=slides[i].querySelector('img'),title=slides[i].querySelector('.img-title');slides[i].dataset.link=data[i].url||'#';var imgUrl=data[i].img||'';if(imgUrl&&img)img.src=imgUrl;if(title)title.textContent=data[i].title||('轮播图'+(i+1))}}if(displayCount>0&&slides[3]){var img=slides[3].querySelector('img'),title=slides[3].querySelector('.img-title');slides[3].dataset.link=data[0].url||'#';var imgUrl=data[0].img||'';if(imgUrl&&img)img.src=imgUrl;if(title)title.textContent=data[0].title||'轮播图1'}};if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',function(){window.addEventListener('load',initPosition)})}</script></body></html>`;
+	        let data = lunboArr.slice(0, 6);
+	        if (data.length === 0) data = defImgs.slice(0, 3).map((img, i) => ({ title: "默认图" + (i+1), img: img, url: defUrl }));
+	        if (data.length === 3) {
+	            let tempUrl = data[1].url; data[1].url = data[2].url; data[2].url = tempUrl;
+	            let tempImg = data[1].img; data[1].img = data[2].img; data[2].img = tempImg;
+	        }
+	        let lunboStr = JSON.stringify(data);
+	        d.push({
+	            url: "about:blank#autoCache#",
+	            desc: "202&&list",
+	            col_type: "x5_webview_single",
+	            extra: {
+	                js: $.toString((h, lunboArr, stableDefaults) => {
+	                    document.documentElement.innerHTML = h;
+	                    let carouselData = [];
+	                    try { carouselData = JSON.parse(lunboArr); } catch(e) {}
+	                    const totalSlides = carouselData.length;
+	                    if (totalSlides === 0) return;
+	                    const slidesWrapper = document.getElementById('slidesWrapper');
+	                    if (!slidesWrapper) return;
+	                    slidesWrapper.innerHTML = '';
+	                    slidesWrapper.style.display = 'flex';
+	                    slidesWrapper.style.transition = 'transform 2s ease-in-out';
+	                    carouselData.forEach((item, i) => {
+	                        const slideDiv = document.createElement('div');
+	                        slideDiv.className = 'slide';
+	                        slideDiv.setAttribute('data-link', item.url);
+	                        const img = document.createElement('img');
+	                        img.alt = item.title || ('图' + (i+1));
+	                        const titleP = document.createElement('p');
+	                        titleP.className = 'img-title';
+	                        titleP.textContent = item.title || ('轮播图' + (i+1));
+	                        slideDiv.appendChild(img);
+	                        slideDiv.appendChild(titleP);
+	                        slidesWrapper.appendChild(slideDiv);
+	                    });
+	                    const cloneDiv = document.createElement('div');
+	                    cloneDiv.className = 'slide';
+	                    cloneDiv.setAttribute('data-link', carouselData[0].url);
+	                    const cloneImg = document.createElement('img');
+	                    cloneImg.alt = carouselData[0].title || '图1';
+	                    const cloneTitle = document.createElement('p');
+	                    cloneTitle.className = 'img-title';
+	                    cloneTitle.textContent = carouselData[0].title || '轮播图1';
+	                    cloneDiv.appendChild(cloneImg);
+	                    cloneDiv.appendChild(cloneTitle);
+	                    slidesWrapper.appendChild(cloneDiv);
+	                    const slides = document.querySelectorAll('.slide');
+	                    const transitionTime = 2000;
+	                    const intervalTime = 3000;
+	                    let currentIndex = totalSlides;
+	                    slidesWrapper.style.transition = 'none';
+	                    slidesWrapper.style.transform = 'translateX(-' + (currentIndex * 100) + '%)';
+	                    const setupImage = (imgEl, userImg, defaultImg) => {
+	                        if (!imgEl) return;
+	                        imgEl.style.backgroundColor = '#2c3e50';
+	                        if (userImg && userImg.trim() !== '') {
+	                            const tester = new Image();
+	                            tester.onload = () => { imgEl.src = userImg; imgEl.style.backgroundColor = 'transparent'; };
+	                            tester.onerror = () => { imgEl.src = defaultImg; imgEl.style.backgroundColor = 'transparent'; };
+	                            tester.src = userImg;
+	                        } else { imgEl.src = defaultImg; imgEl.style.backgroundColor = 'transparent'; }
+	                    };
+	                    carouselData.forEach((item, i) => {
+	                        const imgEl = slides[i].querySelector('img');
+	                        setupImage(imgEl, item.img, stableDefaults[i % stableDefaults.length]);
+	                        slides[i].addEventListener('click', (function(it) { return function() { if (it.url) { window.item = it; window.open(it.url, '_blank'); } }; })(item));
+	                    });
+	                    const extraSlide = slides[totalSlides];
+	                    if (extraSlide) {
+	                        setupImage(extraSlide.querySelector('img'), carouselData[0].img, stableDefaults[0]);
+	                        extraSlide.addEventListener('click', (function(it) { return function() { if (it.url) { window.item = it; window.open(it.url, '_blank'); } }; })(carouselData[0]));
+	                    }
+	                    function nextSlide() {
+	                        const nextIndex = currentIndex - 1;
+	                        slidesWrapper.style.transition = 'transform ' + transitionTime + 'ms ease-in-out';
+	                        slidesWrapper.style.transform = 'translateX(-' + (nextIndex * 100) + '%)';
+	                        if (nextIndex === 0) {
+	                            setTimeout(() => {
+	                                slidesWrapper.style.transition = 'none';
+	                                currentIndex = totalSlides;
+	                                slidesWrapper.style.transform = 'translateX(-' + (totalSlides * 100) + '%)';
+	                                setTimeout(() => { slidesWrapper.style.transition = 'transform ' + transitionTime + 'ms ease-in-out'; }, 50);
+	                            }, transitionTime);
+	                        } else { currentIndex = nextIndex; }
+	                    }
+	                    setInterval(nextSlide, intervalTime + transitionTime);
+	                }, html, lunboStr, defImgs),
+	                jsLoadingInject: true,
+	                urlInterceptor: $.toString((x5toerji, MY_RULE, jkdata) => { return x5toerji(MY_RULE, jkdata); }, x5toerji, MY_RULE, this.jkdata)
+	            }
+	        });
+	    } else if (轮播方式 === '竖推轮播') {
+	        let html = `<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>推</title><style>*{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent;tap-highlight-color:transparent}body{margin:0;padding:2px 15px;background:#1a1a1a;background-color:Canvas;color:CanvasText}.loader{display:flex;justify-content:center;align-items:center;gap:5px;height:200px}.box-container{position:relative;height:200px;width:136px;animation:32s linear infinite;transition:width 0.5s ease;cursor:pointer;overflow:hidden;border-radius:8px;box-shadow:0 2px 10px rgba(0,0,0,0.4);border:1px solid white;box-sizing:border-box}.box-1{width:1px;animation-name:box1Anim}.box-2{width:140px;animation-name:box2Anim}.box-3{width:140px;animation-name:box3Anim}.box-4{width:140px;animation-name:box4Anim}.box{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none}.img-title{position:absolute;bottom:-3px;left:50%;transform:translateX(-50%);color:white;font-weight:bold;font-size:12px;text-shadow:2px 2px 6px rgba(0,0,0,0.8),0 0 10px rgba(0,0,0,0.5);opacity:1;transition:opacity 0.3s ease;z-index:10;pointer-events:none;white-space:nowrap;text-align:center;max-width:90%;overflow:hidden;animation:scrollText 10s linear infinite}@keyframes scrollText{0%{transform:translateX(-50%)}25%{transform:translateX(-50%)}75%{transform:translateX(calc(-50% - var(--scroll-distance, 0px)))}100%{transform:translateX(-50%)}}@keyframes box1Anim{0%,10.94%{width:1px;box-sizing:border-box}12.5%,85.94%{width:140px;box-sizing:border-box}87.5%,100%{width:1px;box-sizing:border-box}}@keyframes box2Anim{0%,10.94%{width:140px;box-sizing:border-box}12.5%,23.44%{width:1px;box-sizing:border-box}25%,73.44%{width:140px;box-sizing:border-box}75%,85.94%{width:1px;box-sizing:border-box}87.5%,100%{width:140px;box-sizing:border-box}}@keyframes box3Anim{0%,23.44%{width:140px;box-sizing:border-box}25%,35.94%{width:1px;box-sizing:border-box}37.5%,59.38%{width:140px;box-sizing:border-box}60.94%,73.44%{width:1px;box-sizing:border-box}75%,100%{width:140px;box-sizing:border-box}}@keyframes box4Anim{0%,35.94%{width:140px;box-sizing:border-box}37.5%,59.38%{width:1px;box-sizing:border-box}60.94%,100%{width:140px;box-sizing:border-box}}@media (min-width:768px){.img-title{opacity:0;transition:opacity 0.3s}.box-container:hover .img-title{opacity:1}}@media (max-width:767px){.img-title{opacity:1}.box-container.contracted .img-title{opacity:0!important}}</style></head><body><div class="loader"><div class="box-container box-1" onclick="window.open('https://example.com/img1', '_blank')"><img src="https://vip.dytt-img.com/upload/vod/20251030-1/99b6cacec8b05d31c8217c8f8c797f00.jpg" class="box" alt="图1"><p class="img-title">图1</p></div><div class="box-container box-2" onclick="window.open('https://example.com/img2', '_blank')"><img src="https://0img.hitv.com/preview/sp_images/2025/10/20/202510201033084697691.jpg" class="box" alt="图2"><p class="img-title">图2</p></div><div class="box-container box-3" onclick="window.open('https://example.com/img3', '_blank')"><img src="https://vip.dytt-img.com/upload/vod/20251101-1/7541d1d4ad46a2604d1d01d3a651db06.jpg" class="box" alt="图3"><p class="img-title">图3</p></div><div class="box-container box-4" onclick="window.open('https://example.com/img4', '_blank')"><img src="https://vip.dytt-img.com/upload/vod/20251020-1/03d156b80799fc23e2a5cfc4ccb485c8.jpg" class="box" alt="图4"><p class="img-title">图4</p></div></div><script>const containers=document.querySelectorAll('.box-container');const checkWidth=()=>{containers.forEach(container=>{if(container.offsetWidth<50){container.classList.add('contracted')}else{container.classList.remove('contracted')}});requestAnimationFrame(checkWidth)};checkWidth();document.addEventListener('contextmenu',function(e){e.preventDefault()});function setupTextScrolling(){const titles=document.querySelectorAll('.img-title');titles.forEach(title=>{const container=title.closest('.box-container');const containerWidth=container.offsetWidth;const titleWidth=title.scrollWidth;if(titleWidth>containerWidth*0.8){const scrollDistance=titleWidth-containerWidth*0.8;title.style.setProperty('--scroll-distance',scrollDistance+'px')}else{title.style.animation='none'}})}setTimeout(setupTextScrolling,100);window.addEventListener('resize',setupTextScrolling);</script></body></html>`;
+	        let data = lunboArr.slice(0, 4);
+	        if (data.length === 0) data = defImgs.slice(0, 4).map((img, i) => ({ title: "默认轮播图" + (i+1), img: img, url: defUrl }));
+	        let lunboStr = JSON.stringify(data);
+	        d.push({
+	            url: "about:blank#autoCache#",
+	            desc: "212&&list",
+	            col_type: "x5_webview_single",
+	            extra: {
+	                js: $.toString((h, lunboArr, defaultImages) => {
+	                    document.documentElement.innerHTML = h;
+	                    let carouselData = [];
+	                    try { carouselData = JSON.parse(lunboArr); } catch(e) {}
+	                    if (!carouselData || carouselData.length === 0) return;
+	                    function updateCarousel(data) {
+	                        const containers = document.querySelectorAll('.box-container');
+	                        containers.forEach((container, index) => {
+	                            if (!data[index]) return;
+	                            const item = data[index];
+	                            const img = container.querySelector('img');
+	                            const title = container.querySelector('.img-title');
+	                            if (title) title.textContent = item.title;
+	                            if (img) {
+	                                img.style.backgroundColor = '#2c3e50';
+	                                const userImgUrl = item.img;
+	                                const defaultImgUrl = defaultImages[index % defaultImages.length];
+	                                if (userImgUrl && userImgUrl.trim() !== '') {
+	                                    const testImg = new Image();
+	                                    testImg.onload = () => { img.src = userImgUrl; img.style.backgroundColor = 'transparent'; };
+	                                    testImg.onerror = () => { img.src = defaultImgUrl; img.style.backgroundColor = 'transparent'; };
+	                                    testImg.src = userImgUrl;
+	                                } else { img.src = defaultImgUrl; img.style.backgroundColor = 'transparent'; }
+	                            }
+	                            container.onclick = null;
+	                            container.addEventListener('click', () => { if (item.url) { window.item = item; window.open(item.url, '_blank'); } });
+	                        });
+	                    }
+	                    updateCarousel(carouselData);
+	                    window.initCarousel = updateCarousel;
+	                }, html, lunboStr, defImgs),
+	                jsLoadingInject: true,
+	                urlInterceptor: $.toString((x5toerji, MY_RULE, jkdata) => { return x5toerji(MY_RULE, jkdata); }, x5toerji, MY_RULE, this.jkdata)
+	            }
+	        });
+	    } else if (轮播方式 === '斜推轮播') {
+	        let html = `<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>三角形卡片轮播</title><style>*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}html,body{min-height:320px;margin:0;padding:0;font-family:Arial,sans-serif;background:transparent!important;overflow:visible}.card-container{width:96%!important;margin:15px auto!important;height:230px!important;max-width:100%!important;box-shadow:0 15px 35px rgba(0,0,0,0.25),0 5px 15px rgba(0,0,0,0.22);position:relative;overflow:hidden;border-radius:16px;background:rgba(255,255,255,0.1);backdrop-filter:blur(15px);-webkit-backdrop-filter:blur(15px);border:1px solid rgba(255,255,255,0.25)}@media(prefers-color-scheme:dark){.card-container{background:rgba(0,0,0,0.25);box-shadow:0 15px 35px rgba(0,0,0,0.4),0 5px 15px rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.15)}}@media(max-width:767px) and (orientation:portrait){.card-container{width:98%!important;height:180px!important;margin:12px auto!important;border-radius:12px}}@media(max-width:767px) and (orientation:landscape){.card-container{width:98%!important;height:180px!important;margin:8px auto!important;border-radius:12px}}@media(min-width:768px) and (max-width:1024px){.card-container{width:95%!important;height:300px!important;margin:20px auto!important;border-radius:18px}}@media(min-width:1025px){.card-container{width:90%!important;height:350px!important;margin:25px auto!important;border-radius:20px}}.child{position:absolute;top:0;left:0;width:100%;height:100%;transition:all .4s cubic-bezier(0.25,0.8,0.25,1);cursor:pointer;overflow:hidden;border-radius:inherit}.child:active{opacity:1;transform:none}.card-1,.card-2,.card-3{background-size:cover;background-position:center;background-repeat:no-repeat}.card-1,.card-3{box-shadow:inset 0 0 20px rgba(0,0,0,0.1),0 5px 15px rgba(0,0,0,0.3)}.card-2{box-shadow:inset 0 0 30px rgba(0,0,0,0.15);filter:brightness(0.95)}.card-container.state-1 .card-1{clip-path:polygon(0 0,100% 0,100% 65%,65% 100%,0 100%);z-index:3}.card-container.state-1 .card-2{clip-path:polygon(0 0,100% 0,100% 100%,0 100%);z-index:0}.card-container.state-1 .card-3{clip-path:polygon(80% 100%,100% 100%,100% 80%);z-index:2}.card-container.state-2 .card-1{clip-path:polygon(0 0,20% 0,0 20%);z-index:1}.card-container.state-2 .card-2{clip-path:polygon(0 0,100% 0,100% 100%,0 100%);z-index:0}.card-container.state-2 .card-3{clip-path:polygon(80% 100%,100% 100%,100% 80%);z-index:3}.card-container.state-3 .card-1{clip-path:polygon(0 0,20% 0,0 20%);z-index:2}.card-container.state-3 .card-2{clip-path:polygon(0 0,100% 0,100% 100%,0 100%);z-index:0}.card-container.state-3 .card-3{clip-path:polygon(35% 0,100% 0,100% 100%,0 100%,0 35%);z-index:1}.card-label{position:absolute;bottom:20px;left:20px;color:#fff;font-weight:bold;font-size:16px;text-shadow:2px 2px 6px rgba(0,0,0,0.8),0 0 10px rgba(0,0,0,0.5);opacity:1;transition:opacity .3s ease;pointer-events:none}@media(orientation:landscape){.card-container{max-width:80vh}}@media(max-width:768px){.card-label{font-size:14px;bottom:15px;left:15px}}</style></head><body><div class="card-container state-1"><div class="child card-1" tabindex="0" data-state="1"><div class="card-label" id="label1">轮播图1</div></div><div class="child card-2" tabindex="0" data-state="2"><div class="card-label" id="label2">轮播图2</div></div><div class="child card-3" tabindex="0" data-state="3"><div class="card-label" id="label3">轮播图3</div></div></div><script>document.addEventListener('DOMContentLoaded',function(){const container=document.querySelector('.card-container');const cards=document.querySelectorAll('.child');cards.forEach(card=>{card.addEventListener('click',function(e){const state=this.getAttribute('data-state');updateCarousel(state)});card.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();const state=this.getAttribute('data-state');updateCarousel(state)}})});function updateCarousel(state){container.className='card-container state-'+state}});</script></body></html>`;
+	        let data = lunboArr.slice(0, 3);
+	        while (data.length < 3) {
+	            const i = data.length;
+	            data.push({ title: "默认图" + (i+1), img: defImgs[i], url: defUrl });
+	        }
+	        let lunboStr = JSON.stringify(data);
+	        d.push({
+	            url: "about:blank#autoCache#",
+	            desc: "202&&list",
+	            col_type: "x5_webview_single",
+	            extra: {
+	                js: $.toString((h, lunboArr, defaultImages) => {
+	                    document.documentElement.innerHTML = h;
+	                    let data = [];
+	                    try { data = JSON.parse(lunboArr); } catch(e) {}
+	                    if (data.length < 3) return;
+	                    const container = document.querySelector('.card-container');
+	                    function updateCarousel(state) { container.className = 'card-container state-' + state; }
+	                    const oldCards = document.querySelectorAll('.child');
+	                    oldCards.forEach((oldCard, idx) => {
+	                        const newCard = oldCard.cloneNode(true);
+	                        oldCard.parentNode.replaceChild(newCard, oldCard);
+	                        const label = newCard.querySelector('.card-label');
+	                        if (label) label.textContent = data[idx].title || ('轮播图' + (idx+1));
+	                        const userImg = data[idx].img;
+	                        const defaultImg = defaultImages[idx];
+	                        if (userImg && userImg.trim() !== '') {
+	                            let imgLoaded = false;
+	                            const testImg = new Image();
+	                            testImg.onload = () => { if (!imgLoaded) { imgLoaded = true; newCard.style.backgroundImage = "url('" + userImg + "')"; newCard.style.backgroundColor = 'transparent'; } };
+	                            testImg.onerror = () => { if (!imgLoaded) { imgLoaded = true; newCard.style.backgroundImage = "url('" + defaultImg + "')"; newCard.style.backgroundColor = 'transparent'; } };
+	                            testImg.src = userImg;
+	                            setTimeout(() => { if (!imgLoaded) { imgLoaded = true; newCard.style.backgroundImage = "url('" + defaultImg + "')"; newCard.style.backgroundColor = 'transparent'; } }, 5000);
+	                        } else { 
+	                            newCard.style.backgroundImage = "url('" + defaultImg + "')"; 
+	                            newCard.style.backgroundColor = 'transparent'; 
+	                        }
+	                        newCard.addEventListener('click', (e) => {
+	                            const rect = newCard.getBoundingClientRect();
+	                            const x = e.clientX - rect.left, y = e.clientY - rect.top, w = rect.width, h = rect.height;
+	                            const currentState = parseInt(container.className.replace('card-container state-', ''));
+	                            const targetState = idx + 1;
+	                            if (currentState === targetState) {
+	                                const tri = 0.25;
+	                                let inTriangle = false;
+	                                if (currentState === 1) inTriangle = (x > w * (1 - tri) && y > h * (1 - tri));
+	                                else if (currentState === 2) inTriangle = (x < w * tri && y < h * tri) || (x > w * (1 - tri) && y > h * (1 - tri));
+	                                else if (currentState === 3) inTriangle = (x < w * tri && y < h * tri);
+	                                if (inTriangle) { let nextState = (currentState % 3) + 1; updateCarousel(nextState.toString()); } 
+	                                else { window.item = data[idx]; window.open(data[idx].url, '_blank'); }
+	                            } else { updateCarousel(targetState.toString()); }
+	                        });
+	                    });
+	                }, html, lunboStr, defImgs),
+	                jsLoadingInject: true,
+	                urlInterceptor: $.toString((x5toerji, MY_RULE, jkdata) => { return x5toerji(MY_RULE, jkdata); }, x5toerji, MY_RULE, this.jkdata)
+	            }
+	        });
+	    }
+	}
 function getHtmlCodeA(url, str, checkStr, headers, host) {
             headers = headers || {
                 'User-Agent': PC_UA
