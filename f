@@ -1,4 +1,26 @@
 js:// -*- mode: js -*-
+function getHtmlCodeA(url, str, checkStr, headers, host) {
+            headers = headers || {
+                'User-Agent': PC_UA
+            };
+            let ck = getVar(host + 'ck', '');
+            if (ck) headers.Cookie = ck;
+            let html = request(url, {
+                headers
+            });
+            if (html.includes(str)) {
+                html = fetchCodeByWebView(url, {
+                    headers: headers,
+                    checkJs: $.toString((host, checkStr) => {
+                        if (document.body.innerHTML.includes(checkStr)) {
+                            fba.putVar(host + 'ck', document.cookie);
+                            return 1;
+                        }
+                    }, host, checkStr),
+                });
+            }
+            return html;
+        }
 function getLogo(text, isSave) {
     text = String(text);
     let len = text.length;
