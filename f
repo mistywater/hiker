@@ -4029,17 +4029,16 @@ function im() {
 }
 
 function urla(u, host) {
-    if (u.indexOf("http") < 0) {
-        if (u.substr(0, 2) != '//') {
-            if (u.substr(0, 1) != '/') u = host + '/' + u;
-            else u = host + u;
-        } else {
-            u = 'https:' + u;
+            if (!/^http/i.test(u)) {
+                if (u.substr(0, 2) != '//') {
+                    if (u.substr(0, 1) != '/') u = host + '/' + u;
+                    else u = host + u;
+                } else {
+                    u = 'https:' + u;
+                }
+            }
+            return encodeURI(u);
         }
-    }
-    return encodeURI(u);
-}
-
 function rn(c) {
     return c.replace(/\[.+?]|丨|～|\//g, '|')
         .replace(/\(.+?\)/g, '')
