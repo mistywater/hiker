@@ -323,8 +323,9 @@ function getLogo(text, isSave) {
     if (isSave) {
         let fileName = 'logo_' + text.replace(/[\\/:*?"<>|]/g, '') + '.svg';
         if (isSave === 2) {
-            saveFile(fileName, svg);
-            return 'hiker://files/rules/' + MY_RULE.title + '/' + fileName;
+let url='hiker://files/rules/juyue/'+ fileName;
+          if(!fileExist(url))  writeFile(fileName, svg);
+            return url;
         } else {
             let path = 'hiker://files/_cache/' + fileName;
             writeFile(path, svg);
