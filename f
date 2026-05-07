@@ -1,6 +1,6 @@
 js:// -*- mode: js -*-
 
-    	function lunboX5(d, lunboArr, 轮播方式) {
+    	function lunboX5(d, lunboArr, 轮播方式,jkdata) {
 	    if (!lunboArr || lunboArr.length === 0) return;
 	    const defImgs = ["https://picsum.photos/id/1015/800/400","https://picsum.photos/id/104/800/400","https://picsum.photos/id/107/800/400","https://picsum.photos/id/116/800/400","https://picsum.photos/id/20/800/400","https://picsum.photos/id/30/800/400"];
 	    const defUrl = "https://www.4kzaixian.top";
