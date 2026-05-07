@@ -73,7 +73,7 @@ js:// -*- mode: js -*-
 	                    if (window.carouselData && window.carouselData.length > 1) setInterval(nextSlide, 3000);
 	                }, html, lunboStr, defImgs),
 	                jsLoadingInject: true,
-	                urlInterceptor: $.toString((x5toerji, MY_RULE, jkdata) => { return x5toerji(MY_RULE, jkdata); }, x5toerji, MY_RULE, this.jkdata)
+	                urlInterceptor: $.toString((x5toerji, MY_RULE, jkdata) => { return x5toerji(MY_RULE, jkdata); }, x5toerji, MY_RULE, jkdata)
 	            }
 	        });
 	    } else if (轮播方式 === '抽屉轮播') {
@@ -167,7 +167,7 @@ js:// -*- mode: js -*-
 	                    setInterval(nextSlide, intervalTime + transitionTime);
 	                }, html, lunboStr, defImgs),
 	                jsLoadingInject: true,
-	                urlInterceptor: $.toString((x5toerji, MY_RULE, jkdata) => { return x5toerji(MY_RULE, jkdata); }, x5toerji, MY_RULE, this.jkdata)
+	                urlInterceptor: $.toString((x5toerji, MY_RULE, jkdata) => { return x5toerji(MY_RULE, jkdata); }, x5toerji, MY_RULE, jkdata)
 	            }
 	        });
 	    } else if (轮播方式 === '竖推轮播') {
@@ -212,7 +212,7 @@ js:// -*- mode: js -*-
 	                    window.initCarousel = updateCarousel;
 	                }, html, lunboStr, defImgs),
 	                jsLoadingInject: true,
-	                urlInterceptor: $.toString((x5toerji, MY_RULE, jkdata) => { return x5toerji(MY_RULE, jkdata); }, x5toerji, MY_RULE, this.jkdata)
+	                urlInterceptor: $.toString((x5toerji, MY_RULE, jkdata) => { return x5toerji(MY_RULE, jkdata); }, x5toerji, MY_RULE, jkdata)
 	            }
 	        });
 	    } else if (轮播方式 === '斜推轮播') {
@@ -272,7 +272,7 @@ js:// -*- mode: js -*-
 	                    });
 	                }, html, lunboStr, defImgs),
 	                jsLoadingInject: true,
-	                urlInterceptor: $.toString((x5toerji, MY_RULE, jkdata) => { return x5toerji(MY_RULE, jkdata); }, x5toerji, MY_RULE, this.jkdata)
+	                urlInterceptor: $.toString((x5toerji, MY_RULE, jkdata) => { return x5toerji(MY_RULE, jkdata); }, x5toerji, MY_RULE, jkdata)
 	            }
 	        });
 	    }
