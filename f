@@ -1,5 +1,51 @@
 js:// -*- mode: js -*-
-
+function setCate(data, host, d, v, mode, c, f, needBg, bgcolor, bgcolorSelected, textcolor) {
+            // mode: 数字/不传/空值不处理；只有非空字符串时才处理，支持 '|' 分隔清除多个子分类变量
+            let subCs = (typeof mode === 'string' && mode.trim() !== '') ? mode.split('|') : [];
+            v = v || 0;
+            c = c || ('c' + v);
+            f = f || 'scroll_button';
+            needBg = needBg || false;
+            bgcolor = bgcolor ? ('#' + bgcolor).replace('##', '') : '';
+            bgcolorSelected = bgcolorSelected ? ('#' + bgcolorSelected).replace('##', '') : '';
+            textcolor = textcolor || '#000000';
+            let isDarkMode = getItem('darkMode', '深色模式') === '浅色白字模式';
+            if (Array.isArray(data)) data = data[0] || {};
+            let c_title = data.title ? data.title.split('&') : [];
+            let c_id = !data.id ? c_title : data.id === '@@@' ? data.title.replace(/^.*?&/, '&').split('&') : data.id.split('&');
+            let picsClass = storage0.getMyVar(host + 'picsClass', []);
+            let c_img = picsClass.length != 0 ? picsClass : (data.img ? data.img.split('&') : []);
+            let defaultId = (c_id && c_id.length > 0) ? c_id[0] + '' : '';
+            let currentId = getMyVar(host + c, defaultId) + '';
+            c_title.forEach((title, index_c) => {
+                title = title.replace(/＆＆/g, '&');
+                let id_val = (c_id[index_c] !== undefined ? c_id[index_c] : title) + '';
+                let isSelected = (currentId == id_val);
+                let titleStyled = isSelected ? strong(title, needBg ? 'FFFF00' : 'FF6699') : needBg ? color(title, 'FFFFFF') : color(title, textcolor);
+                d.push({
+                    title: titleStyled,
+                    img: c_img.length > index_c ? c_img[index_c] : '',
+                    col_type: f,
+                    url: $('#noLoading#').lazyRule((host, c, currentId, newId, subCs) => {
+                        if (newId != currentId) {
+                            putMyVar(host + c, newId);
+                            clearMyVar(host + 'page');
+                            subCs.forEach(sc => clearMyVar(host + sc));
+                        }
+                        refreshPage(false);
+                        return 'hiker://empty';
+                    }, host, c, currentId, id_val, subCs),
+                    extra: {
+                        backgroundColor: needBg ? ((isSelected ? bgcolorSelected : bgcolor) || getRandomColor(getItem('darkMode'))) : '',
+                        LongClick: needBg ? bcLongClick() : [],
+                    },
+                });
+            });
+            d.push({
+                col_type: 'blank_block'
+            });
+            return d;
+        }
     	function lunboX5(d, lunboArr, 轮播方式,jkdata) {
 	    if (!lunboArr || lunboArr.length === 0) return;
 	    const defImgs = ["https://picsum.photos/id/1015/800/400","https://picsum.photos/id/104/800/400","https://picsum.photos/id/107/800/400","https://picsum.photos/id/116/800/400","https://picsum.photos/id/20/800/400","https://picsum.photos/id/30/800/400"];
