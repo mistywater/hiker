@@ -1682,7 +1682,7 @@ function safePath(str) {
 function getdTemp(d, dTemp, _chchePath) {
     d = JSON.parse(fetch(_chchePath) || "[]");
     if (d.length != 0) {
-        if (MY_RULE.title == "聚阅" && d[0].title == "🔍" && !/x5toerji|sarr|google|baidu/.test(JSON.stringify(d[0]))) {
+        if (MY_RULE.title == "聚阅" && d[0].title == "🔍" && !/x5toerji|sarr|google|baidu|noDelete/.test(JSON.stringify(d[0]))) {
             d.splice(0, 1);
         }
       if (MY_RULE.title == "聚阅√" && d[0].title != "🔍"&&!/multiPages/.test(JSON.stringify(d))) {
@@ -3629,7 +3629,7 @@ putMyVar('isMoveto', '1');
     };
 }
 
-function searchMain(page, d, desc,MY_PAGE) {
+function searchMain(page, d, desc,MY_PAGE,noDelete) {
    if (page == 1 || getMyVar('isMoveto', '0') == 1 ||MY_PAGE ==1|| MY_PAGE == getMyVar('MY_PAGE')) {
         d.push({
             title: '🔍',
@@ -3641,6 +3641,7 @@ function searchMain(page, d, desc,MY_PAGE) {
             col_type: 'input',
             extra: {
                 defaultValue: getVar('keyword', ''),
+                isDelete:noDelete?'noDelete':''
             }
         });
     }
