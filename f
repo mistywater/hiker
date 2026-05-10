@@ -1,4 +1,22 @@
 js:// -*- mode: js -*-
+function setFont(it, title) {
+    const numberMatch = it.match(/\d+(\.\d+)?/);
+    const font = numberMatch ? parseFloat(numberMatch[0]) : 0;
+    if (isNaN(font) || font === 0) return title;
+    if (font < 10) {
+        return typeof ss === 'function' ? ss(title) : title;
+    } else if (font < 13) {
+        return '<h5>' + title + '</h5>';
+    } else if (font < 16) {
+        return '<h4>' + title + '</h4>';
+    } else if (font < 19) {
+        return '<h3>' + title + '</h3>';
+    } else if (font < 22) {
+        return '<h2>' + title + '</h2>';
+    } else {
+        return '<h1>' + title + '</h1>';
+    }
+}
 function setCate(data, host, d, v, mode, c, f, needBg, bgcolor, bgcolorSelected, textcolor) {
             // mode: 数字/不传/空值不处理；只有非空字符串时才处理，支持 '|' 分隔清除多个子分类变量
             let subCs = (typeof mode === 'string' && mode.trim() !== '') ? mode.split('|') : [];
