@@ -1,8 +1,7 @@
 js:// -*- mode: js -*-
-
-function setFont(title,it ) {
-    const numberMatch = it.match(/\d+(\.\d+)?/);
-    const font = numberMatch ? parseFloat(numberMatch[0]) : 0;
+function setFont(title,font) {
+    font = font.match(/\d+(\.\d+)?/);
+    font = font ? parseFloat(font[0]) : 0;
     if (isNaN(font) || font === 0) return title;
     if (font < 10) {
         return typeof ss === 'function' ? ss(title) : title;
@@ -390,7 +389,7 @@ function getLogo(text, isSave) {
 
         if (isSave === 2) {
 let url='hiker://files/rules/juyue/logo/'+ fileName;
-          if(!fileExist(url))  writeFile(url, svg);
+          if(!fileExist(url))  {writeFile(url, svg);log(url);}
             return url;
         } else {
             let path = 'hiker://files/_cache/' + fileName;
@@ -4616,7 +4615,6 @@ cc = cc.replace(/乾坤|乾隆/g, m => m.replace(/乾/g, '&#20094;'));
 cc = cc.replace(/伶俐/g, m => m.replace(/俐/g, '&#20432;'));
 cc = cc.replace(/瞭望|瞭哨|瞭远/g, m => m.replace(/瞭/g, '&#30637;'));
 cc = cc.replace(/慰藉|蕴藉|狼藉|枕藉/g, m => m.replace(/藉/g, '&#34249;'));
-
     var str = '',
         ss = JTPYStr(),
         tt = FTPYStr();
