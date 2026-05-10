@@ -1700,9 +1700,8 @@ dTemp=JSON.parse(JSON.stringify(dTemp).replace(/config.依赖/g,'config.聚阅')
 }
 function getHtml(url, headers, mode, proxy, textError) {
     let htmlT = getMyVar(url, '');
-
+ 
     let textsError = [
-        // === 100% 安全的（正常网页绝不会出现）===
         '__cf_chl_tk',
         'cf-browser-verification',
         'cf-chl-out',
@@ -1711,16 +1710,12 @@ function getHtml(url, headers, mode, proxy, textError) {
         'Attention Required!',
         'Checking your browser',
         'DDOS-Guard',
-
-        // === HTTP错误状态（通常意味着请求失败）===
         '502 Bad Gateway',
         '503 Service Unavailable',
         '504 Gateway Timeout',
         '500 Internal Server Error',
         '403 Forbidden',
         '404 Not Found',
-
-        // === 明确的拒绝/阻止信息 ===
         'Access Denied',
         'Access denied',
         'Blocked by',
@@ -1730,34 +1725,26 @@ function getHtml(url, headers, mode, proxy, textError) {
         'Access from your IP has been blocked',
         'Request blocked',
         'Request rejected',
-
-        // === 验证页面（正常网页不会有这些标题）===
         'Web Application Firewall',
         'This website is using a security service',
         'Please verify you are human',
         'Verification required',
         'Click to verify',
         'Please complete the captcha', 
-
-        // === 限流相关 ===
         'Too Many Requests',
         'Rate-limited',
-
-        // === 默认页/未配置（正常网页不会用）===
         'Welcome to nginx',
         'Apache2 Default Page',
         'It works!',
         'Default Page',
-
-        // === 其他 ===
         'error code:',
         '无法访问目标地址',
         'Please enable JavaScript',
         'JavaScript is required',
     ];
     if (textError) textsError.push(textError);
-
-    const errorPattern = new RegExp(textsError.join('|'));
+ 
+    let errorPattern = new RegExp(textsError.join('|'));
     if (!htmlT || errorPattern.test(htmlT)) {
         try {
             var decodedUrl = decodeURIComponent(url);
@@ -1766,46 +1753,38 @@ function getHtml(url, headers, mode, proxy, textError) {
         } catch (e) {
             var hasChinese = true;
         }
+        
+        let urlTrue;
         if (proxy && !hasChinese) {
-            urlTrue = url.startsWith('https://wdkj.eu.org/') ? url.replace('?', '%3f') : 'https://wdkj.eu.org/' + url.replace('?', '%3f');
+            urlTrue = url.startsWith('https://wdkj.eu.org/')  ? url.replace('?', '%3f') : 'https://wdkj.eu.org/'  + url.replace('?', '%3f');
         } else if (proxy && hasChinese) {
             toast('中文网址需挂梯子~');
             urlTrue = url;
-        } else if (url.startsWith('https://wdkj.eu.org/') && hasChinese) {
-            urlTrue = decodeURIComponent(url.replace('https://wdkj.eu.org/', ''));
+        } else if (url.startsWith('https://wdkj.eu.org/')  && hasChinese) {
+            urlTrue = decodeURIComponent(url.replace('https://wdkj.eu.org/',  ''));
         } else {
             urlTrue = url;
         }
-        let needFirecrawl = false;
-        if (mode && mode == 1) {
-            htmlT = request(urlTrue, headers || {});
-        } else if (mode && mode == 2) {
-            htmlT = fetchCodeByWebView(urlTrue);
-        } else if (mode && mode == 3) {
-            htmlT = post(urlTrue, headers || {});
-        } else if (proxy && proxy == 2) {
-            needFirecrawl = true;
-        } else if (proxy && hasChinese) {
-            needFirecrawl = true;
-        } else {
-            htmlT = fetchPC(urlTrue, headers || {});
-        }
-        if (!htmlT.includes('Firecrawl') && proxy && (needFirecrawl || !htmlT || (errorPattern.test(htmlT)))) {
-            urlTrue = decodeURIComponent(urlTrue.replace('https://wdkj.eu.org/', ''));
-            log('urlTrue:' + urlTrue);
+ 
+        if (proxy == 2) {
+            let fireUrl = urlTrue;
+            if (fireUrl.startsWith('https://wdkj.eu.org/'))  {
+                fireUrl = decodeURIComponent(fireUrl.replace('https://wdkj.eu.org/',  ''));
+            }
+            //log('proxy=2, 直接Firecrawl抓取:' + fireUrl);
             try {
-                const firecrawlResult = fetch('https://api.firecrawl.dev/v2/scrape', {
+                let firecrawlResult = fetch('https://api.firecrawl.dev/v2/scrape',  {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': 'Bearer fc-cb439722377a4eccbbc81520b4e78858'
                     },
                     body: JSON.stringify({
-                        url: urlTrue,
+                        url: fireUrl,
                         formats: ['rawHtml']
                     })
                 });
-                const parsed = JSON.parse(firecrawlResult);
+                let parsed = JSON.parse(firecrawlResult);
                 htmlT = (parsed.data && parsed.data.rawHtml) || '';
                 if (htmlT) {
                     console.log('Firecrawl 抓取成功');
@@ -1814,7 +1793,48 @@ function getHtml(url, headers, mode, proxy, textError) {
                 console.log('Firecrawl 抓取失败:', e);
                 htmlT = '';
             }
+        } else {
+            let needFirecrawl = false;
+            if (mode && mode == 1) {
+                htmlT = request(urlTrue, headers || {});
+            } else if (mode && mode == 2) {
+                htmlT = fetchCodeByWebView(urlTrue);
+            } else if (mode && mode == 3) {
+                htmlT = post(urlTrue, headers || {});
+            } else {
+                htmlT = fetchPC(urlTrue, headers || {});
+            }
+ 
+            if (!htmlT.includes('Firecrawl') && proxy && (needFirecrawl || !htmlT || (errorPattern.test(htmlT)))) {
+                let fireUrl = urlTrue;
+                if (fireUrl.startsWith('https://wdkj.eu.org/'))  {
+                    fireUrl = decodeURIComponent(fireUrl.replace('https://wdkj.eu.org/',  ''));
+                }
+                log('常规抓取失败，启用Firecrawl:' + fireUrl);
+                try {
+                    let firecrawlResult = fetch('https://api.firecrawl.dev/v2/scrape',  {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': 'Bearer fc-cb439722377a4eccbbc81520b4e78858'
+                        },
+                        body: JSON.stringify({
+                            url: fireUrl,
+                            formats: ['rawHtml']
+                        })
+                    });
+                    let parsed = JSON.parse(firecrawlResult);
+                    htmlT = (parsed.data && parsed.data.rawHtml) || '';
+                    if (htmlT) {
+                        console.log('Firecrawl 抓取成功');
+                    }
+                } catch (e) {
+                    console.log('Firecrawl 抓取失败:', e);
+                    htmlT = '';
+                }
+            }
         }
+ 
         if (htmlT && !errorPattern.test(htmlT)) {
             putMyVar(url, htmlT);
         }
