@@ -1,5 +1,5 @@
 js:// -*- mode: js -*-
-function setFont(it, title) {
+function setFont(title,it ) {
     const numberMatch = it.match(/\d+(\.\d+)?/);
     const font = numberMatch ? parseFloat(numberMatch[0]) : 0;
     if (isNaN(font) || font === 0) return title;
