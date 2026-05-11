@@ -3264,7 +3264,7 @@ function jinman(picUrl) {
     }, picUrl);
 }
 
-function extraPic(host, page, pages, ctype, hiker, _chchePath,imgdec) {if(!_chchePath) _chchePath='';
+function extraPic(host, page, pages, ctype, hiker, _chchePath,imgdec,isNovel) {if(!_chchePath) _chchePath='';
     if (!ctype) var ctype = '';
     if (!hiker || hiker == '') var hiker = '1';
     var 类型 = ["movie_1", "movie_2", "movie_3", "movie_3_marquee", "pic_1", "pic_2", "pic_3", "pic_1_full", "pic_1_center", "pic_1_card", "pic_2_card", "pic_3_square", "card_pic_1", "card_pic_2", "card_pic_3", "avatar", "card_pic_3_center", "icon_1_left_pic","icon_5","icon_4","icon_round_4","icon_3_round_fill","icon_2_round"];
@@ -3389,21 +3389,23 @@ putMyVar('isMoveto', '1');
             }
         }, host,_chchePath)
     });
-    var extra = $.toString((host, hiker, ctype, longClick, imgdec) => ({
+    var extra = $.toString((host, hiker, ctype, longClick, imgdec,isNovel) => ({
     chapterList: hiker ? 'hiker://files/_cache/chapterList.txt' : chapterList,
     info: {
-        bookName: MY_URL.split('/')[2],
-        ruleName: 'photo',
-        bookTopPic: 'https://api.xinac.net/icon/?url=' + host,
+        bookName: isNovel?'全部':MY_URL.split('/')[2],
+        ruleName: isNovel?storage0.getMyVar('一级源接口信息').name:'photo',
+        bookTopPic: isNovel?img:'https://api.xinac.net/icon/?url=' + host,
         decode: imgdec? $.type(imgdec) == "function" ? $.toString((imgdec) => {
                                     let imgDecrypt = imgdec;
                                     return imgDecrypt();
                                 }, imgdec) : imgdec : "",
         parseCode: downloadlazy,
-        defaultView: '1'
+        defaultView: isNovel?'0':'1',
+type: isNovel?'novel':'comic',
+        
     },
     longClick: longClick,
-}), host, hiker, ctype, longClick, imgdec);
+}), host, hiker, ctype, longClick, imgdec,isNovel);
     return extra;
 }
 
@@ -3831,7 +3833,7 @@ function classTop1(index, data, host, d, mode, v, c, f, len, start, end) {
 
 
 
-function downPic() {
+function downPic(isNovel) {
     var s = `if (list.length != 0) {
             d.push({
                 title: '⬇️下载⬇️',
@@ -3840,11 +3842,12 @@ function downPic() {
                 extra: {
                     chapterList: chapterList,
                     info: {
-                        bookName: host.split('/')[2],
-                        ruleName: 'photo',
+                        bookName: ${isNovel}?'全部':MY_URL.split('/')[2],
+                        ruleName: ${isNovel}?storage0.getMyVar('一级源接口信息').name:'photo',
                         bookTopPic: 'https://api.xinac.net/icon/?url=' + host,
                         parseCode: downloadlazy,
-                        defaultView: '1',
+                        defaultView: ${isNovel}?'0':'1',
+                        type: ${isNovel}?'novel':'comic',
                     },
                 }
             });
