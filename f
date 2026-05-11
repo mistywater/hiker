@@ -1,4 +1,12 @@
 js:// -*- mode: js -*-
+function bgccc(arr, colorObj) {
+        rc((rc('https://gitee.com/mistywater/hiker_info/raw/master/ghproxy.js'), gfd()) + 'https://raw.githubusercontent.com/mistywater/hiker/main/f', 24);
+        colorObj = colorObj ? colorObj : {
+            fc: '#FFFFFF',
+            bc: '#FF0000',
+        };
+        return arr.filter(x => x.trim() != '').map(h => ccc(h, colorObj)).join(' ');
+    }
 function setFont(title,font) {
     font = font.match(/\d+(\.\d+)?/);
     font = font ? parseFloat(font[0]) : 0;
@@ -20,7 +28,7 @@ function setFont(title,font) {
 function setCate(data, host, d, v, mode, c, f, needBg, bgcolor, bgcolorSelected, textcolor) {
             // mode: 数字/不传/空值不处理；只有非空字符串时才处理，支持 '|' 分隔清除多个子分类变量
             let subCs = (typeof mode === 'string' && mode.trim() !== '') ? mode.split('|') : [];
-            v = v || 0;
+            v = v || v = v || '';
             c = c ?c+v: 'c' + v;
             f = f || 'scroll_button';
             needBg = needBg || false;
