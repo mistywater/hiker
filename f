@@ -1,4 +1,5 @@
-js:// -*- mode: js -*-
+js:
+// -*- mode: js -*-
 function p(html, rule, host) {
     if (!html) return '';
     let isText = rule.includes('Text');
@@ -65,15 +66,17 @@ function p(html, rule, host) {
     }
     return '';
 }
+
 function bgccc(arr, colorObj) {
-        rc((rc('https://gitee.com/mistywater/hiker_info/raw/master/ghproxy.js'), gfd()) + 'https://raw.githubusercontent.com/mistywater/hiker/main/f', 24);
-        colorObj = colorObj ? colorObj : {
-            fc: '#FFFFFF',
-            bc: '#FF0000',
-        };
-        return arr.filter(x => x.trim() != '').map(h => ccc(h, colorObj)).join(' ');
-    }
-function setFont(title,font) {
+    rc((rc('https://gitee.com/mistywater/hiker_info/raw/master/ghproxy.js'), gfd()) + 'https://raw.githubusercontent.com/mistywater/hiker/main/f', 24);
+    colorObj = colorObj ? colorObj : {
+        fc: '#FFFFFF',
+        bc: '#FF0000',
+    };
+    return arr.filter(x => x.trim() != '').map(h => ccc(h, colorObj)).join(' ');
+}
+
+function setFont(title, font) {
     font = font.match(/\d+(\.\d+)?/);
     font = font ? parseFloat(font[0]) : 0;
     if (isNaN(font) || font === 0) return title;
@@ -91,75 +94,78 @@ function setFont(title,font) {
         return '<h1>' + title + '</h1>';
     }
 }
+
 function setCate(data, host, d, v, mode, c, f, needBg, bgcolor, bgcolorSelected, textcolor) {
-            // mode: 数字/不传/空值不处理；只有非空字符串时才处理，支持 '|' 分隔清除多个子分类变量
-            let subCs = (typeof mode === 'string' && mode.trim() !== '') ? mode.split('|') : [];
-            v = v != undefined ? v : '';
-            c = c ?c+v: 'c' + v;
-            f = f || 'scroll_button';
-            needBg = needBg || false;
-            bgcolor = bgcolor ? ('#' + bgcolor).replace('##', '') : '';
-            bgcolorSelected = bgcolorSelected ? ('#' + bgcolorSelected).replace('##', '') : '';
-            textcolor = textcolor || '#000000';
-            let isDarkMode = getItem('darkMode', '深色模式') === '浅色白字模式';
-            if (Array.isArray(data)) data = data[0] || {};
-            let c_title = data.title ? data.title.split('&') : [];
-            let c_id = !data.id ? c_title : data.id === '@@@' ? data.title.replace(/^.*?&/, '&').split('&') : data.id.split('&');
-            let picsClass = storage0.getMyVar(host + 'picsClass', []);
-            let c_img = picsClass.length != 0 ? picsClass : (data.img ? data.img.split('&') : []);
-            let defaultId = (c_id && c_id.length > 0) ? c_id[0] + '' : '';
-            let currentId = getMyVar(host + c, defaultId) + '';
-            c_title.forEach((title, index_c) => {
-                title = title.replace(/＆＆/g, '&');
-                let id_val = (c_id[index_c] !== undefined ? c_id[index_c] : title) + '';
-                let isSelected = (currentId == id_val);
-                let titleStyled = isSelected ? strong(title, needBg ? 'FFFF00' : 'FF6699') : needBg ? color(title, 'FFFFFF') : color(title, textcolor);
-                d.push({
-                    title: titleStyled,
-                    img: c_img.length > index_c ? c_img[index_c] : '',
-                    col_type: f,
-                    url: $('#noLoading#').lazyRule((host, c, currentId, newId, subCs) => {
-                        if (newId != currentId) {
-                            putMyVar(host + c, newId);
-                            clearMyVar(host + 'page');
-                            subCs.forEach(sc => clearMyVar(host + sc));
-                        }
-                        refreshPage(false);
-                        return 'hiker://empty';
-                    }, host, c, currentId, id_val, subCs),
-                    extra: {
-                        backgroundColor: needBg ? ((isSelected ? bgcolorSelected : bgcolor) || getRandomColor(getItem('darkMode'))) : '',
-                        LongClick: needBg ? bcLongClick() : [],
-                    },
-                });
-            });
-            d.push({
-                col_type: 'blank_block'
-            });
-            return d;
-        }
+    // mode: 数字/不传/空值不处理；只有非空字符串时才处理，支持 '|' 分隔清除多个子分类变量
+    let subCs = (typeof mode === 'string' && mode.trim() !== '') ? mode.split('|') : [];
+    v = v != undefined ? v : '';
+    c = c ? c + v : 'c' + v;
+    f = f || 'scroll_button';
+    needBg = needBg || false;
+    bgcolor = bgcolor ? ('#' + bgcolor).replace('##', '') : '';
+    bgcolorSelected = bgcolorSelected ? ('#' + bgcolorSelected).replace('##', '') : '';
+    textcolor = textcolor || '#000000';
+    let isDarkMode = getItem('darkMode', '深色模式') === '浅色白字模式';
+    if (Array.isArray(data)) data = data[0] || {};
+    let c_title = data.title ? data.title.split('&') : [];
+    let c_id = !data.id ? c_title : data.id === '@@@' ? data.title.replace(/^.*?&/, '&').split('&') : data.id.split('&');
+    let picsClass = storage0.getMyVar(host + 'picsClass', []);
+    let c_img = picsClass.length != 0 ? picsClass : (data.img ? data.img.split('&') : []);
+    let defaultId = (c_id && c_id.length > 0) ? c_id[0] + '' : '';
+    let currentId = getMyVar(host + c, defaultId) + '';
+    c_title.forEach((title, index_c) => {
+        title = title.replace(/＆＆/g, '&');
+        let id_val = (c_id[index_c] !== undefined ? c_id[index_c] : title) + '';
+        let isSelected = (currentId == id_val);
+        let titleStyled = isSelected ? strong(title, needBg ? 'FFFF00' : 'FF6699') : needBg ? color(title, 'FFFFFF') : color(title, textcolor);
+        d.push({
+            title: titleStyled,
+            img: c_img.length > index_c ? c_img[index_c] : '',
+            col_type: f,
+            url: $('#noLoading#').lazyRule((host, c, currentId, newId, subCs) => {
+                if (newId != currentId) {
+                    putMyVar(host + c, newId);
+                    clearMyVar(host + 'page');
+                    subCs.forEach(sc => clearMyVar(host + sc));
+                }
+                refreshPage(false);
+                return 'hiker://empty';
+            }, host, c, currentId, id_val, subCs),
+            extra: {
+                backgroundColor: needBg ? ((isSelected ? bgcolorSelected : bgcolor) || getRandomColor(getItem('darkMode'))) : '',
+                LongClick: needBg ? bcLongClick() : [],
+            },
+        });
+    });
+    d.push({
+        col_type: 'blank_block'
+    });
+    return d;
+}
+
 function getHtmlCodeA(url, str, checkStr, headers, host) {
-            headers = headers || {
-                'User-Agent': PC_UA
-            };
-            let ck = getVar(host + 'ck', '');
-            if (ck) headers.Cookie = ck;
-            let html = request(url, {
-                headers
-            });
-            if (html.includes(str)) {
-                html = fetchCodeByWebView(url, {
-                    headers: headers,
-                    checkJs: $.toString((host, checkStr) => {
-                        if (document.body.innerHTML.includes(checkStr)) {
-                            fba.putVar(host + 'ck', document.cookie);
-                            return 1;
-                        }
-                    }, host, checkStr),
-                });
-            }
-            return html;
-        }
+    headers = headers || {
+        'User-Agent': PC_UA
+    };
+    let ck = getVar(host + 'ck', '');
+    if (ck) headers.Cookie = ck;
+    let html = request(url, {
+        headers
+    });
+    if (html.includes(str)) {
+        html = fetchCodeByWebView(url, {
+            headers: headers,
+            checkJs: $.toString((host, checkStr) => {
+                if (document.body.innerHTML.includes(checkStr)) {
+                    fba.putVar(host + 'ck', document.cookie);
+                    return 1;
+                }
+            }, host, checkStr),
+        });
+    }
+    return html;
+}
+
 function getLogo(text, isSave) {
     text = String(text);
     let len = text.length;
@@ -185,8 +191,11 @@ function getLogo(text, isSave) {
         let fileName = 'logo_' + text.replace(/[\\/:*?"<>|]/g, '') + '.svg';
 
         if (isSave === 2) {
-let url='hiker://files/rules/juyue/logo/'+ fileName;
-          if(!fileExist(url))  {writeFile(url, svg);log(url);}
+            let url = 'hiker://files/rules/juyue/logo/' + fileName;
+            if (!fileExist(url)) {
+                writeFile(url, svg);
+                log(url);
+            }
             return url;
         } else {
             let path = 'hiker://files/_cache/' + fileName;
@@ -196,95 +205,102 @@ let url='hiker://files/rules/juyue/logo/'+ fileName;
     }
     return 'data:image/svg+xml;base64,' + base64Encode(svg);
 }
+
 function highlight(str, keyword) {
-            return str.replace(new RegExp(keyword, 'gi'), m => colorR(m, 'FF0000'));
-        }
+    return str.replace(new RegExp(keyword, 'gi'), m => colorR(m, 'FF0000'));
+}
+
 function getHtmls(urls) {
-            let result = new Array(urls.length).fill('');
-            let needFetch = [];
-            let urlIndexMap = {};
-            urls.forEach((url, index) => {
-                let path = 'hiker://files/_cache/juyue/' + safePath(url) + '.txt';
-                let html = fetch(path);
-                if (html) {
-                    result[index] = html;
-                } else {
-                    needFetch.push(url);
-                    urlIndexMap[url] = index;
-                }
-            });
-            if (needFetch.length === 0) return result;
-            let res = fetch('https://api.firecrawl.dev/v2/batch/scrape', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer fc-85d64a45c6f4493f80fb37a346ee845a'
-                },
-                body: JSON.stringify({
-                    urls: needFetch,
-                    formats: ['rawHtml']
-                })
-            });
-            let job = JSON.parse(res);
-            if (!job.url) toast("任务创建失败");
-            let data = null;
-            for (let i = 0; i < 30; i++) {log(i);
-                java.lang.Thread.sleep(1000);
-                let queryRes = fetch(job.url, {
-                    headers: {
-                        'Authorization': 'Bearer fc-85d64a45c6f4493f80fb37a346ee845a'
-                    }
-                });
-                let queryData = JSON.parse(queryRes);
-                if (queryData.completed === queryData.total) {
-                    data = queryData.data;
-                    break;
-                }
-            }
-            for (let item of data) {
-                let url = item.metadata.url;
-                let html = item.rawHtml || '';
-                let index = urlIndexMap[url];
-                if (html && index !== undefined) {
-                    let path = 'hiker://files/_cache/juyue/' + safePath(url) + '.txt';
-                    writeFile(path, html);
-                    result[index] = html;
-                }
-            }
-            return result;
+    let result = new Array(urls.length).fill('');
+    let needFetch = [];
+    let urlIndexMap = {};
+    urls.forEach((url, index) => {
+        let path = 'hiker://files/_cache/juyue/' + safePath(url) + '.txt';
+        let html = fetch(path);
+        if (html) {
+            result[index] = html;
+        } else {
+            needFetch.push(url);
+            urlIndexMap[url] = index;
         }
+    });
+    if (needFetch.length === 0) return result;
+    let res = fetch('https://api.firecrawl.dev/v2/batch/scrape', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer fc-85d64a45c6f4493f80fb37a346ee845a'
+        },
+        body: JSON.stringify({
+            urls: needFetch,
+            formats: ['rawHtml']
+        })
+    });
+    let job = JSON.parse(res);
+    if (!job.url) toast("任务创建失败");
+    let data = null;
+    for (let i = 0; i < 30; i++) {
+        log(i);
+        java.lang.Thread.sleep(1000);
+        let queryRes = fetch(job.url, {
+            headers: {
+                'Authorization': 'Bearer fc-85d64a45c6f4493f80fb37a346ee845a'
+            }
+        });
+        let queryData = JSON.parse(queryRes);
+        if (queryData.completed === queryData.total) {
+            data = queryData.data;
+            break;
+        }
+    }
+    for (let item of data) {
+        let url = item.metadata.url;
+        let html = item.rawHtml || '';
+        let index = urlIndexMap[url];
+        if (html && index !== undefined) {
+            let path = 'hiker://files/_cache/juyue/' + safePath(url) + '.txt';
+            writeFile(path, html);
+            result[index] = html;
+        }
+    }
+    return result;
+}
+
 function formatPostTime(timestamp) {
-                if (!timestamp) return '';
+    if (!timestamp) return '';
 
-                var now = Date.now();
-                var diff = now - (timestamp * 1000);
+    var now = Date.now();
+    var diff = now - (timestamp * 1000);
 
-                if (diff < 60 * 1000) {
-                    return '刚刚';
-                } else if (diff < 60 * 60 * 1000) {
-                    return Math.floor(diff / (60 * 1000)) + '分钟前';
-                } else if (diff < 24 * 60 * 60 * 1000) {
-                    return Math.floor(diff / (60 * 60 * 1000)) + '小时前';
-                } else if (diff < 30 * 24 * 60 * 60 * 1000) {
-                    return Math.floor(diff / (24 * 60 * 60 * 1000)) + '天前';
-                } else {
-                    var date = new Date(timestamp * 1000);
-                    var year = date.getFullYear();
-                    var month = (date.getMonth() + 1).toString().padStart(2, '0');
-                    var day = date.getDate().toString().padStart(2, '0');
-                    return year + '-' + month + '-' + day;
-                }
-            }
+    if (diff < 60 * 1000) {
+        return '刚刚';
+    } else if (diff < 60 * 60 * 1000) {
+        return Math.floor(diff / (60 * 1000)) + '分钟前';
+    } else if (diff < 24 * 60 * 60 * 1000) {
+        return Math.floor(diff / (60 * 60 * 1000)) + '小时前';
+    } else if (diff < 30 * 24 * 60 * 60 * 1000) {
+        return Math.floor(diff / (24 * 60 * 60 * 1000)) + '天前';
+    } else {
+        var date = new Date(timestamp * 1000);
+        var year = date.getFullYear();
+        var month = (date.getMonth() + 1).toString().padStart(2, '0');
+        var day = date.getDate().toString().padStart(2, '0');
+        return year + '-' + month + '-' + day;
+    }
+}
+
 function lineBlank(depth) {
-                return '‘‘’’' + '<small>'.repeat(depth || 4) + '<br><br>' + '</small>'.repeat(depth || 4);
-            }
+    return '‘‘’’' + '<small>'.repeat(depth || 4) + '<br><br>' + '</small>'.repeat(depth || 4);
+}
+
 function generatePageLinks(d, pages, str) {
-                    [Array.from({
-                        length: pages
-                    }, (_, i) => i + 1).join('&')].forEach((item, index, data) => {
-                        classTop(index, item, host, d, 0, 0, 'multiPage', 'scroll_button', '', 0, 0);
-                    });
-                }       
+    [Array.from({
+        length: pages
+    }, (_, i) => i + 1).join('&')].forEach((item, index, data) => {
+        classTop(index, item, host, d, 0, 0, 'multiPage', 'scroll_button', '', 0, 0);
+    });
+}
+
 function x5toerji(MY_RULE, jkdata, extra) {
     MY_RULE = MY_RULE || JSON.parse(fetch("hiker://home@\u805a\u9605"));
     jkdata = jkdata || storage0.getMyVar("\u4e00\u7ea7\u6e90\u63a5\u53e3\u4fe1\u606f");
@@ -303,91 +319,101 @@ function x5toerji(MY_RULE, jkdata, extra) {
             storage0.putMyVar("\u4e8c\u7ea7\u9644\u52a0\u4e34\u65f6\u5bf9\u8c61", extra);
             require(config.聚阅);
             erji();
-        }
-        , extra);
-        fba.open(JSON.stringify({rule: "\u805a\u9605", title: extra.name || "\u8be6\u60c5", url: "hiker://empty?type=" + jkdata.type + "&page=fypage" + (jkdata.erjisign || "#immersiveTheme#"), group: MY_RULE.group, findRule: findRule, params: JSON.stringify(extra), preRule: MY_RULE.preRule, pages: MY_RULE.pages}));
-    }
-    , MY_RULE, jkdata, extra);
+        }, extra);
+        fba.open(JSON.stringify({
+            rule: "\u805a\u9605",
+            title: extra.name || "\u8be6\u60c5",
+            url: "hiker://empty?type=" + jkdata.type + "&page=fypage" + (jkdata.erjisign || "#immersiveTheme#"),
+            group: MY_RULE.group,
+            findRule: findRule,
+            params: JSON.stringify(extra),
+            preRule: MY_RULE.preRule,
+            pages: MY_RULE.pages
+        }));
+    }, MY_RULE, jkdata, extra);
 }
-function searchX5(d, str, url, jkdata, href, title) {
-                if (typeof(str) == 'object') {
-                    str = str.toString();
-                    str = str.substring(1, str.length - 1);
-                } else if (typeof(str) == 'string' && str.startsWith('/')) {
-                    str = str.substring(1, str.length - 1);
-                }
-                d.push({
-                    title: '🔍',
-                    url: $.toString((str, url, x5toerji, MY_RULE, jkdata, href, title) => {
-                        putVar('keyword', input);
-                        return $('hiker://empty').rule((str, url, x5toerji, MY_RULE, jkdata, href, title) => {
-                            var d = [];
-                            d.push({
-                                url: url,
-                                col_type: 'x5_webview_single',
-                                desc: 'list&&screen',
-                                extra: {
-                                    ua: MOBILE_UA,
-                                    showProgress: false,
-                                    canBack: true,
-                                    jsLoadingInject: true,
-                                    js: $.toString((href, title) => {
-                                        if (href && title) {
-                                            document.addEventListener('click', function(e) {
-                                                const bookLink = e.target.closest(href);
-                                                if (bookLink) {
-                                                    const name = bookLink.querySelector(title).textContent.trim();
-                                                    fba.putVar('name', name);
 
-                                                }
-                                            });
-                                        } else {
-                                            fba.putVar('name', '');
-                                        }
-                                    }, href, title),
-                                    urlInterceptor: $.toString((str, x5toerji, MY_RULE, jkdata) => {
-                                        let regex = new RegExp(str);
-                                        if (input.match(regex)) {
-                                            log(getVar('name'));
-                                            return x5toerji(MY_RULE, jkdata, {
-                                                url: input,
-                                                name: getVar('name','')
-                                            });
-                                        }
-                                    }, str, x5toerji, MY_RULE, jkdata),
-                                }
-                            });
-                            setResult(d);
-                        }, str, url, x5toerji, MY_RULE, jkdata, href, title);
-                    }, str, url, x5toerji, MY_RULE, jkdata, href, title),
-                    desc: '',
-                    col_type: 'input',
+function searchX5(d, str, url, jkdata, href, title) {
+    if (typeof(str) == 'object') {
+        str = str.toString();
+        str = str.substring(1, str.length - 1);
+    } else if (typeof(str) == 'string' && str.startsWith('/')) {
+        str = str.substring(1, str.length - 1);
+    }
+    d.push({
+        title: '🔍',
+        url: $.toString((str, url, x5toerji, MY_RULE, jkdata, href, title) => {
+            putVar('keyword', input);
+            return $('hiker://empty').rule((str, url, x5toerji, MY_RULE, jkdata, href, title) => {
+                var d = [];
+                d.push({
+                    url: url,
+                    col_type: 'x5_webview_single',
+                    desc: 'list&&screen',
                     extra: {
-                        defaultValue: getVar('keyword', ''),
+                        ua: MOBILE_UA,
+                        showProgress: false,
+                        canBack: true,
+                        jsLoadingInject: true,
+                        js: $.toString((href, title) => {
+                            if (href && title) {
+                                document.addEventListener('click', function(e) {
+                                    const bookLink = e.target.closest(href);
+                                    if (bookLink) {
+                                        const name = bookLink.querySelector(title).textContent.trim();
+                                        fba.putVar('name', name);
+
+                                    }
+                                });
+                            } else {
+                                fba.putVar('name', '');
+                            }
+                        }, href, title),
+                        urlInterceptor: $.toString((str, x5toerji, MY_RULE, jkdata) => {
+                            let regex = new RegExp(str);
+                            if (input.match(regex)) {
+                                log(getVar('name'));
+                                return x5toerji(MY_RULE, jkdata, {
+                                    url: input,
+                                    name: getVar('name', '')
+                                });
+                            }
+                        }, str, x5toerji, MY_RULE, jkdata),
                     }
                 });
-                return d;
-            }
-function bgcolorArr(arr,bc){
-return arr.map(h => ccc(/<\//.test(h)?pdfh(h, 'body&&Text'):h, {
-                        fc: '#FFFFFF',
-                        bc: !bc?getDarkColor():'',
-                    })).join(' ');
+                setResult(d);
+            }, str, url, x5toerji, MY_RULE, jkdata, href, title);
+        }, str, url, x5toerji, MY_RULE, jkdata, href, title),
+        desc: '',
+        col_type: 'input',
+        extra: {
+            defaultValue: getVar('keyword', ''),
+        }
+    });
+    return d;
 }
+
+function bgcolorArr(arr, bc) {
+    return arr.map(h => ccc(/<\//.test(h) ? pdfh(h, 'body&&Text') : h, {
+        fc: '#FFFFFF',
+        bc: !bc ? getDarkColor() : '',
+    })).join(' ');
+}
+
 function banner(start, arr, data, cfg) {
     if (!data || data.length == 0) {
         return;
     }
-    let id = cfg.id||"juyue";
+    let id = cfg.id || "juyue";
     let rnum = 0;
     let item = data[rnum];
-    putMyVar("rnum"+id, rnum+'');
+    putMyVar("rnum" + id, rnum + '');
     cfg = cfg || {};
     let time = cfg.time || 4000;
     let col_type = cfg.col_type || "card_pic_1";
     let desc = cfg.desc || "0";
     let extra = item.extra || {};
-    extra["id"] = cfg.id||"juyue";
+    extra["id"] = cfg.id || "juyue";
     arr.push({
         title: item.title,
         url: item.url,
@@ -404,13 +430,13 @@ function banner(start, arr, data, cfg) {
         data: data,
         jkdata: cfg.jkdata || storage0.getMyVar("一级源接口信息"),
     };
-    registerTask(id, time, $.toString((obj, toerji,id) => {
+    registerTask(id, time, $.toString((obj, toerji, id) => {
         let data = obj.data;
-        let rum = getMyVar("rnum"+id);
-        let i = Number(getMyVar("banneri"+id, "0"));
+        let rum = getMyVar("rnum" + id);
+        let i = Number(getMyVar("banneri" + id, "0"));
         if (rum != "") {
             i = Number(rum) + 1;
-            clearMyVar("rnum"+id);
+            clearMyVar("rnum" + id);
         } else {
             i = i + 1;
         }
@@ -423,72 +449,75 @@ function banner(start, arr, data, cfg) {
         } catch (e) {
             unRegisterTask(id);
         }
-        putMyVar("banneri"+id, i);
-    }, obj, toerji,id));
+        putMyVar("banneri" + id, i);
+    }, obj, toerji, id));
 }
-function proxyPic(url, mode) {
-        if (url.startsWith('https://images.weserv.nl/?url=') || url.startsWith('https://i1.wp.com/')) return url;
-        if(/blogspot/.test(url))  return 'https://images.weserv.nl/?url=' + url;
-        if(/mrcong|misskon/.test(url)&&!url.endsWith('/'))  return 'https://i1.wp.com/' + url.replace(/https?:\/\//, '');
-        if(/meitu\.jrants\.com/.test(url))  return 'https://wdkj.eu.org/' + url;
-        if (!mode) return 'https://i1.wp.com/' + url.replace(/https?:\/\//, '');
-        if (mode == 1) return 'https://images.weserv.nl/?url=' + url;
-		if (mode == 2&&!url.startsWith('https://wdkj.eu.org/')) return 'https://wdkj.eu.org/' + url;
-        return url;
-    }
-function bfs(urls, maxRetry) {
-            let retryLimit = maxRetry !== undefined ? maxRetry : 5;
-            let cachePaths = urls.map(url => 'hiker://files/_cache/juyue/' + safePath(url.url) + '.txt');
-            let resultHtmls = new Array(urls.length).fill(null);
 
-            function isRequestFailed(html) {
-                return !html || /HTTP Error 503|服务不可用|error code: 1015/.test(html);
+function proxyPic(url, mode) {
+    if (url.startsWith('https://images.weserv.nl/?url=') || url.startsWith('https://i1.wp.com/')) return url;
+    if (/blogspot/.test(url)) return 'https://images.weserv.nl/?url=' + url;
+    if (/mrcong|misskon/.test(url) && !url.endsWith('/')) return 'https://i1.wp.com/' + url.replace(/https?:\/\//, '');
+    if (/meitu\.jrants\.com/.test(url)) return 'https://wdkj.eu.org/' + url;
+    if (!mode) return 'https://i1.wp.com/' + url.replace(/https?:\/\//, '');
+    if (mode == 1) return 'https://images.weserv.nl/?url=' + url;
+    if (mode == 2 && !url.startsWith('https://wdkj.eu.org/')) return 'https://wdkj.eu.org/' + url;
+    return url;
+}
+
+function bfs(urls, maxRetry) {
+    let retryLimit = maxRetry !== undefined ? maxRetry : 5;
+    let cachePaths = urls.map(url => 'hiker://files/_cache/juyue/' + safePath(url.url) + '.txt');
+    let resultHtmls = new Array(urls.length).fill(null);
+
+    function isRequestFailed(html) {
+        return !html || /HTTP Error 503|服务不可用|error code: 1015/.test(html);
+    }
+    let needFetchList = [];
+    urls.forEach((urlObj, idx) => {
+        try {
+            let cache = readFile(cachePaths[idx]);
+            if (!isRequestFailed(cache)) {
+                resultHtmls[idx] = cache;
+            } else {
+                needFetchList.push({
+                    urlObj: urlObj,
+                    index: idx
+                });
             }
-            let needFetchList = [];
-            urls.forEach((urlObj, idx) => {
-                try {
-                    let cache = readFile(cachePaths[idx]);
-                    if (!isRequestFailed(cache)) {
-                        resultHtmls[idx] = cache;
-                    } else {
-                        needFetchList.push({
-                            urlObj: urlObj,
-                            index: idx
-                        });
-                    }
-                } catch (e) {
-                    needFetchList.push({
-                        urlObj: urlObj,
-                        index: idx
-                    });
+        } catch (e) {
+            needFetchList.push({
+                urlObj: urlObj,
+                index: idx
+            });
+        }
+    });
+    if (needFetchList.length === 0) {
+        return resultHtmls.map(html => html || '');
+    }
+    let currentTasks = needFetchList;
+    let retryCount = 0;
+    while (retryCount < retryLimit && currentTasks.length > 0) {
+        let fetchUrlObjs = currentTasks.map(item => item.urlObj);
+        let fetchResults = bf(fetchUrlObjs);
+        if (fetchResults && fetchResults.length === currentTasks.length) {
+            currentTasks.forEach((task, idx) => {
+                let html = fetchResults[idx];
+                resultHtmls[task.index] = html;
+                if (!isRequestFailed(html)) {
+                    writeFile(cachePaths[task.index], html);
                 }
             });
-            if (needFetchList.length === 0) {
-                return resultHtmls.map(html => html || '');
-            }
-            let currentTasks = needFetchList;
-            let retryCount = 0;
-            while (retryCount < retryLimit && currentTasks.length > 0) {
-                let fetchUrlObjs = currentTasks.map(item => item.urlObj);
-                let fetchResults = bf(fetchUrlObjs);
-                if (fetchResults && fetchResults.length === currentTasks.length) {
-                    currentTasks.forEach((task, idx) => {
-                        let html = fetchResults[idx];
-                        resultHtmls[task.index] = html;
-                        if (!isRequestFailed(html)) {
-                            writeFile(cachePaths[task.index], html);
-                        }
-                    });
-                }
-                currentTasks = currentTasks.filter(task => isRequestFailed(resultHtmls[task.index]));
-                retryCount++;
-
-                if (currentTasks.length > 0 && retryCount < retryLimit) {
-                    java.lang.Thread.sleep(100);
-                }
-            }
-            return resultHtmls.map(html => isRequestFailed(html) ? '' : html);
         }
+        currentTasks = currentTasks.filter(task => isRequestFailed(resultHtmls[task.index]));
+        retryCount++;
+
+        if (currentTasks.length > 0 && retryCount < retryLimit) {
+            java.lang.Thread.sleep(100);
+        }
+    }
+    return resultHtmls.map(html => isRequestFailed(html) ? '' : html);
+}
+
 function bcRandom(darkMode) {
     if (typeof(darkMode) == 'undefined' || !darkMode) {
         darkMode = '深色模式';
@@ -548,7 +577,7 @@ function getRandomColor(mode) {
     if (typeof(mode) == 'undefined') {
         darkMode = getVar('darkMode', '1') == 0 ? '浅色模式' : (getVar('darkMode') == 2 ? '浅色白字模式' : '深色模式');
     } else {
-        darkMode = mode == 0 ? '浅色模式' : (mode == 2 ? '浅色白字模式' : ((mode == 3 ? '黑字淡彩色' : (mode == 4?'4':'深色模式'))));
+        darkMode = mode == 0 ? '浅色模式' : (mode == 2 ? '浅色白字模式' : ((mode == 3 ? '黑字淡彩色' : (mode == 4 ? '4' : '深色模式'))));
     }
     switch (darkMode) {
         case '浅色模式':
@@ -566,23 +595,25 @@ function getRandomColor(mode) {
     }
 }
 var grc = getRandomColor;
+
 function getRandomTagColor() {
-  const colors = [
-    '#fff5e6', '#f0f9ff', '#e6fffa', '#f3f0ff', '#fdf2f8',
-    '#fefce8', '#ecfdf5', '#eff6ff', '#e0f7fa', '#e8f5e9',
-    '#fff3e0', '#fce4ec', '#ede7f6', '#f9fbe7', '#e3f2fd',
-    '#fbe9e7', '#f3e5f5', '#e1f5fe', '#f1f8e9', '#fffde7',
-    '#eceff1', '#f0f4c3', '#e8eaf6', '#ede7f6', '#fff9c4',
-    '#e1f5fe', '#fce4ec', '#f9fbe7', '#e0f2f1', '#fbe9e7',
-    '#ede7f6', '#e3f2fd'
-  ];
-  const randomIndex = Math.floor(Math.random() * colors.length);
-  return colors[randomIndex];
+    const colors = [
+        '#fff5e6', '#f0f9ff', '#e6fffa', '#f3f0ff', '#fdf2f8',
+        '#fefce8', '#ecfdf5', '#eff6ff', '#e0f7fa', '#e8f5e9',
+        '#fff3e0', '#fce4ec', '#ede7f6', '#f9fbe7', '#e3f2fd',
+        '#fbe9e7', '#f3e5f5', '#e1f5fe', '#f1f8e9', '#fffde7',
+        '#eceff1', '#f0f4c3', '#e8eaf6', '#ede7f6', '#fff9c4',
+        '#e1f5fe', '#fce4ec', '#f9fbe7', '#e0f2f1', '#fbe9e7',
+        '#ede7f6', '#e3f2fd'
+    ];
+    const randomIndex = Math.floor(Math.random() * colors.length);
+    return colors[randomIndex];
 }
+
 function generateArrayDarkColor() {
-  const colors = ['#FFC107','#FFF8E1','#FFECB3','#FFE082','#FFD54F','#FFCA28','#FFC107','#FFB300','#FFA000','#FF8F00','#FF6F00','#2196F3','#E3F2FD','#BBDEFB','#90CAF9','#64B5F6','#42A5F5','#2196F3','#1E88E5','#1976D2','#1565C0','#0D47A1','#607D8B','#ECEFF1','#CFD8DC','#B0BEC5','#90A4AE','#78909C','#607D8B','#546E7A','#455A64','#37474F','#263238','#795548','#EFEBE9','#D7CCC8','#BCAAA4','#A1887F','#8D6E63','#795548','#6D4C41','#5D4037','#4E342E','#3E2723','#00BCD4','#E0F7FA','#B2EBF2','#80DEEA','#4DD0E1','#26C6DA','#00BCD4','#00ACC1','#0097A7','#00838F','#006064','#FF5722','#FBE9E7','#FFCCBC','#FFAB91','#FF8A65','#FF7043','#FF5722','#F4511E','#E64A19','#D84315','#BF360C','#673AB7','#EDE7F6','#D1C4E9','#B39DDB','#9575CD','#7E57C2','#673AB7','#5E35B1','#512DA8','#4527A0','#311B92','#4CAF50','#E8F5E9','#C8E6C9','#A5D6A7','#81C784','#66BB6A','#4CAF50','#43A047','#388E3C','#2E7D32','#1B5E20','#9E9E9E','#FAFAFA','#F5F5F5','#EEEEEE','#E0E0E0','#BDBDBD','#9E9E9E','#757575','#616161','#424242','#212121','#3F51B5','#E8EAF6','#C5CAE9','#9FA8DA','#7986CB','#5C6BC0','#3F51B5','#3949AB','#303F9F','#283593','#1A237E','#03A9F4','#E1F5FE','#B3E5FC','#81D4FA','#4FC3F7','#29B6F6','#03A9F4','#039BE5','#0288D1','#0277BD','#01579B','#8BC34A','#F1F8E9','#DCEDC8','#C5E1A5','#AED581','#9CCC65','#8BC34A','#7CB342','#689F38','#558B2F','#33691E','#CDDC39','#F9FBE7','#F0F4C3','#E6EE9C','#DCE775','#D4E157','#CDDC39','#C0CA33','#AFB42B','#9E9D24','#827717','#FF9800','#FFF3E0','#FFE0B2','#FFCC80','#FFB74D','#FFA726','#FF9800','#FB8C00','#F57C00','#EF6C00','#E65100','#E91E63','#FCE4EC','#F8BBD0','#F48FB1','#F06292','#EC407A','#E91E63','#D81B60','#C2185B','#AD1457','#880E4F','#9C27B0','#F3E5F5','#E1BEE7','#CE93D8','#BA68C8','#AB47BC','#9C27B0','#8E24AA','#7B1FA2','#6A1B9A','#4A148C','#F44336','#FFEBEE','#FFCDD2','#EF9A9A','#E57373','#EF5350','#F44336','#E53935','#D32F2F','#C62828','#B71C1C','#009688','#E0F2F1','#B2DFDB','#80CBC4','#4DB6AC','#26A69A','#009688','#00897B','#00796B','#00695C','#004D40','#FFEB3B','#FFFDE7','#FFF9C4','#FFF59D','#FFF176','#FFEE58','#FFEB3B','#FDD835','#FBC02D','#F9A825','#F57F17','#FFD740','#FFE57F','#FFD740','#FFC400','#FFAB00','#448AFF','#82B1FF','#448AFF','#2979FF','#2962FF','#18FFFF','#84FFFF','#18FFFF','#00E5FF','#00B8D4','#FF6E40','#FF9E80','#FF6E40','#FF3D00','#DD2C00','#7C4DFF','#B388FF','#7C4DFF','#651FFF','#6200EA','#69F0AE','#B9F6CA','#69F0AE','#00E676','#00C853','#536DFE','#8C9EFF','#536DFE','#3D5AFE','#304FFE','#40C4FF','#80D8FF','#40C4FF','#00B0FF','#0091EA','#B2FF59','#CCFF90','#B2FF59','#76FF03','#64DD17','#EEFF41','#F4FF81','#EEFF41','#C6FF00','#AEEA00','#FFAB40','#FFD180','#FFAB40','#FF9100','#FF6D00','#FF4081','#FF80AB','#FF4081','#F50057','#C51162','#E040FB','#EA80FC','#E040FB','#D500F9','#AA00FF','#FF5252','#FF8A80','#FF5252','#FF1744','#D50000','#64FFDA','#A7FFEB','#64FFDA','#1DE9B6','#00BFA5','#FFFF00','#FFFF8D','#FFFF00','#FFEA00','#FFD600','#FFC107','#FFF8E1','#FFECB3','#FFE082','#FFD54F','#FFCA28','#FFC107','#FFB300','#FFA000','#FF8F00','#FF6F00','#2196F3','#E3F2FD','#BBDEFB','#90CAF9','#64B5F6','#42A5F5','#2196F3','#1E88E5','#1976D2','#1565C0','#0D47A1','#607D8B','#ECEFF1','#CFD8DC','#B0BEC5','#90A4AE','#78909C','#607D8B','#546E7A','#455A64','#37474F','#263238','#795548','#EFEBE9','#D7CCC8','#BCAAA4','#A1887F','#8D6E63','#795548','#6D4C41','#5D4037','#4E342E','#3E2723','#00BCD4','#E0F7FA','#B2EBF2','#80DEEA','#4DD0E1','#26C6DA','#00BCD4','#00ACC1','#0097A7','#00838F','#006064','#FF5722','#FBE9E7','#FFCCBC','#FFAB91','#FF8A65','#FF7043','#FF5722','#F4511E','#E64A19','#D84315','#BF360C','#673AB7','#EDE7F6','#D1C4E9','#B39DDB','#9575CD','#7E57C2','#673AB7','#5E35B1','#512DA8','#4527A0','#311B92','#4CAF50','#E8F5E9','#C8E6C9','#A5D6A7','#81C784','#66BB6A','#4CAF50','#43A047','#388E3C','#2E7D32','#1B5E20','#9E9E9E','#FAFAFA','#F5F5F5','#EEEEEE','#E0E0E0','#BDBDBD','#9E9E9E','#757575','#616161','#424242','#212121','#3F51B5','#E8EAF6','#C5CAE9','#9FA8DA','#7986CB','#5C6BC0','#3F51B5','#3949AB','#303F9F','#283593','#1A237E','#03A9F4','#E1F5FE','#B3E5FC','#81D4FA','#4FC3F7','#29B6F6','#03A9F4','#039BE5','#0288D1','#0277BD','#01579B','#8BC34A','#F1F8E9','#DCEDC8','#C5E1A5','#AED581','#9CCC65','#8BC34A','#7CB342','#689F38','#558B2F','#33691E','#CDDC39','#F9FBE7','#F0F4C3','#E6EE9C','#DCE775','#D4E157','#CDDC39','#C0CA33','#AFB42B','#9E9D24','#827717','#FF9800','#FFF3E0','#FFE0B2','#FFCC80','#FFB74D','#FFA726','#FF9800','#FB8C00','#F57C00','#EF6C00','#E65100','#E91E63','#FCE4EC','#F8BBD0','#F48FB1','#F06292','#EC407A','#E91E63','#D81B60','#C2185B','#AD1457','#880E4F','#9C27B0','#F3E5F5','#E1BEE7','#CE93D8','#BA68C8','#AB47BC','#9C27B0','#8E24AA','#7B1FA2','#6A1B9A','#4A148C','#F44336','#FFEBEE','#FFCDD2','#EF9A9A','#E57373','#EF5350','#F44336','#E53935','#D32F2F','#C62828','#B71C1C','#009688','#E0F2F1','#B2DFDB','#80CBC4','#4DB6AC','#26A69A','#009688','#00897B','#00796B','#00695C','#004D40','#FFEB3B','#FFFDE7','#FFF9C4','#FFF59D','#FFF176','#FFEE58','#FFEB3B','#FDD835','#FBC02D','#F9A825','#F57F17','#FFD740','#FFE57F','#FFD740','#FFC400','#FFAB00','#448AFF','#82B1FF','#448AFF','#2979FF','#2962FF','#18FFFF','#84FFFF','#18FFFF','#00E5FF','#00B8D4','#FF6E40','#FF9E80','#FF6E40','#FF3D00','#DD2C00','#7C4DFF','#B388FF','#7C4DFF','#651FFF','#6200EA','#69F0AE','#B9F6CA','#69F0AE','#00E676','#00C853','#536DFE','#8C9EFF','#536DFE','#3D5AFE','#304FFE','#40C4FF','#80D8FF','#40C4FF','#00B0FF','#0091EA','#B2FF59','#CCFF90','#B2FF59','#76FF03','#64DD17','#EEFF41','#F4FF81','#EEFF41','#C6FF00','#AEEA00','#FFAB40','#FFD180','#FFAB40','#FF9100','#FF6D00','#FF4081','#FF80AB','#FF4081','#F50057','#C51162','#E040FB','#EA80FC','#E040FB','#D500F9','#AA00FF','#FF5252','#FF8A80','#FF5252','#FF1744','#D50000','#64FFDA','#A7FFEB','#64FFDA','#1DE9B6','#00BFA5','#FFFF00','#FFFF8D','#FFFF00','#FFEA00','#FFD600'];
-  const randomIndex = Math.floor(Math.random() * colors.length);
-  return colors[randomIndex];
+    const colors = ['#FFC107', '#FFF8E1', '#FFECB3', '#FFE082', '#FFD54F', '#FFCA28', '#FFC107', '#FFB300', '#FFA000', '#FF8F00', '#FF6F00', '#2196F3', '#E3F2FD', '#BBDEFB', '#90CAF9', '#64B5F6', '#42A5F5', '#2196F3', '#1E88E5', '#1976D2', '#1565C0', '#0D47A1', '#607D8B', '#ECEFF1', '#CFD8DC', '#B0BEC5', '#90A4AE', '#78909C', '#607D8B', '#546E7A', '#455A64', '#37474F', '#263238', '#795548', '#EFEBE9', '#D7CCC8', '#BCAAA4', '#A1887F', '#8D6E63', '#795548', '#6D4C41', '#5D4037', '#4E342E', '#3E2723', '#00BCD4', '#E0F7FA', '#B2EBF2', '#80DEEA', '#4DD0E1', '#26C6DA', '#00BCD4', '#00ACC1', '#0097A7', '#00838F', '#006064', '#FF5722', '#FBE9E7', '#FFCCBC', '#FFAB91', '#FF8A65', '#FF7043', '#FF5722', '#F4511E', '#E64A19', '#D84315', '#BF360C', '#673AB7', '#EDE7F6', '#D1C4E9', '#B39DDB', '#9575CD', '#7E57C2', '#673AB7', '#5E35B1', '#512DA8', '#4527A0', '#311B92', '#4CAF50', '#E8F5E9', '#C8E6C9', '#A5D6A7', '#81C784', '#66BB6A', '#4CAF50', '#43A047', '#388E3C', '#2E7D32', '#1B5E20', '#9E9E9E', '#FAFAFA', '#F5F5F5', '#EEEEEE', '#E0E0E0', '#BDBDBD', '#9E9E9E', '#757575', '#616161', '#424242', '#212121', '#3F51B5', '#E8EAF6', '#C5CAE9', '#9FA8DA', '#7986CB', '#5C6BC0', '#3F51B5', '#3949AB', '#303F9F', '#283593', '#1A237E', '#03A9F4', '#E1F5FE', '#B3E5FC', '#81D4FA', '#4FC3F7', '#29B6F6', '#03A9F4', '#039BE5', '#0288D1', '#0277BD', '#01579B', '#8BC34A', '#F1F8E9', '#DCEDC8', '#C5E1A5', '#AED581', '#9CCC65', '#8BC34A', '#7CB342', '#689F38', '#558B2F', '#33691E', '#CDDC39', '#F9FBE7', '#F0F4C3', '#E6EE9C', '#DCE775', '#D4E157', '#CDDC39', '#C0CA33', '#AFB42B', '#9E9D24', '#827717', '#FF9800', '#FFF3E0', '#FFE0B2', '#FFCC80', '#FFB74D', '#FFA726', '#FF9800', '#FB8C00', '#F57C00', '#EF6C00', '#E65100', '#E91E63', '#FCE4EC', '#F8BBD0', '#F48FB1', '#F06292', '#EC407A', '#E91E63', '#D81B60', '#C2185B', '#AD1457', '#880E4F', '#9C27B0', '#F3E5F5', '#E1BEE7', '#CE93D8', '#BA68C8', '#AB47BC', '#9C27B0', '#8E24AA', '#7B1FA2', '#6A1B9A', '#4A148C', '#F44336', '#FFEBEE', '#FFCDD2', '#EF9A9A', '#E57373', '#EF5350', '#F44336', '#E53935', '#D32F2F', '#C62828', '#B71C1C', '#009688', '#E0F2F1', '#B2DFDB', '#80CBC4', '#4DB6AC', '#26A69A', '#009688', '#00897B', '#00796B', '#00695C', '#004D40', '#FFEB3B', '#FFFDE7', '#FFF9C4', '#FFF59D', '#FFF176', '#FFEE58', '#FFEB3B', '#FDD835', '#FBC02D', '#F9A825', '#F57F17', '#FFD740', '#FFE57F', '#FFD740', '#FFC400', '#FFAB00', '#448AFF', '#82B1FF', '#448AFF', '#2979FF', '#2962FF', '#18FFFF', '#84FFFF', '#18FFFF', '#00E5FF', '#00B8D4', '#FF6E40', '#FF9E80', '#FF6E40', '#FF3D00', '#DD2C00', '#7C4DFF', '#B388FF', '#7C4DFF', '#651FFF', '#6200EA', '#69F0AE', '#B9F6CA', '#69F0AE', '#00E676', '#00C853', '#536DFE', '#8C9EFF', '#536DFE', '#3D5AFE', '#304FFE', '#40C4FF', '#80D8FF', '#40C4FF', '#00B0FF', '#0091EA', '#B2FF59', '#CCFF90', '#B2FF59', '#76FF03', '#64DD17', '#EEFF41', '#F4FF81', '#EEFF41', '#C6FF00', '#AEEA00', '#FFAB40', '#FFD180', '#FFAB40', '#FF9100', '#FF6D00', '#FF4081', '#FF80AB', '#FF4081', '#F50057', '#C51162', '#E040FB', '#EA80FC', '#E040FB', '#D500F9', '#AA00FF', '#FF5252', '#FF8A80', '#FF5252', '#FF1744', '#D50000', '#64FFDA', '#A7FFEB', '#64FFDA', '#1DE9B6', '#00BFA5', '#FFFF00', '#FFFF8D', '#FFFF00', '#FFEA00', '#FFD600', '#FFC107', '#FFF8E1', '#FFECB3', '#FFE082', '#FFD54F', '#FFCA28', '#FFC107', '#FFB300', '#FFA000', '#FF8F00', '#FF6F00', '#2196F3', '#E3F2FD', '#BBDEFB', '#90CAF9', '#64B5F6', '#42A5F5', '#2196F3', '#1E88E5', '#1976D2', '#1565C0', '#0D47A1', '#607D8B', '#ECEFF1', '#CFD8DC', '#B0BEC5', '#90A4AE', '#78909C', '#607D8B', '#546E7A', '#455A64', '#37474F', '#263238', '#795548', '#EFEBE9', '#D7CCC8', '#BCAAA4', '#A1887F', '#8D6E63', '#795548', '#6D4C41', '#5D4037', '#4E342E', '#3E2723', '#00BCD4', '#E0F7FA', '#B2EBF2', '#80DEEA', '#4DD0E1', '#26C6DA', '#00BCD4', '#00ACC1', '#0097A7', '#00838F', '#006064', '#FF5722', '#FBE9E7', '#FFCCBC', '#FFAB91', '#FF8A65', '#FF7043', '#FF5722', '#F4511E', '#E64A19', '#D84315', '#BF360C', '#673AB7', '#EDE7F6', '#D1C4E9', '#B39DDB', '#9575CD', '#7E57C2', '#673AB7', '#5E35B1', '#512DA8', '#4527A0', '#311B92', '#4CAF50', '#E8F5E9', '#C8E6C9', '#A5D6A7', '#81C784', '#66BB6A', '#4CAF50', '#43A047', '#388E3C', '#2E7D32', '#1B5E20', '#9E9E9E', '#FAFAFA', '#F5F5F5', '#EEEEEE', '#E0E0E0', '#BDBDBD', '#9E9E9E', '#757575', '#616161', '#424242', '#212121', '#3F51B5', '#E8EAF6', '#C5CAE9', '#9FA8DA', '#7986CB', '#5C6BC0', '#3F51B5', '#3949AB', '#303F9F', '#283593', '#1A237E', '#03A9F4', '#E1F5FE', '#B3E5FC', '#81D4FA', '#4FC3F7', '#29B6F6', '#03A9F4', '#039BE5', '#0288D1', '#0277BD', '#01579B', '#8BC34A', '#F1F8E9', '#DCEDC8', '#C5E1A5', '#AED581', '#9CCC65', '#8BC34A', '#7CB342', '#689F38', '#558B2F', '#33691E', '#CDDC39', '#F9FBE7', '#F0F4C3', '#E6EE9C', '#DCE775', '#D4E157', '#CDDC39', '#C0CA33', '#AFB42B', '#9E9D24', '#827717', '#FF9800', '#FFF3E0', '#FFE0B2', '#FFCC80', '#FFB74D', '#FFA726', '#FF9800', '#FB8C00', '#F57C00', '#EF6C00', '#E65100', '#E91E63', '#FCE4EC', '#F8BBD0', '#F48FB1', '#F06292', '#EC407A', '#E91E63', '#D81B60', '#C2185B', '#AD1457', '#880E4F', '#9C27B0', '#F3E5F5', '#E1BEE7', '#CE93D8', '#BA68C8', '#AB47BC', '#9C27B0', '#8E24AA', '#7B1FA2', '#6A1B9A', '#4A148C', '#F44336', '#FFEBEE', '#FFCDD2', '#EF9A9A', '#E57373', '#EF5350', '#F44336', '#E53935', '#D32F2F', '#C62828', '#B71C1C', '#009688', '#E0F2F1', '#B2DFDB', '#80CBC4', '#4DB6AC', '#26A69A', '#009688', '#00897B', '#00796B', '#00695C', '#004D40', '#FFEB3B', '#FFFDE7', '#FFF9C4', '#FFF59D', '#FFF176', '#FFEE58', '#FFEB3B', '#FDD835', '#FBC02D', '#F9A825', '#F57F17', '#FFD740', '#FFE57F', '#FFD740', '#FFC400', '#FFAB00', '#448AFF', '#82B1FF', '#448AFF', '#2979FF', '#2962FF', '#18FFFF', '#84FFFF', '#18FFFF', '#00E5FF', '#00B8D4', '#FF6E40', '#FF9E80', '#FF6E40', '#FF3D00', '#DD2C00', '#7C4DFF', '#B388FF', '#7C4DFF', '#651FFF', '#6200EA', '#69F0AE', '#B9F6CA', '#69F0AE', '#00E676', '#00C853', '#536DFE', '#8C9EFF', '#536DFE', '#3D5AFE', '#304FFE', '#40C4FF', '#80D8FF', '#40C4FF', '#00B0FF', '#0091EA', '#B2FF59', '#CCFF90', '#B2FF59', '#76FF03', '#64DD17', '#EEFF41', '#F4FF81', '#EEFF41', '#C6FF00', '#AEEA00', '#FFAB40', '#FFD180', '#FFAB40', '#FF9100', '#FF6D00', '#FF4081', '#FF80AB', '#FF4081', '#F50057', '#C51162', '#E040FB', '#EA80FC', '#E040FB', '#D500F9', '#AA00FF', '#FF5252', '#FF8A80', '#FF5252', '#FF1744', '#D50000', '#64FFDA', '#A7FFEB', '#64FFDA', '#1DE9B6', '#00BFA5', '#FFFF00', '#FFFF8D', '#FFFF00', '#FFEA00', '#FFD600'];
+    const randomIndex = Math.floor(Math.random() * colors.length);
+    return colors[randomIndex];
 }
 /*function generateLightColor() {
     let h, s, v;
@@ -796,284 +827,63 @@ function hsvToHex(h, s, v) {
     b = Math.round((b + m) * 255);
     return rgbToHex(r, g, b);
 }
-function imgDecsRmw(picUrl){
-    return $.toString((picUrl)=>{log(picUrl);
-        function customHash(decodedString) {
-            let inputBytes;
-            if (typeof decodedString === "string") {
-                inputBytes = [];
-                for (let i = 0; i < decodedString.length; i++) {
-                    inputBytes.push(decodedString.charCodeAt(i));
-                }
-            } else {
-                inputBytes = input;
-            }
-            function bytesToWords(bytes) {
-                let words = [];
-                for (let i = 0; i < bytes.length; i += 4) {
-                    let word = 0;
-                    if (i < bytes.length) {
-                        word |= (bytes[i] & 255) << 0;
-                    }
-                    if (i + 1 < bytes.length) {
-                        word |= (bytes[i + 1] & 255) << 8;
-                    }
-                    if (i + 2 < bytes.length) {
-                        word |= (bytes[i + 2] & 255) << 16;
-                    }
-                    if (i + 3 < bytes.length) {
-                        word |= (bytes[i + 3] & 255) << 24;
-                    }
-                    words.push(word);
-                }
-                return words;
-            }
-            function wordsToBytes(words) {
-                let bytes = [];
-                for (let i = 0; i < words.length; i++) {
-                    for (let j = 0; j < 4; j++) {
-                        bytes.push((words[i] >>> (j * 8)) & 255);
-                    }
-                }
-                return bytes;
-            }
-            function bytesToHex(bytes) {
-                let hex = "";
-                for (let i = 0; i < bytes.length; i++) {
-                    hex += (bytes[i] < 16 ? "0" : "") + bytes[i].toString(16);
-                }
-                return hex;
-            }
-            let _ff = function (t, r, e, n, o, i, f) {
-                var u = t + (r & e | ~r & n) + (o >>> 0) + f;
-                return (u << i | u >>> 32 - i) + r;
-            };
-            let _gg = function (t, r, e, n, o, i, f) {
-                var u = t + (r & n | e & ~n) + (o >>> 0) + f;
-                return (u << i | u >>> 32 - i) + r;
-            };
-            let _hh = function (t, r, e, n, o, i, f) {
-                var u = t + (r ^ e ^ n) + (o >>> 0) + f;
-                return (u << i | u >>> 32 - i) + r;
-            };
-            let _ii = function (t, r, e, n, o, i, f) {
-                var u = t + (e ^ (r | ~n)) + (o >>> 0) + f;
-                return (u << i | u >>> 32 - i) + r;
-            };
-            function u(t, r) {
-                let e = bytesToWords(t);
-                let s = 8 * t.length;
-                let a = 1732584193;
-                let c = -271733879;
-                let h = -1732584194;
-                let l = 271733878;
-                let index1 = s >>> 5;
-                while (e.length <= index1) {
-                    e.push(null);
-                }
-                e[index1] |= 128 << (s % 32);
-                let index2 = (((s + 64) >>> 9) << 4) + 14;
-                while (e.length <= index2) {
-                    e.push(null);
-                }
-                e[index2] = s;
-                for (let p = 0; p < e.length; p += 16) {
-                    let b = a, m = c, x = h, w = l;
-                    a = _ff(a, c, h, l, e[p + 0], 7, -680876936);
-                    l = _ff(l, a, c, h, e[p + 1], 12, -389564586);
-                    h = _ff(h, l, a, c, e[p + 2], 17, 606105819);
-                    c = _ff(c, h, l, a, e[p + 3], 22, -1044525330);
-                    a = _ff(a, c, h, l, e[p + 4], 7, -176418897);
-                    l = _ff(l, a, c, h, e[p + 5], 12, 1200080426);
-                    h = _ff(h, l, a, c, e[p + 6], 17, -1473231341);
-                    c = _ff(c, h, l, a, e[p + 7], 22, -45705983);
-                    a = _ff(a, c, h, l, e[p + 8], 7, 1770035416);
-                    l = _ff(l, a, c, h, e[p + 9], 12, -1958414417);
-                    h = _ff(h, l, a, c, e[p + 10], 17, -42063);
-                    c = _ff(c, h, l, a, e[p + 11], 22, -1990404162);
-                    a = _ff(a, c, h, l, e[p + 12], 7, 1804603682);
-                    l = _ff(l, a, c, h, e[p + 13], 12, -40341101);
-                    h = _ff(h, l, a, c, e[p + 14], 17, -1502002290);
-                    c = _ff(c, h, l, a, e[p + 15], 22, 1236535329);
-                    a = _gg(a, c, h, l, e[p + 1], 5, -165796510);
-                    l = _gg(l, a, c, h, e[p + 6], 9, -1069501632);
-                    h = _gg(h, l, a, c, e[p + 11], 14, 643717713);
-                    c = _gg(c, h, l, a, e[p + 0], 20, -373897302);
-                    a = _gg(a, c, h, l, e[p + 5], 5, -701558691);
-                    l = _gg(l, a, c, h, e[p + 10], 9, 38016083);
-                    h = _gg(h, l, a, c, e[p + 15], 14, -660478335);
-                    c = _gg(c, h, l, a, e[p + 4], 20, -405537848);
-                    a = _gg(a, c, h, l, e[p + 9], 5, 568446438);
-                    l = _gg(l, a, c, h, e[p + 14], 9, -1019803690);
-                    h = _gg(h, l, a, c, e[p + 3], 14, -187363961);
-                    c = _gg(c, h, l, a, e[p + 8], 20, 1163531501);
-                    a = _gg(a, c, h, l, e[p + 13], 5, -1444681467);
-                    l = _gg(l, a, c, h, e[p + 2], 9, -51403784);
-                    h = _gg(h, l, a, c, e[p + 7], 14, 1735328473);
-                    c = _gg(c, h, l, a, e[p + 12], 20, -1926607734);
-                    a = _hh(a, c, h, l, e[p + 5], 4, -378558);
-                    l = _hh(l, a, c, h, e[p + 8], 11, -2022574463);
-                    h = _hh(h, l, a, c, e[p + 11], 16, 1839030562);
-                    c = _hh(c, h, l, a, e[p + 14], 23, -35309556);
-                    a = _hh(a, c, h, l, e[p + 1], 4, -1530992060);
-                    l = _hh(l, a, c, h, e[p + 4], 11, 1272893353);
-                    h = _hh(h, l, a, c, e[p + 7], 16, -155497632);
-                    c = _hh(c, h, l, a, e[p + 10], 23, -1094730640);
-                    a = _hh(a, c, h, l, e[p + 13], 4, 681279174);
-                    l = _hh(l, a, c, h, e[p + 0], 11, -358537222);
-                    h = _hh(h, l, a, c, e[p + 3], 16, -722521979);
-                    c = _hh(c, h, l, a, e[p + 6], 23, 76029189);
-                    a = _hh(a, c, h, l, e[p + 9], 4, -640364487);
-                    l = _hh(l, a, c, h, e[p + 12], 11, -421815835);
-                    h = _hh(h, l, a, c, e[p + 15], 16, 530742520);
-                    c = _hh(c, h, l, a, e[p + 2], 23, -995338651);
-                    a = _ii(a, c, h, l, e[p + 0], 6, -198630844);
-                    l = _ii(l, a, c, h, e[p + 7], 10, 1126891415);
-                    h = _ii(h, l, a, c, e[p + 14], 15, -1416354905);
-                    c = _ii(c, h, l, a, e[p + 5], 21, -57434055);
-                    a = _ii(a, c, h, l, e[p + 12], 6, 1700485571);
-                    l = _ii(l, a, c, h, e[p + 3], 10, -1894986606);
-                    h = _ii(h, l, a, c, e[p + 10], 15, -1051523);
-                    c = _ii(c, h, l, a, e[p + 1], 21, -2054922799);
-                    a = _ii(a, c, h, l, e[p + 8], 6, 1873313359);
-                    l = _ii(l, a, c, h, e[p + 15], 10, -30611744);
-                    h = _ii(h, l, a, c, e[p + 6], 15, -1560198380);
-                    c = _ii(c, h, l, a, e[p + 13], 21, 1309151649);
-                    a = _ii(a, c, h, l, e[p + 4], 6, -145523070);
-                    l = _ii(l, a, c, h, e[p + 11], 10, -1120210379);
-                    h = _ii(h, l, a, c, e[p + 2], 15, 718787259);
-                    c = _ii(c, h, l, a, e[p + 9], 21, -343485551);
-                    a = (a + b) >>> 0;
-                    c = (c + m) >>> 0;
-                    h = (h + x) >>> 0;
-                    l = (l + w) >>> 0;
-                }
-                return [a, c, h, l];
-            }
-            let hashWords = u(inputBytes);
-            let hashBytes = wordsToBytes(hashWords);
-            return bytesToHex(hashBytes);
-        }
-        const ByteArrayOutputStream = java.io.ByteArrayOutputStream;
-        const ByteArrayInputStream = java.io.ByteArrayInputStream;
-        const Bitmap = android.graphics.Bitmap;
-        const BitmapFactory = android.graphics.BitmapFactory;
-        const Canvas = android.graphics.Canvas;
-        try {
-            let urlParts = picUrl.split("/");
-            let fileName = urlParts[urlParts.length - 1];
-            let base64Part = fileName.split(".").slice(0, -1).join(".");
-            let decodedString = window0.atob(base64Part);
-            let hexResult = customHash(decodedString);
-            let hashBytes = [];
-            for (let i = 0; i < hexResult.length; i += 2) {
-                let byteStr = hexResult.substring(i, i + 2);
-                hashBytes.push(parseInt(byteStr, 16));
-            }
-            let lastByte = hashBytes[hashBytes.length - 1];
-            let blockCount = lastByte % 10 + 5;
-            let imgBitmap = BitmapFactory.decodeStream(input);
-            if (!imgBitmap) {
-                return input;
-            }
-            let width = imgBitmap.getWidth();
-            let height = imgBitmap.getHeight();
-            let blockHeight = Math.floor(height / blockCount);
-            let remainder = height % blockCount;
-            let newImgBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-            let canvas = new Canvas(newImgBitmap);
-            for (let currentBlock = 0; currentBlock < blockCount; currentBlock++) {
-                let sourceY, destY, currentBlockHeight;
-                sourceY = height - blockHeight * (currentBlock + 1) - remainder;
-                destY = blockHeight * currentBlock;
-                if (currentBlock === 0) {
-                    currentBlockHeight = blockHeight + remainder;
-                } else {
-                    destY += remainder;
-                    currentBlockHeight = blockHeight;
-                }
-                if (currentBlockHeight <= 0) {
-                    continue;
-                }
-                if (sourceY < 0) {
-                    currentBlockHeight += sourceY;
-                    sourceY = 0;
-                }
-                if (sourceY + currentBlockHeight > height) {
-                    currentBlockHeight = height - sourceY;
-                }
-                if (currentBlockHeight > 0) {
-                    let blockBitmap = Bitmap.createBitmap(imgBitmap, 0, sourceY, width, currentBlockHeight);
-                    canvas.drawBitmap(blockBitmap, 0, destY, null);
-                    blockBitmap.recycle();
-                }
-            }
-            let baos = new ByteArrayOutputStream();
-            newImgBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-            imgBitmap.recycle();
-            newImgBitmap.recycle();
-            return new ByteArrayInputStream(baos.toByteArray());
-        }
-        catch (e) {
-            return input;
-        }
-    }, picUrl ? picUrl : '');
+
+function jsExtraClick(e, n) {
+    n = !n ? 0 : n;
+    return $.toString((n) => {
+        var buttons = document.querySelectorAll(e);
+        var button = buttons.item(n);
+        var targets = [button, button.querySelector('svg'), button.querySelector('div')];
+        targets.forEach(function(target) {
+            if (target) target.click();
+        });
+    }, n);
 }
-function jsExtraClick(e,n) {
-            n=!n?0:n;
-            return $.toString((n) => {
-                var buttons = document.querySelectorAll(e);
-                var button = buttons.item(n);
-                var targets = [button, button.querySelector('svg'), button.querySelector('div')];
-                targets.forEach(function(target) {
-                    if (target) target.click();
-                });
-            }, n);
-        }
+
 function getWeekdayColor(weekday) {
     const colors = {
         // 日曜日 - 星期日 - 周日
-        "日曜日": "#FF6B6B", 
+        "日曜日": "#FF6B6B",
         "星期日": "#FF6B6B",
         "周日": "#FF6B6B",
         "Sunday": "#FF6B6B",
         "Sun": "#FF6B6B",
-        
+
         // 月曜日 - 星期一 - 周一
         "月曜日": "#A0A0A0",
         "星期一": "#A0A0A0",
         "周一": "#A0A0A0",
         "Monday": "#A0A0A0",
         "Mon": "#A0A0A0",
-        
+
         // 火曜日 - 星期二 - 周二
         "火曜日": "#FF8C42",
         "星期二": "#FF8C42",
         "周二": "#FF8C42",
         "Tuesday": "#FF8C42",
         "Tue": "#FF8C42",
-        
+
         // 水曜日 - 星期三 - 周三
         "水曜日": "#4FC3F7",
         "星期三": "#4FC3F7",
         "周三": "#4FC3F7",
         "Wednesday": "#4FC3F7",
         "Wed": "#4FC3F7",
-        
+
         // 木曜日 - 星期四 - 周四
         "木曜日": "#66BB6A",
         "星期四": "#66BB6A",
         "周四": "#66BB6A",
         "Thursday": "#66BB6A",
         "Thu": "#66BB6A",
-        
+
         // 金曜日 - 星期五 - 周五
         "金曜日": "#FFD54F",
         "星期五": "#FFD54F",
         "周五": "#FFD54F",
         "Friday": "#FFD54F",
         "Fri": "#FFD54F",
-        
+
         // 土曜日 - 星期六 - 周六
         "土曜日": "#BA68C8",
         "星期六": "#BA68C8",
@@ -1083,306 +893,84 @@ function getWeekdayColor(weekday) {
     };
     return colors[weekday] || "#666666"; // 默认灰色
 }
-function convertToSingleLineYaml(yamlText) {
-    // 获取当前日期
-    function getCurrentDate() {
-        var now = new Date();
-        var year = now.getFullYear();
-        var month = String(now.getMonth() + 1).padStart(2, '0');
-        var day = String(now.getDate()).padStart(2, '0');
-        return year + '/' + month + '/' + day;
-    }
-    
-    var currentDate = getCurrentDate();
-
-    // 辅助函数：解析键值对
-    function parseKeyValue(line) {
-        var colonIndex = line.indexOf(':');
-        if (colonIndex === -1) return [line.trim(), undefined];
-        var key = line.substring(0, colonIndex).trim();
-        let value = line.substring(colonIndex + 1).trim();
-
-        // 处理空值
-        if (value === '') return [key, undefined];
-        // 处理空对象
-        if (value === '{}') return [key, {}];
-        
-        // 处理多行字符串符号（>- 或 | 等）
-        if (value.startsWith('>-') || value.startsWith('|') || 
-            value.startsWith('>') || value.startsWith('|')) {
-            return [key, value];
-        }
-
-        // 处理引号包裹的值
-        if ((value.startsWith('"') && value.endsWith('"')) ||
-            (value.startsWith("'") && value.endsWith("'"))) {
-            value = value.substring(1, value.length - 1);
-        }
-
-        return [key, value];
-    }
-
-    // 辅助函数：格式化值
-    function formatValue(key, value) {
-        if (value === undefined || value === null) return 'null';
-        if (typeof value === 'number') return value;
-        if (typeof value === 'boolean') return value.toString();
-        
-        // 处理空对象
-        if (typeof value === 'object' && Object.keys(value).length === 0) {
-            return '{}';
-        }
-        
-        // 处理数组
-        if (Array.isArray(value)) {
-            return `[${value.map(v => formatValue(key, v)).join(', ')}]`;
-        }
-        
-        // 对于name字段，添加日期后缀
-        if (key === 'name' && typeof value === 'string') {
-            value = value + ' ' + currentDate;
-        }
-        
-        // 对于字符串，如果包含特殊字符则添加引号
-        if (typeof value === 'string') {
-            // 如果包含多行符号，需要特殊处理
-            if (value.startsWith('>-') || value.startsWith('|') || 
-                value.startsWith('>') || value.includes('\n')) {
-                return `"${value}"`;
-            }
-            
-            // 关键修复：包含 ? & = 等URL特殊字符的必须加引号
-            if (value.includes('?') || value.includes('&') || value.includes('=') ||
-                value.includes(' ') || value.includes(':') || value.includes('{') || 
-                value.includes('}') || value.includes('|') || value.includes('[') ||
-                value.includes('🇷') || value.includes('🇨') || value.includes('>') || 
-                value.includes('-') || value.includes('/')) {
-                return `"${value}"`;
-            }
-            return value;
-        }
-        
-        // 处理嵌套对象
-        if (typeof value === 'object' && value !== null) {
-            var nestedEntries = Object.entries(value).map(([nestedKey, nestedValue]) => {
-                return `${nestedKey}: ${formatValue(nestedKey, nestedValue)}`;
-            }).join(', ');
-            return `{${nestedEntries}}`;
-        }
-
-        return value;
-    }
-
-    // 清理对象，移除空对象属性
-    function cleanupObject(obj) {
-        const cleaned = {};
-        for (var [key, value] of Object.entries(obj)) {
-            // 跳过空对象属性
-            if (typeof value === 'object' && value !== null && 
-                !Array.isArray(value) && Object.keys(value).length === 0) {
-                continue;
-            }
-            cleaned[key] = value;
-        }
-        return cleaned;
-    }
-
-    // 1. 找到第一个 - 的缩进级别
-    var lines = yamlText.split('\n');
-    let firstDashIndent = -1;
-    
-    for (var i = 0; i < lines.length; i++) {
-        var line = lines[i];
-        var trimmedLine = line.trim();
-        if (trimmedLine.startsWith('-')) {
-            firstDashIndent = line.search(/\S|$/);
-            break;
-        }
-    }
-
-    // 2. 按项目分割（只有与第一个 - 相同缩进的 - 才是新项目）
-    let items = [];
-    let currentItemLines = [];
-    
-    for (var i = 0; i < lines.length; i++) {
-        var line = lines[i];
-        var trimmedLine = line.trim();
-        
-        // 跳过空行和注释
-        if (!trimmedLine || trimmedLine.startsWith('#')) continue;
-        
-        var currentIndent = line.search(/\S|$/);
-        
-        if (trimmedLine.startsWith('-') && currentIndent === firstDashIndent) {
-            // 这是新项目的开始
-            if (currentItemLines.length > 0) {
-                items.push(currentItemLines);
-            }
-            currentItemLines = [line];
-        } else {
-            // 属于当前项目的行
-            currentItemLines.push(line);
-        }
-    }
-    
-    // 添加最后一个项目
-    if (currentItemLines.length > 0) {
-        items.push(currentItemLines);
-    }
-
-    let result = [];
-    
-    // 3. 逐个处理每个项目 - 修复嵌套对象解析
-    for (var itemLines of items) {
-        let obj = {};
-        let stack = [{ obj: obj, indent: -1 }]; // 使用栈来处理嵌套
-        
-        for (var j = 0; j < itemLines.length; j++) {
-            var line = itemLines[j];
-            var trimmedLine = line.trim();
-            var currentIndent = line.search(/\S|$/);
-            
-            // 跳过纯注释行
-            if (trimmedLine.startsWith('#')) continue;
-            
-            // 调整栈到正确的嵌套级别
-            while (stack.length > 1 && currentIndent <= stack[stack.length - 1].indent) {
-                stack.pop();
-            }
-            
-            var currentObj = stack[stack.length - 1].obj;
-            
-            if (trimmedLine.startsWith('-') && j === 0) {
-                // 项目的第一行，解析第一个属性
-                var firstProp = trimmedLine.substring(1).trim();
-                if (firstProp) {
-                    var [key, value] = parseKeyValue(firstProp);
-                    if (key && value !== undefined) {
-                        currentObj[key] = value;
-                    }
-                }
-            } else if (trimmedLine.includes(':')) {
-                var [key, value] = parseKeyValue(trimmedLine);
-                
-                // 检查下一行是否有更深层次的嵌套
-                var hasNestedContent = false;
-                if (j + 1 < itemLines.length) {
-                    var nextLine = itemLines[j + 1];
-                    var nextIndent = nextLine.search(/\S|$/);
-                    var nextTrimmed = nextLine.trim();
-                    
-                    // 下一行有更深的缩进且不是注释，可能包含嵌套内容
-                    if (nextIndent > currentIndent && nextTrimmed && 
-                        !nextTrimmed.startsWith('#') && nextTrimmed.includes(':')) {
-                        hasNestedContent = true;
-                    }
-                }
-                
-                if (hasNestedContent) {
-                    // 创建新的嵌套对象
-                    var nestedObj = {};
-                    currentObj[key] = nestedObj;
-                    stack.push({ obj: nestedObj, indent: currentIndent });
-                } else {
-                    // 普通键值对
-                    currentObj[key] = value;
-                }
-            }
-        }
-        
-        // 清理空对象属性
-        obj = cleanupObject(obj);
-        result.push(obj);
-    }
-
-    // 4. 过滤掉不包含 type: 的不完整项目
-    result = result.filter(obj => obj.hasOwnProperty('type'));
-
-    // 5. 转换为单行YAML格式
-    return result.map(obj => {
-        var entries = Object.entries(obj).map(([key, value]) => {
-            return `${key}: ${formatValue(key, value)}`;
-        }).join(', ');
-
-        return `  - {${entries}}`;
-    }).join('\n');
-}
 
 function toerji(item, jkdata) {
-if(!jkdata.url){
-    info = jkdata || storage0.getMyVar("\u4e00\u7ea7\u6e90\u63a5\u53e3\u4fe1\u606f");
-    if (item.url && !/js:|select:|=>|@|toast:|hiker:\/\/page|video:/.test(item.url) && item.col_type != "x5_webview_single" && item.url != "hiker://empty") {
-        let extra = item.extra || {};
-        extra.name = extra.name || extra.pageTitle || (item.title ? item.title.replace(/‘|’|“|”|<[^>]+>/g, "") : "");
-        extra.img = extra.img || item.pic_url || item.img;
-        extra.stype = info.type;
-        extra.pageTitle = extra.pageTitle || extra.name;
-        extra.surl = item.url.replace(/hiker:\/\/empty|#immersiveTheme#|#autoCache#|#noRecordHistory#|#noHistory#|#noLoading#|#/g, "");
-        extra.sname = info.name;
-        item.url = $("hiker://empty?type=" + info.type + "#immersiveTheme##autoCache#").rule(() => {
-            require(config.依赖);
-            erji();
+    if (!jkdata.url) {
+        info = jkdata || storage0.getMyVar("\u4e00\u7ea7\u6e90\u63a5\u53e3\u4fe1\u606f");
+        if (item.url && !/js:|select:|=>|@|toast:|hiker:\/\/page|video:/.test(item.url) && item.col_type != "x5_webview_single" && item.url != "hiker://empty") {
+            let extra = item.extra || {};
+            extra.name = extra.name || extra.pageTitle || (item.title ? item.title.replace(/‘|’|“|”|<[^>]+>/g, "") : "");
+            extra.img = extra.img || item.pic_url || item.img;
+            extra.stype = info.type;
+            extra.pageTitle = extra.pageTitle || extra.name;
+            extra.surl = item.url.replace(/hiker:\/\/empty|#immersiveTheme#|#autoCache#|#noRecordHistory#|#noHistory#|#noLoading#|#/g, "");
+            extra.sname = info.name;
+            item.url = $("hiker://empty?type=" + info.type + "#immersiveTheme##autoCache#").rule(() => {
+                require(config.依赖);
+                erji();
+            });
+            item.extra = extra;
         }
-        );
-        item.extra = extra;
-    }
-    return item;} else{           try {
-                if (item.url && item.url != 'hiker://empty') {
-                    jkdata = jkdata || storage0.getMyVar('一级源接口信息');
-                    if (!jkdata.url) {
-                        jkdata = storage0.getMyVar('一级源接口信息');
-                    }
-                    let extra = item.extra || {};
-                    let extensions = ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp', '.svg', '.tiff', '.ico', '.m3u8', '.mp4'];
-                    let excludeurl = ['.m3u8?', '.mp4?']
-                    if (!extra.noDetail && !/select:|@|toast:|hiker:|video:|pics:/.test(item.url) && item.col_type != "x5_webview_single" && !extensions.some(ext => item.url.toString().toLowerCase().endsWith(ext)) && !excludeurl.some(ext => item.url.toString().includes(ext))) {
-                        extra.name = extra.name || extra.pageTitle || (item.title ? item.title.replace(/‘|’|“|”|<[^>]+>/g, "") : "");
-                        extra.img = extra.img || item.pic_url || item.img;
-                        extra.pageTitle = extra.pageTitle || extra.name;
-                        extra.url = item.url.toString().replace(/#immersiveTheme#|#autoCache#|#noRecordHistory#|#noHistory#|#noLoading#|#/g, "");
-                        extra.data = jkdata;
-                        item.url = $("hiker://empty?type=" + jkdata.type + "&page=fypage#autoCache#" + (jkdata.erjisign || "#immersiveTheme#")).rule(() => {
-                            require(config.聚阅);
-                            erji();
-                        })
-                        item.extra = extra;
-                    }
-
-                    if (/video:|pics:|\.m3u8|\.mp4|@rule=|@lazyRule=/.test(item.url) && (!/text_icon|rich_text|avatar|_button|icon_|text_/.test(item.col_type) || item.col_type == 'icon_1_left_pic')) {
-                        let caseExtra = Object.assign({}, extra);
-                        delete caseExtra.longClick;
-                        caseExtra.data = caseExtra.data || {
-                            name: jkdata.name,
-                            type: jkdata.type
-                        }
-                        let caseData = {
-                            type: item.url.includes('@rule=') ? '二级列表' : '一级列表',
-                            title: extra.pageTitle || item.title,
-                            picUrl: extra.img || item.img || item.pic_url,
-                            params: {
-                                url: item.url,
-                                find_rule: '',
-                                params: caseExtra
-                            }
-                        }
-
-                        let longClick = extra.longClick || [];
-                        longClick = longClick.filter(v => v.title != "加入收藏书架🗄")
-                        longClick.push({
-                            title: "加入收藏书架🗄",
-                            js: $.toString((caseData) => {
-                                return addBookCase(caseData);
-                            }, caseData)
-                        })
-                        extra.longClick = longClick;
-                        item.extra = extra;
-                    }
+        return item;
+    } else {
+        try {
+            if (item.url && item.url != 'hiker://empty') {
+                jkdata = jkdata || storage0.getMyVar('一级源接口信息');
+                if (!jkdata.url) {
+                    jkdata = storage0.getMyVar('一级源接口信息');
                 }
-            } catch (e) {
-                log("toerji失败>" + e.message + " 错误行#" + e.lineNumber)
+                let extra = item.extra || {};
+                let extensions = ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp', '.svg', '.tiff', '.ico', '.m3u8', '.mp4'];
+                let excludeurl = ['.m3u8?', '.mp4?']
+                if (!extra.noDetail && !/select:|@|toast:|hiker:|video:|pics:/.test(item.url) && item.col_type != "x5_webview_single" && !extensions.some(ext => item.url.toString().toLowerCase().endsWith(ext)) && !excludeurl.some(ext => item.url.toString().includes(ext))) {
+                    extra.name = extra.name || extra.pageTitle || (item.title ? item.title.replace(/‘|’|“|”|<[^>]+>/g, "") : "");
+                    extra.img = extra.img || item.pic_url || item.img;
+                    extra.pageTitle = extra.pageTitle || extra.name;
+                    extra.url = item.url.toString().replace(/#immersiveTheme#|#autoCache#|#noRecordHistory#|#noHistory#|#noLoading#|#/g, "");
+                    extra.data = jkdata;
+                    item.url = $("hiker://empty?type=" + jkdata.type + "&page=fypage#autoCache#" + (jkdata.erjisign || "#immersiveTheme#")).rule(() => {
+                        require(config.聚阅);
+                        erji();
+                    })
+                    item.extra = extra;
+                }
+
+                if (/video:|pics:|\.m3u8|\.mp4|@rule=|@lazyRule=/.test(item.url) && (!/text_icon|rich_text|avatar|_button|icon_|text_/.test(item.col_type) || item.col_type == 'icon_1_left_pic')) {
+                    let caseExtra = Object.assign({}, extra);
+                    delete caseExtra.longClick;
+                    caseExtra.data = caseExtra.data || {
+                        name: jkdata.name,
+                        type: jkdata.type
+                    }
+                    let caseData = {
+                        type: item.url.includes('@rule=') ? '二级列表' : '一级列表',
+                        title: extra.pageTitle || item.title,
+                        picUrl: extra.img || item.img || item.pic_url,
+                        params: {
+                            url: item.url,
+                            find_rule: '',
+                            params: caseExtra
+                        }
+                    }
+
+                    let longClick = extra.longClick || [];
+                    longClick = longClick.filter(v => v.title != "加入收藏书架🗄")
+                    longClick.push({
+                        title: "加入收藏书架🗄",
+                        js: $.toString((caseData) => {
+                            return addBookCase(caseData);
+                        }, caseData)
+                    })
+                    extra.longClick = longClick;
+                    item.extra = extra;
+                }
             }
-            return item;}
+        } catch (e) {
+            log("toerji失败>" + e.message + " 错误行#" + e.lineNumber)
         }
+        return item;
+    }
+}
 
 function searchByPinyin(keyword, list) {
     //"https://cdn.jsdelivr.net/npm/pinyin-match@1.2.8/dist/main.min.js"
@@ -1395,61 +983,81 @@ function searchByPinyin(keyword, list) {
         return [];
     }
     return list.filter(item => {
-        let title = String(item.name ||item.title||item);
+        let title = String(item.name || item.title || item);
         return PinyinMatch.match(title, keyword) !== false;
     });
 }
+
 function getFastestDomain(input) {
-        function pad(url) {
-            return url.endsWith('/') ? url : url + '/';
-        }
-        var urls = [];
-        if (typeof input === "string" && !/\.txt|\.json/.test(input)) {
-            return pad(input);
-        } else if (typeof input === "string") {
-            var html = request(input, {
-                timeout: 1000
-            });
-            if (html == "VxbsqiZ42C0OKBc6CG3cFMsmC4tAi2OpYyKXI81tYy5rTImObDRz3+ZyAZITstS+") {
-                html = 'http://110.42.37.69:1866';
-            } else if (html == "5nipIo1wUKXtmMvZeR3aqOJ6qcgeA0Mp5oxgfacApBI=") {
-                html = 'http://www.zjcvod.com';
-            } else if (html == "lDFYQlB9bihryBS7ggv8s4MYr/oEsaOkiExCPkMa3aEL/c0gjkO/3fqbyAK5tFqn") {
-                html = 'http://shayu.sxtzg.com';
-            }
-            urls = html.match(/https?:\/\/[^\s'"]+/g) || [];
-        } else if (Array.isArray(input)) {
-            urls = input;
-        }
-        if (urls.length == 1) {
-            return pad(urls[0]);
-        } else if (urls.length == 0) {
-            return '';
-        } else {
-            let urlsFind = urls.map(h => h.replace(/https?:\/\//, '').replace(/:\d+/, '').replace(/\/$/, ''));
-            var reachableRaw = findReachableIP(urlsFind, 2000);
-            var url = urls.find(item => item.includes(reachableRaw));
-            return pad(url);
-        }
+    function pad(url) {
+        return url.endsWith('/') ? url : url + '/';
     }
-function ssyz(img, type){
+    var urls = [];
+    if (typeof input === "string" && !/\.txt|\.json/.test(input)) {
+        return pad(input);
+    } else if (typeof input === "string") {
+        var html = request(input, {
+            timeout: 1000
+        });
+        if (html == "VxbsqiZ42C0OKBc6CG3cFMsmC4tAi2OpYyKXI81tYy5rTImObDRz3+ZyAZITstS+") {
+            html = 'http://110.42.37.69:1866';
+        } else if (html == "5nipIo1wUKXtmMvZeR3aqOJ6qcgeA0Mp5oxgfacApBI=") {
+            html = 'http://www.zjcvod.com';
+        } else if (html == "lDFYQlB9bihryBS7ggv8s4MYr/oEsaOkiExCPkMa3aEL/c0gjkO/3fqbyAK5tFqn") {
+            html = 'http://shayu.sxtzg.com';
+        }
+        urls = html.match(/https?:\/\/[^\s'"]+/g) || [];
+    } else if (Array.isArray(input)) {
+        urls = input;
+    }
+    if (urls.length == 1) {
+        return pad(urls[0]);
+    } else if (urls.length == 0) {
+        return '';
+    } else {
+        let urlsFind = urls.map(h => h.replace(/https?:\/\//, '').replace(/:\d+/, '').replace(/\/$/, ''));
+        var reachableRaw = findReachableIP(urlsFind, 2000);
+        var url = urls.find(item => item.includes(reachableRaw));
+        return pad(url);
+    }
+}
+
+function ssyz(img, type) {
     const MAP = {
         num: {
-            'a': '4', 'b': '6', 'd': '0', 'e': '9', 'g': '9',
-            'i': '1', 'l': '1', 'm': '3', 's': '5', 't': '7',
-            'o': '0', 'q': '9', 'u': '4', 'z': '2'
+            'a': '4',
+            'b': '6',
+            'd': '0',
+            'e': '9',
+            'g': '9',
+            'i': '1',
+            'l': '1',
+            'm': '3',
+            's': '5',
+            't': '7',
+            'o': '0',
+            'q': '9',
+            'u': '4',
+            'z': '2'
         },
         alpha: {
-            '4': 'a', '6': 'b', '9': 'q', '1': 'l', '3': 'm',
-            '5': 's', '7': 't', '0': 'o', '2': 'z'
+            '4': 'a',
+            '6': 'b',
+            '9': 'q',
+            '1': 'l',
+            '3': 'm',
+            '5': 's',
+            '7': 't',
+            '0': 'o',
+            '2': 'z'
         }
     };
-
     const currentMap = MAP[type] || {};
-    
     const ocrResult = request('https://api.nn.ci/ocr/b64/text', {
         method: 'POST',
-        headers: {'Content-Type': 'application/json'},
+        headers: {
+            'Content-Type': 'application/json'
+        },
         body: convertBase64Image(img).split(',')[1]
     }).split('')
     const result = [];
@@ -1459,63 +1067,70 @@ function ssyz(img, type){
     }
     return result.join('')
 }
-function linkPages(d,pages,host) {
-                    [Array.from({
-                        length: pages
-                    }, (_, i) => i + 1).join('&')].forEach((item, index, data) => {
-                        classTop(index, item, host, d, 0, 0, 'multiPages', 'scroll_button', '', 0, 0);
-                    });
-                }
-function getDarkColor() {
-            let hue;
-            do {
-                hue = Math.floor(Math.random() * 360);
-            } while (hue > 200 && hue < 260); // 跳过蓝色区间
 
-            const saturation = 80 + Math.floor(Math.random() * 20); // 饱和度80-100%
-            const lightness = 25 + Math.floor(Math.random() * 35); // 明度25-60%
-
-            // HSL转RGB
-            const c = (1 - Math.abs(2 * lightness / 100 - 1)) * saturation / 100;
-            const x = c * (1 - Math.abs(((hue / 60) % 2) - 1));
-            const m = lightness / 100 - c / 2;
-
-            let r, g, b;
-            if (hue < 60)[r, g, b] = [c, x, 0]; // 红-黄区间
-            else if (hue < 120)[r, g, b] = [x, c, 0]; // 黄-绿区间
-            else if (hue < 180)[r, g, b] = [0, c, x]; // 绿-青区间
-            else if (hue < 200)[r, g, b] = [0, x, c]; // 青区间（接近蓝）
-            else if (hue < 260)[r, g, b] = [x, 0, c]; // 这段不会执行
-            else [r, g, b] = [c, 0, x]; // 紫-红区间
-
-            // RGB转HEX
-            const toHex = (n) => Math.round((n + m) * 255).toString(16).padStart(2, '0');
-            return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
-        }
-function safePath(str) {
-  return String(str).replace(/https?:\/\//g, '').replace(/[<>:"|?*\/\\]/g, '_');
+function linkPages(d, pages, host) {
+    [Array.from({
+        length: pages
+    }, (_, i) => i + 1).join('&')].forEach((item, index, data) => {
+        classTop(index, item, host, d, 0, 0, 'multiPages', 'scroll_button', '', 0, 0);
+    });
 }
+
+function getDarkColor() {
+    let hue;
+    do {
+        hue = Math.floor(Math.random() * 360);
+    } while (hue > 200 && hue < 260);
+    const saturation = 80 + Math.floor(Math.random() * 20);
+    const lightness = 25 + Math.floor(Math.random() * 35);
+    const c = (1 - Math.abs(2 * lightness / 100 - 1)) * saturation / 100;
+    const x = c * (1 - Math.abs(((hue / 60) % 2) - 1));
+    const m = lightness / 100 - c / 2;
+    let r, g, b;
+    if (hue < 60)[r, g, b] = [c, x, 0];
+    else if (hue < 120)[r, g, b] = [x, c, 0];
+    else if (hue < 180)[r, g, b] = [0, c, x];
+    else if (hue < 200)[r, g, b] = [0, x, c];
+    else if (hue < 260)[r, g, b] = [x, 0, c];
+    else [r, g, b] = [c, 0, x];
+    const toHex = (n) => Math.round((n + m) * 255).toString(16).padStart(2, '0');
+    return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
+}
+
+function safePath(str) {
+    return String(str).replace(/https?:\/\//g, '').replace(/[<>:"|?*\/\\]/g, '_');
+}
+
 function getdTemp(d, dTemp, _chchePath) {
     d = JSON.parse(fetch(_chchePath) || "[]");
     if (d.length != 0) {
         if (MY_RULE.title == "聚阅" && d[0].title == "🔍" && !/x5toerji|sarr|google|baidu|noDelete/.test(JSON.stringify(d[0]))) {
             d.splice(0, 1);
         }
-      if (MY_RULE.title == "聚阅√" && d[0].title != "🔍"&&!/multiPages/.test(JSON.stringify(d))) {
-            d.unshift({"title":"🔍","url":"(\n(r) => {\n    putVar(\"keyword\", input);\n    return \"hiker://search?rule=\" + r + \"&s=\" + input;\n}\n)(\"聚阅√\")","desc":"搜索你想要的...","col_type":"input","extra":{"defaultValue":""}});
+        if (MY_RULE.title == "聚阅√" && d[0].title != "🔍" && !/multiPages/.test(JSON.stringify(d))) {
+            d.unshift({
+                "title": "🔍",
+                "url": "(\n(r) => {\n    putVar(\"keyword\", input);\n    return \"hiker://search?rule=\" + r + \"&s=\" + input;\n}\n)(\"聚阅√\")",
+                "desc": "搜索你想要的...",
+                "col_type": "input",
+                "extra": {
+                    "defaultValue": ""
+                }
+            });
         }
         dTemp = d.concat(dTemp);
-if (MY_RULE.title == "聚阅√"){
-dTemp=JSON.parse(JSON.stringify(dTemp).replace(/config.聚阅/g,'config.依赖'));
-}else if (MY_RULE.title == "聚阅"){
-dTemp=JSON.parse(JSON.stringify(dTemp).replace(/config.依赖/g,'config.聚阅'));
-}
+        if (MY_RULE.title == "聚阅√") {
+            dTemp = JSON.parse(JSON.stringify(dTemp).replace(/config.聚阅/g, 'config.依赖'));
+        } else if (MY_RULE.title == "聚阅") {
+            dTemp = JSON.parse(JSON.stringify(dTemp).replace(/config.依赖/g, 'config.聚阅'));
+        }
     }
     return dTemp.slice();
 }
+
 function getHtml(url, headers, mode, proxy, textError) {
     let htmlT = getMyVar(url, '');
- 
+
     let textsError = [
         '__cf_chl_tk',
         'cf-browser-verification',
@@ -1545,7 +1160,7 @@ function getHtml(url, headers, mode, proxy, textError) {
         'Please verify you are human',
         'Verification required',
         'Click to verify',
-        'Please complete the captcha', 
+        'Please complete the captcha',
         'Too Many Requests',
         'Rate-limited',
         'Welcome to nginx',
@@ -1558,7 +1173,7 @@ function getHtml(url, headers, mode, proxy, textError) {
         'JavaScript is required',
     ];
     if (textError) textsError.push(textError);
- 
+
     let errorPattern = new RegExp(textsError.join('|'));
     if (!htmlT || errorPattern.test(htmlT)) {
         try {
@@ -1568,27 +1183,27 @@ function getHtml(url, headers, mode, proxy, textError) {
         } catch (e) {
             var hasChinese = true;
         }
-        
+
         let urlTrue;
         if (proxy && !hasChinese) {
-            urlTrue = url.startsWith('https://wdkj.eu.org/')  ? url.replace('?', '%3f') : 'https://wdkj.eu.org/'  + url.replace('?', '%3f');
+            urlTrue = url.startsWith('https://wdkj.eu.org/') ? url.replace('?', '%3f') : 'https://wdkj.eu.org/' + url.replace('?', '%3f');
         } else if (proxy && hasChinese) {
             toast('中文网址需挂梯子~');
             urlTrue = url;
-        } else if (url.startsWith('https://wdkj.eu.org/')  && hasChinese) {
-            urlTrue = decodeURIComponent(url.replace('https://wdkj.eu.org/',  ''));
+        } else if (url.startsWith('https://wdkj.eu.org/') && hasChinese) {
+            urlTrue = decodeURIComponent(url.replace('https://wdkj.eu.org/', ''));
         } else {
             urlTrue = url;
         }
- 
+
         if (proxy == 2) {
             let fireUrl = urlTrue;
-            if (fireUrl.startsWith('https://wdkj.eu.org/'))  {
-                fireUrl = decodeURIComponent(fireUrl.replace('https://wdkj.eu.org/',  ''));
+            if (fireUrl.startsWith('https://wdkj.eu.org/')) {
+                fireUrl = decodeURIComponent(fireUrl.replace('https://wdkj.eu.org/', ''));
             }
             //log('proxy=2, 直接Firecrawl抓取:' + fireUrl);
             try {
-                let firecrawlResult = fetch('https://api.firecrawl.dev/v2/scrape',  {
+                let firecrawlResult = fetch('https://api.firecrawl.dev/v2/scrape', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -1619,15 +1234,15 @@ function getHtml(url, headers, mode, proxy, textError) {
             } else {
                 htmlT = fetchPC(urlTrue, headers || {});
             }
- 
+
             if (!htmlT.includes('Firecrawl') && proxy && (needFirecrawl || !htmlT || (errorPattern.test(htmlT)))) {
                 let fireUrl = urlTrue;
-                if (fireUrl.startsWith('https://wdkj.eu.org/'))  {
-                    fireUrl = decodeURIComponent(fireUrl.replace('https://wdkj.eu.org/',  ''));
+                if (fireUrl.startsWith('https://wdkj.eu.org/')) {
+                    fireUrl = decodeURIComponent(fireUrl.replace('https://wdkj.eu.org/', ''));
                 }
                 log('常规抓取失败，启用Firecrawl:' + fireUrl);
                 try {
-                    let firecrawlResult = fetch('https://api.firecrawl.dev/v2/scrape',  {
+                    let firecrawlResult = fetch('https://api.firecrawl.dev/v2/scrape', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -1649,7 +1264,7 @@ function getHtml(url, headers, mode, proxy, textError) {
                 }
             }
         }
- 
+
         if (htmlT && !errorPattern.test(htmlT)) {
             putMyVar(url, htmlT);
         }
@@ -1698,9 +1313,9 @@ function hanziToPinyin(hanzi, options) {
 }
 
 function searchBaidu(d, str, parse) {
-    if (typeof(str)== 'object') {
+    if (typeof(str) == 'object') {
         str = str.toString();
-        str=str.substring(1, str.length - 1);
+        str = str.substring(1, str.length - 1);
     } else if (typeof(str) == 'string' && str.startsWith('/')) {
         str = str.substring(1, str.length - 1);
     }
@@ -1712,7 +1327,7 @@ function searchBaidu(d, str, parse) {
             return $('hiker://empty').rule((str, parse) => {
                 var d = [];
                 d.push({
-                    url: 'https://www.baidu.com/s?wd=' + getVar('keyword', '').trim()+ '%20site%3A' + parse.host.split('/').at(-1) + '&pn=0',
+                    url: 'https://www.baidu.com/s?wd=' + getVar('keyword', '').trim() + '%20site%3A' + parse.host.split('/').at(-1) + '&pn=0',
                     col_type: 'x5_webview_single',
                     desc: 'list&&screen',
                     extra: {
@@ -1751,16 +1366,17 @@ function searchBaidu(d, str, parse) {
 }
 
 function searchGoogle(d, str, parse) {
-    if (typeof(str)== 'object') {
+    if (typeof(str) == 'object') {
         str = str.toString();
-        str=str.substring(1, str.length - 1);
+        str = str.substring(1, str.length - 1);
     } else if (typeof(str) == 'string' && str.startsWith('/')) {
         str = str.substring(1, str.length - 1);
     }
     d.push({
         title: '🔍',
         url: $.toString((str, parse) => {
-            putVar('keyword', input);log('https://www.google.com.hk/search?q=' + getVar('keyword', '').trim() + '+site:' + parse.host.replace(/https?:\/\//, '') + '&start=0');
+            putVar('keyword', input);
+            log('https://www.google.com.hk/search?q=' + getVar('keyword', '').trim() + '+site:' + parse.host.replace(/https?:\/\//, '') + '&start=0');
             return $('hiker://empty').rule((str, parse) => {
                 var d = [];
                 d.push({
@@ -1772,9 +1388,10 @@ function searchGoogle(d, str, parse) {
                         showProgress: false,
                         canBack: true,
                         jsLoadingInject: true,
-                        urlInterceptor: $.toString((str, parse) => { log('___:::' + JSON.stringify(new Date()).split(':').at(-1));
+                        urlInterceptor: $.toString((str, parse) => {
+                            log('___:::' + JSON.stringify(new Date()).split(':').at(-1));
                             let regex = new RegExp(str);
-                            if (input.match(regex)) { 
+                            if (input.match(regex)) {
                                 return $.toString((url, parse) => {
                                     var js = 'js:host="' + parse.host + '";url=MY_URL;_c="";var parse={host: "' + parse.host + '",解析:function(){' + parse.解析.toString().replace(/^function.*?\{|\}$/g, '') + '}};' + parse.解析.toString().replace('return setResult(dTemp.concat(d))', 'setResult(dTemp.concat(d))').match(/addListener[\s\S]*setResult\((d|dTemp\.concat\(d\))\);/)[0];
                                     fba.log('===:::' + JSON.stringify(new Date()).split(':').at(-1));
@@ -1820,11 +1437,11 @@ function parseUrlVideo(url, 依赖) {
         putVar('urlBaidu', url);
         return "hiker://page/list?rule=百度网盘&realurl=" + url;
     } else if (/aliyundrive|alipan/.test(url)) {
-        return  "hiker://page/aliyun?page=fypage&rule=云盘君.简&realurl=" + url;
+        return "hiker://page/aliyun?page=fypage&rule=云盘君.简&realurl=" + url;
         /*if (!依赖) 依赖 = 'https://codeberg.org/src48597962/hk/raw/branch/Ju/SrcJu.js';
         require(依赖.match(/http(s)?:\/\/.*\//)[0] + 'SrcParseS.js');
         return SrcParseS.聚阅(url);*/
-    }else if (/quark|uc\./.test(url)) {
+    } else if (/quark|uc\./.test(url)) {
         return "hiker://page/quarkList?rule=Quark.简&realurl=" + url;
     } else if (/(thunder|xunlei|ed2k:|bt:|ftp:|\.torrent|magnet)/.test(url)) {
         if (url.includes('thunder')) {
@@ -1839,7 +1456,7 @@ function parseUrlVideo(url, 依赖) {
         return "hiker://page/diaoyong?rule=123云盘&page=fypage&realurl=" + encodeURIComponent(url);
     } else if (/yun\.139\.com/.test(url)) {
         return "hiker://page/diaoyong?rule=移动云盘&page=fypage&realurl=" + encodeURIComponent(url);
-    }  else {
+    } else {
         var html = fetchPC(url);
         if (/r Vurl/.test(html)) {
             var url_t = html.match(/r Vurl.*?['"](.*?)['"]/)[1];
@@ -1861,95 +1478,96 @@ function parseUrlVideo(url, 依赖) {
             url = 'video://' + url;
         }
         return url;
-    }   
+    }
 }
 
-function updateJu(title,record) {
-            if (MY_RULE.title == '聚阅') {
-                var path = 'hiker://files/rules/juyue/updateTime_' + title + '_新.txt';
-                let lastTime = fetch(path);
-                log('lastTime:' + lastTime);
-                let currentTime = Date.now();
-                writeFile(path, currentTime + '');
-                if (!lastTime || currentTime - lastTime >= 86400000) {
-                    let pathGitee = 'https://gitee.com/mistywater/hiker_info/raw/master/sourcefile/' + title + '_新.json';
-                    let html = fetch(pathGitee);
-                    if (html && !/Repository or file not found/.test(html)) {
-                        var codeNew = base64ToText(html);
-                        eval(codeNew);
-                        var verNew = parse.ver || parse.Ver || parse.VER || '';
-						record=record?record:parse['更新说明'];
-                        log('verNew:' + verNew);
-                        let pathJiekou = 'hiker://files/rules/Src/Juyue/jiekou.json';
-                        eval('let jsonJiekou =' + (fetchPC(pathJiekou)));
-                        for (let k in jsonJiekou) {
-                            if (jsonJiekou[k].name.includes('🐹')&&jsonJiekou[k].name.includes(title)) {
-                                var verLocal = jsonJiekou[k].version || '';
-                                log('verLocal:' + verLocal);
-                                var url = jsonJiekou[k].url;
-                                if (verNew > verLocal) {
-jsonJiekou[k].version=verNew;writeFile(pathJiekou, JSON.stringify(jsonJiekou));
-                                    writeFile(url, codeNew);
-                                    const hikerPop = $.require("https://gitee.com/mistywater/hiker_info/raw/master/Popup.js");
-                                   record?hikerPop.updateRecordsBottom(record):'';
-                                }
-                                break;
-                            };
+function updateJu(title, record) {
+    if (MY_RULE.title == '聚阅') {
+        var path = 'hiker://files/rules/juyue/updateTime_' + title + '_新.txt';
+        let lastTime = fetch(path);
+        log('lastTime:' + lastTime);
+        let currentTime = Date.now();
+        writeFile(path, currentTime + '');
+        if (!lastTime || currentTime - lastTime >= 86400000) {
+            let pathGitee = 'https://gitee.com/mistywater/hiker_info/raw/master/sourcefile/' + title + '_新.json';
+            let html = fetch(pathGitee);
+            if (html && !/Repository or file not found/.test(html)) {
+                var codeNew = base64ToText(html);
+                eval(codeNew);
+                var verNew = parse.ver || parse.Ver || parse.VER || '';
+                record = record ? record : parse['更新说明'];
+                log('verNew:' + verNew);
+                let pathJiekou = 'hiker://files/rules/Src/Juyue/jiekou.json';
+                eval('let jsonJiekou =' + (fetchPC(pathJiekou)));
+                for (let k in jsonJiekou) {
+                    if (jsonJiekou[k].name.includes('🐹') && jsonJiekou[k].name.includes(title)) {
+                        var verLocal = jsonJiekou[k].version || '';
+                        log('verLocal:' + verLocal);
+                        var url = jsonJiekou[k].url;
+                        if (verNew > verLocal) {
+                            jsonJiekou[k].version = verNew;
+                            writeFile(pathJiekou, JSON.stringify(jsonJiekou));
+                            writeFile(url, codeNew);
+                            const hikerPop = $.require("https://gitee.com/mistywater/hiker_info/raw/master/Popup.js");
+                            record ? hikerPop.updateRecordsBottom(record) : '';
                         }
-                    }
+                        break;
+                    };
                 }
             }
-            if (MY_RULE.title == '聚阅√') {
-                var path = 'hiker://files/rules/juyue/updateTime_' + title + '.txt';
-                let lastTime = fetch(path);
-                let currentTime = Date.now();
-                writeFile(path, currentTime + '');
-                if (!lastTime || currentTime - lastTime >= 86400000) {
-                    let pathGitee = 'https://gitee.com/mistywater/hiker_info/raw/master/sourcefile/' + title + '.json';
-                    let html = fetch(pathGitee);
-                    if (html && !/Repository or file not found/.test(html)) {
-                        let jsonGitee = JSON.parse(base64ToText(html));
-                        let jsonVer = JSON.parse(jsonGitee.parse.replace(/,.*\s+('|")页码[\s\S]*/, '}').replace(/'/g, '"'));
-                        let version = jsonVer.ver || jsonVer.Ver || '';
-                        log('versionNew:' + version);
-                        let sourcefile = 'hiker://files/rules/Src/Ju/jiekou.json';
-                        let datalist = JSON.parse(fetch(sourcefile));
-                        let index = datalist.findIndex(item => item.name == jsonGitee.name && item.type == jsonGitee.type);
-                        if (index != -1) {
-                            let jsonVersionLast = JSON.parse(datalist[index].parse.replace(/,.*\s+('|")页码[\s\S]*/, '}').replace(/'/g, '"'));
-                            var versionLast = jsonVersionLast.ver || jsonVersionLast.Ver || '';
-                            log('versionLast:' + versionLast);
-                        }
-                        if (index == -1 || !versionLast || versionLast < version) {
-                            confirm({
-                                title: `聚阅接口:<${title}_${jsonGitee.type}>有新版本`,
-                                content: jsonVer.更新说明 ? jsonVer.更新说明.replace(/,/g, '\n') : '导入新版本吗?',
-                                confirm: $.toString((title, jsonGitee, index) => {
-                                    let sourcefile = 'hiker://files/rules/Src/Ju/jiekou.json';
-                                    let datalist = JSON.parse(fetch(sourcefile));
-                                    if (index != -1) {
-                                        datalist.splice(index, 1);
-                                    }
-                                    datalist.push(jsonGitee);
-                                    writeFile(sourcefile, JSON.stringify(datalist));
-                                    toast(`聚阅接口<${title}_${jsonGitee.type}>导入成功~`);
-                                    refreshPage();
-                                    return;
-                                }, title, jsonGitee, index),
-                                cancel: $.toString(() => {
-                                    return "toast://更新接口，则功能不全或有异常"
-                                })
-                            });
-                        } else {
-                            toast('无新版本~');
-                        }
-                    } else {
-                        toast('无新版本~');
-                    }
-                }
-            }
-            return;
         }
+    }
+    if (MY_RULE.title == '聚阅√') {
+        var path = 'hiker://files/rules/juyue/updateTime_' + title + '.txt';
+        let lastTime = fetch(path);
+        let currentTime = Date.now();
+        writeFile(path, currentTime + '');
+        if (!lastTime || currentTime - lastTime >= 86400000) {
+            let pathGitee = 'https://gitee.com/mistywater/hiker_info/raw/master/sourcefile/' + title + '.json';
+            let html = fetch(pathGitee);
+            if (html && !/Repository or file not found/.test(html)) {
+                let jsonGitee = JSON.parse(base64ToText(html));
+                let jsonVer = JSON.parse(jsonGitee.parse.replace(/,.*\s+('|")页码[\s\S]*/, '}').replace(/'/g, '"'));
+                let version = jsonVer.ver || jsonVer.Ver || '';
+                log('versionNew:' + version);
+                let sourcefile = 'hiker://files/rules/Src/Ju/jiekou.json';
+                let datalist = JSON.parse(fetch(sourcefile));
+                let index = datalist.findIndex(item => item.name == jsonGitee.name && item.type == jsonGitee.type);
+                if (index != -1) {
+                    let jsonVersionLast = JSON.parse(datalist[index].parse.replace(/,.*\s+('|")页码[\s\S]*/, '}').replace(/'/g, '"'));
+                    var versionLast = jsonVersionLast.ver || jsonVersionLast.Ver || '';
+                    log('versionLast:' + versionLast);
+                }
+                if (index == -1 || !versionLast || versionLast < version) {
+                    confirm({
+                        title: `聚阅接口:<${title}_${jsonGitee.type}>有新版本`,
+                        content: jsonVer.更新说明 ? jsonVer.更新说明.replace(/,/g, '\n') : '导入新版本吗?',
+                        confirm: $.toString((title, jsonGitee, index) => {
+                            let sourcefile = 'hiker://files/rules/Src/Ju/jiekou.json';
+                            let datalist = JSON.parse(fetch(sourcefile));
+                            if (index != -1) {
+                                datalist.splice(index, 1);
+                            }
+                            datalist.push(jsonGitee);
+                            writeFile(sourcefile, JSON.stringify(datalist));
+                            toast(`聚阅接口<${title}_${jsonGitee.type}>导入成功~`);
+                            refreshPage();
+                            return;
+                        }, title, jsonGitee, index),
+                        cancel: $.toString(() => {
+                            return "toast://更新接口，则功能不全或有异常"
+                        })
+                    });
+                } else {
+                    toast('无新版本~');
+                }
+            } else {
+                toast('无新版本~');
+            }
+        }
+    }
+    return;
+}
 
 function TextToBase64(str) {
     if (typeof str === 'object' && str !== null) {
@@ -1959,6 +1577,7 @@ function TextToBase64(str) {
         return String.fromCharCode(parseInt(hex, 16));
     }));
 }
+
 function base64ToText(str) {
     if (typeof str === 'object' && str !== null) {
         str = JSON.stringify(str);
@@ -1968,19 +1587,19 @@ function base64ToText(str) {
     }).join(''));
 }
 
-function yanzhengd(d, str, url, host, a,ua) {
+function yanzhengd(d, str, url, host, a, ua) {
     d.push({
         title: '人机验证',
-        url: $('hiker://empty').rule((str, url, t, a,ua) => {
+        url: $('hiker://empty').rule((str, url, t, a, ua) => {
             var d = [];
             d.push({
                 col_type: 'x5_webview_single',
                 url: url,
                 desc: 'list&&screen',
                 extra: {
-                    ua: !ua?MOBILE_UA:PC_UA,
+                    ua: !ua ? MOBILE_UA : PC_UA,
                     showProgress: false,
-                    js: $.toString((str, url, t, a,ua) => {
+                    js: $.toString((str, url, t, a, ua) => {
                         function check() {
                             let nodes = document.querySelectorAll(str);
                             var co = fba.getCookie(url);
@@ -2001,11 +1620,11 @@ function yanzhengd(d, str, url, host, a,ua) {
                             }
                         }
                         check();
-                    }, str, url, t, a,ua)
+                    }, str, url, t, a, ua)
                 }
             });
             return setResult(d);
-        }, str, url, host, a,ua),
+        }, str, url, host, a, ua),
         col_type: 'text_1'
     });
     return d;
@@ -2063,17 +1682,19 @@ function link(d, urlsTemp, titleLast, titleNext, myurl, host) {
     });
     urlsTemp.forEach((it, index) => {
         d.push({
-            title: index == 0 ? (it.startsWith('http') ? '⬅️' + titleLast : '⬅️没有了') :  '➡️'+titleNext,
+            title: index == 0 ? (it.startsWith('http') ? '⬅️' + titleLast : '⬅️没有了') : '➡️' + titleNext,
             url: $('#noLoading#').lazyRule((url, host, index, url1) => {
-                if(url){putMyVar(host + 'next', url);
-                putMyVar(host + 'isNextUrl', '1');
-                refreshPage();}
+                if (url) {
+                    putMyVar(host + 'next', url);
+                    putMyVar(host + 'isNextUrl', '1');
+                    refreshPage();
+                }
                 return 'hiker://empty';
             }, it, host, index, myurl),
             col_type: 'text_2',
             extra: {
                 lineVisible: 'false',
-               textAlign: 'left'
+                textAlign: 'left'
             }
         });
     });
@@ -2088,7 +1709,7 @@ function buildUrls(pages, urlBuilder, headers) {
     let urls = [];
     for (let k = 1; k <= pages; k++) {
         let obj = {
-            url: urlBuilder(k) // 直接调用函数获取URL
+            url: urlBuilder(k)
         };
         if (headers) {
             obj.options = {
@@ -2101,7 +1722,6 @@ function buildUrls(pages, urlBuilder, headers) {
 }
 
 function detectCloudStorage(link) {
-    // 统一转换为小写，避免大小写影响判断
     link = link.toLowerCase();
     if (link.includes("pan.baidu.com") || link.includes("baidupcs.com")) {
         return "[百度网盘]";
@@ -2113,7 +1733,7 @@ function detectCloudStorage(link) {
         return "[UC网盘]";
     } else if (link.includes("xunlei")) {
         return "[迅雷网盘]";
-    }  else if (link.includes("magnet")) {
+    } else if (link.includes("magnet")) {
         return "[磁力]";
     } else {
         return "[未知网盘]";
@@ -2121,13 +1741,12 @@ function detectCloudStorage(link) {
 }
 
 function imgCloudStorage(link) {
-    // 统一转换为小写，避免大小写影响判断
     link = link.toLowerCase();
     if (/magnet|磁力|磁链/.test(link)) {
         return "https://pp.myapp.com/ma_icon/0/icon_53952947_1677658847/256";
-    } else if(/pikpak/.test(link)) {
+    } else if (/pikpak/.test(link)) {
         return "https://blog.mypikpak.com/wp-content/uploads/2023/08/512.png";
-    }else if(/pan.baidu.com|baidupcs.com|百度(网|云)盘|^baidu$|xiongdipan/.test(link)) {
+    } else if (/pan.baidu.com|baidupcs.com|百度(网|云)盘|^baidu$|xiongdipan/.test(link)) {
         return "https://img2.baidu.com/it/u=2020777305,1031850894&fm=253&fmt=auto&app=138&f=PNG?w=667&h=500";
     } else if (/aliyundrive.com|alipan.com|阿里(网|云)盘|^ali$|alipansou/.test(link)) {
         return "https://pp.myapp.com/ma_icon/0/icon_54120208_1764918750/256";
@@ -2141,11 +1760,11 @@ function imgCloudStorage(link) {
         return "https://bkimg.cdn.bcebos.com/pic/f2deb48f8c5494eeb95e781a24f5e0fe99257eb0";
     } else if (/tianyi|189|天翼(网|云)盘|^tianyi$|tianyiso/.test(link)) {
         return "https://b.zol-img.com.cn/soft/7/617/ceQDZnfsQPXs.png";
-    }   else if (/移动|139|mobile/.test(link)) {
+    } else if (/移动|139|mobile/.test(link)) {
         return "https://bkimg.cdn.bcebos.com/pic/58ee3d6d55fbb2fb4316d9f6261e37a4462308f77680";
-    }  else if (/123|123(网|云)盘|^115$/.test(link)) {
+    } else if (/123|123(网|云)盘|^115$/.test(link)) {
         return "https://pp.myapp.com/ma_icon/0/icon_54190090_1767233011/256";
-    }else {
+    } else {
         return "https://pp.myapp.com/ma_icon/0/icon_251416_1627666026/256";
     }
 }
@@ -2154,9 +1773,9 @@ function sourceJump(d, arr, blank, changeSource) {
     let info = storage0.getMyVar('一级源接口信息') || jkdata;
     if (arr.length > 1) {
         arr.forEach((item, index) => {
-            let title=item.split('@')[0].replace(/H-|✈️|🔞|🐹/g, '');
+            let title = item.split('@')[0].replace(/H-|✈️|🔞|🐹/g, '');
             d.push({
-                title: info.name == item.split('@')[0]?title.color('fff'):title,
+                title: info.name == item.split('@')[0] ? title.color('fff') : title,
                 url: $('#noLoading#').lazyRule((item) => {
                     if (MY_RULE.title != '聚阅') {
                         let configPath = 'hiker://files/rules/Src/Ju/config.json';
@@ -2246,6 +1865,7 @@ function sourceJump(d, arr, blank, changeSource) {
         return 'hiker://empty';
     }
 }
+
 function cfl(str) {
     return str.replace(/\w\S*/g, function(word) {
         return word.charAt(0) + word.slice(1).toLowerCase();
@@ -2443,7 +2063,7 @@ function baiduTrans(content, mode) {
     }
 }
 /*function bcRandom() {
-    var str =  '#' + (((Math.random() * 0x1000000 << 0).toString(16)).substr(-6)).padStart(6, ‌Math.ceil‌(Math.random() * 16).toString(16));
+    var str =  '#' + (((Math.random() * 0x1000000 << 0).toString(16)).substr(-6)).padStart(6, Math.ceil(Math.random() * 16).toString(16));
     return str;
 }*/
 function yanzheng(str, url, t, a, h) {
@@ -2584,7 +2204,7 @@ function getRandomNumber(m, n) {
 }
 
 function timestampToDate(timestamp) {
-    timestamp=+((timestamp+'').padEnd(13,'0'));
+    timestamp = +((timestamp + '').padEnd(13, '0'));
     const date = new Date(timestamp);
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -2661,7 +2281,6 @@ function getCommonNonDigitParts(str1, str2) {
 }
 
 function sortArray(arr, key, style, order) {
-
     if (!Array.isArray(arr)) {
         throw new TypeError('第一个参数必须是一个数组');
     }
@@ -2685,14 +2304,11 @@ function sortArray(arr, key, style, order) {
             commonParts.map(s => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|'),
             'g'
         );
-
-        // 提取数字部分
         const extract = (str) => {
             const remaining = str.replace(pattern, '');
             const match = remaining.match(/-?\d+/);
             return match ? parseInt(match[0], 10) : null;
         };
-
         return {
             aNumber: typeof aValue === 'number' ? aValue : extract(strA),
             bNumber: typeof bValue === 'number' ? bValue : extract(strB)
@@ -2846,8 +2462,8 @@ function lunbo(c) {
         var k = c.indexbanner.length;
         var n = '0';
         var lazy = '';
-        if (c.公共||c.parse) {
-            lazy = $('').lazyRule((c.公共||c.parse).解析, (c.公共||c.parse), '', (c.公共||c.parse).host);
+        if (c.公共 || c.parse) {
+            lazy = $('').lazyRule((c.公共 || c.parse).解析, (c.公共 || c.parse), '', (c.公共 || c.parse).host);
         }
         if (c.json == 1) {
             d.push({
@@ -2891,9 +2507,9 @@ function lunbo(c) {
             rc(fc('https://gitee.com/mistywater/hiker_info/raw/master/githubproxy.json') + 'https://raw.githubusercontent.com/mistywater/hiker/main/f', 24);
             var n = getVar(c.host + 'n', '0');
             var lazy = '';
-            if (c.公共||c.parse) {
-            lazy = $('').lazyRule((c.公共||c.parse).解析, (c.公共||c.parse), '', (c.公共||c.parse).host);
-        }
+            if (c.公共 || c.parse) {
+                lazy = $('').lazyRule((c.公共 || c.parse).解析, (c.公共 || c.parse), '', (c.公共 || c.parse).host);
+            }
             if (c.json == 1) {
                 let dd = {
                     title: color(c.indexbanner[n][c.title], 'FF3399'),
@@ -3061,10 +2677,11 @@ function jinman(picUrl) {
     }, picUrl);
 }
 
-function extraPic(host, page, pages, ctype, hiker, _chchePath,imgdec,isNovel) {if(!_chchePath) _chchePath='';
+function extraPic(host, page, pages, ctype, hiker, _chchePath, imgdec, isNovel) {
+    if (!_chchePath) _chchePath = '';
     if (!ctype) var ctype = '';
     if (!hiker || hiker == '') var hiker = '1';
-    var 类型 = ["movie_1", "movie_2", "movie_3", "movie_3_marquee", "pic_1", "pic_2", "pic_3", "pic_1_full", "pic_1_center", "pic_1_card", "pic_2_card", "pic_3_square", "card_pic_1", "card_pic_2", "card_pic_3", "avatar", "card_pic_3_center", "icon_1_left_pic","icon_5","icon_4","icon_round_4","icon_3_round_fill","icon_2_round"];
+    var 类型 = ["movie_1", "movie_2", "movie_3", "movie_3_marquee", "pic_1", "pic_2", "pic_3", "pic_1_full", "pic_1_center", "pic_1_card", "pic_2_card", "pic_3_square", "card_pic_1", "card_pic_2", "card_pic_3", "avatar", "card_pic_3_center", "icon_1_left_pic", "icon_5", "icon_4", "icon_round_4", "icon_3_round_fill", "icon_2_round"];
     var longClick = [{
         title: '样式',
         js: $.toString((host, ctype, 类型, _chchePath) => {
@@ -3123,33 +2740,35 @@ function extraPic(host, page, pages, ctype, hiker, _chchePath,imgdec,isNovel) {i
         }
         var extra1 = {
             title: '跳转',
-            js: $.toString((host, arr, num,pages) => {
-                return $(arr, 3, '选择页码').select((host, num,pages) => {
+            js: $.toString((host, arr, num, pages) => {
+                return $(arr, 3, '选择页码').select((host, num, pages) => {
                     if (input == '输入页码') {
                         return $('').input((host) => {
                             putMyVar(host + 'page', input);
-putMyVar('isMoveto', '1');
+                            putMyVar('isMoveto', '1');
                             refreshPage(false);
                         }, host);
                     } else if (num == 1) {
                         putMyVar(host + 'page', input);
-putMyVar('isMoveto', '1');
+                        putMyVar('isMoveto', '1');
                         refreshPage(false);
                         return 'hiker://empty';
                     } else {
                         let arr1 = [];
                         for (let k = 0; k < num; k++) {
-                            if(input * 1 + k * 1<=pages){arr1.push(input * 1 + k * 1);}
+                            if (input * 1 + k * 1 <= pages) {
+                                arr1.push(input * 1 + k * 1);
+                            }
                         }
                         return $(arr1, 3, '选择页码').select((host) => {
                             putMyVar(host + 'page', input);
-putMyVar('isMoveto', '1');
+                            putMyVar('isMoveto', '1');
                             refreshPage(false);
                             return 'hiker://empty';
                         }, host);
                     }
-                }, host, num,pages);
-            }, host, arr, num,pages),
+                }, host, num, pages);
+            }, host, arr, num, pages),
         };
     } else {
         var extra1 = {
@@ -3157,7 +2776,7 @@ putMyVar('isMoveto', '1');
             js: $.toString((host) => {
                 return $('').input((host) => {
                     putMyVar(host + 'page', input);
-putMyVar('isMoveto', '1');
+                    putMyVar('isMoveto', '1');
                     refreshPage(false);
                 }, host);
             }, host),
@@ -3167,16 +2786,17 @@ putMyVar('isMoveto', '1');
     if (_chchePath) {
         longClick.push({
             title: '清除缓存',
-            js: $.toString((host,_chchePath) => {
-                writeFile(_chchePath, '');clearMyVar(host+'page');
+            js: $.toString((host, _chchePath) => {
+                writeFile(_chchePath, '');
+                clearMyVar(host + 'page');
                 refreshPage(false);
-            },host,_chchePath),
+            }, host, _chchePath),
         });
     }
     longClick.unshift({
         title: getItem(host + 'picsMode', '0') == 0 ? '漫画模式' : '图文模式',
-        js: $.toString((host,_chchePath) => {
-	    writeFile(_chchePath, '');
+        js: $.toString((host, _chchePath) => {
+            writeFile(_chchePath, '');
             if (getItem(host + 'picsMode', '0') == 0) {
                 setItem(host + 'picsMode', '1');
                 refreshPage(false);
@@ -3184,25 +2804,25 @@ putMyVar('isMoveto', '1');
                 setItem(host + 'picsMode', '0');
                 refreshPage(false);
             }
-        }, host,_chchePath)
+        }, host, _chchePath)
     });
-    var extra = $.toString((host, hiker, ctype, longClick, imgdec,isNovel) => ({
-    chapterList: hiker ? 'hiker://files/_cache/chapterList.txt' : chapterList,
-    info: {
-        bookName: isNovel?'全部':MY_URL.split('/')[2],
-        ruleName: isNovel?storage0.getMyVar('一级源接口信息').name:'photo',
-        bookTopPic: isNovel?img:'https://api.xinac.net/icon/?url=' + host,
-        decode: imgdec? $.type(imgdec) == "function" ? $.toString((imgdec) => {
-                                    let imgDecrypt = imgdec;
-                                    return imgDecrypt();
-                                }, imgdec) : imgdec : "",
-        parseCode: downloadlazy,
-        defaultView: isNovel?'0':'1',
-type: isNovel?'novel':'comic',
-        
-    },
-    longClick: longClick,
-}), host, hiker, ctype, longClick, imgdec,isNovel);
+    var extra = $.toString((host, hiker, ctype, longClick, imgdec, isNovel) => ({
+        chapterList: hiker ? 'hiker://files/_cache/chapterList.txt' : chapterList,
+        info: {
+            bookName: isNovel ? '全部' : MY_URL.split('/')[2],
+            ruleName: isNovel ? storage0.getMyVar('一级源接口信息').name : 'photo',
+            bookTopPic: isNovel ? img : 'https://api.xinac.net/icon/?url=' + host,
+            decode: imgdec ? $.type(imgdec) == "function" ? $.toString((imgdec) => {
+                let imgDecrypt = imgdec;
+                return imgDecrypt();
+            }, imgdec) : imgdec : "",
+            parseCode: downloadlazy,
+            defaultView: isNovel ? '0' : '1',
+            type: isNovel ? 'novel' : 'comic',
+
+        },
+        longClick: longClick,
+    }), host, hiker, ctype, longClick, imgdec, isNovel);
     return extra;
 }
 
@@ -3249,7 +2869,6 @@ function imgDecs(key, iv, kiType, mode) {
                 }
 
                 function hexStringToBytes(cipherText) {
-                    //cipherText = String(cipherText);
                     let str = cipherText.toLowerCase();
                     let length = str.length;
                     let bArr = java.lang.reflect.Array.newInstance(java.lang.Byte.TYPE, length / 2);
@@ -3337,14 +2956,15 @@ function hexStringToBytes(cipherText) {
     }
 }
 
-function pageMoveto(host, page, ctype, pages, _chchePath) {if(!_chchePath) _chchePath='';
+function pageMoveto(host, page, ctype, pages, _chchePath) {
+    if (!_chchePath) _chchePath = '';
     if (!ctype) {
         var ctype = '';
     }
     var longClick = [{
         title: '样式',
         js: $.toString((host, ctype, _chchePath) => {
-            var 类型 = ["movie_1", "movie_2", "movie_3", "movie_3_marquee", "pic_1", "pic_2", "pic_3", "pic_1_full", "pic_1_center", "pic_1_card", "pic_2_card", "pic_3_square", "card_pic_1", "card_pic_2", "card_pic_3", "avatar", "card_pic_3_center", "icon_1_left_pic","icon_5","icon_4","icon_round_4","icon_3_round_fill","icon_2_round"];
+            var 类型 = ["movie_1", "movie_2", "movie_3", "movie_3_marquee", "pic_1", "pic_2", "pic_3", "pic_1_full", "pic_1_center", "pic_1_card", "pic_2_card", "pic_3_square", "card_pic_1", "card_pic_2", "card_pic_3", "avatar", "card_pic_3_center", "icon_1_left_pic", "icon_5", "icon_4", "icon_round_4", "icon_3_round_fill", "icon_2_round"];
             if (getItem(host + 'type')) {
                 var index = 类型.indexOf(getItem(host + ctype + 'type'));
                 类型[index] = '👉' + getItem(host + ctype + 'type');
@@ -3399,33 +3019,35 @@ function pageMoveto(host, page, ctype, pages, _chchePath) {if(!_chchePath) _chch
         }
         var extra1 = {
             title: '跳转',
-            js: $.toString((host, arr, num,pages) => {
-                return $(arr, 3, '选择页码').select((host, num,pages) => {
+            js: $.toString((host, arr, num, pages) => {
+                return $(arr, 3, '选择页码').select((host, num, pages) => {
                     if (input == '输入页码') {
                         return $('').input((host) => {
                             putMyVar(host + 'page', input);
-putMyVar('isMoveto', '1');
+                            putMyVar('isMoveto', '1');
                             refreshPage(false);
                         }, host);
                     } else if (num == 1) {
                         putMyVar(host + 'page', input);
-putMyVar('isMoveto', '1');
+                        putMyVar('isMoveto', '1');
                         refreshPage(false);
                         return 'hiker://empty';
                     } else {
                         let arr1 = [];
                         for (let k = 0; k < num; k++) {
-                            if(input * 1 + k * 1<=pages){arr1.push(input * 1 + k * 1);}
+                            if (input * 1 + k * 1 <= pages) {
+                                arr1.push(input * 1 + k * 1);
+                            }
                         }
                         return $(arr1, 3, '选择页码').select((host) => {
                             putMyVar(host + 'page', input);
-putMyVar('isMoveto', '1');
+                            putMyVar('isMoveto', '1');
                             refreshPage(false);
                             return 'hiker://empty';
                         }, host);
                     }
-                }, host, num,pages);
-            }, host, arr, num,pages),
+                }, host, num, pages);
+            }, host, arr, num, pages),
         };
     } else {
         var extra1 = {
@@ -3443,16 +3065,17 @@ putMyVar('isMoveto', '1');
     if (_chchePath) {
         longClick.push({
             title: '清除缓存',
-            js: $.toString((host,_chchePath) => {
-                writeFile(_chchePath, '');clearMyVar(host+'page');
+            js: $.toString((host, _chchePath) => {
+                writeFile(_chchePath, '');
+                clearMyVar(host + 'page');
                 refreshPage(false);
-            }, host,_chchePath),
+            }, host, _chchePath),
         });
     }
     longClick.unshift({
         title: getItem(host + 'picsMode', '0') == 0 ? '漫画模式' : '图文模式',
-        js: $.toString((host,_chchePath) => {
-	    writeFile(_chchePath, '');
+        js: $.toString((host, _chchePath) => {
+            writeFile(_chchePath, '');
             if (getItem(host + 'picsMode', '0') == 0) {
                 setItem(host + 'picsMode', '1');
                 refreshPage(false);
@@ -3460,15 +3083,15 @@ putMyVar('isMoveto', '1');
                 setItem(host + 'picsMode', '0');
                 refreshPage(false);
             }
-        }, host,_chchePath)
+        }, host, _chchePath)
     });
     return {
         longClick: longClick
     };
 }
 
-function searchMain(page, d, desc,MY_PAGE,noDelete) {
-   if (page == 1 || getMyVar('isMoveto', '0') == 1 ||MY_PAGE ==1|| MY_PAGE == getMyVar('MY_PAGE')) {
+function searchMain(page, d, desc, MY_PAGE, noDelete) {
+    if (page == 1 || getMyVar('isMoveto', '0') == 1 || MY_PAGE == 1 || MY_PAGE == getMyVar('MY_PAGE')) {
         d.push({
             title: '🔍',
             url: $.toString((r) => {
@@ -3479,7 +3102,7 @@ function searchMain(page, d, desc,MY_PAGE,noDelete) {
             col_type: 'input',
             extra: {
                 defaultValue: getVar('keyword', ''),
-                isDelete:noDelete?'noDelete':''
+                isDelete: noDelete ? 'noDelete' : ''
             }
         });
     }
@@ -3627,8 +3250,6 @@ function classTop1(index, data, host, d, mode, v, c, f, len, start, end) {
         return d;
     }
 }
-
-
 
 function downPic(isNovel) {
     var s = `if (list.length != 0) {
@@ -3886,12 +3507,7 @@ function ct(num) {
         return num;
     }
 }
-/*function rulePage(type, page) {
-     return $("hiker://empty#noRecordHistory##noHistory#" + (page ? "?page=fypage" : "")).rule((type, r) => {
-         require(r);
-         getYiData(type);
-     }, type, config.依赖);
- }*/
+
 function rp(data, source) {
     if (!source) {
         var txtReplace = ['平澹_平淡', '噤_禁', '庒_压', '⾼嘲_高潮', '二路_两路', '二具_两具', '二手_两手', '二颗_两颗', '二个_两个', '二条_两条', '満_满', '昑_吟', '聇_耻', '晢_皙', '啂_乳', '舿_胯', '昅_吸', '舂_春', '藌_蜜', '嗕_辱', '啂_乳', '満_满', '蓅_流', '茭_交', '菗_抽', '庇股_屁股', 'zhang_胀', 'yù_欲', 'yu_欲', 'you_诱', 'ying_迎', 'yin3_吟', 'yin2_淫', 'yīn_阴', 'yin_阴', 'ye_液', 'yao_腰', 'yang2_痒', 'yang_阳', 'yan_艳', 'ya_压', 'xue_穴', 'xiong_胸', 'xìng_性', 'xing_性', 'xie2_邪', 'xie_泄', 'xi_吸', 'wei_慰', 'tuo_脱', 'tun2_臀', 'tun_吞', 'ting_挺', 'tian_舔', 'shun_吮', 'shuang_爽', 'shu_熟', 'shi_湿', 'she_射', 'sè_色', 'se_色', 'sao_骚', 'sai_塞', 'rui_蕊', 'ru2_蠕', 'ru_乳', 'rou2_揉', 'rou_肉', 'ri_日', 'qiang_枪', 'qi2_妻', 'qi_骑', 'pi_屁', 'pen_喷', 'nue_虐', 'nong_弄', 'niao_尿', 'nen_嫩', 'nai_奶', 'min_敏', 'mi2_迷', 'mi_蜜', 'mao_毛', 'man_满', 'luo_裸', 'luan_乱', 'lu_撸', 'lou_露', 'liu_流', 'liao_撩', 'lang_浪', 'kua_胯', 'ku_裤', 'jing_精', 'jin_禁', 'jiao_交', 'jian2_奸', 'jian_贱', 'jiān_奸', 'ji3_妓', 'ji2_鸡', 'jī_激', 'ji_激', 'gun_棍', 'gui_龟', 'gong_宫', 'gen_根', 'gao2_睪', 'gao_搞', 'gang_肛', 'gan_感', 'fu_阜', 'feng_缝', 'dong2_胴', 'dong_洞', 'diao_屌', 'dang2_党', 'dàng_荡', 'dang_荡', 'chun2_唇', 'chun_春', 'chuang_床', 'chuan_喘', 'chou_抽', 'chi_耻', 'chao_潮', 'chan_缠', 'cha_插', 'cuo_搓', 'cu_粗', 'huan_欢', 'cao2_肏', 'cao_操', 'bo_勃', 'bō_波', 'bi2_屄', 'bi_逼', 'bao_饱', 'bang_棒', 'ai_爱'];
@@ -4046,12 +3662,8 @@ function rp1(data) {
     return data;
 }
 
-function ver() {
-    return;
-}
-
 function getRandomArray(arr, num) {
-    const shuffled = arr.slice(); // 复制原数组
+    const shuffled = arr.slice();
     let currentIndex = arr.length;
     if (num >= currentIndex) {
         return shuffled;
@@ -4112,26 +3724,6 @@ function imgDec(key, iv, a, b) {
     return imgdec;
 }
 
-/*function toerji(item,sname,stype) {
-            let info = storage0.getMyVar('主页源信息');
-            let extra = item.extra || {};
-            extra.name = extra.name || extra.pageTitle || item.title;
-            extra.img = extra.img || item.pic_url || item.img;
-            extra.stype = extra.stype||stype||'漫画';
-            extra.pageTitle = extra.pageTitle || extra.name;
-            if (item.url && !/js:|select:|\(|\)|=>|@/.test(item.url)) {
-                extra.surl = item.url.replace(/hiker:\/\/empty|#immersiveTheme#|#autoCache#|#noRecordHistory#|#noHistory#|#noLoading#|#/g, "");
-                extra.sname = sname;
-            }
-            if ((item.col_type != "scroll_button") || item.extra) {
-                item.extra = extra;
-            }
-            item.url = (extra.surl || !item.url) ? $('hiker://empty#immersiveTheme##autoCache#').rule(() => {
-                require(config.依赖);
-                erji();
-            }) : item.url
-            return item;
-        }*/
 function en(key, iv, data, mode, encoding) {
     eval(getCryptoJS());
     if (!mode) mode = 'AES/ECB/PKCS7Padding';
@@ -4165,45 +3757,42 @@ function en(key, iv, data, mode, encoding) {
 }
 
 function de(key, iv, data, mode, encoding) {
-                eval(getCryptoJS());
-                mode = mode || 'AES/ECB/PKCS7Padding';
-                var s0 = mode.split('/')[0],
-                    s1 = mode.split('/')[1],
-                    s2 = mode.split('/')[2];
-                s2 = s2.replace(/PKCS7Padding/, 'PKCS7').replace(/KCS/, 'kcs');
-                key = CryptoJS.enc.Utf8.parse(key);
-                iv && (iv = CryptoJS.enc.Utf8.parse(iv));
-                (s1 == 'CBC' && !iv) && (iv = key);
-                let encryptedData = /^[0-9a-f]+$/i.test(data) ? {
-                    ciphertext: CryptoJS.enc.Hex.parse(data)
-                } : data;
-                let decryptOptions = {
-                    mode: CryptoJS.mode[s1],
-                    padding: CryptoJS.pad[s2]
-                };
-                iv && (decryptOptions.iv = iv);
-                var decrypted = CryptoJS[s0].decrypt(encryptedData, key, decryptOptions);
-                return encoding ?
-                    decrypted.toString(CryptoJS.enc[encoding]) :
-                    decrypted.toString(CryptoJS.enc.Utf8);
+    eval(getCryptoJS());
+    mode = mode || 'AES/ECB/PKCS7Padding';
+    var s0 = mode.split('/')[0],
+        s1 = mode.split('/')[1],
+        s2 = mode.split('/')[2];
+    s2 = s2.replace(/PKCS7Padding/, 'PKCS7').replace(/KCS/, 'kcs');
+    key = CryptoJS.enc.Utf8.parse(key);
+    iv && (iv = CryptoJS.enc.Utf8.parse(iv));
+    (s1 == 'CBC' && !iv) && (iv = key);
+    let encryptedData = /^[0-9a-f]+$/i.test(data) ? {
+        ciphertext: CryptoJS.enc.Hex.parse(data)
+    } : data;
+    let decryptOptions = {
+        mode: CryptoJS.mode[s1],
+        padding: CryptoJS.pad[s2]
+    };
+    iv && (decryptOptions.iv = iv);
+    var decrypted = CryptoJS[s0].decrypt(encryptedData, key, decryptOptions);
+    return encoding ?
+        decrypted.toString(CryptoJS.enc[encoding]) :
+        decrypted.toString(CryptoJS.enc.Utf8);
 
-            }
-
-function im() {
-    return '#immersiveTheme##autoCache#';
 }
 
 function urla(u, host) {
-            if (!/^http/i.test(u)) {
-                if (u.substr(0, 2) != '//') {
-                    if (u.substr(0, 1) != '/') u = host + '/' + u;
-                    else u = host + u;
-                } else {
-                    u = 'https:' + u;
-                }
-            }
-            return encodeURI(u);
+    if (!/^http/i.test(u)) {
+        if (u.substr(0, 2) != '//') {
+            if (u.substr(0, 1) != '/') u = host + '/' + u;
+            else u = host + u;
+        } else {
+            u = 'https:' + u;
         }
+    }
+    return encodeURI(u);
+}
+
 function rn(c) {
     return c.replace(/\[.+?]|丨|～|\//g, '|')
         .replace(/\(.+?\)/g, '')
@@ -4404,17 +3993,17 @@ function fy(s) {
 }
 
 function sp(cc) {
-cc = cc.replace(/&#x([0-9a-fA-F]+);/g, function(match, hex) {
+    cc = cc.replace(/&#x([0-9a-fA-F]+);/g, function(match, hex) {
         return String.fromCharCode(parseInt(hex, 16));
     });
-cc = cc.replace(/\\u([0-9a-fA-F]{4})/g, function(match, hex) {
+    cc = cc.replace(/\\u([0-9a-fA-F]{4})/g, function(match, hex) {
         return String.fromCharCode(parseInt(hex, 16));
     });
-cc = cc.replace(/著名|显著|昭著|卓著|著作|著述|著书|著者|原著|译著|论著|巨著|遗著|名著|拙著|新著|专著|合著|编著|撰著|著称|著录|著闻|土著/g, m => m.replace(/著/g, '&#33879;'));
-cc = cc.replace(/乾坤|乾隆/g, m => m.replace(/乾/g, '&#20094;'));
-cc = cc.replace(/伶俐/g, m => m.replace(/俐/g, '&#20432;'));
-cc = cc.replace(/瞭望|瞭哨|瞭远/g, m => m.replace(/瞭/g, '&#30637;'));
-cc = cc.replace(/慰藉|蕴藉|狼藉|枕藉/g, m => m.replace(/藉/g, '&#34249;'));
+    cc = cc.replace(/著名|显著|昭著|卓著|著作|著述|著书|著者|原著|译著|论著|巨著|遗著|名著|拙著|新著|专著|合著|编著|撰著|著称|著录|著闻|土著/g, m => m.replace(/著/g, '&#33879;'));
+    cc = cc.replace(/乾坤|乾隆/g, m => m.replace(/乾/g, '&#20094;'));
+    cc = cc.replace(/伶俐/g, m => m.replace(/俐/g, '&#20432;'));
+    cc = cc.replace(/瞭望|瞭哨|瞭远/g, m => m.replace(/瞭/g, '&#30637;'));
+    cc = cc.replace(/慰藉|蕴藉|狼藉|枕藉/g, m => m.replace(/藉/g, '&#34249;'));
     var str = '',
         ss = JTPYStr(),
         tt = FTPYStr();
@@ -4422,16 +4011,16 @@ cc = cc.replace(/慰藉|蕴藉|狼藉|枕藉/g, m => m.replace(/藉/g, '&#34249;
         if (cc.charCodeAt(i) > 10000 && tt.indexOf(cc.charAt(i)) != -1) str += ss.charAt(tt.indexOf(cc.charAt(i)));
         else str += cc.charAt(i);
     }
-str = str.replace(/浮沈|昏沈|深沈|沈淀|沈浮|沈厚|沈昏|沈积|沈寂|沈降|沈静|沈疴|沈李|沈落|沈脉|沈没|沈闷|沈密|沈眠|沈默|沈溺|沈潜|沈沈|沈睡|沈思|沈痛|沈头|沈下|沈陷|沈香|沈箱|沈心|沈毅|沈吟|沈鱼|沈郁|沈冤|沈灶|沈渣|沈着|沈重|沈舟|沈醉|石沈|太沈|下沈|星沈|阴沈|鱼沈|真沈|珠沈/g, m => m.replace(/沈/g, '沉'));
-str = str.replace(/混合&#33879;/g,'混合着');
+    str = str.replace(/浮沈|昏沈|深沈|沈淀|沈浮|沈厚|沈昏|沈积|沈寂|沈降|沈静|沈疴|沈李|沈落|沈脉|沈没|沈闷|沈密|沈眠|沈默|沈溺|沈潜|沈沈|沈睡|沈思|沈痛|沈头|沈下|沈陷|沈香|沈箱|沈心|沈毅|沈吟|沈鱼|沈郁|沈冤|沈灶|沈渣|沈着|沈重|沈舟|沈醉|石沈|太沈|下沈|星沈|阴沈|鱼沈|真沈|珠沈/g, m => m.replace(/沈/g, '沉'));
+    str = str.replace(/混合&#33879;/g, '混合着');
     return str;
 }
 
 function tr(cc) {
-cc = cc.replace(/&#x([0-9a-fA-F]+);/g, function(match, hex) {
+    cc = cc.replace(/&#x([0-9a-fA-F]+);/g, function(match, hex) {
         return String.fromCharCode(parseInt(hex, 16));
     });
-cc = cc.replace(/\\u([0-9a-fA-F]{4})/g, function(match, hex) {
+    cc = cc.replace(/\\u([0-9a-fA-F]{4})/g, function(match, hex) {
         return String.fromCharCode(parseInt(hex, 16));
     });
     var str = '',
@@ -4451,5 +4040,3 @@ function JTPYStr() {
 function FTPYStr() {
     return '藉瞭叁蹟鑑鏽嚮穀穠彙鐧曆嚐餚嫻薑歎乾釐粧檯谘淨澹嵴複捲託併鬰鬱俐著捨鬍儘穫闢採鍊週緻閒綫錶寫洩佈繫藌臋麵呑嫰脫獃內婬盪與徵脳闆傢锺隻澹駡勐鬆綉髒鑽牆髮馀讚製豔慾氾籤姦噁妳姪佔訳発絶舖係甦僱迴僕裡錒皚藹礙愛噯嬡璦曖靄諳銨鵪骯襖奧媼驁鰲壩罷鈀擺敗唄頒辦絆鈑幫綁鎊謗剝飽寶報鮑鴇齙輩貝鋇狽備憊鵯賁錛繃筆畢斃幣閉蓽嗶潷鉍篳蹕邊編貶變辯辮芐緶籩標驃颮飆鏢鑣鰾鱉別癟瀕濱賓擯儐繽檳殯臏鑌髕鬢餅稟撥缽鉑駁餑鈸鵓補鈽財參蠶殘慚慘燦驂黲蒼艙倉滄廁側冊測惻層詫鍤儕釵攙摻蟬饞讒纏鏟產闡顫囅諂讖蕆懺嬋驏覘禪鐔場嘗長償腸廠暢倀萇悵閶鯧鈔車徹硨塵陳襯傖諶櫬磣齔撐稱懲誠騁棖檉鋮鐺癡遲馳恥齒熾飭鴟沖衝蟲寵銃疇躊籌綢儔幬讎櫥廚鋤雛礎儲觸處芻絀躕傳釧瘡闖創愴錘綞純鶉綽輟齪辭詞賜鶿聰蔥囪從叢蓯驄樅湊輳躥竄攛錯銼鹺達噠韃帶貸駘紿擔單鄲撣膽憚誕彈殫賧癉簞當擋黨蕩檔讜碭襠搗島禱導盜燾燈鄧鐙敵滌遞締糴詆諦綈覿鏑顛點墊電巔鈿癲釣調銚鯛諜疊鰈釘頂錠訂鋌丟銩東動棟凍崠鶇竇犢獨讀賭鍍瀆櫝牘篤黷鍛斷緞籪兌隊對懟鐓噸頓鈍燉躉奪墮鐸鵝額訛惡餓諤堊閼軛鋨鍔鶚顎顓鱷誒兒爾餌貳邇鉺鴯鮞發罰閥琺礬釩煩販飯訪紡鈁魴飛誹廢費緋鐨鯡紛墳奮憤糞僨豐楓鋒風瘋馮縫諷鳳灃膚輻撫輔賦復負訃婦縛鳧駙紱紼賻麩鮒鰒釓該鈣蓋賅桿趕稈贛尷搟紺岡剛鋼綱崗戇鎬睪誥縞鋯擱鴿閣鉻個紇鎘潁給亙賡綆鯁龔宮鞏貢鉤溝茍構購夠詬緱覯蠱顧詁轂鈷錮鴣鵠鶻剮掛鴰摑關觀館慣貫詿摜鸛鰥廣獷規歸龜閨軌詭貴劊匭劌媯檜鮭鱖輥滾袞緄鯀鍋國過堝咼幗槨蟈鉿駭韓漢闞絎頡號灝顥閡鶴賀訶闔蠣橫轟鴻紅黌訌葒閎鱟壺護滬戶滸鶘嘩華畫劃話驊樺鏵懷壞歡環還緩換喚瘓煥渙奐繯鍰鯇黃謊鰉揮輝毀賄穢會燴匯諱誨繪詼薈噦澮繢琿暉葷渾諢餛閽獲貨禍鈥鑊擊機積饑跡譏雞績緝極輯級擠幾薊劑濟計記際繼紀訐詰薺嘰嚌驥璣覬齏磯羈蠆躋霽鱭鯽夾莢頰賈鉀價駕郟浹鋏鎵蟯殲監堅箋間艱緘繭檢堿鹼揀撿簡儉減薦檻鑒踐賤見鍵艦劍餞漸濺澗諫縑戔戩瞼鶼筧鰹韉將漿蔣槳獎講醬絳韁膠澆驕嬌攪鉸矯僥腳餃繳絞轎較撟嶠鷦鮫階節潔結誡屆癤頜鮚緊錦僅謹進晉燼盡勁荊莖巹藎饉縉贐覲鯨驚經頸靜鏡徑痙競凈剄涇逕弳脛靚糾廄舊鬮鳩鷲駒舉據鋸懼劇詎屨櫸颶鉅鋦窶齟鵑絹錈鐫雋覺決絕譎玨鈞軍駿皸開凱剴塏愾愷鎧鍇龕閌鈧銬顆殼課騍緙軻鈳錁頷墾懇齦鏗摳庫褲嚳塊儈鄶噲膾寬獪髖礦曠況誆誑鄺壙纊貺虧巋窺饋潰匱蕢憒聵簣閫錕鯤擴闊蠐蠟臘萊來賴崍徠淶瀨賚睞錸癩籟藍欄攔籃闌蘭瀾讕攬覽懶纜爛濫嵐欖斕鑭襤瑯閬鋃撈勞澇嘮嶗銠鐒癆樂鰳鐳壘類淚誄縲籬貍離鯉禮麗厲勵礫歷瀝隸儷酈壢藶蒞蘺嚦邐驪縭櫪櫟轢礪鋰鸝癘糲躒靂鱺鱧倆聯蓮連鐮憐漣簾斂臉鏈戀煉練蘞奩瀲璉殮褳襝鰱糧涼兩輛諒魎療遼鐐繚釕鷯獵臨鄰鱗凜賃藺廩檁轔躪齡鈴靈嶺領綾欞蟶鯪餾劉瀏騮綹鎦鷚龍聾嚨籠壟攏隴蘢瀧瓏櫳朧礱樓婁摟簍僂蔞嘍嶁鏤瘺耬螻髏蘆盧顱廬爐擄鹵虜魯賂祿錄陸壚擼嚕閭瀘淥櫨櫓轤輅轆氌臚鸕鷺艫鱸巒攣孿灤亂臠孌欒鸞鑾掄輪倫侖淪綸論圇蘿羅邏鑼籮騾駱絡犖玀濼欏腡鏍驢呂鋁侶屢縷慮濾綠櫚褸鋝嘸媽瑪碼螞馬罵嗎嘜嬤榪買麥賣邁脈勱瞞饅蠻滿謾縵鏝顙鰻貓錨鉚貿麼沒鎂門悶們捫燜懣鍆錳夢瞇謎彌覓冪羋謐獼禰綿緬澠靦黽廟緲繆滅憫閩閔緡鳴銘謬謨驀饃歿鏌謀畝鉬吶鈉納難撓腦惱鬧鐃訥餒內擬膩鈮鯢攆輦鯰釀鳥蔦裊聶嚙鑷鎳隉蘗囁顢躡檸獰寧擰濘苧嚀聹鈕紐膿濃農儂噥駑釹諾儺瘧歐鷗毆嘔漚謳慪甌盤蹣龐拋皰賠轡噴鵬紕羆鈹騙諞駢飄縹頻貧嬪蘋憑評潑頗釙撲鋪樸譜鏷鐠棲臍齊騎豈啟氣棄訖蘄騏綺榿磧頎頏鰭牽釬鉛遷簽謙錢鉗潛淺譴塹僉蕁慳騫繾槧鈐槍嗆墻薔強搶嬙檣戧熗錆鏘鏹羥蹌鍬橋喬僑翹竅誚譙蕎繰磽蹺竊愜鍥篋欽親寢鋟輕氫傾頃請慶撳鯖瓊窮煢蛺巰賕蟣鰍趨區軀驅齲詘嶇闃覷鴝顴權勸詮綣輇銓卻鵲確闋闕愨讓饒擾繞蕘嬈橈熱韌認紉飪軔榮絨嶸蠑縟銣顰軟銳蜆閏潤灑薩颯鰓賽傘毿糝喪騷掃繅澀嗇銫穡殺剎紗鎩鯊篩曬釃刪閃陜贍繕訕姍騸釤鱔墑傷賞坰殤觴燒紹賒攝懾設厙灄畬紳審嬸腎滲詵諗瀋聲繩勝師獅濕詩時蝕實識駛勢適釋飾視試謚塒蒔弒軾貰鈰鰣壽獸綬樞輸書贖屬術樹豎數攄紓帥閂雙誰稅順說碩爍鑠絲飼廝駟緦鍶鷥聳慫頌訟誦擻藪餿颼鎪蘇訴肅謖穌雖隨綏歲誶孫損筍蓀猻縮瑣鎖嗩脧獺撻闥鉈鰨臺態鈦鮐攤貪癱灘壇譚談嘆曇鉭錟頇湯燙儻餳鐋鏜濤絳討韜鋱騰謄銻題體屜緹鵜闐條糶齠鰷貼鐵廳聽烴銅統慟頭鈄禿圖釷團摶頹蛻飩脫鴕馱駝橢籜鼉襪媧膃彎灣頑萬紈綰網輞韋違圍為濰維葦偉偽緯謂衛諉幃闈溈潿瑋韙煒鮪溫聞紋穩問閿甕撾蝸渦窩臥萵齷嗚鎢烏誣無蕪吳塢霧務誤鄔廡憮嫵騖鵡鶩錫犧襲習銑戲細餼鬩璽覡蝦轄峽俠狹廈嚇硤鮮纖賢銜閑顯險現獻縣餡羨憲線莧薟蘚峴獫嫻鷴癇蠔秈躚廂鑲鄉詳響項薌餉驤緗饗蕭囂銷曉嘯嘵瀟驍綃梟簫協挾攜脅諧寫瀉謝褻擷紲纈鋅釁興陘滎兇洶銹繡饈鵂虛噓須許敘緒續詡頊軒懸選癬絢諼鉉鏇學謔澩鱈勛詢尋馴訓訊遜塤潯鱘壓鴉鴨啞亞訝埡婭椏氬閹煙鹽嚴巖顏閻艷厭硯彥諺驗厴贗儼兗讞懨閆釅魘饜鼴鴦楊揚瘍陽癢養樣煬瑤搖堯遙窯謠藥軺鷂鰩爺頁業葉靨謁鄴曄燁醫銥頤遺儀蟻藝億憶義詣議誼譯異繹詒囈嶧飴懌驛縊軼貽釔鎰鐿瘞艤蔭陰銀飲隱銦癮櫻嬰鷹應纓瑩螢營熒蠅贏穎塋鶯縈鎣攖嚶瀅瀠瓔鸚癭頦罌喲擁傭癰踴詠鏞優憂郵鈾猶誘蕕銪魷輿魚漁娛與嶼語獄譽預馭傴俁諛諭蕷崳飫閾嫗紆覦歟鈺鵒鷸齬鴛淵轅園員圓緣遠櫞鳶黿約躍鑰粵悅閱鉞鄖勻隕運蘊醞暈韻鄆蕓惲慍紜韞殞氳雜災載攢暫贊瓚趲鏨贓臟駔鑿棗責擇則澤賾嘖幘簀賊譖贈綜繒軋鍘閘柵詐齋債氈盞斬輾嶄棧戰綻譫張漲帳賬脹趙詔釗蟄轍鍺這謫輒鷓貞針偵診鎮陣湞縝楨軫賑禎鴆掙睜猙爭幀癥鄭證諍崢鉦錚箏織職執紙摯擲幟質滯騭櫛梔軹輊贄鷙螄縶躓躑觶鐘終種腫眾鍾謅軸皺晝驟紂縐豬諸誅燭矚囑貯鑄駐佇櫧銖專磚轉賺囀饌顳樁莊裝妝壯狀錐贅墜綴騅縋諄準濁諑鐲茲資漬諮緇輜貲眥錙齜鯔蹤總縱傯鄒諏騶鯫詛組鏃鉆纘躦鱒翺並蔔醜澱鬥範幹臯櫃後夥稭傑訣誇裏淩麽黴撚淒扡聖屍擡塗窪餵汙鍁鹹蠍彜湧遊籲禦願嶽雲竈紮劄築於誌註訁譾郤氹壟堖垵墊檾蕒葤蓧蒓摣唚噝謔襆嶴獁麅餘餷饊饢楞憷懍漵灩溷濫瀦寧糸絝緔瑉梘棬橰櫫軲軤賫膁腖飈碸瞘鈈鉕鋣銱鋥鋶鐦';
 }
-
-
