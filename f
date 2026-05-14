@@ -28,7 +28,7 @@ function setFont(title,font) {
 function setCate(data, host, d, v, mode, c, f, needBg, bgcolor, bgcolorSelected, textcolor) {
             // mode: 数字/不传/空值不处理；只有非空字符串时才处理，支持 '|' 分隔清除多个子分类变量
             let subCs = (typeof mode === 'string' && mode.trim() !== '') ? mode.split('|') : [];
-            v = v  || '';
+            v = v != undefined ? v : '';
             c = c ?c+v: 'c' + v;
             f = f || 'scroll_button';
             needBg = needBg || false;
@@ -3898,7 +3898,7 @@ function dtfl() {
                          const isActive = key.toString() === cateTemp[index];
                          d.push({
                              title: isActive ? strong(title, 分类颜色) : strong(title, '666666'),
-                             url: $(pd(item, 分类链接) + '#noLoading#').lazyRule((params, host) => {
+                             url: $(pd(item, 分类链接,host) + '#noLoading#').lazyRule((params, host) => {
                                  const newCate = params.cate_temp.map((cate, i) =>
                                      i === params.index ? params.key.toString() : cate
                                  );
