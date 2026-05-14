@@ -1,40 +1,70 @@
 js:// -*- mode: js -*-
 function p(html, rule, host) {
-            if (!html) return '';
-            let isText = rule.includes('Text');
-            let pureRule = rule.replace('&&Text', '').replace('&&Html', '');
-            let attr = pureRule.split('&&').pop();
-            if (!attr.includes('.') && !attr.includes('#')) {
-                let m = html.match(new RegExp(attr + '\\s*=\\s*["\']([^"\']+)["\']'));
-                if (m) {
-                    let val = m[1];
-                    if (host && val && !val.startsWith('http') && !val.startsWith('data:') && !val.startsWith('javascript:')) {
-                        if (val.startsWith('//')) {
-                            val = 'http:' + val;
-                        } else if (val.startsWith('/')) {
-                            val = host + val;
-                        } else {
-                            val = host + '/' + val;
-                        }
-                    }
-                    return val;
-                }
-            }
-            let reg;
-            if (pureRule.startsWith('.')) {
-                reg = new RegExp('<[^>]*class=["\'][^"\']*\\b' + pureRule.slice(1) + '\\b[^"\']*["\'][^>]*>([\\s\\S]*?)<');
-            } else if (pureRule.startsWith('#')) {
-                reg = new RegExp('<[^>]*id=["\']' + pureRule.slice(1) + '["\'][^>]*>([\\s\\S]*?)<');
-            } else {
-                reg = new RegExp('<' + pureRule + '[^>]*>([\\s\\S]*?)<\\s*/\\s*' + pureRule + '>', 'i');
-            }
-            let m = html.match(reg);
+    if (!html) return '';
+    let isText = rule.includes('Text');
+    let pureRule = rule.replace('&&Text', '').replace('&&Html', '');
+    if (!pureRule) return isText ? html.replace(/<[^>]+>/g, '').trim() : html.trim();
+    let parts = pureRule.split('&&');
+    let currentHtml = html;
+    for (let i = 0; i < parts.length; i++) {
+        let part = parts[i];
+        let isLast = (i === parts.length - 1);
+        let index = 0;
+        let idxMatch = part.match(/,(-?\d+)$/);
+        if (idxMatch) {
+            index = parseInt(idxMatch[1]);
+            part = part.replace(idxMatch[0], '');
+        }
+        let isAttr = isLast && !part.includes('.') && !part.includes('#') && part !== 'Text' && part !== 'Html';
+        if (isAttr) {
+            let m = currentHtml.match(new RegExp(part + '\\s*=\\s*["\']([^"\']+)["\']'));
             if (m) {
-                let content = m[1];
-                return isText ? content.replace(/<[^>]+>/g, '').trim() : content.trim();
+                let val = m[1];
+                if (host && val) {
+                    let c = val[0];
+                    if (c === '/') val = (val[1] === '/') ? 'http:' + val : host + val;
+                    else if (c !== 'h' && c !== 'd' && c !== 'j' && val.indexOf(':') === -1) val = host + '/' + val;
+                }
+                return val;
             }
             return '';
+        } else {
+            let reg;
+            let firstChar = part[0];
+            let nextPart = parts[i + 1];
+            let nextIsAttr = false;
+            if (nextPart) {
+                let n = nextPart.replace(/,(-?\d+)$/, '');
+                if (!n.includes('.') && !n.includes('#') && n !== 'Text' && n !== 'Html') nextIsAttr = true;
+            }
+            if (nextIsAttr) {
+                if (firstChar === '.') reg = new RegExp('<\\w+[^>]*class=["\'][^"\']*\\b' + part.slice(1) + '\\b[^"\']*["\'][^>]*>', 'gi');
+                else if (firstChar === '#') reg = new RegExp('<\\w+[^>]*id=["\']' + part.slice(1) + '["\'][^>]*>', 'gi');
+                else reg = new RegExp('<' + part + '[^>]*>', 'gi');
+                let m, matches = [];
+                while ((m = reg.exec(currentHtml)) !== null) matches.push(m[0]);
+                if (matches.length > 0) {
+                    let targetIndex = index < 0 ? matches.length + index : index;
+                    if (targetIndex >= 0 && targetIndex < matches.length) currentHtml = matches[targetIndex];
+                    else return '';
+                } else return '';
+            } else {
+                if (firstChar === '.') reg = new RegExp('<(\\w+)[^>]*class=["\'][^"\']*\\b' + part.slice(1) + '\\b[^"\']*["\'][^>]*>([\\s\\S]*?)<\\s*\\/\\s*\\1\\s*>', 'gi');
+                else if (firstChar === '#') reg = new RegExp('<(\\w+)[^>]*id=["\']' + part.slice(1) + '["\'][^>]*>([\\s\\S]*?)<\\s*\\/\\s*\\1\\s*>', 'gi');
+                else reg = new RegExp('<(' + part + ')[^>]*>([\\s\\S]*?)<\\s*\\/\\s*\\1\\s*>', 'gi');
+                let m, matches = [];
+                while ((m = reg.exec(currentHtml)) !== null) matches.push(m[2]);
+                if (matches.length > 0) {
+                    let targetIndex = index < 0 ? matches.length + index : index;
+                    if (targetIndex >= 0 && targetIndex < matches.length) currentHtml = matches[targetIndex];
+                    else return '';
+                } else return '';
+            }
+            if (isLast) return isText ? currentHtml.replace(/<[^>]+>/g, '').trim() : currentHtml.trim();
         }
+    }
+    return '';
+}
 function bgccc(arr, colorObj) {
         rc((rc('https://gitee.com/mistywater/hiker_info/raw/master/ghproxy.js'), gfd()) + 'https://raw.githubusercontent.com/mistywater/hiker/main/f', 24);
         colorObj = colorObj ? colorObj : {
