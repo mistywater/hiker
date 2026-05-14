@@ -1643,7 +1643,7 @@ function link(d, urlsTemp, titleLast, titleNext, myurl, host) {
     });
     urlsTemp.forEach((it, index) => {
         d.push({
-            title: index == 0 ? (it.startsWith('http') ? '⬅️' + titleLast : '⬅️没有了') : '➡️' + titleNext,
+            title: index == 0 ? (it.startsWith('http') ? '⬅️' + titleLast.replace('下一','上一').replace(/next/i,'previous') : '⬅️没有了') : '➡️' + titleNext.replace('上一','下一').replace(/previous/i,'next'),
             url: $('#noLoading#').lazyRule((url, host, index, url1) => {
                 if (url) {
                     putMyVar(host + 'next', url);
