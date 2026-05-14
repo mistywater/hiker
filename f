@@ -66,7 +66,6 @@ function p(html, rule, host) {
     }
     return '';
 }
-
 function bgccc(arr, colorObj) {
     rc((rc('https://gitee.com/mistywater/hiker_info/raw/master/ghproxy.js'), gfd()) + 'https://raw.githubusercontent.com/mistywater/hiker/main/f', 24);
     colorObj = colorObj ? colorObj : {
@@ -1130,52 +1129,28 @@ function getdTemp(d, dTemp, _chchePath) {
 
 function getHtml(url, headers, mode, proxy, textError) {
     let htmlT = getMyVar(url, '');
-
     let textsError = [
-        '__cf_chl_tk',
-        'cf-browser-verification',
-        'cf-chl-out',
-        'cf_captcha_kind',
-        'Protected by cdndefend',
-        'Attention Required!',
-        'Checking your browser',
-        'DDOS-Guard',
-        '502 Bad Gateway',
-        '503 Service Unavailable',
-        '504 Gateway Timeout',
-        '500 Internal Server Error',
-        '403 Forbidden',
-        '404 Not Found',
-        'Access Denied',
-        'Access denied',
-        'Blocked by',
-        'You have been blocked',
-        'Your IP has been blocked',
-        'IP has been blocked',
-        'Access from your IP has been blocked',
-        'Request blocked',
-        'Request rejected',
-        'Web Application Firewall',
-        'This website is using a security service',
-        'Please verify you are human',
-        'Verification required',
-        'Click to verify',
-        'Please complete the captcha',
-        'Too Many Requests',
-        'Rate-limited',
-        'Welcome to nginx',
-        'Apache2 Default Page',
-        'It works!',
-        'Default Page',
-        'error code:',
-        '无法访问目标地址',
-        'Please enable JavaScript',
-        'JavaScript is required',
+        '__cf_chl_tk', 'cf-browser-verification', 'cf-chl-out', 'cf_captcha_kind',
+        'Protected by cdndefend', 'Attention Required!', 'Checking your browser',
+        'DDOS-Guard', '502 Bad Gateway', '503 Service Unavailable', '504 Gateway Timeout',
+        '500 Internal Server Error', '403 Forbidden', '404 Not Found', 'Access Denied',
+        'Access denied', 'Blocked by', 'You have been blocked', 'Your IP has been blocked',
+        'IP has been blocked', 'Access from your IP has been blocked', 'Request blocked',
+        'Request rejected', 'Web Application Firewall', 'This website is using a security service',
+        'Please verify you are human', 'Verification required', 'Click to verify',
+        'Please complete the captcha', 'Too Many Requests', 'Rate-limited',
+        'Welcome to nginx', 'Apache2 Default Page', 'It works!', 'Default Page',
+        'error code:', '无法访问目标地址', 'Please enable JavaScript', 'JavaScript is required',
     ];
     if (textError) textsError.push(textError);
-
-    let errorPattern = new RegExp(textsError.join('|'));
-    if (!htmlT || errorPattern.test(htmlT)) {
+    function hasError(html) {
+        if (!html) return false;
+        for (let i = 0; i < textsError.length; i++) {
+            if (html.indexOf(textsError[i]) !== -1) return true;
+        }
+        return false;
+    }
+    if (!htmlT || hasError(htmlT)) {
         try {
             var decodedUrl = decodeURIComponent(url);
             var chinesePattern = /[\u3040-\u309F\u30A0-\u30FF\u4E00-\u9FFF\u3400-\u4DBF\uF900-\uFAFF\uAC00-\uD7AF]/;
@@ -1183,27 +1158,24 @@ function getHtml(url, headers, mode, proxy, textError) {
         } catch (e) {
             var hasChinese = true;
         }
-
         let urlTrue;
         if (proxy && !hasChinese) {
-            urlTrue = url.startsWith('https://wdkj.eu.org/') ? url.replace('?', '%3f') : 'https://wdkj.eu.org/' + url.replace('?', '%3f');
+            urlTrue = url.startsWith('https://wdkj.eu.org/')  ? url.replace('?', '%3f') : 'https://wdkj.eu.org/'  + url.replace('?', '%3f');
         } else if (proxy && hasChinese) {
             toast('中文网址需挂梯子~');
             urlTrue = url;
-        } else if (url.startsWith('https://wdkj.eu.org/') && hasChinese) {
-            urlTrue = decodeURIComponent(url.replace('https://wdkj.eu.org/', ''));
+        } else if (url.startsWith('https://wdkj.eu.org/')  && hasChinese) {
+            urlTrue = decodeURIComponent(url.replace('https://wdkj.eu.org/',  ''));
         } else {
             urlTrue = url;
         }
-
         if (proxy == 2) {
             let fireUrl = urlTrue;
-            if (fireUrl.startsWith('https://wdkj.eu.org/')) {
-                fireUrl = decodeURIComponent(fireUrl.replace('https://wdkj.eu.org/', ''));
+            if (fireUrl.startsWith('https://wdkj.eu.org/'))  {
+                fireUrl = decodeURIComponent(fireUrl.replace('https://wdkj.eu.org/',  ''));
             }
-            //log('proxy=2, 直接Firecrawl抓取:' + fireUrl);
             try {
-                let firecrawlResult = fetch('https://api.firecrawl.dev/v2/scrape', {
+                let firecrawlResult = fetch('https://api.firecrawl.dev/v2/scrape',  {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -1216,11 +1188,7 @@ function getHtml(url, headers, mode, proxy, textError) {
                 });
                 let parsed = JSON.parse(firecrawlResult);
                 htmlT = (parsed.data && parsed.data.rawHtml) || '';
-                if (htmlT) {
-                    console.log('Firecrawl 抓取成功');
-                }
             } catch (e) {
-                console.log('Firecrawl 抓取失败:', e);
                 htmlT = '';
             }
         } else {
@@ -1234,15 +1202,13 @@ function getHtml(url, headers, mode, proxy, textError) {
             } else {
                 htmlT = fetchPC(urlTrue, headers || {});
             }
-
-            if (!htmlT.includes('Firecrawl') && proxy && (needFirecrawl || !htmlT || (errorPattern.test(htmlT)))) {
+            if (!htmlT.includes('Firecrawl') && proxy && (needFirecrawl || !htmlT || hasError(htmlT))) {
                 let fireUrl = urlTrue;
-                if (fireUrl.startsWith('https://wdkj.eu.org/')) {
-                    fireUrl = decodeURIComponent(fireUrl.replace('https://wdkj.eu.org/', ''));
+                if (fireUrl.startsWith('https://wdkj.eu.org/'))  {
+                    fireUrl = decodeURIComponent(fireUrl.replace('https://wdkj.eu.org/',  ''));
                 }
-                log('常规抓取失败，启用Firecrawl:' + fireUrl);
                 try {
-                    let firecrawlResult = fetch('https://api.firecrawl.dev/v2/scrape', {
+                    let firecrawlResult = fetch('https://api.firecrawl.dev/v2/scrape',  {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -1255,17 +1221,12 @@ function getHtml(url, headers, mode, proxy, textError) {
                     });
                     let parsed = JSON.parse(firecrawlResult);
                     htmlT = (parsed.data && parsed.data.rawHtml) || '';
-                    if (htmlT) {
-                        console.log('Firecrawl 抓取成功');
-                    }
                 } catch (e) {
-                    console.log('Firecrawl 抓取失败:', e);
                     htmlT = '';
                 }
             }
         }
-
-        if (htmlT && !errorPattern.test(htmlT)) {
+        if (htmlT && !hasError(htmlT)) {
             putMyVar(url, htmlT);
         }
     }
