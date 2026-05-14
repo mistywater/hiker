@@ -1,4 +1,40 @@
 js:// -*- mode: js -*-
+function p(html, rule, host) {
+            if (!html) return '';
+            let isText = rule.includes('Text');
+            let pureRule = rule.replace('&&Text', '').replace('&&Html', '');
+            let attr = pureRule.split('&&').pop();
+            if (!attr.includes('.') && !attr.includes('#')) {
+                let m = html.match(new RegExp(attr + '\\s*=\\s*["\']([^"\']+)["\']'));
+                if (m) {
+                    let val = m[1];
+                    if (host && val && !val.startsWith('http') && !val.startsWith('data:') && !val.startsWith('javascript:')) {
+                        if (val.startsWith('//')) {
+                            val = 'http:' + val;
+                        } else if (val.startsWith('/')) {
+                            val = host + val;
+                        } else {
+                            val = host + '/' + val;
+                        }
+                    }
+                    return val;
+                }
+            }
+            let reg;
+            if (pureRule.startsWith('.')) {
+                reg = new RegExp('<[^>]*class=["\'][^"\']*\\b' + pureRule.slice(1) + '\\b[^"\']*["\'][^>]*>([\\s\\S]*?)<');
+            } else if (pureRule.startsWith('#')) {
+                reg = new RegExp('<[^>]*id=["\']' + pureRule.slice(1) + '["\'][^>]*>([\\s\\S]*?)<');
+            } else {
+                reg = new RegExp('<' + pureRule + '[^>]*>([\\s\\S]*?)<\\s*/\\s*' + pureRule + '>', 'i');
+            }
+            let m = html.match(reg);
+            if (m) {
+                let content = m[1];
+                return isText ? content.replace(/<[^>]+>/g, '').trim() : content.trim();
+            }
+            return '';
+        }
 function bgccc(arr, colorObj) {
         rc((rc('https://gitee.com/mistywater/hiker_info/raw/master/ghproxy.js'), gfd()) + 'https://raw.githubusercontent.com/mistywater/hiker/main/f', 24);
         colorObj = colorObj ? colorObj : {
