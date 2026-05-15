@@ -1,5 +1,14 @@
 js:
 // -*- mode: js -*-
+var JTPY = JTPYStr();
+var FTPY = FTPYStr();
+var CHAR_MAP = {};
+for (var i = 0; i < FTPY.length; i++) {
+    CHAR_MAP[FTPY.charAt(i)] = JTPY.charAt(i);
+}
+var regexSP = new RegExp('[' + Object.keys(CHAR_MAP).map(function(k) {
+    return k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}).join('') + ']', 'g');
 function p(html, rule, host) {
     if (!html) return '';
     let isText = rule.includes('Text');
@@ -3960,19 +3969,19 @@ function sp(cc) {
     cc = cc.replace(/\\u([0-9a-fA-F]{4})/g, function(match, hex) {
         return String.fromCharCode(parseInt(hex, 16));
     });
-    cc = cc.replace(/著名|显著|昭著|卓著|著作|著述|著书|著者|原著|译著|论著|巨著|遗著|名著|拙著|新著|专著|合著|编著|撰著|著称|著录|著闻|土著/g, m => m.replace(/著/g, '&#33879;'));
-    cc = cc.replace(/乾坤|乾隆/g, m => m.replace(/乾/g, '&#20094;'));
+var regexZhu = /著[名称述书者称录闻]|[显昭卓原译论巨遗名拙新专合编撰土]著/g;
+cc = cc.replace(regexZhu, function(m) {
+    return m.replace('著', '&#33879;');
+});
+    cc = cc.replace(/乾[坤隆]/g, m => m.replace(/乾/g, '&#20094;'));
     cc = cc.replace(/伶俐/g, m => m.replace(/俐/g, '&#20432;'));
-    cc = cc.replace(/瞭望|瞭哨|瞭远/g, m => m.replace(/瞭/g, '&#30637;'));
-    cc = cc.replace(/慰藉|蕴藉|狼藉|枕藉/g, m => m.replace(/藉/g, '&#34249;'));
-    var str = '',
-        ss = JTPYStr(),
-        tt = FTPYStr();
-    for (var i = 0; i < cc.length; i++) {
-        if (cc.charCodeAt(i) > 10000 && tt.indexOf(cc.charAt(i)) != -1) str += ss.charAt(tt.indexOf(cc.charAt(i)));
-        else str += cc.charAt(i);
-    }
-    str = str.replace(/浮沈|昏沈|深沈|沈淀|沈浮|沈厚|沈昏|沈积|沈寂|沈降|沈静|沈疴|沈李|沈落|沈脉|沈没|沈闷|沈密|沈眠|沈默|沈溺|沈潜|沈沈|沈睡|沈思|沈痛|沈头|沈下|沈陷|沈香|沈箱|沈心|沈毅|沈吟|沈鱼|沈郁|沈冤|沈灶|沈渣|沈着|沈重|沈舟|沈醉|石沈|太沈|下沈|星沈|阴沈|鱼沈|真沈|珠沈/g, m => m.replace(/沈/g, '沉'));
+    cc = cc.replace(/瞭[望哨远]/g, m => m.replace(/瞭/g, '&#30637;'));
+    cc = cc.replace(/[慰蕴狼枕]藉/g, m => m.replace(/藉/g, '&#34249;'));
+var str = cc.replace(regexSP, function(m) { return CHAR_MAP[m]; });
+    var regexShen = /[浮昏深石太下星阴鱼真珠沈]沈|沈[淀浮厚昏积寂降静疴李落脉没闷密眠默溺潜沈睡思痛头下陷香箱心毅吟鱼郁冤灶渣着重舟醉]/g;
+str = str.replace(regexShen, function(m) {
+    return m.replace('沈', '沉'); 
+});
     str = str.replace(/混合&#33879;/g, '混合着');
     return str;
 }
