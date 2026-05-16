@@ -9,7 +9,7 @@ for (var i = 0; i < FTPY.length; i++) {
 var regexSP = new RegExp('[' + Object.keys(CHAR_MAP).map(function(k) {
     return k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }).join('') + ']', 'g');
-ffunction clearM3u8(url) {
+function clearM3u8(url) {
     function clearAd(strM3u8) {
         if (strM3u8.length < 200) {
             return strM3u8;
@@ -515,6 +515,7 @@ function proxyPic(url, mode) {
     if (!mode) return 'https://i1.wp.com/' + url.replace(/https?:\/\//, '');
     if (mode == 1) return 'https://images.weserv.nl/?url=' + url;
     if (mode == 2 && !url.startsWith('https://wdkj.eu.org/')) return 'https://wdkj.eu.org/' + url;
+    if (mode == 9)  return decodeURIComponent(url).replace('https://wdkj.eu.org/','');
     return url;
 }
 
@@ -1618,7 +1619,7 @@ function yanzhengd(d, str, url, host, a, ua) {
                     js: $.toString((str, url, t, a, ua) => {
                         function check() {
                             let nodes = document.querySelectorAll(str);
-                            var co = fba.getCookie(url);
+                            var co = fba.getCookie('');
                             fba.log(co);
                             let condition;
                             if (a) {
@@ -1645,7 +1646,6 @@ function yanzhengd(d, str, url, host, a, ua) {
     });
     return d;
 }
-
 function requestQ(url, host) {
     return request(url, {
         headers: {
