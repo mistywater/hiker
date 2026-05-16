@@ -9,47 +9,52 @@ for (var i = 0; i < FTPY.length; i++) {
 var regexSP = new RegExp('[' + Object.keys(CHAR_MAP).map(function(k) {
     return k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }).join('') + ']', 'g');
-function clearM3u8(url) {
-                        function clearAd(strM3u8) {
-                            if (strM3u8.length < 200) {
-                                return strM3u8;
-                            } else if (/EXT-X-KEY:METHOD=NONE/.test(strM3u8)) { log('删除广告片段~~');//803803
-                                strM3u8 = strM3u8.replace(/#EXT-X-KEY:METHOD=NONE[\s\S]*?#EXT-X-DISCONTINUITY\n/g, '')
-                                .replace(/#EXT-X-KEY:METHOD=NONE[\s\S]*?#EXT-X-ENDLIST/g, '#EXT-X-ENDLIST');
-                            } else if (/#EXT-X-KEY:METHOD=AES-128[\s\S]*/.test(strM3u8)) { //开元
-                                var arr = strM3u8.match(/#EXT-X-KEY:METHOD=AES-128[\s\S]*?(#EXT-X-DISCONTINUITY\n|#EXT-X-ENDLIST\n)/g);
-                                if (!arr||arr.length < 2) return strM3u8;
-                                strM3u8 = strM3u8.replace(/#EXT-X-KEY:METHOD=AES-128[\s\S]*/, '') + arr[1] + '#EXT-X-ENDLIST\n';
-                            }
-                            
-                            return strM3u8;
-                        }
-                        var pathCache = cacheM3u8(url);
-                        var path = pathCache.split("##")[0];
-                        var strM3u8 = readFile(path);
-                        if (!strM3u8) { //sex8sex866/vostrely
-                            strM3u8 = getHtml('https://wdkj.eu.org/' + url);
-                            if (strM3u8 && strM3u8.includes('index.m3u8')) {
-                                var host = url.match(/(https?:\/\/.*?)\//)[1];
-                                if (!strM3u8.match(/http.*?index\.m3u8/)) {
-                                    var newUrl = 'https://wdkj.eu.org/' + host + strM3u8.match(/\/.*?index\.m3u8/)[0];
-                                } else {
-                                    newUrl = 'https://wdkj.eu.org/' + strM3u8.match(/http.*?index\.m3u8/)[0]
-                                }
-                                strM3u8 = getHtml(newUrl);
-                            }
-                            if (strM3u8) {
-                                if (!strM3u8.match(/http.*?\.ts/)) {
-                                    strM3u8 = strM3u8.replace(/(\/.*?\.ts)/g, 'https://wdkj.eu.org/' + host + '$1');
-                                } else {
-                                    strM3u8 = strM3u8.replace(/(http.*?\.ts)/g, 'https://wdkj.eu.org/$1');
-                                }
-                                strM3u8 = clearAd(strM3u8) + url;
-                                let pathCacheTmp = 'hiker://files/_cache/video.m3u8';
-                                writeFile(pathCacheTmp, strM3u8);
-                                return getPath(pathCacheTmp) ;
-                            }
-                        }
+ffunction clearM3u8(url) {
+    function clearAd(strM3u8) {
+        if (strM3u8.length < 200) {
+            return strM3u8;
+        } else if (/EXT-X-KEY:METHOD=NONE/.test(strM3u8)) {
+            log('删除广告片段~~'); //803803
+            strM3u8 = strM3u8.replace(/#EXT-X-KEY:METHOD=NONE[\s\S]*?#EXT-X-DISCONTINUITY\n/g, '')
+                .replace(/#EXT-X-KEY:METHOD=NONE[\s\S]*?#EXT-X-ENDLIST/g, '#EXT-X-ENDLIST');
+        } else if (/#EXT-X-KEY:METHOD=AES-128[\s\S]*/.test(strM3u8)) { //开元
+            var arr = strM3u8.match(/#EXT-X-KEY:METHOD=AES-128[\s\S]*?(#EXT-X-DISCONTINUITY\n|#EXT-X-ENDLIST\n)/g);
+            if (!arr || arr.length < 2) return strM3u8;
+            strM3u8 = strM3u8.replace(/#EXT-X-KEY:METHOD=AES-128[\s\S]*/, '') + arr[1] + '#EXT-X-ENDLIST\n';
+        }
+
+        return strM3u8;
+    }
+    var pathCache = cacheM3u8(url);
+    var path = pathCache.split("##")[0];
+    var strM3u8 = readFile(path);
+    if (!strM3u8) { //sex8sex866/vostrely
+        strM3u8 = getHtml('https://wdkj.eu.org/' + url);
+        if (strM3u8 && strM3u8.includes('index.m3u8')) {
+            var host = url.match(/(https?:\/\/.*?)\//)[1];
+            if (!strM3u8.match(/http.*?index\.m3u8/)) {
+                var newUrl = 'https://wdkj.eu.org/' + host + strM3u8.match(/\/.*?index\.m3u8/)[0];
+            } else {
+                newUrl = 'https://wdkj.eu.org/' + strM3u8.match(/http.*?index\.m3u8/)[0]
+            }
+            strM3u8 = getHtml(newUrl);
+        }
+        if (strM3u8) {
+            if (!strM3u8.match(/http.*?\.ts/)) {
+                strM3u8 = strM3u8.replace(/(\/.*?\.ts)/g, 'https://wdkj.eu.org/' + host + '$1');
+            } else {
+                strM3u8 = strM3u8.replace(/(http.*?\.ts)/g, 'https://wdkj.eu.org/$1');
+            }
+            strM3u8 = clearAd(strM3u8) + url;
+            let pathCacheTmp = 'hiker://files/_cache/video.m3u8';
+            writeFile(pathCacheTmp, strM3u8);
+            return getPath(pathCacheTmp);
+        }
+    }
+    strM3u8 = clearAd(strM3u8);
+    writeFile(path, strM3u8);
+    return pathCache;
+}
 function p(html, rule, host) {
     if (!html) return '';
     let isText = rule.includes('Text');
