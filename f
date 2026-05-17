@@ -151,6 +151,7 @@ function setFont(title, font) {
 
 function setCate(data, host, d, v, mode, c, f, needBg, bgcolor, bgcolorSelected, textcolor) {
     // mode: 数字/不传/空值不处理；只有非空字符串时才处理，支持 '|' 分隔清除多个子分类变量
+    if(!data) return;
     let subCs = (typeof mode === 'string' && mode.trim() !== '') ? mode.split('|') : [];
     v = v != undefined ? v : '';
     c = c ? c + v : 'c' + v;
@@ -1698,11 +1699,11 @@ function link(d, urlsTemp, titleLast, titleNext, myurl, host) {
     });
     urlsTemp.forEach((it, index) => {
         d.push({
-            title: index == 0 ? (it.startsWith('http') ? '⬅️' + titleLast.replace('下一','上一').replace(/next/i,'previous') : '⬅️没有了') : '➡️' + titleNext.replace('上一','下一').replace(/previous/i,'next'),
+            title: index == 0 ? (it.startsWith('http') ? '⬅️' + (titleLast?titleLast.replace('下一','上一').replace(/next/i,'previous'):'上一组') : '⬅️没有了') : '➡️' + (titleNext?titleNext.replace('上一','下一').replace(/previous/i,'next'):'下一组'),
             url: $('#noLoading#').lazyRule((url, host, index, url1) => {
                 if (url) {
                     putMyVar(host + 'next', url);
-                    putMyVar(host + 'isNextUrl', '1');
+                    putVar(host + 'isNextUrl', '1');
                     refreshPage();
                 }
                 return 'hiker://empty';
