@@ -1,4 +1,4 @@
-js://20260517
+js://2026051708
 // -*- mode: js -*-
 var JTPY = JTPYStr();
 var FTPY = FTPYStr();
@@ -1699,9 +1699,9 @@ function link(d, urlsTemp, titleLast, titleNext, myurl, host) {
     });
     urlsTemp.forEach((it, index) => {
         d.push({
-            title: index == 0 ? (it.startsWith('http') ? '⬅️' + (titleLast?titleLast.replace('下一','上一').replace(/next/i,'previous'):'上一组') : '⬅️没有了') : '➡️' + (titleNext?titleNext.replace('上一','下一').replace(/previous/i,'next'):'下一组'),
+            title: index == 0 ? (it.startsWith('http')&&it!=host ? '⬅️' + (titleLast?titleLast.replace('下一','上一').replace(/next/i,'previous'):'上一组') : '⬅️没有了') : '➡️' + (titleNext?titleNext.replace('上一','下一').replace(/previous/i,'next'):'下一组'),
             url: $('#noLoading#').lazyRule((url, host, index, url1) => {
-                if (url) {
+                if (url&&url!=host) {
                     putMyVar(host + 'next', url);
                     putVar(host + 'isNextUrl', '1');
                     refreshPage();
