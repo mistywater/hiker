@@ -1,4 +1,4 @@
-js://2026051708
+js://2026051709
 // -*- mode: js -*-
 var JTPY = JTPYStr();
 var FTPY = FTPYStr();
@@ -261,8 +261,8 @@ function getLogo(text, isSave) {
     return 'data:image/svg+xml;base64,' + base64Encode(svg);
 }
 
-function highlight(str, keyword) {
-    return str.replace(new RegExp(keyword, 'gi'), m => colorR(m, 'FF0000'));
+function highlight(str, keyword,t) {
+    return str.replace(new RegExp(keyword, 'gi'), m =>(!t?colorR(m, 'FF0000'):color(m, 'FF0000')));
 }
 
 function getHtmls(urls) {
