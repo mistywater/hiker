@@ -3107,8 +3107,8 @@ function pageMoveto(host, page, ctype, pages, _chchePath) {
     };
 }
 
-function searchMain(page, d, desc, MY_PAGE, noDelete) {
-    if (page == 1 || getMyVar('isMoveto', '0') == 1 || MY_PAGE == 1 || MY_PAGE == getMyVar('MY_PAGE')) {
+function searchMain(page, d, desc, myPage, noDelete) {
+    if (page == 1 || getMyVar('isMoveto', '0') == 1 || myPage == getMyVar('MY_PAGE')||(getMyVar('MY_PAGE')!=1&&myPage==1)){
         d.push({
             title: '🔍',
             url: $.toString((r) => {
