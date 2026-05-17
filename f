@@ -1,4 +1,4 @@
-js:
+js://20260517
 // -*- mode: js -*-
 var JTPY = JTPYStr();
 var FTPY = FTPYStr();
