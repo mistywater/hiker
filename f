@@ -1,4 +1,4 @@
-js://2026051709
+js://202605918
 // -*- mode: js -*-
 var JTPY = JTPYStr();
 var FTPY = FTPYStr();
@@ -3126,20 +3126,20 @@ function searchMain(page, d, desc, myPage, noDelete) {
     return d;
 }
 
-function classTop(index, data, host, d, mode, v, c, f, len, start, end, bgcolor, bgcolorSelected, textcolor) {
-    mode = mode || 0,
-        v = v || 0,
-        c = c || 'c',
-        f = f || 'scroll_button',
-        len = len || 20,
-        bgcolor = bgcolor ? ('#' + bgcolor).replace('##', '') : '',
-        bgcolorSelected = bgcolorSelected ? ('#' + bgcolorSelected).replace('##', '') : '',
-        textcolor = textcolor || '#000000',
-        isDarkMode = getItem('darkMode', '深色模式') === '浅色白字模式',
-        isInRange = index >= start && index <= end,
-        c_title = /\{/.test(JSON.stringify(data)) ? data.title.split('&') : data.split('&'),
-        c_id = /\{/.test(JSON.stringify(data)) ? (!data.id ? c_title : data.id === '@@@' ? data.title.replace(/^.*?&/, '&').split('&') : data.id.split('&')) : null,
-        c_img = storage0.getMyVar(host + 'picsClass', []).length != 0 ? storage0.getMyVar(host + 'picsClass') : (data.img ? data.img.split('&') : []);
+function classTop(index, data, host, d, mode, v, c, f, len, start, end, bgcolor, bgcolorSelected, textcolor, picsCache, darkModeVal) {
+    mode = mode || 0;
+    v = v || 0;
+    c = c || 'c';
+    f = f || 'scroll_button';
+    len = len || 20;
+    bgcolor = bgcolor ? ('#' + bgcolor).replace('##', '') : '';
+    bgcolorSelected = bgcolorSelected ? ('#' + bgcolorSelected).replace('##', '') : '';
+    textcolor = textcolor || '#000000';
+    let isInRange = index >= start && index <= end;
+    let isObj = typeof data === 'object' && data !== null;
+    let c_title = isObj ? data.title.split('&') : data.split('&');
+    let c_id = isObj ? (!data.id ? c_title : data.id === '@@@' ? data.title.replace(/^.*?&/, '&').split('&') : data.id.split('&')) : null;
+    let c_img =  picsCache&&picsCache.length > 0 ? picsCache : (isObj && data.img ? data.img.split('&') : []);   
     c_title.forEach((title, index_c) => {
         title = title.replace(/＆＆/g, '&');
         let isSelected = index_c == getMyVar(host + c + 'index' + index, mode || index == v ? '0' : '-1');
@@ -3150,26 +3150,35 @@ function classTop(index, data, host, d, mode, v, c, f, len, start, end, bgcolor,
             color(title, textcolor);
         d.push({
             title: titleStyled,
-            img: c_img.length != 0 ? c_img[index_c] : '',
+            img: c_img[index_c] || '',
             col_type: f,
-            url: $('#noLoading#').lazyRule((index, id, index_c, host, mode, title, v, c, len) => {
-                if (mode) {
-                    putMyVar(host + c + index, id);
+            url: $('#noLoading#').lazyRule((p) => {
+                if (p.mode) {
+                    putMyVar(p.host + p.c + p.index, p.id);
                 } else {
-                    putMyVar(host + c, id);
-                    for (let n = v; n <= v + len - 1; n++) {
-                        putMyVar(host + c + 'index' + n, '-1');
+                    putMyVar(p.host + p.c, p.id);
+                    for (let n = p.v; n <= p.v + p.len - 1; n++) {
+                        putMyVar(p.host + p.c + 'index' + n, '-1');
                     }
                 }
-                clearMyVar(host + 'page');
-                clearMyVar(host + 'url');
-                putMyVar(host + c + 'index' + index, index_c);
+                clearMyVar(p.host + 'page');
+                clearMyVar(p.host + 'url');
+                putMyVar(p.host + p.c + 'index' + p.index, p.index_c);
                 refreshPage(false);
                 return 'hiker://empty';
-            }, index, c_id ? c_id[index_c] : title, index_c, host, mode, title, v, c, len),
+            }, {
+                index: index,
+                id: c_id ? c_id[index_c] : title,
+                index_c: index_c,
+                host: host,
+                mode: mode,
+                v: v,
+                c: c,
+                len: len 
+            }),
             extra: {
                 backgroundColor: isInRange ?
-                    (isSelected ? bgcolorSelected : bgcolor) || getRandomColor(getItem('darkMode')) : '',
+                    (isSelected ? bgcolorSelected : bgcolor) || getRandomColor(darkModeVal) : '',
                 LongClick: isInRange ? bcLongClick() : [],
             },
         });
@@ -3774,28 +3783,50 @@ function en(key, iv, data, mode, encoding) {
 }
 
 function de(key, iv, data, mode, encoding) {
-    eval(getCryptoJS());
-    mode = mode || 'AES/ECB/PKCS7Padding';
-    var s0 = mode.split('/')[0],
-        s1 = mode.split('/')[1],
-        s2 = mode.split('/')[2];
-    s2 = s2.replace(/PKCS7Padding/, 'PKCS7').replace(/KCS/, 'kcs');
-    key = CryptoJS.enc.Utf8.parse(key);
-    iv && (iv = CryptoJS.enc.Utf8.parse(iv));
-    (s1 == 'CBC' && !iv) && (iv = key);
-    let encryptedData = /^[0-9a-f]+$/i.test(data) ? {
-        ciphertext: CryptoJS.enc.Hex.parse(data)
-    } : data;
-    let decryptOptions = {
-        mode: CryptoJS.mode[s1],
-        padding: CryptoJS.pad[s2]
-    };
-    iv && (decryptOptions.iv = iv);
-    var decrypted = CryptoJS[s0].decrypt(encryptedData, key, decryptOptions);
-    return encoding ?
-        decrypted.toString(CryptoJS.enc[encoding]) :
-        decrypted.toString(CryptoJS.enc.Utf8);
-
+    const Cipher = javax.crypto.Cipher;
+    const SecretKeySpec = javax.crypto.spec.SecretKeySpec;
+    const IvParameterSpec = javax.crypto.spec.IvParameterSpec;
+    const Base64 = android.util.Base64;
+    const JString = java.lang.String;
+    const JArray = java.lang.reflect.Array;
+    const JByte = java.lang.Byte;
+    try {
+        mode = mode || 'AES/CBC/PKCS7Padding';
+        encoding = encoding || 'Base64';
+        let algorithm = mode.split("/")[0];
+        let modeName = mode.split("/")[1];
+        let encryptedBytes;
+        if (encoding === 'Hex') {
+            let hexLen = data.length;
+            encryptedBytes = JArray.newInstance(JByte.TYPE, hexLen / 2);
+            for (var i = 0; i < hexLen; i += 2) {
+                var c1 = data.charCodeAt(i);
+                var c2 = data.charCodeAt(i + 1);
+                var b = ((c1 < 58 ? c1 - 48 : (c1 < 71 ? c1 - 55 : c1 - 87)) << 4) | 
+                        (c2 < 58 ? c2 - 48 : (c2 < 71 ? c2 - 55 : c2 - 87));
+                encryptedBytes[i / 2] = b > 127 ? b - 256 : b;
+            }
+        } else if (encoding === 'Base64') {
+            encryptedBytes = Base64.decode(data, Base64.NO_WRAP);
+        } else {
+            encryptedBytes = String(data).getBytes("UTF-8");
+        }
+        let keyBytes = new JString(key).getBytes("UTF-8");
+        let secretKeySpec = new SecretKeySpec(keyBytes, algorithm);
+        let cipher = Cipher.getInstance(mode);
+        if (modeName === 'ECB') {
+            cipher.init(2, secretKeySpec);
+        } else {
+            let ivBytes = new JString(iv || key).getBytes("UTF-8");
+            let ivParameterSpec = new IvParameterSpec(ivBytes);
+            cipher.init(2, secretKeySpec, ivParameterSpec);
+        }
+        let resultBytes = cipher.doFinal(encryptedBytes);
+        return String(new JString(resultBytes, "UTF-8"));
+    } catch (e) {
+        log("deJava解密失败: " + e);
+        return null;
+    }
 }
 
 function urla(u, host) {
