@@ -1185,9 +1185,12 @@ function getdTemp(d, dTemp, _chchePath) {
 }
 
 function getHtml(url, headers, mode, proxy, textError) {
-    let htmlT = getMyVar(url, '');
+let hasHeaders=headers&&headers.body&&typeof(headers.body)=='string';
+    if(hasHeaders) {eval(getCryptoJS());var bodyMD5=CryptoJS.MD5(headers.body).toString();
+var htmlT = getMyVar(url+bodyMD5, '');}
+else  htmlT = getMyVar(url, '');
     let textsError = [
-        '__cf_chl_tk', 'cf-browser-verification', 'cf-chl-out', 'cf_captcha_kind',
+       ">404<", '__cf_chl_tk', 'cf-browser-verification', 'cf-chl-out', 'cf_captcha_kind',
         'Protected by cdndefend', 'Attention Required!', 'Checking your browser',
         'DDOS-Guard', '502 Bad Gateway', '503 Service Unavailable', '504 Gateway Timeout',
         '500 Internal Server Error', '403 Forbidden', '404 Not Found', 'Access Denied',
@@ -1284,7 +1287,8 @@ function getHtml(url, headers, mode, proxy, textError) {
             }
         }
         if (htmlT && !hasError(htmlT)) {
-            putMyVar(url, htmlT);
+if(hasHeaders) putMyVar(url+bodyMD5, htmlT);
+else  putMyVar(url, htmlT);
         }
     }
     return htmlT;
