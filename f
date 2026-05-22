@@ -6,9 +6,10 @@ var CHAR_MAP = {};
 for (var i = 0; i < FTPY.length; i++) {
     CHAR_MAP[FTPY.charAt(i)] = JTPY.charAt(i);
 }
-var regexSP = new RegExp('[' + Object.keys(CHAR_MAP).map(function(k) {
+var regexSP = /[\u4e00-\u9fa5\u3000-\u303f\uff00-\uffef]/g;
+/*var regexSP = new RegExp('[' + Object.keys(CHAR_MAP).map(function(k) {
     return k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-}).join('') + ']', 'g');
+}).join('') + ']', 'g');*/
 function clearM3u8(url) {
     function clearAd(strM3u8) {
         if (strM3u8.length < 200) {
@@ -1186,7 +1187,7 @@ function getdTemp(d, dTemp, _chchePath) {
 
 function getHtml(url, headers, mode, proxy, textError) {
 let hasHeaders=headers&&headers.body&&typeof(headers.body)=='string';
-    if(hasHeaders) {eval(getCryptoJS());var bodyMD5=CryptoJS.MD5(headers.body).toString();
+    if(hasHeaders) {var bodyMD5=headers.body;
 var htmlT = getMyVar(url+bodyMD5, '');}
 else  htmlT = getMyVar(url, '');
     let textsError = [
@@ -4059,7 +4060,10 @@ cc = cc.replace(regexZhu, function(m) {
     cc = cc.replace(/伶俐/g, m => m.replace(/俐/g, '&#20432;'));
     cc = cc.replace(/瞭[望哨远]/g, m => m.replace(/瞭/g, '&#30637;'));
     cc = cc.replace(/[慰蕴狼枕]藉/g, m => m.replace(/藉/g, '&#34249;'));
-var str = cc.replace(regexSP, function(m) { return CHAR_MAP[m]; });
+ var str = cc.replace(regexSP, function(m) { 
+        return CHAR_MAP[m] || m; 
+    });
+//var str = cc.replace(regexSP, function(m) { return CHAR_MAP[m]; });
     var regexShen = /[浮昏深石太下星阴鱼真珠沈]沈|沈[淀浮厚昏积寂降静疴李落脉没闷密眠默溺潜沈睡思痛头下陷香箱心毅吟鱼郁冤灶渣着重舟醉]/g;
 str = str.replace(regexShen, function(m) {
     return m.replace('沈', '沉'); 
