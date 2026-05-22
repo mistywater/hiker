@@ -1,6 +1,8 @@
 js://202605918
 // -*- mode: js -*-
-
+function getExtra(index, ctype, extra){
+    return !(index % (ctype.replace(/[a-z_]/g, '') || 10)) ? extra : {}
+}
 function clearM3u8(url) {
     function clearAd(strM3u8) {
         if (strM3u8.length < 200) {
