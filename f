@@ -1,4 +1,4 @@
-js://2026060900
+js://2026061307
 // -*- mode: js -*-
 function getExtra(index, ctype, extra){
     return !(index % (ctype.replace(/[a-z_]/g, '') || 10)) ? extra : {}
@@ -3828,6 +3828,9 @@ function de(key, iv, data, mode, encoding) {
 }
 
 function urla(u, host) {
+    let protocolMatch = u.match(/^([a-zA-Z][a-zA-Z0-9+\-.]*):/);
+    let protocol = protocolMatch ? protocolMatch[1].toLowerCase() : null;
+    if (protocol && protocol !== 'http' && protocol !== 'https') return u;
     if (!/^http/i.test(u)) {
         if (u.substr(0, 2) != '//') {
             if (u.substr(0, 1) != '/') u = host + '/' + u;
