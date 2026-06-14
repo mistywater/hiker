@@ -1449,7 +1449,9 @@ function getLines() {
 }
 
 function parseUrlVideo(url, 依赖) {
-    if (/baidu/.test(url)) {
+    if (/magnet/.test(url)) {
+        return url;
+    } else if (/baidu/.test(url)) {
         putVar('urlBaidu', url);
         return "hiker://page/list?rule=百度网盘&realurl=" + url;
     } else if (/aliyundrive|alipan/.test(url)) {
