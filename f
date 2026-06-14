@@ -2145,29 +2145,27 @@ function tabsWeek() {
 
 function numbersCircledColor(num, r) {
     if (typeof(r) == 'undefined' || !r) {
-        if (num == '❶') {
+        if (num .includes( '❶')) {
             return strongR(num, 'FF2244');
-        } else if (num == '❷') {
+        } else if (num .includes( '❷')) {
             return strongR(num, 'FF6633');
-        } else if (num == '❸') {
+        } else if (num .includes( '❸')) {
             return strongR(num, 'FFBB33');
         } else {
             return strongR(num, '333333');
         }
     } else if (r == 1) {
-        if (num == '❶') {
+        if (num .includes(  '❶')) {
             return strong(num, 'FF2244');
-        } else if (num == '❷') {
+        } else if (num .includes(  '❷')) {
             return strong(num, 'FF6633');
-        } else if (num == '❸') {
+        } else if (num .includes(  '❸')) {
             return strong(num, 'FFBB33');
         } else {
             return strong(num, '333333');
         }
     } else if (r == 2) {
-
         return num;
-
     }
 }
 
