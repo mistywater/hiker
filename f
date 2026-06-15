@@ -1,4 +1,4 @@
-js://2026061507
+js://2026061513
 // -*- mode: js -*-
 function getExtra(index, ctype, extra){
     return !(index % (ctype.replace(/[a-z_]/g, '') || 10)) ? extra : {}
@@ -31,7 +31,7 @@ function clearM3u8(url) {
             } else {
                 newUrl = 'https://wdkj.eu.org/' + strM3u8.match(/http.*?index\.m3u8/)[0]
             }
-            strM3u8 = getHtml(newUrl);
+            strM3u8 = (newUrl);
         }
         if (strM3u8) {
             if (!strM3u8.match(/http.*?\.ts/)) {
@@ -192,7 +192,7 @@ function setCate(data, host, d, v, mode, c, f, needBg, bgcolor, bgcolorSelected,
     return d;
 }
 
-function getHtmlCodeA(url, str, checkStr, headers, host) {
+function CodeA(url, str, checkStr, headers, host) {
     headers = headers || {
         'User-Agent': PC_UA
     };
@@ -1179,114 +1179,116 @@ function getdTemp(d, dTemp, _chchePath) {
 }
 
 function getHtml(url, headers, mode, proxy, textError) {
-let hasHeaders=headers&&headers.body&&typeof(headers.body)=='string';
-    if(hasHeaders) {var bodyMD5=headers.body;
-var htmlT = getMyVar(url+bodyMD5, '');}
-else  htmlT = getMyVar(url, '');
-    let textsError = [
-       ">404<", '__cf_chl_tk', 'cf-browser-verification', 'cf-chl-out', 'cf_captcha_kind',
-        'Protected by cdndefend', 'Attention Required!', 'Checking your browser',
-        'DDOS-Guard', '502 Bad Gateway', '503 Service Unavailable', '504 Gateway Timeout',
-        '500 Internal Server Error', '403 Forbidden', '404 Not Found', 'Access Denied',
-        'Access denied', 'Blocked by', 'You have been blocked', 'Your IP has been blocked',
-        'IP has been blocked', 'Access from your IP has been blocked', 'Request blocked',
-        'Request rejected', 'Web Application Firewall', 'This website is using a security service',
-        'Please verify you are human', 'Verification required', 'Click to verify',
-        'Please complete the captcha', 'Too Many Requests', 'Rate-limited',
-        'Welcome to nginx', 'Apache2 Default Page', 'It works!', 'Default Page',
-        'error code:', '无法访问目标地址', 'Please enable JavaScript', 'JavaScript is required',
-    ];
-    if (textError) textsError.push(textError);
-    function hasError(html) {
-        if (!html) return false;
-        for (let i = 0; i < textsError.length; i++) {
-            if (html.indexOf(textsError[i]) !== -1) return true;
-        }
-        return false;
-    }
-    if (!htmlT || hasError(htmlT)) {
-        try {
-            var decodedUrl = decodeURIComponent(url);
-            var chinesePattern = /[\u3040-\u309F\u30A0-\u30FF\u4E00-\u9FFF\u3400-\u4DBF\uF900-\uFAFF\uAC00-\uD7AF]/;
-            var hasChinese = chinesePattern.test(decodedUrl);
-        } catch (e) {
-            var hasChinese = true;
-        }
-        let urlTrue;
-        if (proxy && !hasChinese) {
-            urlTrue = url.startsWith('https://wdkj.eu.org/')  ? url.replace('?', '%3f') : 'https://wdkj.eu.org/'  + url.replace('?', '%3f');
-        } else if (proxy && hasChinese) {
-            toast('中文网址需挂梯子~');
-            urlTrue = url;
-        } else if (url.startsWith('https://wdkj.eu.org/')  && hasChinese) {
-            urlTrue = decodeURIComponent(url.replace('https://wdkj.eu.org/',  ''));
-        } else {
-            urlTrue = url;
-        }
-        if (proxy == 2) {
-            let fireUrl = urlTrue;
-            if (fireUrl.startsWith('https://wdkj.eu.org/'))  {
-                fireUrl = decodeURIComponent(fireUrl.replace('https://wdkj.eu.org/',  ''));
-            }
-            try {
-                let firecrawlResult = fetch('https://api.firecrawl.dev/v2/scrape',  {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Bearer fc-cb439722377a4eccbbc81520b4e78858'
-                    },
-                    body: JSON.stringify({
-                        url: fireUrl,
-                        formats: ['rawHtml']
-                    })
-                });
-                let parsed = JSON.parse(firecrawlResult);
-                htmlT = (parsed.data && parsed.data.rawHtml) || '';
-            } catch (e) {
-                htmlT = '';
-            }
-        } else {
-            let needFirecrawl = false;
-            if (mode && mode == 1) {
-                htmlT = request(urlTrue, headers || {});
-            } else if (mode && mode == 2) {
-                htmlT = fetchCodeByWebView(urlTrue);
-            } else if (mode && mode == 3) {
-                htmlT = post(urlTrue, headers || {});
-            } else {
-                htmlT = fetchPC(urlTrue, headers || {});
-            }
-            if (!htmlT.includes('Firecrawl') && proxy && (needFirecrawl || !htmlT || hasError(htmlT))) {
-                let fireUrl = urlTrue;
-                if (fireUrl.startsWith('https://wdkj.eu.org/'))  {
-                    fireUrl = decodeURIComponent(fireUrl.replace('https://wdkj.eu.org/',  ''));
+            let hasHeaders = headers && headers.body && typeof(headers.body) == 'string';
+            if (hasHeaders) {
+                var bodyMD5 = headers.body;
+            } else bodyMD5 = '';
+            let _cachePath =`hiker://files/_cache/juyue/${safePath(url + bodyMD5)}.txt`; 
+            let htmlT=fetch(_cachePath);
+            let textsError = [
+                ">404<", '__cf_chl_tk', 'cf-browser-verification', 'cf-chl-out', 'cf_captcha_kind',
+                'Protected by cdndefend', 'Attention Required!', 'Checking your browser',
+                'DDOS-Guard', '502 Bad Gateway', '503 Service Unavailable', '504 Gateway Timeout',
+                '500 Internal Server Error', '403 Forbidden', '404 Not Found', 'Access Denied',
+                'Access denied', 'Blocked by', 'You have been blocked', 'Your IP has been blocked',
+                'IP has been blocked', 'Access from your IP has been blocked', 'Request blocked',
+                'Request rejected', 'Web Application Firewall', 'This website is using a security service',
+                'Please verify you are human', 'Verification required', 'Click to verify',
+                'Please complete the captcha', 'Too Many Requests', 'Rate-limited',
+                'Welcome to nginx', 'Apache2 Default Page', 'It works!', 'Default Page',
+                'error code:', '无法访问目标地址', 'Please enable JavaScript', 'JavaScript is required',
+            ];
+            if (textError) textsError.push(textError);
+
+            function hasError(html) {
+                if (!html) return false;
+                for (let i = 0; i < textsError.length; i++) {
+                    if (html.indexOf(textsError[i]) !== -1) return true;
                 }
+                return false;
+            }
+            if (!htmlT || hasError(htmlT)) {
                 try {
-                    let firecrawlResult = fetch('https://api.firecrawl.dev/v2/scrape',  {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': 'Bearer fc-cb439722377a4eccbbc81520b4e78858'
-                        },
-                        body: JSON.stringify({
-                            url: fireUrl,
-                            formats: ['rawHtml']
-                        })
-                    });
-                    let parsed = JSON.parse(firecrawlResult);
-                    htmlT = (parsed.data && parsed.data.rawHtml) || '';
+                    var decodedUrl = decodeURIComponent(url);
+                    var chinesePattern = /[\u3040-\u309F\u30A0-\u30FF\u4E00-\u9FFF\u3400-\u4DBF\uF900-\uFAFF\uAC00-\uD7AF]/;
+                    var hasChinese = chinesePattern.test(decodedUrl);
                 } catch (e) {
-                    htmlT = '';
+                    var hasChinese = true;
+                }
+                let urlTrue;
+                if (proxy && !hasChinese) {
+                    urlTrue = url.startsWith('https://wdkj.eu.org/') ? url.replace('?', '%3f') : 'https://wdkj.eu.org/' + url.replace('?', '%3f');
+                } else if (proxy && hasChinese) {
+                    toast('中文网址需挂梯子~');
+                    urlTrue = url;
+                } else if (url.startsWith('https://wdkj.eu.org/') && hasChinese) {
+                    urlTrue = decodeURIComponent(url.replace('https://wdkj.eu.org/', ''));
+                } else {
+                    urlTrue = url;
+                }
+                if (proxy == 2) {
+                    let fireUrl = urlTrue;
+                    if (fireUrl.startsWith('https://wdkj.eu.org/')) {
+                        fireUrl = decodeURIComponent(fireUrl.replace('https://wdkj.eu.org/', ''));
+                    }
+                    try {
+                        let firecrawlResult = fetch('https://api.firecrawl.dev/v2/scrape', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': 'Bearer fc-cb439722377a4eccbbc81520b4e78858'
+                            },
+                            body: JSON.stringify({
+                                url: fireUrl,
+                                formats: ['rawHtml']
+                            })
+                        });
+                        let parsed = JSON.parse(firecrawlResult);
+                        htmlT = (parsed.data && parsed.data.rawHtml) || '';
+                    } catch (e) {
+                        htmlT = '';
+                    }
+                } else {
+                    let needFirecrawl = false;
+                    if (mode && mode == 1) {
+                        htmlT = request(urlTrue, headers || {});
+                    } else if (mode && mode == 2) {
+                        htmlT = fetchCodeByWebView(urlTrue);
+                    } else if (mode && mode == 3) {
+                        htmlT = post(urlTrue, headers || {});
+                    } else {
+                        htmlT = fetchPC(urlTrue, headers || {});
+                    }
+                    if (!htmlT.includes('Firecrawl') && proxy && (needFirecrawl || !htmlT || hasError(htmlT))) {
+                        let fireUrl = urlTrue;
+                        if (fireUrl.startsWith('https://wdkj.eu.org/')) {
+                            fireUrl = decodeURIComponent(fireUrl.replace('https://wdkj.eu.org/', ''));
+                        }
+                        try {
+                            let firecrawlResult = fetch('https://api.firecrawl.dev/v2/scrape', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'Authorization': 'Bearer fc-cb439722377a4eccbbc81520b4e78858'
+                                },
+                                body: JSON.stringify({
+                                    url: fireUrl,
+                                    formats: ['rawHtml']
+                                })
+                            });
+                            let parsed = JSON.parse(firecrawlResult);
+                            htmlT = (parsed.data && parsed.data.rawHtml) || '';
+                        } catch (e) {
+                            htmlT = '';
+                        }
+                    }
+                }
+                if (htmlT && !hasError(htmlT)) {
+                     writeFile(_cachePath, htmlT);
                 }
             }
+            return htmlT;
         }
-        if (htmlT && !hasError(htmlT)) {
-if(hasHeaders) putMyVar(url+bodyMD5, htmlT);
-else  putMyVar(url, htmlT);
-        }
-    }
-    return htmlT;
-}
 
 function hanziToPinyin(hanzi, options) {
     var hanziMap = storage0.getMyVar('hanziMap');
