@@ -1,5 +1,30 @@
-js://2026061513
+js://2026061621
 // -*- mode: js -*-
+function refreshToken() {
+    let filePath = 'hiker://files/rule/bdwp/refresh_token.txt';
+    let refresh_token = fetch(filePath) || getItem('refresh_token', '');
+    if (!refresh_token) {
+        toast('refresh_token 缺失，请重新授权');
+        return;
+    }
+    let res = JSON.parse(request(buildUrl("https://openapi.baidu.com/oauth/2.0/token", {
+        "grant_type": "refresh_token",
+        "refresh_token": refresh_token,
+        "client_id": "iYCeC9g08h5vuP9UqvPHKKSVrKFXGa1v",
+        "client_secret": "jXiFMOPVPCWlO2M5CwWQzffpNPaGTRBG"
+    })));
+    if (!res.access_token) {
+        toast('错误！！!刷新access_token失败~~');
+        toast('重新获取授权码~');
+    } else {
+        setItem("access_token", res.access_token);
+        let vip_type = JSON.parse(fetch('https://pan.baidu.com/rest/2.0/xpan/nas?method=uinfo&access_token=' + getItem('access_token'))).vip_type;
+        setItem("vip_type", vip_type + '');
+        setItem("refresh_token", res.refresh_token);
+        writeFile(filePath, res.refresh_token);
+        toast('刷新access_token成功~~');
+    }
+}
 function getExtra(index, ctype, extra){
     return !(index % (ctype.replace(/[a-z_]/g, '') || 10)) ? extra : {}
 }
