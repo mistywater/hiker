@@ -1476,9 +1476,7 @@ function getLines() {
 }
 
 function parseUrlVideo(url, 依赖) {
-    if (/magnet/.test(url)) {
-        return url;
-    } else if (/baidu/.test(url)) {
+    if (/baidu/.test(url)) {
         putVar('urlBaidu', url);
         return "hiker://page/list?rule=百度网盘&realurl=" + url;
     } else if (/aliyundrive|alipan/.test(url)) {
@@ -1489,9 +1487,8 @@ function parseUrlVideo(url, 依赖) {
     } else if (/quark|uc\./.test(url)) {
         return "hiker://page/quarkList?rule=Quark.简&realurl=" + url;
     } else if (/(thunder|xunlei|ed2k:|bt:|ftp:|\.torrent|magnet)/.test(url)) {
-        if (url.includes('thunder')) {
-            url = base64Decode(url.split('//')[1]);
-        }
+        if (url.includes('thunder')) url = base64Decode(url.split('//')[1]);
+		if (url.includes('magnet')&&fetch('hiker://files/rules/bdwp/parseMagnet.txt')!='xunlei') return url;
         return "hiker://page/diaoyong?rule=迅雷&page=fypage#" + url;
     } else if (/cloud\.189\.cn|content\.21cn\.com/.test(url)) {
         return "hiker://page/diaoyong?rule=天翼网盘&realurl=" + encodeURIComponent(url)
