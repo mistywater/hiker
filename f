@@ -1,4 +1,4 @@
-js://2026061621
+js://2026061720
 // -*- mode: js -*-
 function refreshToken() {
     let filePath = 'hiker://files/rule/bdwp/refresh_token.txt';
