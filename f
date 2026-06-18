@@ -1,4 +1,4 @@
-js://2026061720
+js://2026061816
 // -*- mode: js -*-
 function refreshToken() {
     let filePath = 'hiker://files/rule/bdwp/refresh_token.txt';
@@ -3819,26 +3819,39 @@ function de(key, iv, data, mode, encoding) {
         let modeName = mode.split("/")[1];
         let encryptedBytes;
         if (encoding === 'Hex') {
-            let hexLen = data.length;
-            encryptedBytes = JArray.newInstance(JByte.TYPE, hexLen / 2);
-            for (var i = 0; i < hexLen; i += 2) {
-                var c1 = data.charCodeAt(i);
-                var c2 = data.charCodeAt(i + 1);
-                var b = ((c1 < 58 ? c1 - 48 : (c1 < 71 ? c1 - 55 : c1 - 87)) << 4) | 
-                        (c2 < 58 ? c2 - 48 : (c2 < 71 ? c2 - 55 : c2 - 87));
-                encryptedBytes[i / 2] = b > 127 ? b - 256 : b;
+            let hex = new JString(data).replaceAll("\\s+", "");
+            let len = hex.length() / 2;
+            try {
+                encryptedBytes = java.util.HexFormat.of().parseHex(hex);
+            } catch (e) {
+                encryptedBytes = JArray.newInstance(JByte.TYPE, len);
+                let pos = 0,
+                    idx = 0;
+                while (pos + 8 <= hex.length()) {
+                    let val = java.lang.Long.parseLong(hex.substring(pos, pos + 8), 16);
+                    encryptedBytes[idx] = ((val >>> 24) << 24) >> 24;
+                    encryptedBytes[idx + 1] = (((val >>> 16) & 0xff) << 24) >> 24;
+                    encryptedBytes[idx + 2] = (((val >>> 8) & 0xff) << 24) >> 24;
+                    encryptedBytes[idx + 3] = ((val & 0xff) << 24) >> 24;
+                    pos += 8;
+                    idx += 4;
+                }
+                if (pos < hex.length()) {
+                    let val = java.lang.Integer.parseInt(hex.substring(pos), 16);
+                    let remaining = (hex.length() - pos) / 2;
+                    for (let i = remaining - 1; i >= 0; i--) {
+                        encryptedBytes[idx + i] = ((val & 0xff) << 24) >> 24;
+                        val >>>= 8;
+                    }
+                }
             }
-        } else if (encoding === 'Base64') {
-            encryptedBytes = Base64.decode(data, Base64.NO_WRAP);
-        } else {
-            encryptedBytes = String(data).getBytes("UTF-8");
-        }
+        } else if (encoding === 'Base64') encryptedBytes = Base64.decode(data, Base64.NO_WRAP);
+        else encryptedBytes = String(data).getBytes("UTF-8");
         let keyBytes = new JString(key).getBytes("UTF-8");
         let secretKeySpec = new SecretKeySpec(keyBytes, algorithm);
         let cipher = Cipher.getInstance(mode);
-        if (modeName === 'ECB') {
-            cipher.init(2, secretKeySpec);
-        } else {
+        if (modeName === 'ECB') cipher.init(2, secretKeySpec);
+        else {
             let ivBytes = new JString(iv || key).getBytes("UTF-8");
             let ivParameterSpec = new IvParameterSpec(ivBytes);
             cipher.init(2, secretKeySpec, ivParameterSpec);
