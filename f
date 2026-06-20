@@ -1,5 +1,19 @@
-js://2026061816
+js://2026062010
 // -*- mode: js -*-
+function getMusicBg(){
+    return ['http://www.htqyy.com/play/33',
+    'http://www.htqyy.com/play/1668',
+    'http://www.htqyy.com/play/58',
+    'http://www.htqyy.com/play/55',
+    'http://www.htqyy.com/play/261',
+    'http://www.htqyy.com/play/62',
+    'http://www.htqyy.com/play/57',
+    'http://www.htqyy.com/play/187',
+    'http://www.htqyy.com/play/1670',
+    'http://www.htqyy.com/play/1685',
+    'http://www.htqyy.com/play/1708',
+    'http://www.htqyy.com/play/1719']
+}
 function refreshToken() {
     let filePath = 'hiker://files/rule/bdwp/refresh_token.txt';
     let refresh_token = fetch(filePath) || getItem('refresh_token', '');
