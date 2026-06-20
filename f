@@ -1,5 +1,8 @@
 js://2026062010
 // -*- mode: js -*-
+function pdfhx(html,str){
+            try{return pdfh(html,str);}catch(e){return '';}
+        }
 function getMusicBg(){
     return ['http://www.htqyy.com/play/33',
     'http://www.htqyy.com/play/1668',
