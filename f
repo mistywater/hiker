@@ -1,6 +1,6 @@
 js://2026062010
 // -*- mode: js -*-
-function getHtmlOld(url, headers, mode, proxy, textError) {
+function getHtml(url, headers, mode, proxy, textError) {
     let hasHeaders = headers && headers.body && typeof(headers.body) == 'string';
     if (hasHeaders) var bodyMD5 = headers.body;
     else bodyMD5 = '';
@@ -1266,7 +1266,7 @@ function getdTemp(d, dTemp, _chchePath) {
     return dTemp.slice();
 }
 
-function getHtml(url, headers, mode, proxy, textError) {
+function getHtmlOld(url, headers, mode, proxy, textError) {
             let hasHeaders = headers && headers.body && typeof(headers.body) == 'string';
             if (hasHeaders) {
                 var bodyMD5 = headers.body;
