@@ -1,16 +1,30 @@
 js://2026062110
 // -*- mode: js -*-
 function getHtml(url, headers, mode, proxy, textError) {
+    const proxyPrefixMap = {
+        1: 'https://seep.eu.org/', 
+        3: 'https://wdkj.eu.org/', 
+        4: 'https://hiker.mistywater.deno.net/' 
+    };
+    let cleanUrl = url;
+    for (let k in proxyPrefixMap) {
+        if (cleanUrl.startsWith(proxyPrefixMap[k])) {
+            cleanUrl = cleanUrl.replace(proxyPrefixMap[k], '');
+            if (k == 4) cleanUrl = decodeURIComponent(cleanUrl);
+            break;
+        }
+    }
     let hasHeaders = headers && headers.body && typeof(headers.body) == 'string';
     let bodyMD5 = hasHeaders ? headers.body : '';
-    let _cachePath = `hiker://files/_cache/juyue/${safePath(url + bodyMD5)}.txt`;
+    let _cachePath = `hiker://files/_cache/juyue/${safePath(cleanUrl + bodyMD5)}.txt`;
     let htmlT = fetch(_cachePath);
     let textsError = [">404<", '__cf_chl_tk', 'cf-browser-verification', 'cf-chl-out', 'cf_captcha_kind', 'Protected by cdndefend', 'Attention Required!', 'Checking your browser', 'DDOS-Guard', '502 Bad Gateway', '503 Service Unavailable', '504 Gateway Timeout', '500 Internal Server Error', '403 Forbidden', '404 Not Found', 'Access Denied', 'Access denied', 'Blocked by', 'You have been blocked', 'Your IP has been blocked', 'IP has been blocked', 'Access from your IP has been blocked', 'Request blocked', 'Request rejected', 'Web Application Firewall', 'This website is using a security service', 'Please verify you are human', 'Verification required', 'Click to verify', 'Please complete the captcha', 'Too Many Requests', 'Rate-limited', 'Welcome to nginx', 'Apache2 Default Page', 'It works!', 'Default Page', 'error code:', '无法访问目标地址', 'Please enable JavaScript', 'JavaScript is required'];
     if (textError) textsError.push(textError);
     function hasError(html) {
         if (!html) return false;
-        for (let i = 0; i < textsError.length; i++)
+        for (let i = 0; i < textsError.length; i++) {
             if (html.indexOf(textsError[i]) !== -1) return true;
+        }
         return false;
     }
     function doRequest(reqUrl, reqHeaders) {
@@ -19,11 +33,6 @@ function getHtml(url, headers, mode, proxy, textError) {
         else if (mode == 3) return post(reqUrl, reqHeaders || {});
         else return fetchPC(reqUrl, reqHeaders || {});
     }
-    const proxyPrefixMap = {
-        1: 'https://seep.eu.org/', 
-        3: 'https://wdkj.eu.org/', 
-        4: 'https://hiker.mistywater.deno.net/' 
-    };
     function fetchByFirecrawl(targetUrl) {
         try {
             let firecrawlResult = post('https://api.firecrawl.dev/v2/scrape',  {
@@ -47,13 +56,14 @@ function getHtml(url, headers, mode, proxy, textError) {
         }
     }
     if (!htmlT || hasError(htmlT)) {
-        if (proxy == 2) htmlT = fetchByFirecrawl(url);
+        if (proxy == 2) htmlT = fetchByFirecrawl(cleanUrl);
         else if (proxy && proxyPrefixMap[proxy]) {
-            let prefix = proxyPrefixMap[proxy];
-            let urlTrue = url.startsWith(prefix) ? url : prefix + url;
+            let actualProxy = (headers && proxy != 2) ? 4 : proxy;
+            let prefix = proxyPrefixMap[actualProxy];
+            let urlTrue = prefix + (actualProxy == 4 ? encodeURIComponent(cleanUrl) : cleanUrl);
             htmlT = fetch(urlTrue, headers || {});
-            if (!htmlT || hasError(htmlT)) htmlT = fetchByFirecrawl(url);
-        } else htmlT = doRequest(url, headers || {});
+            if (!htmlT || hasError(htmlT)) htmlT = fetchByFirecrawl(cleanUrl);
+        } else htmlT = doRequest(cleanUrl, headers || {});
     }
     if (htmlT && !hasError(htmlT)) writeFile(_cachePath, htmlT);
     return htmlT;
