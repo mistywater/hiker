@@ -18,7 +18,7 @@ function getHtml(url, headers, mode, proxy, textError) {
     let bodyMD5 = hasHeaders ? headers.body : '';
     let _cachePath = `hiker://files/_cache/juyue/${safePath(cleanUrl + bodyMD5)}.txt`;
     let htmlT = fetch(_cachePath);
-    let textsError = [">404<", '__cf_chl_tk', 'cf-browser-verification', 'cf-chl-out', 'cf_captcha_kind', 'Protected by cdndefend', 'Attention Required!', 'Checking your browser', 'DDOS-Guard', '502 Bad Gateway', '503 Service Unavailable', '504 Gateway Timeout', '500 Internal Server Error', '403 Forbidden', '404 Not Found', 'Access Denied', 'Access denied', 'Blocked by', 'You have been blocked', 'Your IP has been blocked', 'IP has been blocked', 'Access from your IP has been blocked', 'Request blocked', 'Request rejected', 'Web Application Firewall', 'This website is using a security service', 'Please verify you are human', 'Verification required', 'Click to verify', 'Please complete the captcha', 'Too Many Requests', 'Rate-limited', 'Welcome to nginx', 'Apache2 Default Page', 'It works!', 'Default Page', 'error code:', '无法访问目标地址', 'Please enable JavaScript', 'JavaScript is required'];
+    let textsError = ["your-domain.deno.dev",">404<", '__cf_chl_tk', 'cf-browser-verification', 'cf-chl-out', 'cf_captcha_kind', 'Protected by cdndefend', 'Attention Required!', 'Checking your browser', 'DDOS-Guard', '502 Bad Gateway', '503 Service Unavailable', '504 Gateway Timeout', '500 Internal Server Error', '403 Forbidden', '404 Not Found', 'Access Denied', 'Access denied', 'Blocked by', 'You have been blocked', 'Your IP has been blocked', 'IP has been blocked', 'Access from your IP has been blocked', 'Request blocked', 'Request rejected', 'Web Application Firewall', 'This website is using a security service', 'Please verify you are human', 'Verification required', 'Click to verify', 'Please complete the captcha', 'Too Many Requests', 'Rate-limited', 'Welcome to nginx', 'Apache2 Default Page', 'It works!', 'Default Page', 'error code:', '无法访问目标地址', 'Please enable JavaScript', 'JavaScript is required'];
     if (textError) textsError.push(textError);
     function hasError(html) {
         if (!html) return false;
@@ -60,8 +60,7 @@ function getHtml(url, headers, mode, proxy, textError) {
         else if (proxy && proxyPrefixMap[proxy]) {
             let actualProxy = (headers && proxy != 2) ? 4 : proxy;
             let prefix = proxyPrefixMap[actualProxy];
-            let urlTrue = prefix + (actualProxy == 4 ? encodeURIComponent(cleanUrl) : cleanUrl);
-            htmlT = fetch(urlTrue, headers || {});
+            let urlTrue = prefix +  cleanUrl;
             if (!htmlT || hasError(htmlT)) htmlT = fetchByFirecrawl(cleanUrl);
         } else htmlT = doRequest(cleanUrl, headers || {});
     }
