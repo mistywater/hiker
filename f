@@ -1,4 +1,4 @@
-js://2026062010
+js://2026062110
 // -*- mode: js -*-
 function getHtml(url, headers, mode, proxy, textError) {
     let hasHeaders = headers && headers.body && typeof(headers.body) == 'string';
@@ -8,39 +8,72 @@ function getHtml(url, headers, mode, proxy, textError) {
     let htmlT = fetch(_cachePath);
     let textsError = [">404<", '__cf_chl_tk', 'cf-browser-verification', 'cf-chl-out', 'cf_captcha_kind', 'Protected by cdndefend', 'Attention Required!', 'Checking your browser', 'DDOS-Guard', '502 Bad Gateway', '503 Service Unavailable', '504 Gateway Timeout', '500 Internal Server Error', '403 Forbidden', '404 Not Found', 'Access Denied', 'Access denied', 'Blocked by', 'You have been blocked', 'Your IP has been blocked', 'IP has been blocked', 'Access from your IP has been blocked', 'Request blocked', 'Request rejected', 'Web Application Firewall', 'This website is using a security service', 'Please verify you are human', 'Verification required', 'Click to verify', 'Please complete the captcha', 'Too Many Requests', 'Rate-limited', 'Welcome to nginx', 'Apache2 Default Page', 'It works!', 'Default Page', 'error code:', '无法访问目标地址', 'Please enable JavaScript', 'JavaScript is required'];
     if (textError) textsError.push(textError);
+
     function hasError(html) {
         if (!html) return false;
-        for (let i = 0; i < textsError.length; i++) if (html.indexOf(textsError[i]) !== -1) return true;
+        for (let i = 0; i < textsError.length; i++)
+            if (html.indexOf(textsError[i]) !== -1) return true;
         return false;
     }
+
+    function doRequest(reqUrl, reqHeaders) {
+        if (mode && mode == 1) return request(reqUrl, reqHeaders || {});
+        else if (mode && mode == 2) return fetchCodeByWebView(reqUrl);
+        else if (mode && mode == 3) return post(reqUrl, reqHeaders || {});
+        else return fetchPC(reqUrl, reqHeaders || {});
+    }
     if (!htmlT || hasError(htmlT)) {
-        if (proxy) var urlTrue = url.startsWith('https://seep.eu.org/')  ? url : 'https://seep.eu.org/'  + url;
-        else urlTrue = url;
+        let hasCustomHeaders = headers && Object.keys(headers).length > 0;
         if (proxy == 2) {
-            let fireUrl = urlTrue;
-            if (fireUrl.startsWith('https://seep.eu.org/'))  fireUrl = decodeURIComponent(fireUrl.replace('https://seep.eu.org/',  ''));
+            let fireUrl = url;
+            if (fireUrl.startsWith('https://hiker.mistywater.deno.net/')) fireUrl = decodeURIComponent(fireUrl.replace('https://hiker.mistywater.deno.net/', ''));
             try {
-                let firecrawlResult = fetch('https://api.firecrawl.dev/v2/scrape',  {method: 'POST', headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer fc-cb439722377a4eccbbc81520b4e78858'}, body: JSON.stringify({url: fireUrl, formats: ['rawHtml']})});
+                let firecrawlResult = fetch('https://api.firecrawl.dev/v2/scrape', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer fc-cb439722377a4eccbbc81520b4e78858'
+                    },
+                    body: JSON.stringify({
+                        url: fireUrl,
+                        formats: ['rawHtml']
+                    })
+                });
                 let parsed = JSON.parse(firecrawlResult);
                 htmlT = (parsed.data && parsed.data.rawHtml) || '';
-            } catch (e) { htmlT = ''; }
-        } else {
-            let needFirecrawl = false;
-            if (mode && mode == 1) htmlT = request(urlTrue, headers || {});
-            else if (mode && mode == 2) htmlT = fetchCodeByWebView(urlTrue);
-            else if (mode && mode == 3) htmlT = post(urlTrue, headers || {});
-            else htmlT = fetchPC(urlTrue, headers || {});
-            if (!htmlT.includes('Firecrawl') && proxy && (needFirecrawl || !htmlT || hasError(htmlT))) {
-                let fireUrl = urlTrue;
-                if (fireUrl.startsWith('https://seep.eu.org/'))  fireUrl = decodeURIComponent(fireUrl.replace('https://seep.eu.org/',  ''));
+            } catch (e) {
+                htmlT = '';
+            }
+        } else if (proxy){
+            let urlTrue = url;
+            if (proxy && !url.startsWith('https://hiker.mistywater.deno.net/')) urlTrue = 'https://hiker.mistywater.deno.net/' + url;
+            htmlT = fetch(urlTrue, headers || {});           
+            if (proxy && !htmlT.includes('Firecrawl') && (!htmlT || hasError(htmlT))) {
+                let fireUrl = url;
+                if (fireUrl.startsWith('https://hiker.mistywater.deno.net/')) fireUrl = decodeURIComponent(fireUrl.replace('https://hiker.mistywater.deno.net/', ''));
                 try {
-                    let firecrawlResult = fetch('https://api.firecrawl.dev/v2/scrape',  {method: 'POST', headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer fc-cb439722377a4eccbbc81520b4e78858'}, body: JSON.stringify({url: fireUrl, formats: ['rawHtml']})});
+                    let firecrawlResult = fetch('https://api.firecrawl.dev/v2/scrape', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': 'Bearer fc-cb439722377a4eccbbc81520b4e78858'
+                        },
+                        body: JSON.stringify({
+                            url: fireUrl,
+                            formats: ['rawHtml']
+                        })
+                    });
                     let parsed = JSON.parse(firecrawlResult);
                     htmlT = (parsed.data && parsed.data.rawHtml) || '';
-                    if(htmlT) log('firecrawl抓取数据成功~');
+                    if (htmlT) log('firecrawl抓取数据成功~');
                     else log('firecrawl抓取数据失败~');
-                } catch (e) { htmlT = '';log('firecrawl抓取数据失败~'); }
+                } catch (e) {
+                    htmlT = '';
+                    log('firecrawl抓取数据失败~');
+                }
             }
+        }else{log(333);
+             htmlT = doRequest(url, headers || {});
         }
         if (htmlT && !hasError(htmlT)) writeFile(_cachePath, htmlT);
     }
