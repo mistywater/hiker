@@ -61,6 +61,7 @@ function getHtml(url, headers, mode, proxy, textError) {
             let actualProxy = (headers && proxy != 2) ? 4 : proxy;
             let prefix = proxyPrefixMap[actualProxy];
             let urlTrue = prefix +  cleanUrl;
+            htmlT=fetch(urlTrue,headers||{});
             if (!htmlT || hasError(htmlT)) htmlT = fetchByFirecrawl(cleanUrl);
         } else htmlT = doRequest(cleanUrl, headers || {});
     }
