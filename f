@@ -3,8 +3,9 @@ js://2026062212
 function proxyPic(url, mode) {
     const picProxyMap = {
         1: 'https://images.weserv.nl/?url=', 
+		2: 'https://wdkj.eu.org/', 
         3: 'https://seep.eu.org/', 
-        2: 'https://wdkj.eu.org/', 
+		4: 'https://hiker.mistywater.deno.net/',
         default: 'https://i1.wp.com/' 
     };
     for (let k in picProxyMap)
