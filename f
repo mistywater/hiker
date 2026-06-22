@@ -1,5 +1,22 @@
-js://2026062111
+js://2026062212
 // -*- mode: js -*-
+function proxyPic(url, mode) {
+    const picProxyMap = {
+        1: 'https://images.weserv.nl/?url=', 
+        3: 'https://seep.eu.org/', 
+        2: 'https://wdkj.eu.org/', 
+        default: 'https://i1.wp.com/' 
+    };
+    for (let k in picProxyMap)
+        if (url.startsWith(picProxyMap[k])) return url;
+    if (/blogspot/.test(url)) return picProxyMap[1] + url;
+    if (/mrcong|misskon/.test(url) && !url.endsWith('/')) return picProxyMap['default'] + url.replace(/https?:\/\//, '');
+    if (/meitu\.jrants\.com/.test(url)) return picProxyMap[2] + url;
+    if (mode == 9) return decodeURIComponent(url).replace(picProxyMap[3], '');
+    let prefix = picProxyMap[mode] || picProxyMap['default'];
+    let finalUrl = (prefix === picProxyMap['default']) ? url.replace(/https?:\/\//, '') : url;
+    return prefix + finalUrl;
+}
 function getHtml(url, headers, mode, proxy, textError) {
     const proxyPrefixMap = {
         1: 'https://seep.eu.org/', 
@@ -610,24 +627,6 @@ function banner(start, arr, data, cfg) {
         }
         putMyVar("banneri" + id, i);
     }, obj, toerji, id));
-}
-
-function proxyPic(url, mode) {
-    const picProxyMap = {
-        1: 'https://images.weserv.nl/?url=', 
-        2: 'https://seep.eu.org/', 
-        3: 'https://wdkj.eu.org/', 
-        default: 'https://i1.wp.com/' 
-    };
-    for (let k in picProxyMap)
-        if (url.startsWith(picProxyMap[k])) return url;
-    if (/blogspot/.test(url)) return picProxyMap[1] + url;
-    if (/mrcong|misskon/.test(url) && !url.endsWith('/')) return picProxyMap['default'] + url.replace(/https?:\/\//, '');
-    if (/meitu\.jrants\.com/.test(url)) return picProxyMap[2] + url;
-    if (mode == 9) return decodeURIComponent(url).replace(picProxyMap[3], '');
-    let prefix = picProxyMap[mode] || picProxyMap['default'];
-    let finalUrl = (prefix === picProxyMap['default']) ? url.replace(/https?:\/\//, '') : url;
-    return prefix + finalUrl;
 }
 
 function bfs(urls, maxRetry) {
