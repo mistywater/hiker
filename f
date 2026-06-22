@@ -494,7 +494,7 @@ function x5toerji(MY_RULE, jkdata, extra) {
         extra.data = jkdata;
         let findRule = "js:" + $$$.toString((extra) => {
             storage0.putMyVar("\u4e8c\u7ea7\u9644\u52a0\u4e34\u65f6\u5bf9\u8c61", extra);
-            require(config.聚阅);
+            require(config.聚阅||'https://cnb.cool/src48597962/JuyueTest/-/git/raw/master/SrcJu.js');
             erji();
         }, extra);
         fba.open(JSON.stringify({
