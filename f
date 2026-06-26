@@ -1,12 +1,12 @@
-js://2026062616
+js://2026062619
 // -*- mode: js -*-
-function buildExtra(host, page, pages, ctype, _chchePath, img, isPic, isNovel, imgdec) {
+function buildExtra(host, page, pages, ctype, _chchePath, type, img,downloadlazy, imgdec) {
+downloadlazy = getMyVar('temp_downloadlazy', '');log(downloadlazy);
     if (!_chchePath) _chchePath = '';
     if (!ctype) ctype = '';
     if (!pages) pages = 1;
- 
+    if (!type) type = ''; 
     let 类型 = ["movie_1", "movie_2", "movie_3", "movie_3_marquee", "pic_1", "pic_2", "pic_3", "pic_1_full", "pic_1_center", "pic_1_card", "pic_2_card", "pic_3_square", "card_pic_1", "card_pic_2", "card_pic_3", "avatar", "card_pic_3_center", "icon_1_left_pic", "icon_5", "icon_4", "icon_round_4", "icon_3_round_fill", "icon_2_round"];
- 
     let longClick = [{
         title: '样式',
         js: $.toString((host, ctype, 类型, _chchePath) => {
@@ -27,14 +27,12 @@ function buildExtra(host, page, pages, ctype, _chchePath, img, isPic, isNovel, i
             return "hiker://empty";
         }, host, ctype, 类型, _chchePath)
     }];
- 
-    if (isPic) {
+    if (type === 'comic' || type === 'novel') {
         longClick.push({
             title: '下载',
             js: `'hiker://page/download.view?rule=本地资源管理'`,
         });
     }
- 
     longClick.push({
         title: '书架',
         js: `'hiker://page/Main.view?rule=本地资源管理'`,
@@ -49,7 +47,6 @@ function buildExtra(host, page, pages, ctype, _chchePath, img, isPic, isNovel, i
         title: '当前第' + page + '页',
         js: '',
     });
- 
     longClick.push({
         title: '跳转',
         js: $.toString((host, pages) => {
@@ -92,7 +89,6 @@ function buildExtra(host, page, pages, ctype, _chchePath, img, isPic, isNovel, i
             }, host, num, pages);
         }, host, pages)
     });
- 
     if (_chchePath) {
         longClick.push({
             title: '清除缓存',
@@ -103,7 +99,6 @@ function buildExtra(host, page, pages, ctype, _chchePath, img, isPic, isNovel, i
             }, host, _chchePath)
         });
     }
- 
     longClick.unshift({
         title: getItem(host + 'picsMode', '0') == 0 ? '漫画模式' : '图文模式',
         js: $.toString((host, _chchePath) => {
@@ -117,8 +112,8 @@ function buildExtra(host, page, pages, ctype, _chchePath, img, isPic, isNovel, i
         }, host, _chchePath)
     });
     let extra = { longClick: longClick };
- 
-    if (isPic) {
+    if (type === 'comic' || type === 'novel') {
+        let isNovel = type === 'novel';
         extra.info = {
             bookName: isNovel ? '全部' : MY_URL.split('/')[2],
             ruleName: isNovel ? storage0.getMyVar('一级源接口信息').name : 'photo',
@@ -129,9 +124,9 @@ function buildExtra(host, page, pages, ctype, _chchePath, img, isPic, isNovel, i
             }, imgdec) : imgdec) : "",
             parseCode: typeof downloadlazy !== 'undefined' ? downloadlazy : "",
             defaultView: isNovel ? '0' : '1',
-            type: isNovel ? 'novel' : 'comic',
+            type: type,
         };
-        extra.chapterList =  'hiker://files/_cache/chapterList.txt' ;
+        extra.chapterList = 'hiker://files/_cache/chapterList.txt';
     }
  
     return extra;
