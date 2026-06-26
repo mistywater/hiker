@@ -1,5 +1,142 @@
-js://2026062212
+js://2026062616
 // -*- mode: js -*-
+function buildExtra(host, page, pages, ctype, _chchePath, img, isPic, isNovel, imgdec) {
+    if (!_chchePath) _chchePath = '';
+    if (!ctype) ctype = '';
+    if (!pages) pages = 1;
+ 
+    let 类型 = ["movie_1", "movie_2", "movie_3", "movie_3_marquee", "pic_1", "pic_2", "pic_3", "pic_1_full", "pic_1_center", "pic_1_card", "pic_2_card", "pic_3_square", "card_pic_1", "card_pic_2", "card_pic_3", "avatar", "card_pic_3_center", "icon_1_left_pic", "icon_5", "icon_4", "icon_round_4", "icon_3_round_fill", "icon_2_round"];
+ 
+    let longClick = [{
+        title: '样式',
+        js: $.toString((host, ctype, 类型, _chchePath) => {
+            if (getItem(host + ctype + 'type')) {
+                let index = 类型.indexOf(getItem(host + ctype + 'type'));
+                if (index >= 0) 类型[index] = '👉' + getItem(host + ctype + 'type');
+            }
+            showSelectOptions({
+                title: "选择样式",
+                col: 2,
+                options: 类型,
+                js: $.toString((host, ctype, _chchePath) => {
+                    setItem(host + ctype + 'type', input.replace('👉', ''));
+                    if (_chchePath) writeFile(_chchePath, '');
+                    refreshPage();
+                }, host, ctype, _chchePath)
+            });
+            return "hiker://empty";
+        }, host, ctype, 类型, _chchePath)
+    }];
+ 
+    if (isPic) {
+        longClick.push({
+            title: '下载',
+            js: `'hiker://page/download.view?rule=本地资源管理'`,
+        });
+    }
+ 
+    longClick.push({
+        title: '书架',
+        js: `'hiker://page/Main.view?rule=本地资源管理'`,
+    }, {
+        title: '首页',
+        js: $.toString((host) => {
+            putMyVar(host + 'page', '1');
+            refreshPage(false);
+            return 'hiker://empty';
+        }, host),
+    }, {
+        title: '当前第' + page + '页',
+        js: '',
+    });
+ 
+    longClick.push({
+        title: '跳转',
+        js: $.toString((host, pages) => {
+            let pagesNum = parseInt(pages) || 1;
+            let arr = ['输入页码'];
+            let num = 1;
+            if (pagesNum <= 200) {
+                for (let k = 1; k <= pagesNum; k++) arr.push(k.toString());
+            } else if (pagesNum <= 1000) {
+                num = 5;
+                for (let k = 1; k <= pagesNum; k += 5) arr.push(k.toString());
+            } else {
+                num = 10;
+                for (let k = 1; k <= pagesNum; k += 10) arr.push(k.toString());
+            }
+            return $(arr, 3, '选择页码').select((host, num, pages) => {
+                if (input == '输入页码') {
+                    return $('').input((host) => {
+                        putMyVar(host + 'page', input);
+                        putMyVar('isMoveto', '1');
+                        refreshPage(false);
+                    }, host);
+                } else if (num == 1) {
+                    putMyVar(host + 'page', input);
+                    putMyVar('isMoveto', '1');
+                    refreshPage(false);
+                    return 'hiker://empty';
+                } else {
+                    let arr1 = [];
+                    for (let k = 0; k < num; k++) {
+                        if (parseInt(input) + k <= parseInt(pages)) arr1.push((parseInt(input) + k).toString());
+                    }
+                    return $(arr1, 3, '选择页码').select((host) => {
+                        putMyVar(host + 'page', input);
+                        putMyVar('isMoveto', '1');
+                        refreshPage(false);
+                        return 'hiker://empty';
+                    }, host);
+                }
+            }, host, num, pages);
+        }, host, pages)
+    });
+ 
+    if (_chchePath) {
+        longClick.push({
+            title: '清除缓存',
+            js: $.toString((host, _chchePath) => {
+                writeFile(_chchePath, '');
+                clearMyVar(host + 'page');
+                refreshPage(false);
+            }, host, _chchePath)
+        });
+    }
+ 
+    longClick.unshift({
+        title: getItem(host + 'picsMode', '0') == 0 ? '漫画模式' : '图文模式',
+        js: $.toString((host, _chchePath) => {
+            writeFile(_chchePath, '');
+            if (getItem(host + 'picsMode', '0') == 0) {
+                setItem(host + 'picsMode', '1');
+            } else {
+                setItem(host + 'picsMode', '0');
+            }
+            refreshPage(false);
+        }, host, _chchePath)
+    });
+    let extra = { longClick: longClick };
+ 
+    if (isPic) {
+        extra.info = {
+            bookName: isNovel ? '全部' : MY_URL.split('/')[2],
+            ruleName: isNovel ? storage0.getMyVar('一级源接口信息').name : 'photo',
+            bookTopPic: isNovel ? img : 'https://api.xinac.net/icon/?url='  + host,
+            decode: imgdec ? (typeof imgdec === "function" ? $.toString((imgdec) => {
+                let imgDecrypt = imgdec;
+                return imgDecrypt();
+            }, imgdec) : imgdec) : "",
+            parseCode: typeof downloadlazy !== 'undefined' ? downloadlazy : "",
+            defaultView: isNovel ? '0' : '1',
+            type: isNovel ? 'novel' : 'comic',
+        };
+        extra.chapterList =  'hiker://files/_cache/chapterList.txt' ;
+    }
+ 
+    return extra;
+}
+
 function proxyPic(url, mode) {
     const picProxyMap = {
         1: 'https://images.weserv.nl/?url=', 
@@ -3148,37 +3285,55 @@ function pageMoveto(host, page, ctype, pages, _chchePath) {
             }
         }
         var extra1 = {
-            title: '跳转',
-            js: $.toString((host, arr, num, pages) => {
-                return $(arr, 3, '选择页码').select((host, num, pages) => {
-                    if (input == '输入页码') {
-                        return $('').input((host) => {
-                            putMyVar(host + 'page', input);
-                            putMyVar('isMoveto', '1');
-                            refreshPage(false);
-                        }, host);
-                    } else if (num == 1) {
+        title: '跳转',
+        js: $.toString((host, pages) => {
+            let pagesNum = parseInt(pages) || 1;
+            let arr = ['输入页码'];
+            let num = 1; // 步长 
+            if (pagesNum <= 200) {
+                for (let k = 1; k <= pagesNum; k++) {
+                    arr.push(k.toString());
+                }
+            } else if (pagesNum <= 1000) {
+                num = 5;
+                for (let k = 1; k <= pagesNum; k = k + 5) {
+                    arr.push(k.toString());
+                }
+            } else {
+                num = 10;
+                for (let k = 1; k <= pagesNum; k = k + 10) {
+                    arr.push(k.toString());
+                }
+            }
+            return $(arr, 3, '选择页码').select((host, num, pages) => {
+                if (input == '输入页码') {
+                    return $('').input((host) => {
+                        putMyVar(host + 'page', input);
+                        putMyVar('isMoveto', '1');
+                        refreshPage(false);
+                    }, host);
+                } else if (num == 1) {
+                    putMyVar(host + 'page', input);
+                    putMyVar('isMoveto', '1');
+                    refreshPage(false);
+                    return 'hiker://empty';
+                } else {
+                    let arr1 = [];
+                    for (let k = 0; k < num; k++) {
+                        if (parseInt(input) + k <= parseInt(pages)) {
+                            arr1.push((parseInt(input) + k).toString());
+                        }
+                    }
+                    return $(arr1, 3, '选择精确页码').select((host) => {
                         putMyVar(host + 'page', input);
                         putMyVar('isMoveto', '1');
                         refreshPage(false);
                         return 'hiker://empty';
-                    } else {
-                        let arr1 = [];
-                        for (let k = 0; k < num; k++) {
-                            if (input * 1 + k * 1 <= pages) {
-                                arr1.push(input * 1 + k * 1);
-                            }
-                        }
-                        return $(arr1, 3, '选择页码').select((host) => {
-                            putMyVar(host + 'page', input);
-                            putMyVar('isMoveto', '1');
-                            refreshPage(false);
-                            return 'hiker://empty';
-                        }, host);
-                    }
-                }, host, num, pages);
-            }, host, arr, num, pages),
-        };
+                    }, host);
+                }
+            }, host, num, pages);
+        }, host, pages),
+    };
     } else {
         var extra1 = {
             title: '跳转',
