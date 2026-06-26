@@ -1,7 +1,7 @@
 js://2026062619
 // -*- mode: js -*-
-function buildExtra(host, page, pages, ctype, _chchePath, type, img,downloadlazy, imgdec) {
-downloadlazy = getMyVar('temp_downloadlazy', '');log(downloadlazy);
+function buildExtra(host, page, pages, ctype, _chchePath, type, img, imgdec) {
+downloadlazy = getMyVar('temp_downloadlazy', '');
     if (!_chchePath) _chchePath = '';
     if (!ctype) ctype = '';
     if (!pages) pages = 1;
