@@ -218,9 +218,22 @@ function getHtml(url, headers, mode, proxy, textError) {
     if (htmlT && !hasError(htmlT)) writeFile(_cachePath, htmlT);
     return htmlT;
 }
-function pdfhx(html,str){
-            try{return pdfh(html,str);}catch(e){return '';}
-        }
+function pdfhx(html, rule) {
+    try {
+        return pdfh(html, rule);
+    } catch (e) {
+        toast('解析失败');
+        return '';
+    }
+}
+function pdfax(html, rule) {
+    try {
+        return pdfa(html, rule);
+    } catch (e) {
+        toast('解析失败');
+        return [];
+    }
+}
 function getMusicBg(){
     return ['http://www.htqyy.com/play/33',
     'http://www.htqyy.com/play/1668',
