@@ -1,4 +1,5 @@
 js://2026062619
+
 // -*- mode: js -*-
 function buildExtra(host, page, pages, ctype, _chchePath, type, img, imgdec) {
 downloadlazy = getMyVar('temp_downloadlazy', '');
