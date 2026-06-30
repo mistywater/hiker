@@ -1,4 +1,4 @@
-js://2026062619
+js://2026063019
 
 // -*- mode: js -*-
 function buildExtra(host, page, pages, ctype, _chchePath, type, img, imgdec) {
@@ -138,7 +138,7 @@ function proxyPic(url, mode) {
         1: 'https://images.weserv.nl/?url=', 
 		2: 'https://wdkj.eu.org/', 
         3: 'https://seep.eu.org/', 
-		4: 'https://hiker.mistywater.deno.net/',
+		4: 'http://proxypic.cc.cd/',
         default: 'https://i1.wp.com/' 
     };
     for (let k in picProxyMap)
@@ -155,7 +155,7 @@ function getHtml(url, headers, mode, proxy, textError) {
     const proxyPrefixMap = {
         1: 'https://seep.eu.org/', 
         3: 'https://wdkj.eu.org/', 
-        4: 'https://hiker.mistywater.deno.net/' 
+        4: 'http://proxypic.cc.cd/' 
     };
     let cleanUrl = url;
     for (let k in proxyPrefixMap) {
