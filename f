@@ -1,6 +1,39 @@
 js://2026063019
-
 // -*- mode: js -*-
+function banner(start, arr, data, cfg) {
+    if (!data || data.length == 0) return;
+    let dataArray = Array.isArray(data[0]) ? data : [data];
+    let baseId = cfg.id || "juyue";
+    cfg = cfg || {};
+    let time = cfg.time || 4000;
+    let col_type = cfg.col_type || "card_pic_1";
+    let desc = cfg.desc || "0";
+    let jkdata = cfg.jkdata || storage0.getMyVar("一级源接口信息");
+    let len = dataArray[0] ? dataArray[0].length : 0;
+    dataArray.forEach((subData, index) => {
+        if (!subData || subData.length == 0) return;
+        let item = subData[0];
+        let id = baseId + '_' + index;
+        let extra = item.extra || {};
+        extra["id"] = id;
+        arr.push({ title: item.title, url: item.url, img: item.img || item.pic_url, desc: desc, col_type: col_type, extra: extra });
+    });
+    if (start == false || getMyVar("benstart", "true") == "false") { unRegisterTask(baseId); return; }
+    registerTask(baseId, time, $.toString((obj, toerji, id) => {
+        let dataArray = obj.data;
+        let len = obj.len;
+        let i = Number(getMyVar("banneri" + id, "0"));
+        i = i + 1;
+        if (i >= len) i = 0;
+        dataArray.forEach((subData, index) => {
+            if (!subData || subData.length == 0) return;
+            let subId = id + '_' + index;
+            let item = subData[i];
+            try { updateItem(subId, toerji(item, obj.jkdata)); } catch (e) { unRegisterTask(id); }
+        });
+        putMyVar("banneri" + id, i);
+    }, { data: dataArray, jkdata: jkdata, len: len }, toerji, baseId));
+}
 function buildExtra(host, page, pages, ctype, _chchePath, type, img, imgdec) {
 downloadlazy = getMyVar('temp_downloadlazy', '');
     if (!_chchePath) _chchePath = '';
@@ -721,59 +754,6 @@ function bgcolorArr(arr, bc) {
         fc: '#FFFFFF',
         bc: !bc ? getDarkColor() : '',
     })).join(' ');
-}
-
-function banner(start, arr, data, cfg) {
-    if (!data || data.length == 0) {
-        return;
-    }
-    let id = cfg.id || "juyue";
-    let rnum = 0;
-    let item = data[rnum];
-    putMyVar("rnum" + id, rnum + '');
-    cfg = cfg || {};
-    let time = cfg.time || 4000;
-    let col_type = cfg.col_type || "card_pic_1";
-    let desc = cfg.desc || "0";
-    let extra = item.extra || {};
-    extra["id"] = cfg.id || "juyue";
-    arr.push({
-        title: item.title,
-        url: item.url,
-        img: item.img || item.pic_url,
-        desc: desc,
-        col_type: col_type,
-        extra: extra
-    });
-    if (start == false || getMyVar("benstart", "true") == "false") {
-        unRegisterTask(id);
-        return;
-    }
-    let obj = {
-        data: data,
-        jkdata: cfg.jkdata || storage0.getMyVar("一级源接口信息"),
-    };
-    registerTask(id, time, $.toString((obj, toerji, id) => {
-        let data = obj.data;
-        let rum = getMyVar("rnum" + id);
-        let i = Number(getMyVar("banneri" + id, "0"));
-        if (rum != "") {
-            i = Number(rum) + 1;
-            clearMyVar("rnum" + id);
-        } else {
-            i = i + 1;
-        }
-        if (i > data.length - 1) {
-            i = 0;
-        }
-        let item = data[i];
-        try {
-            updateItem(id, toerji(item, obj.jkdata));
-        } catch (e) {
-            unRegisterTask(id);
-        }
-        putMyVar("banneri" + id, i);
-    }, obj, toerji, id));
 }
 
 function bfs(urls, maxRetry) {
