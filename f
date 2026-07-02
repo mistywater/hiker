@@ -1,6 +1,42 @@
 js://2026070204
 // -*- mode: js -*-
+function proxyPic(url, mode) {
+            const picProxyMap = {
+                1: 'https://images.weserv.nl/?url=',
+                2: 'https://wdkj.eu.org/',
+                3: 'https://seep.eu.org/',
+                4: 'http://proxypic.cc.cd/',
+                5: 'https://i0.wp.com/',
+                6: 'https://i2.wp.com/',
+                default: 'https://i1.wp.com/'
+            };
+            const domainMap = {
+                'googleusercontent': 2,
+                'blogspot': 1,
+                'mrcong': 'default',
+                'misskon': 'default',
+                'meitu': 2,
+                'jrants': 2,
+                'hotnakedwomen': 2,
+                'thismore': 2,
+                'imgur': 2
+            };
+            if (mode == 9) return decodeURIComponent(url).replace(picProxyMap[2], '');
+            for (let k in picProxyMap) {
+                if (url.startsWith(picProxyMap[k])) {
+                    url = urla(url.slice(picProxyMap[k].length), 'https:/');
+                };
+            }
+            if (mode == 8) {
+                let domain = url.match(/https?:\/\/([^\/]+)/)[1].split('.').at(-2);
+                if (!domainMap[domain]) mode = 'default';
+                else mode = domainMap[domain];
+            }
 
+            let prefix = picProxyMap[mode] || picProxyMap['default'];
+            let finalUrl = (prefix === picProxyMap['default']) ? url.replace(/https?:\/\//, '') : url;
+            return prefix + finalUrl;
+        }
 function banner(start, arr, data, cfg) {
     if (!data || data.length == 0) return;
     let dataArray = Array.isArray(data[0]) ? data : [data];
@@ -167,41 +203,6 @@ downloadlazy = getMyVar('temp_downloadlazy', '');
     return extra;
 }
 
-function proxyPic(url, mode) {
-    const picProxyMap = {
-        1: 'https://images.weserv.nl/?url=',
-        2: 'https://wdkj.eu.org/',
-        3: 'https://seep.eu.org/',
-        4: 'http://proxypic.cc.cd/',
-        5: 'https://i0.wp.com/',
-        default: 'https://i1.wp.com/'
-    };
-    const domainMap = {
-        'googleusercontent': 2,
-        'blogspot': 1,
-        'mrcong': 'default',
-        'misskon': 'default',
-        'meitu': 2,
-        'jrants': 2,
-        'hotnakedwomen': 2,
-        'thismore':  'default',
-    };
-    if (mode == 9) return decodeURIComponent(url).replace(picProxyMap[2], '');
-    for (let k in picProxyMap) {
-        if (url.startsWith(picProxyMap[k])) {
-            url = urla(url.slice(picProxyMap[k].length), 'https:/');
-        };
-    }
-    if (mode == 8) {
-        let domain = url.match(/https?:\/\/([^\/]+)/)[1].split('.').at(-2);
-        if (!domainMap[domain]) mode = 'default';
-        else mode = domainMap[domain];
-    }
-
-    let prefix = picProxyMap[mode] || picProxyMap['default'];
-    let finalUrl = (prefix === picProxyMap['default']) ? url.replace(/https?:\/\//, '') : url;
-    return prefix + finalUrl;
-}
 function getHtml(url, headers, mode, proxy, textError) {
     const proxyPrefixMap = {
         1: 'https://seep.eu.org/', 
