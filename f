@@ -1,4 +1,4 @@
-js://2026070511
+js://2026070515
 // -*- mode: js -*-
 function searchYandex(d, host, str, code,name) {
     if (typeof(str) == 'object') {
@@ -37,7 +37,7 @@ function searchYandex(d, host, str, code,name) {
                                     js = js + 'var parse={host: "' + host + '",';
                                     js = js + '解析:function(){' + code.match(/(rc\(\(rc\([\s\S]*?)    \},/)[1] + '}};';
                                     js = js + code.replace('return setResult(dTemp.concat(d))', 'setResult(dTemp.concat(d))').match(/addListener[\s\S]*setResult\((dTemp\.concat\(d\))\);/)[0];
-                                        fba.log(js);
+                                        //fba.log(js);
                                     fba.open(JSON.stringify({
                                         title: '搜索',
                                         url: url,
