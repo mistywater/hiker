@@ -1,6 +1,6 @@
 js://2026070511
 // -*- mode: js -*-
-function searchYandex(d, host, str, code) {
+function searchYandex(d, host, str, code,name) {
     if (typeof(str) == 'object') {
         str = str.toString();
         str = str.substring(1, str.length - 1);
@@ -33,10 +33,11 @@ function searchYandex(d, host, str, code) {
                                     js = js + 'host="' + host + '";';
                                     js = js + 'MY_URL="' + url + '";';
                                     js = js + '_c="";';
+                                    if(/lazyList =/.test(code)) js = js + code.match(/lazyList =[\s\S]*?\}, host\);/)[0];
                                     js = js + 'var parse={host: "' + host + '",';
                                     js = js + '解析:function(){' + code.match(/(rc\(\(rc\([\s\S]*?)    \},/)[1] + '}};';
-                                    js = js + code.replace('return setResult(dTemp.concat(d))', 'setResult(dTemp.concat(d))').match(/addListener[\s\S]*setResult\((d|dTemp\.concat\(d\))\);/)[0];
-                                    //     fba.log(js);
+                                    js = js + code.replace('return setResult(dTemp.concat(d))', 'setResult(dTemp.concat(d))').match(/addListener[\s\S]*setResult\((dTemp\.concat\(d\))\);/)[0];
+                                        fba.log(js);
                                     fba.open(JSON.stringify({
                                         title: '搜索',
                                         url: url,
@@ -50,7 +51,7 @@ function searchYandex(d, host, str, code) {
                 setResult(d);
             }, host, str, code);
         }, host, str, code),
-        desc: 'yandex站内搜索...',
+        desc:name+ '|yandex站内搜索...',
         col_type: 'input',
         extra: {
             defaultValue: getVar('keyword', ''),
