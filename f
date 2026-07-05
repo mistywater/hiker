@@ -51,7 +51,7 @@ function searchYandex(d, host, str, code,name) {
                 setResult(d);
             }, host, str, code);
         }, host, str, code),
-        desc:name+ '|yandex站内搜索...',
+        desc:name,
         col_type: 'input',
         extra: {
             defaultValue: getVar('keyword', ''),
