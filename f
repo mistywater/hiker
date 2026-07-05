@@ -1,5 +1,63 @@
-js://2026070204
+js://2026070511
 // -*- mode: js -*-
+function searchYandex(d, host, str, code) {
+    if (typeof(str) == 'object') {
+        str = str.toString();
+        str = str.substring(1, str.length - 1);
+    } else if (typeof(str) == 'string' && str.startsWith('/')) {
+        str = str.substring(1, str.length - 1);
+    }
+    d.push({
+        title: '🔍',
+        url: $.toString((host, str, code) => {
+            putVar('keyword', input);
+            log('https://tv.yandex.com/search?text=' + getVar('keyword', '').trim() + '+site:' + host.replace(/https?:\/\//, '') + '&lr=87&p=0');
+            return $('hiker://empty').rule((host, str, code) => {
+                var d = [];
+                d.push({
+                    url: 'https://tv.yandex.com/search?text=' + getVar('keyword', '').trim() + '+site:' + host.replace(/https?:\/\//, '') + '&lr=87&p=0',
+                    col_type: 'x5_webview_single',
+                    desc: 'list&&screen',
+                    extra: {
+                        ua: MOBILE_UA,
+                        showProgress: false,
+                        canBack: true,
+                        jsLoadingInject: true,
+                        urlInterceptor: $.toString((host, str, code) => {
+                            let regex = new RegExp(str);
+                            if (input.match(regex)) {
+                                return $.toString((host, url, code) => {
+                                    url = 'hiker://empty##' + url;
+                                    fba.log(url);
+                                    var js = 'js:';
+                                    js = js + 'host="' + host + '";';
+                                    js = js + 'MY_URL="' + url + '";';
+                                    js = js + '_c="";';
+                                    js = js + 'var parse={host: "' + host + '",';
+                                    js = js + '解析:function(){' + code.match(/(rc\(\(rc\([\s\S]*?)    \},/)[1] + '}};';
+                                    js = js + code.replace('return setResult(dTemp.concat(d))', 'setResult(dTemp.concat(d))').match(/addListener[\s\S]*setResult\((d|dTemp\.concat\(d\))\);/)[0];
+                                    //     fba.log(js);
+                                    fba.open(JSON.stringify({
+                                        title: '搜索',
+                                        url: url,
+                                        findRule: js,
+                                    }));
+                                }, host, input, code)
+                            }
+                        }, host, str, code),
+                    }
+                });
+                setResult(d);
+            }, host, str, code);
+        }, host, str, code),
+        desc: 'yandex站内搜索...',
+        col_type: 'input',
+        extra: {
+            defaultValue: getVar('keyword', ''),
+        }
+    });
+    return d;
+}
 function proxyPic(url, mode) {
             const picProxyMap = {
                 1: 'https://images.weserv.nl/?url=',
