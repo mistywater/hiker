@@ -1,4 +1,4 @@
-js://2026070515
+js://2026070709
 // -*- mode: js -*-
 function searchYandex(d, host, str, code,name) {
     if (typeof(str) == 'object') {
@@ -320,15 +320,33 @@ function getHtml(url, headers, mode, proxy, textError) {
     if (!htmlT || hasError(htmlT)) {
         if (proxy == 2) htmlT = fetchByFirecrawl(cleanUrl);
         else if (proxy && proxyPrefixMap[proxy]) {
-            let actualProxy = (headers && proxy != 2) ? 4 : proxy;
+           let actualProxy =  proxy;
+ //let actualProxy = (headers && proxy != 2) ? 4 : proxy;
             let prefix = proxyPrefixMap[actualProxy];
             let urlTrue = prefix +  cleanUrl;
+			if(actualProxy=='3') urlTrue=urlTrue.replace('?','%3f');
             htmlT=fetch(urlTrue,headers||{});
             if (!htmlT || hasError(htmlT)) htmlT = fetchByFirecrawl(cleanUrl);
         } else htmlT = doRequest(cleanUrl, headers || {});
     }
     if (htmlT && !hasError(htmlT)) writeFile(_cachePath, htmlT);
     return htmlT;
+}
+function pdfhx(html, rule) {
+    try {
+        return pdfh(html, rule);
+    } catch (e) {
+        toast('解析失败');
+        return '';
+    }
+}
+function pdfax(html, rule) {
+    try {
+        return pdfa(html, rule);
+    } catch (e) {
+        toast('解析失败');
+        return [];
+    }
 }
 function pdfhx(html, rule) {
     try {
