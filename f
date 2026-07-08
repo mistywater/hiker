@@ -1,5 +1,20 @@
 js://2026070804
 // -*- mode: js -*-
+function proxyM3u8(url, proxy) {
+            rc((rc('https://gitee.com/mistywater/hiker_info/raw/master/ghproxy.js'), gfd()) + 'https://raw.githubusercontent.com/mistywater/hiker/main/f', 24);
+            proxy = proxy || 'https://wdkj.eu.org/';
+            let pathCacheTmp = 'hiker://files/_cache/video.m3u8';
+            let domain = url.match(/(https:\/\/.*?)\//)[1]
+            let html = getHtml(url, '', '', 1);
+            if (html && html.includes('.m3u8')) {
+                url = html.match(/.*?\.m3u8/g).at(-1);
+                url = urla(url, domain);
+            }
+            let strM3u8 = getHtml(url, '', '', 1);
+            strM3u8 = strM3u8.replace(/(\/.*?\.(ts|m4s|aac|mp4a|fmp4|mp4))/g, proxy + domain + '$1');
+            writeFile(pathCacheTmp, strM3u8);
+            return getPath(pathCacheTmp);
+        }
 function searchYandex(d, host, str, code,name) {
     if (typeof(str) == 'object') {
         str = str.toString();
