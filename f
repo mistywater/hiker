@@ -633,35 +633,39 @@ function CodeA(url, str, checkStr, headers, host) {
     return html;
 }
 
-function getLogo(text, isSave) {
+function getLogo(text, isSave, textColor, bgColor, noCircle) {
     text = String(text);
+    textColor = textColor ? textColor : '#000000';
+    bgColor = bgColor == -1 ? 'none' : (bgColor || grc(2));
     let len = text.length;
     let size = 800;
     let fontSize = Math.max(100, 600 - (len - 1) * 120);
     let strokeWidth = 20;
 
-    let mainColor = 'ffffff'; //grc(2);
-    let bgcolor = grc(2);
-    let svg = `<svg width="${size}" height="${size}" xmlns="http://www.w3.org/2000/svg">  
-        <circle cx="${size/2}" cy="${size/2}" r="${size/2 - strokeWidth}" 
-                fill="${bgcolor}" 
-                stroke="${mainColor}" 
-                stroke-width="${strokeWidth}"/>
+    let circle = '';
+    if (!noCircle) {
+        circle = `<circle cx="${size/2}" cy="${size/2}" r="${size/2 - strokeWidth}" 
+                         fill="${bgColor}" stroke="${textColor}" stroke-width="${strokeWidth}"/>`;
+    }
+
+    let svg = `<svg width="${size}" height="${size}" xmlns="http://www.w3.org/2000/svg">
+        ${circle}
         <text x="${size/2}" y="${size/2 + fontSize * 0.35}" 
-              font-family="Arial" text-anchor="middle" 
+              font-family="Arial, sans-serif" text-anchor="middle" 
               font-size="${fontSize}" font-weight="bold"
-              fill="${mainColor}">
+              fill="${textColor}">
             ${text}
         </text>
     </svg>`;
-    if (isSave) {
-        let fileName = 'logo_' + text.replace(/[\\/:*?"<>|]/g, '') + '.svg';
 
+    if (isSave) {
+        let safeText = text.replace(/[\\/:*?"<>|]/g, '_').replace(/\s+/g, '_');
+        let fileName = 'logo_' + safeText + '.svg';
         if (isSave === 2) {
             let url = 'hiker://files/rules/juyue/logo/' + fileName;
             if (!fileExist(url)) {
                 writeFile(url, svg);
-                log(url);
+                log('Logo 已生成: ' + url);
             }
             return url;
         } else {
@@ -670,9 +674,9 @@ function getLogo(text, isSave) {
             return path;
         }
     }
-    return 'data:image/svg+xml;base64,' + base64Encode(svg);
+    let base64 = base64Encode(svg);
+    return 'data:image/svg+xml;base64,' + base64;
 }
-
 function highlight(str, keyword,t) {
     return str.replace(new RegExp(keyword, 'gi'), m =>(!t?colorR(m, 'FF0000'):color(m, 'FF0000')));
 }
