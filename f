@@ -1,5 +1,25 @@
 js://2026070804
 // -*- mode: js -*-
+function hydrateNuxtData(rawArray) {
+    const cache = new Map();
+    function hydrate(indexOrValue) {
+        if (typeof indexOrValue === 'number') {
+            if (cache.has(indexOrValue)) return cache.get(indexOrValue);
+            const target = rawArray[indexOrValue];
+            if (target === null || typeof target !== 'object') return target;
+            const result = Array.isArray(target) ? [] : {};
+            cache.set(indexOrValue, result);
+            if (Array.isArray(target)) {
+                for (let i = 0; i < target.length; i++) result[i] = hydrate(target[i]);
+            } else {
+                for (let key in target) result[key] = hydrate(target[key]);
+            }
+            return result;
+        }
+        return indexOrValue;
+    }
+    return hydrate(1);
+}
 function proxyM3u8(url, proxy) {
     rc((rc('https://gitee.com/mistywater/hiker_info/raw/master/ghproxy.js'), gfd()) + 'https://raw.githubusercontent.com/mistywater/hiker/main/f', 24);
     proxy = proxy || 'https://wdkj.eu.org/'; 
