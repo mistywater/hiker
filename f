@@ -1,20 +1,28 @@
 js://2026070804
 // -*- mode: js -*-
 function proxyM3u8(url, proxy) {
-            rc((rc('https://gitee.com/mistywater/hiker_info/raw/master/ghproxy.js'), gfd()) + 'https://raw.githubusercontent.com/mistywater/hiker/main/f', 24);
-            proxy = proxy || 'https://wdkj.eu.org/';
-            let pathCacheTmp = 'hiker://files/_cache/video.m3u8';
-            let domain = url.match(/(https:\/\/.*?)\//)[1]
-            let html = getHtml(url, '', '', 1);
-            if (html && html.includes('.m3u8')) {
-                url = html.match(/.*?\.m3u8/g).at(-1);
-                url = urla(url, domain);
-            }
-            let strM3u8 = getHtml(url, '', '', 1);
-            strM3u8 = strM3u8.replace(/(\/.*?\.(ts|m4s|aac|mp4a|fmp4|mp4))/g, proxy + domain + '$1');
-            writeFile(pathCacheTmp, strM3u8);
-            return getPath(pathCacheTmp);
-        }
+    rc((rc('https://gitee.com/mistywater/hiker_info/raw/master/ghproxy.js'), gfd()) + 'https://raw.githubusercontent.com/mistywater/hiker/main/f', 24);
+    proxy = proxy || 'https://wdkj.eu.org/'; 
+    let pathCacheTmp = 'hiker://files/_cache/video_' + Date.now() + '_' + Math.floor(Math.random() * 10000) + '.m3u8';
+    let domain = url.match(/(https?:\/\/[^\/]+)\//)[1];
+    let html = getHtml(url, '', '', 1);
+    if (html && html.includes('.m3u8')) {
+        url = html.match(/.*?\.m3u8/g).at(-1);
+        url = urla(url, domain);
+        domain = url.match(/(https?:\/\/[^\/]+)\//)[1];
+    }
+    let baseUrl = url.substring(0, url.lastIndexOf("/") + 1);
+    let strM3u8 = getHtml(url, '', '', 1);
+    strM3u8 = strM3u8.split('\n').map(line => {
+        let t = line.trim();
+        if (!t || t.startsWith('#')) return line;
+        if (t.startsWith('http')) return proxy + t;
+        if (t.startsWith('/')) return proxy + domain + t;
+        return proxy + baseUrl + t;
+    }).join('\n');
+    writeFile(pathCacheTmp, strM3u8);
+    return getPath(pathCacheTmp);
+}
 function searchYandex(d, host, str, code,name) {
     if (typeof(str) == 'object') {
         str = str.toString();
