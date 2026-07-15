@@ -110,6 +110,7 @@ function proxyPic(url, mode) {
                 4: 'http://proxypic.cc.cd/',
                 5: 'https://i0.wp.com/',
                 6: 'https://i2.wp.com/',
+                7: 'https://wsrv.nl/?url=',
                 default: 'https://i1.wp.com/'
             };
             const domainMap = {
