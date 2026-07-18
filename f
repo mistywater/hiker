@@ -376,20 +376,12 @@ function getHtml(url, headers, mode, proxy, textError) {
     if (htmlT && !hasError(htmlT)) writeFile(_cachePath, htmlT);
     return htmlT;
 }
-function pdfhx(html, rule) {
+function pdx(html, rule,host) {
     try {
-        return pdfh(html, rule);
+        return pdfh(html, rule,host);
     } catch (e) {
         toast('解析失败');
         return '';
-    }
-}
-function pdfax(html, rule) {
-    try {
-        return pdfa(html, rule);
-    } catch (e) {
-        toast('解析失败');
-        return [];
     }
 }
 function pdfhx(html, rule) {
