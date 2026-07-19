@@ -74,7 +74,7 @@ function textLines(text) {
         if ((+index + 1) < arrNew.length && arrNew[+index + 1].match(/^[，。！？、：；…]/)) arrFina[index] = h.replace(/<br>.*/, '');
         else arrFina[index] = h.replace(/<br>/g, '<br>　　');
     });
-    text = arrFina.join('').replace(/<br>　　“”$/);
+    text = arrFina.join('').replace(/<br>　　“”$/,'');
     return text;
 }
 function hydrateNuxtData(rawArray) {
