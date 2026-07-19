@@ -1,5 +1,82 @@
 js://2026070804
 // -*- mode: js -*-
+function textLines(text) {
+    text = text.replace(/[“”「」『』]/g, '"');
+    let hasOver200 = true;
+    while (hasOver200) {
+        let arr1 = text.split('"');
+        hasOver200 = false;
+        let textTmp = '';
+        let found = false;
+        for (let k = 0; k < arr1.length; k++) {
+            if (k % 2 == 0) {
+                textTmp += arr1[k];
+            } else {
+                if (arr1[k].length > 200 && !found) {
+                    textTmp += arr1[k] + '"';
+                    found = true;
+                    hasOver200 = true;
+                } else textTmp += '"' + arr1[k] + '"';
+            }
+        }
+        text = textTmp;
+    }
+    text = text.replace(/"([^"]*?)"/g, '“$1”')
+        .replace(/"/g, '')
+        .replace(/,/g, '，')
+        .replace(/!/g, '！')
+        .replace(/\(/g, '（')
+        .replace(/\)/g, '）')
+        .replace(/[．。·]{3,6}/g, '……')
+        .replace(/．/g, '。')
+        .replace(/“([^”]*?)“/g, '$1“')
+        .replace(/([＊*★☆◇◆●○■□▲△\-=_~])\s+(?=\1)/g, '$1');
+    let arrNew = [];
+    let line = text.match(/|　　|\n\r|\n/g);
+    if (line && line.length >= 5) {
+        text.split(/|　　|\n\r|\n/).forEach((it) => {
+            arrNew.push(it + '<br>');
+        });
+    } else {
+        let arrTmp = [];
+        let parts = text.split(/(（.*?）)/);
+        parts.forEach((it) => {
+            if (it.startsWith('（')) arrTmp.push(it);
+            else if (it) it.match(/[^。！？”]*“.*?”|.*?[。！？…]+[”]?|[^。！？”]+/g).forEach((item) => {
+                arrTmp.push(item);
+            });
+        });
+        arrTmp.forEach((it) => {
+            if (/（/.test(it)) {
+                arrNew.push(it + '<br>');
+            } else if (/“/.test(it) && it.length <= 200) {
+                let textYin = it.match(/“(.*?)”/);
+                arrNew.push(textYin && textYin[1].length <= 10 ? it : it + '<br>');
+            } else if (/“/.test(it) && it.length > 200) {
+                arrNew.push(it.replace(/([。！？]+)/g, '$1<br>'));
+            } else {
+                let arrTmp = it.match(/.*?[。！？…]+[”]?/g);
+                arrTmp && arrTmp.map(h => arrNew.push(h + '<br>'));
+            }
+        });
+    }
+    arrNew = arrNew.map(h => {
+        if (h.length > 15 && /^[第（(【\[]/.test(h)) {
+            h = h.replace(/(第[\d一二三四五六七八九十百千]{1,6}[章节卷集部回][^\n。！？]{0,10}?)\s+/, '$1<br>');
+            h = h.replace(/([（(【\[]?\s*[\d一二三四五六七八九十]+\s*[)）】\]][^\n。！？]{0,10}?)\s+/, '$1<br>');
+            h = h.replace(/(第[\d一二三四五六七八九十百千]{1,6}[章节卷集部回])(?=[\u4e00-\u9fa5])/, '$1<br>');
+            h = h.replace(/^([（(]\s*[\d一二三四五六七八九十]+\s*[）)])(?=[\u4e00-\u9fa5])/, '$1<br>');
+        }
+        return h.trim();
+    }).filter(x => x);
+    let arrFina = [];
+    arrNew.forEach((h, index) => {
+        if ((+index + 1) < arrNew.length && arrNew[+index + 1].match(/^[，。！？、：；…]/)) arrFina[index] = h.replace(/<br>.*/, '');
+        else arrFina[index] = h.replace(/<br>/g, '<br>　　');
+    });
+    text = arrFina.join('').replace(/<br>　　“”$/);
+    return text;
+}
 function hydrateNuxtData(rawArray) {
     const cache = new Map();
     function hydrate(indexOrValue) {
