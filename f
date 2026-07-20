@@ -1,6 +1,16 @@
 js://2026070804
 // -*- mode: js -*-
 function textLines(text) {
+    text=text.replace(/&nbsp;/g,' ').replace(/  /g,'　　 ')
+    let arrNew = [];
+    let line = text.match(/|　　|\n\r|\n|<\/?\s*br\s*\/?>/g);
+    if (line && line.length >= 5) {
+        text.split(/|　　|\n\r|\n|<\/?\s*br\s*\/?>/).flatMap(h => h.trim() || []).forEach((it) => {
+            if(it.length>=32&&!/[。？！…]$/.test(it)) arrNew.push(it);
+            else arrNew.push(it + '<br>');
+        });
+    } else {
+
     text = text.replace(/[“”「」『』]/g, '"');
     let hasOver200 = true;
     while (hasOver200) {
@@ -31,13 +41,6 @@ function textLines(text) {
         .replace(/．/g, '。')
         .replace(/“([^”]*?)“/g, '$1“')
         .replace(/([＊*★☆◇◆●○■□▲△\-=_~])\s+(?=\1)/g, '$1');
-    let arrNew = [];
-    let line = text.match(/|　　|\n\r|\n/g);
-    if (line && line.length >= 5) {
-        text.split(/|　　|\n\r|\n/).forEach((it) => {
-            arrNew.push(it + '<br>');
-        });
-    } else {
         let arrTmp = [];
         let parts = text.split(/(（.*?）)/);
         parts.forEach((it) => {
@@ -67,8 +70,8 @@ function textLines(text) {
             h = h.replace(/(第[\d一二三四五六七八九十百千]{1,6}[章节卷集部回])(?=[\u4e00-\u9fa5])/, '$1<br>');
             h = h.replace(/^([（(]\s*[\d一二三四五六七八九十]+\s*[）)])(?=[\u4e00-\u9fa5])/, '$1<br>');
         }
-        return h.trim();
-    }).filter(x => x);
+        return h;
+    });
     let arrFina = [];
     arrNew.forEach((h, index) => {
         if ((+index + 1) < arrNew.length && arrNew[+index + 1].match(/^[，。！？、：；…]/)) arrFina[index] = h.replace(/<br>.*/, '');
