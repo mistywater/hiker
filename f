@@ -4263,49 +4263,57 @@ function de(key, iv, data, mode, encoding) {
     const JString = java.lang.String;
     const JArray = java.lang.reflect.Array;
     const JByte = java.lang.Byte;
+
+    function hexToBytes(hex) {
+        var hexStr = new JString(hex).replaceAll("\\s+", "");
+        var len = hexStr.length();
+        if (len % 2 !== 0) throw new Error("Hex length must be even");
+        var bytes = JArray.newInstance(JByte.TYPE, len / 2);
+        try {
+            bytes = java.util.HexFormat.of().parseHex(hexStr);
+        } catch (e) {
+            var pos = 0,
+                idx = 0;
+            while (pos + 8 <= len) {
+                var val = java.lang.Long.parseLong(hexStr.substring(pos, pos + 8), 16);
+                bytes[idx] = ((val >>> 24) << 24) >> 24;
+                bytes[idx + 1] = (((val >>> 16) & 0xff) << 24) >> 24;
+                bytes[idx + 2] = (((val >>> 8) & 0xff) << 24) >> 24;
+                bytes[idx + 3] = ((val & 0xff) << 24) >> 24;
+                pos += 8;
+                idx += 4;
+            }
+            if (pos < len) {
+                var val = java.lang.Integer.parseInt(hexStr.substring(pos), 16);
+                var remaining = (len - pos) / 2;
+                for (var i = remaining - 1; i >= 0; i--) {
+                    bytes[idx + i] = ((val & 0xff) << 24) >> 24;
+                    val >>>= 8;
+                }
+            }
+        }
+        return bytes;
+    }
     try {
         mode = mode || 'AES/CBC/PKCS7Padding';
         encoding = encoding || 'Base64';
         let algorithm = mode.split("/")[0];
         let modeName = mode.split("/")[1];
         let encryptedBytes;
-        if (encoding === 'Hex') {
-            let hex = new JString(data).replaceAll("\\s+", "");
-            let len = hex.length() / 2;
-            try {
-                encryptedBytes = java.util.HexFormat.of().parseHex(hex);
-            } catch (e) {
-                encryptedBytes = JArray.newInstance(JByte.TYPE, len);
-                let pos = 0,
-                    idx = 0;
-                while (pos + 8 <= hex.length()) {
-                    let val = java.lang.Long.parseLong(hex.substring(pos, pos + 8), 16);
-                    encryptedBytes[idx] = ((val >>> 24) << 24) >> 24;
-                    encryptedBytes[idx + 1] = (((val >>> 16) & 0xff) << 24) >> 24;
-                    encryptedBytes[idx + 2] = (((val >>> 8) & 0xff) << 24) >> 24;
-                    encryptedBytes[idx + 3] = ((val & 0xff) << 24) >> 24;
-                    pos += 8;
-                    idx += 4;
-                }
-                if (pos < hex.length()) {
-                    let val = java.lang.Integer.parseInt(hex.substring(pos), 16);
-                    let remaining = (hex.length() - pos) / 2;
-                    for (let i = remaining - 1; i >= 0; i--) {
-                        encryptedBytes[idx + i] = ((val & 0xff) << 24) >> 24;
-                        val >>>= 8;
-                    }
-                }
-            }
-        } else if (encoding === 'Base64') encryptedBytes = Base64.decode(data, Base64.NO_WRAP);
+        if (encoding == 'Hex') encryptedBytes = hexToBytes(data);
+        else if (encoding == 'Base64') encryptedBytes = Base64.decode(data, Base64.NO_WRAP);
         else encryptedBytes = String(data).getBytes("UTF-8");
-        let keyBytes = new JString(key).getBytes("UTF-8");
+
+        if (encoding == 'Hex' && /^[0-9a-fA-F]+$/.test(key)) var keyBytes = hexToBytes(key);
+        else keyBytes = new JString(key).getBytes("UTF-8");
         let secretKeySpec = new SecretKeySpec(keyBytes, algorithm);
         let cipher = Cipher.getInstance(mode);
-        if (modeName === 'ECB') cipher.init(2, secretKeySpec);
+        if (modeName == 'ECB') cipher.init(Cipher.DECRYPT_MODE, secretKeySpec);
         else {
-            let ivBytes = new JString(iv || key).getBytes("UTF-8");
+            if (encoding == 'Hex') var ivBytes = hexToBytes(iv);
+            else ivBytes = new JString(iv || key).getBytes("UTF-8");
             let ivParameterSpec = new IvParameterSpec(ivBytes);
-            cipher.init(2, secretKeySpec, ivParameterSpec);
+            cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, ivParameterSpec);
         }
         let resultBytes = cipher.doFinal(encryptedBytes);
         return String(new JString(resultBytes, "UTF-8"));
