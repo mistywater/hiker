@@ -1,5 +1,31 @@
 js://2026070804
 // -*- mode: js -*-
+function getScreenInfo() {
+    const Configuration = android.content.res.Configuration;
+    const context = getCurrentActivity();
+    let theme = context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+    let isDarkMode = theme == Configuration.UI_MODE_NIGHT_YES;
+    try {
+        let displayMetrics = context.getResources().getDisplayMetrics();
+        let width = displayMetrics.widthPixels;
+        let height = displayMetrics.heightPixels;
+        let aspectRatio = (width / height).toFixed(3);
+        return {
+            width: width,
+            height: height,
+            density: displayMetrics.density,
+            dpi: displayMetrics.densityDpi,
+            aspectRatio: aspectRatio,
+            isDarkMode: isDarkMode
+        };
+    } catch (e) {
+        log("获取屏幕分辨率失败: " + e);
+        return {
+            isDarkMode: isDarkMode
+        };
+    }
+}
+var gsi=getScreenInfo;
 function tagsToCN(tags) {
                 rc((rc('https://gitee.com/mistywater/hiker_info/raw/master/ghproxy.js'), gfd()) + 'https://raw.githubusercontent.com/mistywater/hiker/main/f', 24);
                 let mapTagsToCN = {
