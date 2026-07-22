@@ -1,5 +1,76 @@
 js://2026070804
 // -*- mode: js -*-
+function tagsToCN(tags) {
+                rc((rc('https://gitee.com/mistywater/hiker_info/raw/master/ghproxy.js'), gfd()) + 'https://raw.githubusercontent.com/mistywater/hiker/main/f', 24);
+                let mapTagsToCN = {
+                    "nishida_satono": "尔子田里乃",
+                    "stars": "星",
+                    "cherry_blossom": "樱花",
+                    "tie": "领带",
+                    "twin_tails": "双马尾",
+                    "figurine": "手办",
+                    "garter": "袜带",
+                    "neverness_to_everness": "异环",
+                    "lacrimosa": "安魂曲",
+                    "cantarella": "坎特蕾拉",
+                    "yorigami_joon": "依神女苑",
+                    "traditional_clothing": "传统服饰",
+                    "feather": "羽毛",
+                    "zibai": "兹白",
+                    "dehya": "迪希雅",
+                    "lauma": "菈乌玛",
+                    "main_character": "主角",
+                    "valko": "敖尹",
+                    "junko": "纯狐",
+                    "shaw": "阿消",
+                    "frieren:_beyond_journey’s_end": "葬送的芙莉莲",
+                    "hair_band": "发箍‌",
+                    "RWBY": "红白黑黄",
+                    "harei": "花礼",
+                    "silver_palace": "白银之城",
+                    "ohgi_kaname": "扇要",
+"rivalz_cardemonde": "利瓦尔·卡德蒙德",
+"clarice_garfield": "克拉丽丝·加菲尔德",
+"maya_disel": "玛雅·迪塞尔",
+"hyuuga_akito": "日向阿基德‌",
+"bunny_suit": "兔女郎",
+"seraphic_charm": "纯洁之魅",
+"nina_einstein": "妮娜·爱因斯坦",
+"carly_disel": "卡莉·迪塞尔",
+"seifuku": "制服",
+"matthew": "马修",
+"the_kept_man_of_the_princess_knight": "姫騎士様のヒモ",
+"arwin_mabel_primrose_mactarode": "Arwin Mactarode",
+"shiina_mahiru": "椎名真昼",
+"tendou_kei": "天童柯伊",
+"aemeath": "爱弥斯",
+"goryou_nagusa": "御稜名草",
+"side_tail": "侧马尾",
+"bike": "自行车",
+"gramophone": "留声机",
+"telephone": "电话",
+"music_player": "音乐播放器",
+"teddy": "泰迪熊",
+"bells": "铃",
+"sports": "运动",
+"musical_instrument": "乐器",
+"bat": "蝙蝠",
+
+                };
+                tags = tags.map(h => h.replace(/ /g, '_').toLowerCase());
+                let html = getHtml('https://konachan-next.wjcodes.com/api/tags', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(tags)
+                });
+                if (html.startsWith('[')) {
+                    let tagsCN = JSON.parse(html);
+                    tagsCN = tagsCN.map((h, index) => h[2] || mapTagsToCN[tags[index]] || h[0]);log(tagsCN);
+                    return tagsCN;
+                } else return html;
+            }
 function textLines(text) {
     text=text.replace(/&nbsp;/g,' ').replace(/  /g,'　　 ')
     let arrNew = [];
