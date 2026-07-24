@@ -280,43 +280,56 @@ function searchYandex(d, host, str, code,name) {
     return d;
 }
 function proxyPic(url, mode) {
-            const picProxyMap = {
-                1: 'https://images.weserv.nl/?url=',
-                2: 'https://wdkj.eu.org/',
-                3: 'https://seep.eu.org/',
-                4: 'http://proxypic.cc.cd/',
-                5: 'https://i0.wp.com/',
-                6: 'https://i2.wp.com/',
-                7: 'https://wsrv.nl/?url=',
-                default: 'https://i1.wp.com/'
-            };
-            const domainMap = {
-                'googleusercontent': 2,
-                'blogspot': 1,
-                'mrcong': 'default',
-                'misskon': 'default',
-                'meitu': 2,
-                'jrants': 2,
-                'hotnakedwomen': 2,
-                'thismore': 2,
-                'imgur': 2
-            };
-            if (mode == 9) return decodeURIComponent(url).replace(picProxyMap[2], '');
-            for (let k in picProxyMap) {
-                if (url.startsWith(picProxyMap[k])) {
-                    url = urla(url.slice(picProxyMap[k].length), 'https:/');
-                };
-            }
-            if (mode == 8) {
-                let domain = url.match(/https?:\/\/([^\/]+)/)[1].split('.').at(-2);
-                if (!domainMap[domain]) mode = 'default';
-                else mode = domainMap[domain];
-            }
-
-            let prefix = picProxyMap[mode] || picProxyMap['default'];
-            let finalUrl = (prefix === picProxyMap['default']) ? url.replace(/https?:\/\//, '') : url;
-            return prefix + finalUrl;
-        }
+    const picProxyMap = {
+        0: '',
+        1: 'https://images.weserv.nl/?url=',
+        2: 'https://wdkj.eu.org/',
+        3: 'https://seep.eu.org/',
+        4: 'http://proxypic.cc.cd/',
+        5: 'https://i0.wp.com/',
+        6: 'https://i2.wp.com/',
+        7: 'https://wsrv.nl/?url=',
+        default: 'https://i1.wp.com/'
+    };
+    const domainMap = {
+        'googleusercontent': 2,
+        'blogspot': 1,
+        'mrcong': 'default',
+        'misskon': 'default',
+        'meitu': 2,
+        'jrants': 2,
+        'hotnakedwomen': 2,
+        'thismore': 2,
+        'imgur': 2,
+        'telegra': 3,
+        'bdstatic': 0,
+        'baidu':0,
+        'bcebos': 0,
+        'sinaimg': 0,
+        'gtimg': 0
+    };
+    let prefix;
+    if (mode == 9) return decodeURIComponent(url).replace(picProxyMap[2], '');
+    for (let k in picProxyMap) {
+        if (url.startsWith(picProxyMap[k])) {
+            url = urla(url.slice(picProxyMap[k].length), 'https:/');
+        };
+    }
+    if (mode == 8) {
+        let domain = url.match(/https?:\/\/([^\/]+)/)[1].split('.').at(-2);
+        if (!domainMap[domain] && domainMap[domain] != 0) mode = 'default';
+        else mode = domainMap[domain];
+        prefix = picProxyMap[mode] || picProxyMap['default'];
+    }
+    if (mode == 0) {
+        let domain = url.match(/https?:\/\/([^\/]+)/)[1].split('.').at(-2);
+        if (!domainMap[domain]) mode = '0';
+        else mode = domainMap[domain];
+        prefix = picProxyMap[mode];
+    }
+    let finalUrl = (prefix === picProxyMap['default']) ? url.replace(/https?:\/\//, '') : url;
+    return prefix + finalUrl;
+}
 function banner(start, arr, data, cfg) {
     if (!data || data.length == 0) return;
     let dataArray = Array.isArray(data[0]) ? data : [data];
