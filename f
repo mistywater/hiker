@@ -320,11 +320,13 @@ function proxyPic(url, mode) {
         if (!domainMap[domain] && domainMap[domain] != 0) mode = 'default';
         else mode = domainMap[domain];
         prefix = picProxyMap[mode] || picProxyMap['default'];
-    }
-    if (mode == 0) {
+    }else  if (mode == 0) {
         let domain = url.match(/https?:\/\/([^\/]+)/)[1].split('.').at(-2);
         if (!domainMap[domain]) mode = '0';
         else mode = domainMap[domain];
+        prefix = picProxyMap[mode];
+    }else{
+        mode = mode||'default';
         prefix = picProxyMap[mode];
     }
     let finalUrl = (prefix === picProxyMap['default']) ? url.replace(/https?:\/\//, '') : url;
