@@ -557,7 +557,6 @@ function pdx(html, rule,host) {
     try {
         return pdfh(html, rule,host);
     } catch (e) {
-        toast('解析失败');
         return '';
     }
 }
@@ -565,7 +564,6 @@ function pdfhx(html, rule) {
     try {
         return pdfh(html, rule);
     } catch (e) {
-        toast('解析失败');
         return '';
     }
 }
@@ -573,7 +571,6 @@ function pdfax(html, rule) {
     try {
         return pdfa(html, rule);
     } catch (e) {
-        toast('解析失败');
         return [];
     }
 }
@@ -797,7 +794,7 @@ function setCate(data, host, d, v, mode, c, f, needBg, bgcolor, bgcolorSelected,
                 return 'hiker://empty';
             }, host, c, currentId, id_val, subCs),
             extra: {
-                backgroundColor: needBg ? ((isSelected ? bgcolorSelected : bgcolor) || getRandomColor(getItem('darkMode'))) : '',
+                backgroundColor: needBg ? ((title.startsWith('#')?title:'')||(isSelected ? bgcolorSelected : bgcolor) || getRandomColor(getItem('darkMode'))) :'' ,
                 LongClick: needBg ? bcLongClick() : [],
             },
         });
