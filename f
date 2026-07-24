@@ -570,7 +570,7 @@ function getHtml(url, headers, mode, proxy, textError) {
 }
 function pdx(html, rule,host) {
     try {
-        return pdfh(html, rule,host);
+        return pd(html, rule,host);
     } catch (e) {
         return '';
     }
