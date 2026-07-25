@@ -4555,21 +4555,23 @@ function de(key, iv, data, mode, encoding) {
     }
     try {
         mode = mode || 'AES/CBC/PKCS7Padding';
-        encoding = encoding || 'Base64';
+        encoding = encoding || 'UTF-8';
         let algorithm = mode.split("/")[0];
         let modeName = mode.split("/")[1];
         let encryptedBytes;
-        if (encoding == 'Hex') encryptedBytes = hexToBytes(data);
-        else if (encoding == 'Base64') encryptedBytes = Base64.decode(data, Base64.NO_WRAP);
-        else encryptedBytes = String(data).getBytes("UTF-8");
+        if (/^[0-9a-fA-F]+$/.test(data) && data.length % 2 === 0) encryptedBytes = hexToBytes(data);
+        else encryptedBytes = Base64.decode(data, Base64.NO_WRAP);
 
-        if (encoding == 'Hex' && /^[0-9a-fA-F]+$/.test(key)) var keyBytes = hexToBytes(key);
+        let keyBytes;
+        if (encoding == 'Hex' && /^[0-9a-fA-F]+$/.test(key)) keyBytes = hexToBytes(key);
+        else if (encoding == 'Base64') keyBytes = Base64.decode(key, Base64.NO_WRAP);
         else keyBytes = new JString(key).getBytes("UTF-8");
         let secretKeySpec = new SecretKeySpec(keyBytes, algorithm);
         let cipher = Cipher.getInstance(mode);
         if (modeName == 'ECB') cipher.init(Cipher.DECRYPT_MODE, secretKeySpec);
         else {
-            if (encoding == 'Hex') var ivBytes = hexToBytes(iv);
+            let ivBytes;
+            if (/^[0-9a-fA-F]+$/.test(iv || key) && (iv || key).length == 32) ivBytes = hexToBytes(iv || key);
             else ivBytes = new JString(iv || key).getBytes("UTF-8");
             let ivParameterSpec = new IvParameterSpec(ivBytes);
             cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, ivParameterSpec);
