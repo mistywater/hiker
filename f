@@ -251,7 +251,7 @@ function textLines(text) {
     text=text.replace(/&nbsp;/g,' ').replace(/  /g,'　　 ')
     let arrNew = [];
     let line = text.match(/|　　|\n\r|\n|<\/?\s*br\s*\/?>/g);
-    if (line && line.length >= 5) {
+    if (line && line.length >= 8) {
         text.split(/|　　|\n\r|\n|<\/?\s*br\s*\/?>/).flatMap(h => h.trim() || []).forEach((it) => {
             if(it.length>=32&&!/[。？！…]$/.test(it)) arrNew.push(it);
             else arrNew.push(it + '<br>');
@@ -441,6 +441,7 @@ function proxyPic(url, mode) {
         7: 'https://wsrv.nl/?url=',
         default: 'https://i1.wp.com/'
     };
+if(!url) return !mode?'':picProxyMap[mode]||'';
     const domainMap = {
         'googleusercontent': 2,
         'blogspot': 1,
