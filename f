@@ -810,7 +810,7 @@ function clearM3u8(url) {
     if (html) {
         html = clearAd(html);
         let arr = html.split('\n');
-        arr = arr.map(h => h.replace(/^(\/.*)/g, host + '$1').replace(/(URI=")(.*?key.key")/, '$1' + host + '$2'));
+        arr = arr.map(h => h.replace(/^(\/.*)/g, host + '$1').replace(/(URI=")(\/.*?key.key")/, '$1' + host + '$2'));
         html = arr.join('\n');
         writeFile(path, html);
         return getPath(path);
