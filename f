@@ -684,7 +684,39 @@ downloadlazy = getMyVar('temp_downloadlazy', '');
             }, host, _chchePath)
         });
     }
-    longClick.unshift({
+    let picsMode = getItem(host + 'picsMode', '0');
+let modeMap = {'0':'漫画', '1':'图文', '2':'二级'};
+let currentModeName = modeMap[picsMode] || '漫画';
+
+longClick.unshift({
+    title: '显示模式: ' + currentModeName,
+    js: $.toString((host, _chchePath) => {
+        let options = ['漫画', '图文', '二级'];
+        let current = getItem(host + 'picsMode', '0');
+        let displayOptions = options.map((v, i) => {
+            if (i.toString() === current) return '👉' + v;
+            return v;
+        });
+        showSelectOptions({
+            title: "选择显示模式",
+            col: 2, 
+            options: displayOptions,
+            js: $.toString((host, _chchePath) => {
+                let selected = input.replace('👉', '');
+                let map = {'漫画':'0', '图文':'1', '二级':'2'};
+                let value = map[selected];
+                if (value !== undefined) {
+                    setItem(host + 'picsMode', value);
+                    if (_chchePath) writeFile(_chchePath, '');
+                    refreshPage(false);
+                }
+                return 'hiker://empty';
+            }, host, _chchePath)
+        });
+        return "hiker://empty";
+    }, host, _chchePath)
+});
+   /* longClick.unshift({
         title: getItem(host + 'picsMode', '0') == 0 ? '漫画模式' : '图文模式',
         js: $.toString((host, _chchePath) => {
             writeFile(_chchePath, '');
@@ -695,7 +727,7 @@ downloadlazy = getMyVar('temp_downloadlazy', '');
             }
             refreshPage(false);
         }, host, _chchePath)
-    });
+    });*/
     let extra = { longClick: longClick };
     if (type === 'comic' || type === 'novel') {
         let isNovel = type === 'novel';
@@ -2736,7 +2768,7 @@ function generateStarRating(score) {
     var roundedScore = Math.ceil(score);
     for (var k = 1; k <= roundedScore / 2 + 1; k++) {
         if (roundedScore - k * 2 >= 0) {
-            star = star + '★';
+            star = star + '⭐';//★
         } else if (roundedScore - (k - 1) * 2 == 1) {
             star = star + '☆';
         }
