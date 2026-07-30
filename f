@@ -684,15 +684,15 @@ downloadlazy = getMyVar('temp_downloadlazy', '');
             }, host, _chchePath)
         });
     }
-    let picsMode = getItem(host + 'picsMode', '0');
+    let picsMode = getItem(host + 'picsMode', '');
 let modeMap = {'0':'漫画', '1':'图文', '2':'二级'};
-let currentModeName = modeMap[picsMode] || '漫画';
+let currentModeName = modeMap[picsMode] || '';
 
 longClick.unshift({
     title: '显示模式: ' + currentModeName,
     js: $.toString((host, _chchePath) => {
         let options = ['漫画', '图文', '二级'];
-        let current = getItem(host + 'picsMode', '0');
+        let current = getItem(host + 'picsMode', '');
         let displayOptions = options.map((v, i) => {
             if (i.toString() === current) return '👉' + v;
             return v;
@@ -3628,15 +3628,15 @@ function extraPic(host, page, pages, ctype, hiker, _chchePath, imgdec, isNovel) 
             }, host, _chchePath),
         });
     }
-    let picsMode = getItem(host + 'picsMode', '0');
+    let picsMode = getItem(host + 'picsMode', '');
 let modeMap = {'0':'漫画', '1':'图文', '2':'二级'};
-let currentModeName = modeMap[picsMode] || '漫画';
+let currentModeName = modeMap[picsMode] || '';
 
 longClick.unshift({
     title: '显示模式: ' + currentModeName,
     js: $.toString((host, _chchePath) => {
         let options = ['漫画', '图文', '二级'];
-        let current = getItem(host + 'picsMode', '0');
+        let current = getItem(host + 'picsMode', '');
         let displayOptions = options.map((v, i) => {
             if (i.toString() === current) return '👉' + v;
             return v;
@@ -3956,15 +3956,15 @@ function pageMoveto(host, page, ctype, pages, _chchePath) {
             }, host, _chchePath),
         });
     }
-   let picsMode = getItem(host + 'picsMode', '0');
+   let picsMode = getItem(host + 'picsMode', '');
 let modeMap = {'0':'漫画', '1':'图文', '2':'二级'};
-let currentModeName = modeMap[picsMode] || '漫画';
+let currentModeName = modeMap[picsMode] || '';
 
 longClick.unshift({
     title: '显示模式: ' + currentModeName,
     js: $.toString((host, _chchePath) => {
         let options = ['漫画', '图文', '二级'];
-        let current = getItem(host + 'picsMode', '0');
+        let current = getItem(host + 'picsMode', '');
         let displayOptions = options.map((v, i) => {
             if (i.toString() === current) return '👉' + v;
             return v;
