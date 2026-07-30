@@ -1,5 +1,73 @@
 js://2026070804
 // -*- mode: js -*-
+function searchX5E(d, host, str, code, name, searchName) {
+    if (typeof(str) == 'object') {
+        str = str.toString();
+        str = str.substring(1, str.length - 1);
+    } else if (typeof(str) == 'string' && str.startsWith('/')) {
+        str = str.substring(1, str.length - 1);
+    }
+    d.push({
+        title: '🔍',
+        url: $.toString((host, str, code, searchName) => {
+                putVar('keyword', input);
+                log('https://tv.yandex.com/search?text=' + getVar('keyword', '').trim() + '+site:' + host.replace(/https?:\/\//, '') + '&lr=87&p=0');
+                return $('hiker://empty').rule((host, str, code, searchName) => {
+                    var d = [];
+                    let domain = host.replace(/https?:\/\//, '');
+                    if (searchName == 'google') let url = 'https://www.google.com.hk/search?q=' + getVar('keyword', '').trim() + '+site:' + domain + '&start=0';
+                    else if (searchName == 'yandex') url = 'https://tv.yandex.com/search?text=' + getVar('keyword', '').trim() + '+site:' + domain + '&lr=87&p=0';
+                    else if (searchName == 'baidu') url = 'https://www.baidu.com/s?wd=' + getVar('keyword', '') + '%20site%3A' + domain + '&pn=0';
+                    else url = 'https://www.google.com.hk/search?q=' + getVar('keyword', '').trim() + '+site:' + domain + '&start=0';
+                    d.push({
+                        url: url,
+                        col_type: 'x5_webview_single',
+                        desc: 'list&&screen',
+                        extra: {
+                            ua: MOBILE_UA,
+                            showProgress: false,
+                            canBack: true,
+                            jsLoadingInject: true,
+                            urlInterceptor: $.toString((host, str, code) => {
+                                let regex = new RegExp(str);
+                                if (input.match(regex)) {
+                                    return $.toString((host, url, code) => {
+                                        url = 'hiker://empty##' + url;
+                                        fba.log(url);
+                                        var js = 'js:';
+                                        js = js + 'host="' + host + '";';
+                                        js = js + 'MY_URL="' + url + '";';
+                                        js = js + '_c="";';
+                                        if (/lazyList =/.test(code)) js = js + code.match(/lazyList =[\s\S]*?\}, host\);/)[0];
+                                        js = js + 'var parse={host: "' + host + '",';
+                                        js = js + '解析:function(){' + code.match(/(rc\(\(rc\([\s\S]*?)    \},/)[1] + '}};';
+                                        js = js + code.replace('return setResult(dTemp.concat(d))', 'setResult(dTemp.concat(d))').match(/addListener[\s\S]*setResult\((dTemp\.concat\(d\))\);/)[0];
+                                        //fba.log(js);
+                                        fba.open(JSON.stringify({
+                                            title: '搜索',
+                                            url: url,
+                                            findRule: js,
+                                        }));
+                                    }, host, input, code)
+                                }
+                            }, host, str, code),
+                        }
+                    });
+                    setResult(d);
+                }, host, str, code);
+            },
+            host,
+            str,
+            code,
+            searchName),
+        desc: name,
+        col_type: 'input',
+        extra: {
+            defaultValue: getVar('keyword', ''),
+        }
+    });
+    return d;
+}
 function getScreenInfo() {
     const Configuration = android.content.res.Configuration;
     const context = getCurrentActivity();
