@@ -415,10 +415,12 @@ function hydrateNuxtData(rawArray) {
     }
     return hydrate(1);
 }
-function proxyM3u8(url, proxy) {
+function proxyM3u8(url, proxy, onlykey) {
     rc((rc('https://gitee.com/mistywater/hiker_info/raw/master/ghproxy.js'), gfd()) + 'https://raw.githubusercontent.com/mistywater/hiker/main/f', 24);
-    proxy = proxy || 'https://wdkj.eu.org/'; 
-    let pathCacheTmp = 'hiker://files/_cache/video_' + Date.now() + '_' + Math.floor(Math.random() * 10000) + '.m3u8';
+    proxy = proxy || 'https://seep.eu.org/';
+    let name = safePath(url);
+    var pathCacheTmp = 'hiker://files/_cache/' + name;
+    if (fileExist(pathCacheTmp)) return pathCacheTmp;
     let domain = url.match(/(https?:\/\/[^\/]+)\//)[1];
     let html = getHtml(url, '', '', 1);
     if (html && html.includes('.m3u8')) {
@@ -428,13 +430,19 @@ function proxyM3u8(url, proxy) {
     }
     let baseUrl = url.substring(0, url.lastIndexOf("/") + 1);
     let strM3u8 = getHtml(url, '', '', 1);
-    strM3u8 = strM3u8.split('\n').map(line => {
-        let t = line.trim();
-        if (!t || t.startsWith('#')) return line;
-        if (t.startsWith('http')) return proxy + t;
-        if (t.startsWith('/')) return proxy + domain + t;
-        return proxy + baseUrl + t;
-    }).join('\n');
+    if (onlykey) {
+        strM3u8 = strM3u8.replace('URI="/', 'URI="' + domain + '/').replace('URI="', 'URI="' + proxy)
+    } else {
+        strM3u8 = strM3u8.split('\n').map(line => {
+            let t = line.trim();
+            if (t.startsWith('#EXT-X-KEY') && !t.includes('URI="/')) return line.replace('URI="', 'URI="' + proxy);
+            if (t.startsWith('#EXT-X-KEY') && t.includes('URI="/')) return line.replace('URI="', 'URI="' + proxy + domain + '/');
+            if (!t || t.startsWith('#')) return line;
+            if (t.startsWith('http')) return proxy + t;
+            if (t.startsWith('/')) return proxy + domain + t;
+            return proxy + baseUrl + t;
+        }).join('\n');
+    }
     writeFile(pathCacheTmp, strM3u8);
     return getPath(pathCacheTmp);
 }
