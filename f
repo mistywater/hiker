@@ -420,7 +420,7 @@ function proxyM3u8(url, proxy, onlykey) {
     proxy = proxy || 'https://seep.eu.org/';
     let name = safePath(url);
     var pathCacheTmp = 'hiker://files/_cache/' + name;
-    if (fileExist(pathCacheTmp)) return pathCacheTmp;
+    if (fileExist(pathCacheTmp)) return getPath(pathCacheTmp);
     let domain = url.match(/(https?:\/\/[^\/]+)\//)[1];
     let html = getHtml(url, '', '', 1);
     if (html && html.includes('.m3u8')) {
