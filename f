@@ -1,5 +1,101 @@
 js://2026070804
 // -*- mode: js -*-
+
+function dealEval(src) {
+    function splitTopLevelComma(s) {
+        var out = [],
+            cur = "",
+            quote = null,
+            esc = false,
+            depth = 0,
+            i, ch;
+        for (i = 0; i < s.length; i++) {
+            ch = s.charAt(i);
+            if (esc) {
+                cur += ch;
+                esc = false;
+                continue
+            }
+            if (ch === "\\") {
+                cur += ch;
+                esc = true;
+                continue
+            }
+            if (quote) {
+                cur += ch;
+                if (ch === quote) quote = null;
+                continue
+            }
+            if (ch === "'" || ch === '"') {
+                quote = ch;
+                cur += ch;
+                continue
+            }
+            if (ch === "(" || ch === "[" || ch === "{") {
+                depth++;
+                cur += ch;
+                continue
+            }
+            if (ch === ")" || ch === "]" || ch === "}") {
+                depth--;
+                cur += ch;
+                continue
+            }
+            if (ch === "," && depth === 0) {
+                out.push(cur);
+                cur = "";
+                continue
+            }
+            cur += ch
+        }
+        out.push(cur);
+        return out
+    }
+
+    function stripQuote(v) {
+        if (v.length >= 2) {
+            if ((v.charAt(0) === "'" && v.charAt(v.length - 1) === "'") || (v.charAt(0) === '"' && v.charAt(v.length - 1) === '"')) return v.slice(1, -1)
+        }
+        return v
+    }
+
+    function extractDeanEdward(a) {
+        var start = a.indexOf("eval(function");
+        if (start < 0) throw new Error("不是 Dean Edward eval(function(...)) 格式");
+        var sub = a.slice(start);
+        var end = sub.lastIndexOf("))");
+        if (end < 0) throw new Error("不是 Dean Edward eval(function(...)) 格式");
+        sub = sub.slice(0, end + 2);
+        var m = sub.match(/eval\(function\(p,a,c,k,e,d\)\{[\s\S]*?\}\(([\s\S]*)\)\)$/);
+        if (!m) throw new Error("不是 Dean Edward eval(function(...)) 格式");
+        var args = splitTopLevelComma(m[1]);
+        if (args.length < 4) throw new Error("参数切分失败");
+        var p = stripQuote(args[0]);
+        var aBase = parseInt(args[1], 10);
+        var kExpr = args[3].trim();
+        var kMatch = kExpr.match(/(['"])([\s\S]*?)\1\.split\('\|'\)/);
+        if (!kMatch) {
+            kMatch = kExpr.match(/(['"])([\s\S]*?)\1\.split\("\|"\)/)
+        }
+        if (!kMatch) throw new Error("找不到 split('|') 词典");
+        return {
+            p: p,
+            a: aBase,
+            k: kMatch[2].split('|')
+        }
+    }
+
+    function decodeDeanEdward(p, k, a) {
+        var map = {},
+            i, key, out;
+        for (i = 0; i < k.length; i++) map[i.toString(a)] = k[i];
+        out = p;
+        for (key in map) out = out.replace(new RegExp("\\b" + key + "\\b", "g"), map[key]);
+        return out
+    }
+    var payload = extractDeanEdward(src);
+    return decodeDeanEdward(payload.p, payload.k, payload.a)
+}
 function searchX5E(d, host, str, code, name, searchName) {
     if (typeof(str) == 'object') {
         str = str.toString();
