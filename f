@@ -1005,8 +1005,16 @@ function clearM3u8(url) {
     var host = url.match(/(https?:\/\/.*?)\//)[1];
     let html = getHtml(url);
     if (html.includes('index.m3u8')) {
-        if (!html.match(/http.*?index\.m3u8/)) url = host + html.match(/\/.*?index\.m3u8/)[0];
-        else url = html.match(/https?.*?index\.m3u8/)[0]
+        let match = html.match(/https?.*?index.m3u8/);
+        if (match) url = match[0];
+        else {
+            match = html.match(/\n([^/].*?index.m3u8)/);
+            if (match) url = url.replace('index.m3u8', match[1]);
+            else {
+                match = html.match(/.*?index.m3u8/);
+                if (match) url = host + match[0];
+            }
+        }
     }
     let strBase64 = base64Encode(url).replace(/\//g, '_').replace(/\+/g, '-').replace(/=/g, '');
     let path = 'hiker://files/_cache/' + strBase64 + '.m3u8';
@@ -1014,9 +1022,10 @@ function clearM3u8(url) {
     html = getHtml(url);
     if (html) {
         html = clearAd(html);
-        let arr = html.split('\n');
-        arr = arr.map(h => h.replace(/^(\/.*)/g, host + '$1').replace(/(URI=")(\/.*?key.key")/, '$1' + host + '$2'));
-        html = arr.join('\n');
+        let baseUri = url.replace('index.m3u8', '');
+        html = html.replace(/^\/.*/gm, (match) => host + match)
+            .replace(/URI="(key\.key)"/g, `URI="${baseUri}$1"`)
+            .replace(/URI="(\/.*?key\.key)"/g, `URI="${host}$1"`);
         writeFile(path, html);
         return getPath(path);
     }
