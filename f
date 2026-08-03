@@ -4830,7 +4830,7 @@ function de(key, iv, data, mode, encoding) {
         let modeName = mode.split("/")[1];
         let encryptedBytes;
         if (/^[0-9a-fA-F]+$/.test(data) && data.length % 2 === 0) encryptedBytes = hexToBytes(data);
-        else encryptedBytes = Base64.decode(data, Base64.NO_WRAP);
+        else  encryptedBytes = Base64.decode(data, Base64.NO_WRAP);
 
         let keyBytes;
         if (encoding == 'Hex' && /^[0-9a-fA-F]+$/.test(key)) keyBytes = hexToBytes(key);
@@ -4849,7 +4849,55 @@ function de(key, iv, data, mode, encoding) {
         let resultBytes = cipher.doFinal(encryptedBytes);
         return String(new JString(resultBytes, "UTF-8"));
     } catch (e) {
-        log("deJava解密失败: " + e);
+        log("deJava解密失败: " + e);       
+        return  deJs(key, iv, data, mode, encoding);
+    }
+}
+function deJs(key, iv, data, mode, encoding) {
+    eval(getCryptoJS());
+    try {
+        mode = mode || 'AES/CBC/PKCS7Padding';
+        encoding = encoding || 'UTF-8';
+        let [algorithm, modeName, paddingName] = mode.split('/');
+        paddingName = paddingName || 'PKCS7Padding';
+
+        function parseByEncoding(v, enc) {
+            if (enc === 'Hex' && /^[0-9a-fA-F]+$/.test(v) && v.length % 2 === 0) return CryptoJS.enc.Hex.parse(v.replace('[HEX]:', ''));
+            if (enc === 'Base64') return CryptoJS.enc.Base64.parse(v);
+            return CryptoJS.enc.Utf8.parse(v);
+        }
+
+        function normalizeCipherText(raw) {
+            if (/^[0-9a-fA-F]+$/.test(raw) && raw.length % 2 === 0) return CryptoJS.enc.Hex.parse(raw).toString(CryptoJS.enc.Base64);
+            return raw;
+        }
+
+        let keyObj = parseByEncoding(key, encoding);
+        let ivObj = null;
+        if (modeName !== 'ECB') {
+            let ivSource = iv || key;
+            ivObj = parseByEncoding(ivSource, encoding);
+        }
+
+        let conf = {
+            mode: CryptoJS.mode[modeName] || CryptoJS.mode.CBC,
+            padding: (paddingName === 'PKCS5Padding' ? CryptoJS.pad.Pkcs7 : (CryptoJS.pad[paddingName] || CryptoJS.pad.Pkcs7))
+        };
+        if (ivObj) conf.iv = ivObj;
+        let decryptFn = {
+            'AES': CryptoJS.AES.decrypt,
+            'DES': CryptoJS.DES.decrypt,
+            '3DES': CryptoJS.TripleDES.decrypt
+        }[algorithm];
+
+        if (!decryptFn) throw new Error('不支持的算法: ' + algorithm);
+        let cipherText = normalizeCipherText(data);
+        let decrypted = decryptFn(cipherText, keyObj, conf);
+        let result = decrypted.toString(CryptoJS.enc.Utf8);
+        if (!result) throw new Error('解密失败：结果为空');
+        return result;
+    } catch (e) {
+        log('js 解密失败: ' + e);
         return null;
     }
 }
