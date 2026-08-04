@@ -54,9 +54,27 @@ function dealEval(src) {
 
     function stripQuote(v) {
         if (v.length >= 2) {
-            if ((v.charAt(0) === "'" && v.charAt(v.length - 1) === "'") || (v.charAt(0) === '"' && v.charAt(v.length - 1) === '"')) return v.slice(1, -1)
+            if ((v.charAt(0) === "'" && v.charAt(v.length - 1) === "'") ||
+                (v.charAt(0) === '"' && v.charAt(v.length - 1) === '"')) {
+                return v.slice(1, -1)
+            }
         }
         return v
+    }
+
+    function toBase62(num) {
+        const chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        if (num === 0) return '0';
+        let result = '';
+        while (num > 0) {
+            result = chars[num % 62] + result;
+            num = Math.floor(num / 62);
+        }
+        return result;
+    }
+
+    function escapeRegExp(str) {
+        return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
     }
 
     function extractDeanEdward(a) {
@@ -87,15 +105,31 @@ function dealEval(src) {
 
     function decodeDeanEdward(p, k, a) {
         var map = {},
-            i, key, out;
-        for (i = 0; i < k.length; i++) map[i.toString(a)] = k[i];
-        out = p;
-        for (key in map) out = out.replace(new RegExp("\\b" + key + "\\b", "g"), map[key]);
-        return out
+            i, key, val;
+
+        for (i = 0; i < k.length; i++) {
+            val = k[i];
+            if (!val) continue; // 这里是关键：跳过空词典项
+            key = (a === 62) ? toBase62(i) : i.toString(a);
+            map[key] = val;
+        }
+
+        var out = p;
+        for (key in map) {
+            if (!Object.prototype.hasOwnProperty.call(map, key)) continue;
+            out = out.replace(
+                new RegExp("\\b" + escapeRegExp(key) + "\\b", "g"),
+                map[key]
+            );
+        }
+        return out;
     }
+
     var payload = extractDeanEdward(src);
     return decodeDeanEdward(payload.p, payload.k, payload.a)
 }
+
+
 function searchX5E(d, host, str, code, name, searchName) {
     if (typeof(str) == 'object') {
         str = str.toString();
