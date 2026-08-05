@@ -4945,7 +4945,7 @@ function deJs(key, iv, data, mode, encoding) {
     }
 }
 
-function urla(u, host) {
+function urla(u, host) {if(!u) return '';
     let protocolMatch = u.match(/^([a-zA-Z][a-zA-Z0-9+\-.]*):/);
     let protocol = protocolMatch ? protocolMatch[1].toLowerCase() : null;
     if (protocol && protocol !== 'http' && protocol !== 'https') return u;
