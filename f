@@ -1,6 +1,9 @@
 js://2026080714
 // -*- mode: js -*-
 
+function getPages(str) {
+    return str.replace(/^.*?\/|^.*?of|总|共|第|页|頁|,/g).trim();
+}
 function dealEval(src) {
     function splitTopLevelComma(s) {
         var out = [],
