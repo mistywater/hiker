@@ -2,7 +2,7 @@ js://2026080714
 // -*- mode: js -*-
 
 function getPages(str) {
-    return str.replace(/^.*?\/|^.*?of|总|共|第|页|頁|,/g).trim();
+    return str.replace(/^.*?\/|^.*?of|总|共|第|页|頁|&nbsp;|,/g,'').trim();
 }
 function dealEval(src) {
     function splitTopLevelComma(s) {
