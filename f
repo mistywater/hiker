@@ -1,6 +1,52 @@
 js://2026080714
 // -*- mode: js -*-
+function getLogo1(text, isSave, textColor, bgColor, noCircle) {
+    text = String(text);
+    // 恢复默认文字颜色为黑色
+    textColor = textColor ? textColor : '#000000';
+    // 恢复 bgColor 为随机颜色逻辑，bgColor 为 -1 时不显示背景
+    bgColor = bgColor == -1 ? 'none' : (bgColor || grc(2));
+    
+    let len = text.length;
+    let size = 800;
+    let fontSize = Math.max(100, 600 - (len - 1) * 120);
 
+    let bgRect = '';
+    if (!noCircle) {
+        // 方形圆角设置，圆角大小为 15%
+        let rx = size * 0.15; 
+        bgRect = `<rect x="0" y="0" width="${size}" height="${size}" rx="${rx}" ry="${rx}" fill="${bgColor}"/>`;
+    }
+
+    let svg = `<svg width="${size}" height="${size}" xmlns="http://www.w3.org/2000/svg">
+        ${bgRect}
+        <text x="${size/2}" y="${size/2 + fontSize * 0.35}" 
+              font-family="Arial, sans-serif" text-anchor="middle" 
+              font-size="${fontSize}" font-weight="bold"
+              fill="${textColor}">
+            ${text}
+        </text>
+    </svg>`;
+
+    if (isSave) {
+        let safeText = text.replace(/[\\/:*?"<>|]/g, '_').replace(/\s+/g, '_');
+        let fileName = 'logo_方_' + safeText + '.svg';
+        if (isSave === 2) {
+            let url = 'hiker://files/rules/juyue/logo/' + fileName;
+            if (!fileExist(url)) {
+                writeFile(url, svg);
+                log('Logo 已生成: ' + url);
+            }
+            return url;
+        } else {
+            let path = 'hiker://files/_cache/' + fileName;
+            writeFile(path, svg);
+            return path;
+        }
+    }
+    let base64 = base64Encode(svg);
+    return 'data:image/svg+xml;base64,' + base64;
+}
 function getPages(str) {
     return str.replace(/^.*?\/|^.*?of|总|共|第|页|頁|&nbsp;|,/g,'').trim();
 }
