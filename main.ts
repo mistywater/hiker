@@ -1,3 +1,21 @@
+// 校验目标地址，禁止访问内网/元数据/本地服务，防止 SSRF 
+function isBlockedTarget(target: string): boolean { 
+  let hostname: string; 
+  try { 
+    hostname = new URL(target).hostname.toLowerCase(); 
+  } catch { 
+    return true; 
+  } 
+  if (hostname === 'localhost' || hostname === '169.254.169.254') return true; 
+  const ipv4 = hostname.match(/^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/); 
+  if (ipv4) { 
+    const [a, b] = [parseInt(ipv4[1], 10), parseInt(ipv4[2], 10)]; 
+    if (a === 127 || a === 10 || a === 0 || (a === 169 && b === 254) || (a === 172 && b >= 16 && b <= 31) || (a === 192 && b === 168)) return true; 
+  } 
+  if (hostname === '::1' || hostname.startsWith('fc') || hostname.startsWith('fd') || hostname.startsWith('fe80')) return true; 
+  return false; 
+} 
+ 
 export default { 
   async fetch(request: Request) { 
     const url = new URL(request.url); 
@@ -9,6 +27,11 @@ export default {
     // 格式校验 
     if (!targetUrl || (!targetUrl.startsWith('http://') && !targetUrl.startsWith('https://'))) { 
       return new Response('Usage: https://your-domain.deno.dev/https://target-url.com', { status: 400 }); 
+    } 
+ 
+    // 阻止访问内网/云元数据/本地地址，防止 SSRF 
+    if (isBlockedTarget(targetUrl)) { 
+      return new Response('Forbidden target', { status: 403 }); 
     } 
  
     // 处理 OPTIONS 预检请求 
@@ -49,6 +72,9 @@ export default {
         const location = response.headers.get('location');
         if (location) {
           const newUrl = new URL(location, targetUrl).href; // 解析重定向的真实地址 
+          if (isBlockedTarget(newUrl)) { 
+            throw new Error('Forbidden redirect target'); 
+          } 
           // 用原始的 Method 和 Body 再次请求，防止 POST 变 GET 
           response = await fetch(newUrl, { 
             method: request.method, 
