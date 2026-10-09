@@ -3329,13 +3329,46 @@ function getCommonNonDigitParts(str1, str2) {
     return commonParts;
 }
 
-function sortArray(arr, key, style, order) {
+function sortArray1(arr, key, style, order) {
+    
     if (!Array.isArray(arr)) {
         throw new TypeError('第一个参数必须是一个数组');
     }
     order = ['desc', '1', 1].includes(order) ? 'desc' : 'asc';
     style = [1, '1'].includes(style) ? 1 : [3, '3'].includes(style) ? 3 : 2;
 
+    if (style == 2) {
+        const classify = code => {
+            if (code >= 48 && code <= 57) return 2; // 数字
+            if ((code >= 65 && code <= 90) || (code >= 97 && code <= 122)) return 3; // 字母
+            if (code >= 0x4e00 && code <= 0x9fff) return 4; // 汉字
+            return 1; // 标点/其他
+        };
+
+        const cmp = (sa, sb) => {
+            const n = Math.min(sa.length, sb.length);
+            let i = 0;
+            for (; i < n; i++) {
+                if (sa.charAt(i) !== sb.charAt(i)) {
+                    const ta = classify(sa.charCodeAt(i));
+                    const tb = classify(sb.charCodeAt(i));
+                    if (ta !== tb) return ta - tb;
+                    const r = sa.localeCompare(sb, 'zh');
+                    return r < 0 ? -1 : r > 0 ? 1 : 0;
+                }
+            }
+            return sa.length - sb.length;
+        };
+
+        return arr.slice().sort((a, b) => {
+            const aValue = key && a && typeof a === 'object' ? a[key] : a;
+            const bValue = key && b && typeof b === 'object' ? b[key] : b;
+            const r = cmp(String(aValue), String(bValue));
+            return order === 'asc' ? r : -r;
+        });
+    }
+    
+    // ↓↓↓ 以下原逻辑一字未动 ↓↓↓
     let getBaseStrings = () => {
         if (arr.length < 2) return [null, null];
         let a = key ? arr[0][key] : arr[0];
@@ -3343,12 +3376,9 @@ function sortArray(arr, key, style, order) {
         return [String(a), String(b)];
     };
     const extractNumber = (aValue, bValue) => {
-        // 获取当前比较两项的共同非数字部分
         const strA = String(aValue);
         const strB = String(bValue);
         const commonParts = getCommonNonDigitParts(strA, strB);
-
-        // 构建替换正则
         const pattern = new RegExp(
             commonParts.map(s => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|'),
             'g'
