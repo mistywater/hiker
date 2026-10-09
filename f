@@ -3329,7 +3329,7 @@ function getCommonNonDigitParts(str1, str2) {
     return commonParts;
 }
 
-function sortArray1(arr, key, style, order) {
+function sortArray(arr, key, style, order) {
     
     if (!Array.isArray(arr)) {
         throw new TypeError('第一个参数必须是一个数组');
