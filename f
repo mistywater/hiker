@@ -1,5 +1,15 @@
 js://2026080714
 // -*- mode: js -*-
+function setTile(d,title) {
+            d.push({
+                title: title.color('fff'),
+                url: 'hiker://empty',
+                col_type: 'flex_button',
+                extra: {
+                    backgroundColor: grc(2)
+                }
+            });
+        }
 function getLogo1(text, isSave, textColor, bgColor, noCircle) {
     text = String(text);
     // 恢复默认文字颜色为黑色
@@ -495,13 +505,13 @@ function tagsToCN(tags) {
     } else return html;
 }
 function textLines(text) {
-    text = text.replace(/&nbsp;/g, ' ').replace(/  /g, '　　 ')
+    text = text.replace(/&nbsp;/g, ' ').replace(/  /g, '　　 ').replace(/<\/?\s*(br|p)\s*\/?>/g, '<br>')
     let arrNew = [];
-    let line = text.match(/|　　|\n\r|\n|<\/?\s*br\s*\/?>/g);
+    let line = text.match(/|　　|\n\r|\n|<\/?\s*(br|p)\s*\/?>/g);
     if (line && line.length >= 8) {log('重新分行:带换行标志');
         text.split(/|　　|\n\r|\n|<\/?\s*br\s*\/?>/).flatMap(h => h.trim() || []).forEach((it) => {
             if (it.length >= 32 && !/[。？！…”：]$/.test(it)) arrNew.push(it);
-            else arrNew.push(it + '<br>');
+            else arrNew.push(it + '<br>');                 
         });
     } else {log('重新分行:不带换行标志');
         text = text.replace(/[“”「」『』]/g, '"');
@@ -566,12 +576,12 @@ function textLines(text) {
         return h;
     });
     let arrFina = [];
-    arrNew.forEach((h, index) => {log(h);
+    arrNew.forEach((h, index) => {
         if ((+index + 1) < arrNew.length && arrNew[+index + 1].match(/^[，。！？、：；…]/)) arrFina[index] = h.replace(/<br>.*/, '');
         else arrFina[index] = h.replace(/<br>/g, '<br>　　');
     });
     text = arrFina.join('').replace(/<br>　　“”$/, '');
-    return text;
+    return '　　'+text;
 }
 
 function hydrateNuxtData(rawArray) {
