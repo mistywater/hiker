@@ -722,7 +722,9 @@ if(!url) return !mode?'':picProxyMap[mode]||'';
         'baidu':0,
         'bcebos': 0,
         'sinaimg': 0,
-        'gtimg': 0
+        'gtimg': 0,
+        'nhentai':'default',
+        'hembed':0,
     };
     let prefix;
     if (mode == 9) return decodeURIComponent(url).replace(picProxyMap[2], '');
