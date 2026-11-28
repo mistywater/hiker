@@ -1088,7 +1088,7 @@ function clearM3u8(url) {
         } else if (/EXT-X-KEY:METHOD=NONE/.test(html)) {
             log('删除广告片段~803803~~'); //803803
             html = html.replace(/#EXT-X-KEY:METHOD=NONE[\s\S]*?#EXT-X-DISCONTINUITY\n/g, '')
-                .replace(/#EXT-X-KEY:METHOD=NONE[\s\S]*?#EXT-X-ENDLIST/g, '#EXT-X-ENDLIST');
+               // .replace(/#EXT-X-KEY:METHOD=NONE[\s\S]*?#EXT-X-ENDLIST/g, '#EXT-X-ENDLIST');
         } else if (/#EXT-X-KEY:METHOD=AES-128[\s\S]*/.test(html)) { //开元
             var arr = html.match(/#EXT-X-KEY:METHOD=AES-128[\s\S]*?(#EXT-X-DISCONTINUITY\n|#EXT-X-ENDLIST\n)/g);
             if (!arr || arr.length < 2) return html;
